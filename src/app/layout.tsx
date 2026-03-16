@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { Geist } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
-import type { Metadata } from "next";
 
 export const geist = Geist({
   subsets: ["latin"]
@@ -32,15 +31,31 @@ interface RootLayoutProps {
 }
 // ==============================================================
 
-export const metadata: Metadata = {
-  verification: {
-    google: "xPe6mYQNmkBfZaSR4_IDNrpNR_-KymGUKhlNdlFU-Ng",
-  },
-};
-
 export default function RootLayout({ children, modal }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Google Search Console verification */}
+        <meta name="google-site-verification" content="xPe6mYQNmkBfZaSR4_IDNrpNR_-KymGUKhlNdlFU-Ng" />
+
+        {/* iPhone / iOS optimizations */}
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Prestige Apparel" />
+        <meta name="format-detection" content="telephone=no" />
+
+        {/* Safe area + Safari tap highlight fix */}
+        <style>{`
+          * { -webkit-tap-highlight-color: transparent; }
+          body {
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+          }
+        `}</style>
+      </head>
       <body id="body" className={geist.className}>
         <CartProvider>
           <SettingsProvider>
