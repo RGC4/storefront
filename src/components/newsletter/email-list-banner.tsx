@@ -6,6 +6,9 @@ import Typography from "@mui/material/Typography";
 
 // ======================================================
 type Props = { image?: string };
+// ======================================================
+
+export default function EmailListBanner({
   image = "/assets/images/newsletter/banner-bg.jpg",
 }: Props) {
   return (

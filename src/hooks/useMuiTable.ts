@@ -1,10 +1,12 @@
 import { useState } from "react";
 
+// ================================================================
 type Order = "asc" | "desc";
+// ================================================================
 
-function descendingComparator<T>(a: T, b: T, orderBy: string) {
-  if (b[orderBy as keyof T] < a[orderBy as keyof T]) return -1;
-  if (b[orderBy as keyof T] > a[orderBy as keyof T]) return 1;
+export function descendingComparator(a: any, b: any, orderBy: string) {
+  if (b[orderBy] < a[orderBy]) return -1;
+  if (b[orderBy] > a[orderBy]) return 1;
   return 0;
 }
 
@@ -16,19 +18,23 @@ export function getComparator<T>(order: Order, orderBy: string) {
 
 export function stableSort<T>(array: T[], comparator: (a: T, b: T) => number) {
   const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
+
   stabilizedThis.sort((a, b) => {
     const order = comparator(a[0], b[0]);
     if (order !== 0) return order;
     return a[1] - b[1];
   });
+
   return stabilizedThis.map((el) => el[0]);
 }
 
+// ================================================================
 interface Props<T> {
   listData: T[];
   defaultSort?: string;
   defaultOrder?: "asc" | "desc";
 }
+// ================================================================
 
 export default function useMuiTable<T>({
   listData = [],
@@ -41,12 +47,14 @@ export default function useMuiTable<T>({
   const [selected, setSelected] = useState<string[]>([]);
   const [order, setOrder] = useState<Order>(defaultOrder);
 
+  // HANDLE DATA SORTING - (ASCENDING OR DESCENDING)
   const handleRequestSort = (property: string) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
 
+  // HANDLE SELECT ALL ROWS
   const handleSelectAllClick = (checked: boolean, defaultSelect: string) => {
     if (checked) {
       const newSelected = listData.map((item: any) => item[defaultSelect]);
@@ -56,6 +64,7 @@ export default function useMuiTable<T>({
     setSelected([]);
   };
 
+  // HANDLE SPECIFIC ROW OR DATA
   const handleRowClick = (name: string) => {
     const selectedIndex = selected.indexOf(name);
     let newSelected: string[] = [];
@@ -74,6 +83,7 @@ export default function useMuiTable<T>({
     setSelected(newSelected);
   };
 
+  // HANDLE CHANGE PAGE
   const handleChangePage = (_: unknown, newPage: number) => setPage(newPage - 1);
 
   const filteredList = stableSort(listData, getComparator(order, orderBy)).slice(

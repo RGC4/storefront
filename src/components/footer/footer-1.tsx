@@ -12,7 +12,7 @@ export function Footer1({
   color = "white",
   bgcolor = "grey.900",
   mb = { lg: 0, xs: 8 },
-  pt = { sm: 8, xs: 4 },
+  pt = { sm: 4, xs: 2 },
   ...props
 }: Footer1Props) {
   return (

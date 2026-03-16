@@ -1,9 +1,8 @@
-import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-// GLOBAL CUSTOM COMPONENTS
+import Link from "next/link";
 import ProductCard8 from "components/product-cards/product-card-8";
 import ProductsCarousel from "./products-carousel";
-// API FUNCTIONS
 import api from "utils/__api__/fashion-2";
 
 export default async function Section4() {
@@ -11,16 +10,24 @@ export default async function Section4() {
   if (!products || !products.length) return null;
 
   return (
-    <Container className="mt-4">
-      <Typography variant="h2" sx={{ mb: "2rem", textAlign: "center" }}>
-        Best Selling Product
-      </Typography>
-
+    <Box sx={{ pt: 4, pb: 2, px: { xs: 2, md: 5 }, bgcolor: "white" }}>
+      <Box sx={{
+        display: "flex", alignItems: "center",
+        justifyContent: "space-between",
+        mb: 3, pb: 1.5, borderBottom: "3px solid #111"
+      }}>
+        <Typography sx={{ fontSize: { xs: 20, md: 30 }, fontWeight: 800, letterSpacing: "-0.02em", textTransform: "uppercase" }}>
+          Best Selling Products
+        </Typography>
+        <Link href="/collections" style={{ fontSize: 13, fontWeight: 600, color: "#111", textDecoration: "underline", textUnderlineOffset: 3 }}>
+          View All
+        </Link>
+      </Box>
       <ProductsCarousel>
         {products.map((product) => (
           <ProductCard8 key={product.id} product={product} />
         ))}
       </ProductsCarousel>
-    </Container>
+    </Box>
   );
 }

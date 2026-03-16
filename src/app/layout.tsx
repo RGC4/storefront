@@ -1,36 +1,57 @@
-﻿import type { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Geist } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
+
+export const geist = Geist({
+  subsets: ["latin"]
+});
+
+import "overlayscrollbars/overlayscrollbars.css";
+
+// THEME PROVIDER
 import ThemeProvider from "theme/theme-provider";
+
+// PRODUCT CART PROVIDER
 import CartProvider from "contexts/CartContext";
+
+// SITE SETTINGS PROVIDER
 import SettingsProvider from "contexts/SettingContext";
+
+// GLOBAL CUSTOM COMPONENTS
 import RTL from "components/rtl";
 import ProgressBar from "components/progress";
-import { getLayoutData } from "utils/__api__/layout";
-import ShopLayout1 from "components/layouts/shop-layout-1/shop-layout-1";
-import "overlayscrollbars/overlayscrollbars.css";
+
+// IMPORT i18n SUPPORT FILE
 import "i18n";
 
-export const geist = Geist({ subsets: ["latin"] });
+// ==============================================================
+interface RootLayoutProps {
+  children: ReactNode;
+  modal: ReactNode;
+}
+// ==============================================================
 
-export default async function RootLayout({ children }: { children: ReactNode }) {
-  const layoutData = await getLayoutData();
+export default function RootLayout({ children, modal }: RootLayoutProps) {
   return (
-    <html lang="en">
-      <body className={geist.className}>
-        <SettingsProvider>
-          <CartProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body id="body" className={geist.className}>
+        <CartProvider>
+          <SettingsProvider>
             <ThemeProvider>
               <RTL>
-                <ProgressBar />
-                <ShopLayout1 data={layoutData}>
-                  {children}
-                </ShopLayout1>
+                {modal}
+                {children}
               </RTL>
+
+              <ProgressBar />
             </ThemeProvider>
-          </CartProvider>
-        </SettingsProvider>
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ""} />
+          </SettingsProvider>
+        </CartProvider>
+
+        {/* GA ID loaded from env — set NEXT_PUBLIC_GA_ID in your .env */}
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        )}
       </body>
     </html>
   );

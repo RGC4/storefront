@@ -9,7 +9,7 @@ export default function ProductsCarousel({ children }: PropsWithChildren) {
   const { ref, api, arrows, options } = useCarousel({
     align: "start",
     slideSpacing: "1.5rem",
-    slidesToShow: { xs: 1, sm: 2, lg: 3, xl: 4, xxl: 5 }
+    slidesToShow: { xs: 1, sm: 2, lg: 4, xl: 4 }
   });
 
   return (

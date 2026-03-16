@@ -1,92 +1,99 @@
+"use client";
+
 import Link from "next/link";
 import { Fragment, useCallback, useState } from "react";
-// MUI
 import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import TextField from "@mui/material/TextField";
-// GLOBAL CUSTOM COMPONENTS
+import Typography from "@mui/material/Typography";
 import FlexBox from "components/flex-box/flex-box";
-// LOCAL CUSTOM COMPONENTS
 import FormLabel from "./form-label";
 import CreditCardForm from "./credit-card-form";
+import useCart from "hooks/useCart";
 
 export default function PaymentForm() {
   const [paymentMethod, setPaymentMethod] = useState("credit-card");
+  const { state } = useCart();
 
   const handleChangeTo = useCallback((e: React.SyntheticEvent<Element, Event>) => {
     setPaymentMethod((e.target as HTMLInputElement).name);
   }, []);
 
+  // If store has a real Shopify checkout URL, send them there directly
+  const handleProceed = () => {
+    if (state?.checkoutUrl) {
+      window.location.href = state.checkoutUrl;
+    }
+  };
+
   return (
     <Fragment>
+      <Typography variant="h5" fontWeight={700} mb={3}>
+        Payment Method
+      </Typography>
+
       <Card
         elevation={0}
         sx={{
-          mb: 4,
+          mb: 3,
           border: "1px solid",
           borderColor: "divider",
           backgroundColor: "grey.50",
-          padding: { sm: 3, xs: 2 }
+          padding: { sm: 3, xs: 2 },
         }}
       >
-        {/* CREDIT CARD OPTION */}
+        {/* CREDIT CARD */}
         <FormLabel
           name="credit-card"
-          title="Pay with credit card"
+          title="Pay with Credit Card"
           checked={paymentMethod === "credit-card"}
           handleChange={handleChangeTo}
         />
-
         {paymentMethod === "credit-card" && <CreditCardForm />}
 
-        <Divider sx={{ my: 3, mx: -4 }} />
+        <Divider sx={{ my: 3 }} />
 
-        {/* PAYPAL CARD OPTION */}
+        {/* PAYPAL */}
         <FormLabel
           name="paypal"
-          title="Pay with Paypal"
+          title="Pay with PayPal"
           checked={paymentMethod === "paypal"}
           handleChange={handleChangeTo}
         />
-
         {paymentMethod === "paypal" && (
-          <FlexBox alignItems="center" gap={2} mt={1} mb={4}>
-            <TextField fullWidth name="email" type="email" label="Paypal Email" />
-            <Button variant="outlined" color="primary" type="button">
-              Submit
+          <FlexBox alignItems="center" gap={2} mt={2}>
+            <TextField fullWidth name="email" type="email" label="PayPal Email" placeholder="you@example.com" />
+            <Button variant="outlined" color="primary" type="button" sx={{ whiteSpace: "nowrap" }}>
+              Connect
             </Button>
           </FlexBox>
         )}
-
-        <Divider sx={{ my: 3, mx: -4 }} />
-
-        {/* CASH ON DELIVERY OPTION */}
-        <FormLabel
-          name="cod"
-          title="Cash On Delivery"
-          checked={paymentMethod === "cod"}
-          handleChange={handleChangeTo}
-        />
       </Card>
 
-      {/* BUTTONS SECTION */}
-      <Stack direction="row" spacing={3}>
+      {/* NAV BUTTONS */}
+      <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
         <Button
           fullWidth
           size="large"
-          type="button"
           color="primary"
           href="/checkout"
           variant="outlined"
           LinkComponent={Link}
         >
-          Back to checkout
+          Back to Details
         </Button>
 
-        <Button fullWidth size="large" type="submit" color="primary" variant="contained">
-          Review
+        <Button
+          fullWidth
+          size="large"
+          color="primary"
+          variant="contained"
+          onClick={handleProceed}
+          disabled={!state?.checkoutUrl}
+        >
+          Complete Purchase
         </Button>
       </Stack>
     </Fragment>

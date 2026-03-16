@@ -1,25 +1,22 @@
 import { cache } from "react";
-import axios from "utils/axiosInstance";
-// CUSTOM DATA MODELS
-import Product from "models/Product.model";
-import Service from "models/Service.model";
+import axios from "axios";
 
-const getNewArrivalProducts = cache(async (): Promise<Product[]> => {
-  const response = await axios.get("/api/furniture-2/products?tag=new-arrival");
+const getNewArrivalProducts = cache(async () => {
+  const response = await axios.get("/api/furniture-2/new-arrivals");
   return response.data;
 });
 
-const getTrendingProducts = cache(async (): Promise<Product[]> => {
-  const response = await axios.get("/api/furniture-2/products?tag=trending");
+const getTrendingProducts = cache(async () => {
+  const response = await axios.get("/api/furniture-2/trending");
   return response.data;
 });
 
-const getTestimonial = cache(async (): Promise<any[]> => {
+const getTestimonial = cache(async () => {
   const response = await axios.get("/api/furniture-2/testimonial");
   return response.data;
 });
 
-const getServices = cache(async (): Promise<Service[]> => {
+const getServices = cache(async () => {
   const response = await axios.get("/api/furniture-2/services");
   return response.data;
 });

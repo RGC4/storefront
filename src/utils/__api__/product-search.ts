@@ -1,21 +1,5 @@
 import { cache } from "react";
-import productDatabase from "data/product-database";
-
-// FILTER OPTIONS
-const CATEGORIES = [
-  { title: "Bath Preparations", children: ["Bubble Bath", "Bath Capsules", "Others"] },
-  { title: "Eye Makeup Preparations" },
-  { title: "Fragrance" },
-  { title: "Hair Preparations" }
-];
-
-const BRANDS = [
-  { label: "Mac", value: "mac" },
-  { label: "Karts", value: "karts" },
-  { label: "Baals", value: "baals" },
-  { label: "Bukks", value: "bukks" },
-  { label: "Luasis", value: "luasis" }
-];
+import { shopifyFetch } from "@/lib/shopify";
 
 const OTHERS = [
   { label: "On Sale", value: "sale" },
@@ -25,13 +9,69 @@ const OTHERS = [
 
 const COLORS = ["#1C1C1C", "#FF7A7A", "#FFC672", "#84FFB5", "#70F6FF", "#6B7AFF"];
 
-export const getFilters = cache(async () => {
-  return {
-    brands: BRANDS,
-    others: OTHERS,
-    colors: COLORS,
-    categories: CATEGORIES
+const GET_FILTERS_QUERY = `
+  query GetFilters {
+    collections(first: 20) {
+      edges {
+        node { title handle }
+      }
+    }
+    products(first: 250) {
+      edges {
+        node { vendor }
+      }
+    }
+  }
+`;
+
+const SEARCH_PRODUCTS_QUERY = `
+  query SearchProducts($query: String!, $first: Int!) {
+    products(query: $query, first: $first) {
+      edges {
+        node {
+          id
+          title
+          vendor
+          handle
+          priceRange {
+            minVariantPrice { amount currencyCode }
+          }
+          images(first: 1) {
+            edges { node { url altText } }
+          }
+          variants(first: 1) {
+            edges {
+              node {
+                id
+                availableForSale
+                price { amount currencyCode }
+              }
+            }
+          }
+        }
+      }
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+      }
+    }
+  }
+`;
+
+export const getFilters = cache(async (store: string = "s1") => {
+  type FiltersResult = {
+    collections: { edges: { node: { title: string; handle: string } }[] };
+    products: { edges: { node: { vendor: string } }[] };
   };
+
+  const data = await shopifyFetch<FiltersResult>(store, GET_FILTERS_QUERY);
+
+  const categories = data.collections.edges.map((e) => ({ title: e.node.title }));
+
+  const vendorSet = new Set(data.products.edges.map((e) => e.node.vendor));
+  const brands = Array.from(vendorSet).map((v) => ({ label: v, value: v.toLowerCase() }));
+
+  return { categories, brands, others: OTHERS, colors: COLORS };
 });
 
 interface Params {
@@ -44,50 +84,39 @@ interface Params {
   brands: string;
   rating: string;
   category: string;
+  store?: string;
 }
 
 export const getProducts = cache(
-  async ({ q, page, sort, sale, prices, colors, brands, rating, category }: Params) => {
-    let products = productDatabase.slice(95, 104);
+  async ({ q, category, brands, sale, store = "s1" }: Params) => {
+    const queryParts: string[] = [];
+    if (q) queryParts.push(q);
+    if (category) queryParts.push(`product_type:${category}`);
+    if (brands) queryParts.push(`vendor:${brands}`);
+    if (sale) queryParts.push(`tag:sale`);
 
-    if (sale) {
-      products = productDatabase.slice(0, 10);
-    }
+    const queryString = queryParts.length > 0 ? queryParts.join(" AND ") : "*";
 
-    if (prices) {
-      products = productDatabase.slice(10, 20);
-    }
+    type SearchResult = {
+      products: {
+        edges: { node: any }[];
+        pageInfo: { hasNextPage: boolean; hasPreviousPage: boolean };
+      };
+    };
 
-    if (colors) {
-      products = productDatabase.slice(20, 30);
-    }
+    const data = await shopifyFetch<SearchResult>(store, SEARCH_PRODUCTS_QUERY, {
+      query: queryString,
+      first: 10
+    });
 
-    if (brands) {
-      products = productDatabase.slice(30, 40);
-    }
-
-    if (rating) {
-      products = productDatabase.slice(40, 50);
-    }
-
-    if (q) {
-      products = productDatabase.slice(50, 60);
-    }
-
-    if (category) {
-      products = productDatabase.slice(60, 70);
-    }
-
-    if (sort) {
-      products = productDatabase.slice(70, 80);
-    }
+    const products = data.products.edges.map((e) => e.node);
 
     return {
       products,
       pageCount: 1,
       totalProducts: products.length,
       firstIndex: 0,
-      lastIndex: 9
+      lastIndex: products.length - 1
     };
   }
 );

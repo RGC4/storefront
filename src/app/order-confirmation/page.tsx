@@ -2,11 +2,10 @@ import type { Metadata } from "next";
 import { OrderConfirmationPageView } from "pages-sections/order-confirmation";
 
 export const metadata: Metadata = {
-  title: "Order Confirmation - Bazaar Next.js E-commerce Template",
-  description:
-    "Bazaar is a React Next.js E-commerce template. Build SEO friendly Online store, delivery app and Multi vendor store",
-  authors: [{ name: "UI-LIB", url: "https://ui-lib.com" }],
-  keywords: ["e-commerce", "e-commerce template", "next.js", "react"]
+  title: "Order Confirmed — Prestige Apparel Group",
+  description: "Your order has been confirmed. Thank you for shopping with Prestige Apparel Group.",
+  authors: [{ name: "Prestige Apparel Group" }],
+  keywords: ["order confirmation", "prestige apparel"]
 };
 
 export default function OrderConfirmation() {

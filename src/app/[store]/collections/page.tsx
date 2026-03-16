@@ -35,7 +35,6 @@ async function shopifyFetch(query: string, variables?: any) {
       cache: "no-store",
     }
   );
-
   const json = await res.json();
   return json.data;
 }
@@ -43,10 +42,12 @@ async function shopifyFetch(query: string, variables?: any) {
 export default async function CollectionsIndex({
   params,
 }: {
-  params: { store: string };
+  params: Promise<{ store: string }>;
 }) {
+  const { store } = await params;
+
   const data = await shopifyFetch(STOREFRONT_QUERY, {
-    handle: params.store,
+    handle: store,
   });
 
   const meta = data?.metaobject;
@@ -76,7 +77,7 @@ export default async function CollectionsIndex({
         {collections.map((c: any) => (
           <Link
             key={c.handle}
-            href={`/${params.store}/collections/${c.handle}`}
+            href={`/${store}/collections/${c.handle}`}
             style={{
               textDecoration: "none",
               border: "1px solid #eee",
@@ -92,9 +93,7 @@ export default async function CollectionsIndex({
                 style={{ width: "100%", borderRadius: 8 }}
               />
             )}
-            <div style={{ marginTop: 8, fontWeight: 600 }}>
-              {c.title}
-            </div>
+            <div style={{ marginTop: 8, fontWeight: 600 }}>{c.title}</div>
           </Link>
         ))}
       </div>

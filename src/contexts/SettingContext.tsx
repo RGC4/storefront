@@ -18,6 +18,7 @@ export const SettingsContext = createContext({
 
 export default function SettingsProvider({ children }: PropsWithChildren) {
   const [settings, setSettings] = useState(initialSettings);
+  const [mounted, setMounted] = useState(false);
 
   const updateSettings = (updatedSetting: SettingsOptions) => {
     setSettings(updatedSetting);
@@ -25,14 +26,15 @@ export default function SettingsProvider({ children }: PropsWithChildren) {
   };
 
   useEffect(() => {
-    if (!window) return;
     const getItem = window.localStorage.getItem("settings");
     if (getItem) {
-      queueMicrotask(() => setSettings(JSON.parse(getItem)));
-    } else {
-      queueMicrotask(() => setSettings(initialSettings));
+      setSettings(JSON.parse(getItem));
     }
+    setMounted(true);
   }, []);
+
+  // Don't render children until we've read localStorage — prevents the flash
+  if (!mounted) return null;
 
   return <SettingsContext value={{ settings, updateSettings }}>{children}</SettingsContext>;
 }

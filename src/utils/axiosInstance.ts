@@ -1,15 +1,9 @@
-import axios from "axios";
-import MockAdapter from "axios-mock-adapter";
-import { MockEndPoints } from "__server__";
+import axios from 'axios';
 
-// Axios instance
-const axiosInstance = axios.create({
-  // baseURL: "http://localhost:3000",
-  // Axios configuration options here
-});
+const baseURL = typeof window !== 'undefined'
+  ? ''
+  : process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
-// Remove following 2 lines if you don't want to use MockAdapter
-export const Mock = new MockAdapter(axiosInstance);
-MockEndPoints(Mock);
+const axiosInstance = axios.create({ baseURL });
 
 export default axiosInstance;

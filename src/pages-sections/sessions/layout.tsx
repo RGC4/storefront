@@ -15,15 +15,18 @@ interface Props extends PropsWithChildren {
 
 export default function AuthLayout({ children, bottomContent }: Props) {
   return (
-    <FlexRowCenter bgcolor="grey.50" flexDirection="column" minHeight="100vh" px={2}>
+    // pb ensures the fixed mobile bottom nav doesn't overlap the form
+    <FlexRowCenter
+      bgcolor="grey.50"
+      flexDirection="column"
+      minHeight="100vh"
+      px={2}
+      pb={{ xs: "80px", lg: 0 }}
+    >
       <Wrapper elevation={6}>
         <LogoWithTitle />
-
         {children}
-
         <SocialButtons />
-
-        {/* RENDER BOTTOM CONTENT BASED ON CONDITION */}
         {bottomContent}
       </Wrapper>
     </FlexRowCenter>
