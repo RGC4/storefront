@@ -8,6 +8,9 @@ import Address from "models/Address.model";
 
 // =============================================================
 type Props = { address: Address };
+// =============================================================
+
+export function AddressDetailsPageView({ address }: Props) {
   return (
     <Fragment>
       <DashboardHeader href="/address" title="Edit Address" />

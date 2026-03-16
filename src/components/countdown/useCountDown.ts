@@ -9,6 +9,9 @@ const initialState = {
 
 // ==============================================================
 type Props = { expireDate: number };
+// ==============================================================
+
+export default function useCountDown({ expireDate }: Props) {
   const [timeLeft, setTimeLeft] = useState(initialState);
 
   const calculateTimeLeft = useCallback(() => {

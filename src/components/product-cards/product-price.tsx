@@ -7,6 +7,9 @@ import { calculateDiscount, currency } from "lib";
 
 // ==============================================================
 type Props = { price: number; discount: number };
+// ==============================================================
+
+export default function ProductPrice({ discount, price }: Props) {
   return (
     <FlexBox alignItems="center" gap={1} mt={0.5}>
       <Typography color="primary" fontWeight={600}>

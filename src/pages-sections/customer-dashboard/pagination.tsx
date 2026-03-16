@@ -15,6 +15,9 @@ export const StyledPagination = styled(MuiPagination)({
 
 // ==============================================================
 type Props = { count: number };
+// ==============================================================
+
+export default function Pagination({ count }: Props) {
   const router = useRouter();
   const pathname = usePathname();
 

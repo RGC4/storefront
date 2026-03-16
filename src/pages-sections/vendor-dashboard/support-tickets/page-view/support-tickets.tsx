@@ -19,6 +19,9 @@ import Ticket from "models/Ticket.model";
 
 // =============================================================================
 type Props = { tickets: Ticket[] };
+// =============================================================================
+
+export default function SupportTicketsPageView({ tickets }: Props) {
   const { order, orderBy, rowsPerPage, filteredList, handleChangePage, handleRequestSort } =
     useMuiTable({
       listData: tickets,

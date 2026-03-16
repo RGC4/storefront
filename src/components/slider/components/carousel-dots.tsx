@@ -41,6 +41,8 @@ const DotList = styled("ul", {
   }
 }));
 
+// ==============================================================
+interface Props {
   sx?: SxProps<Theme>;
   dotColor?: string;
   activeColor?: string;
@@ -48,6 +50,9 @@ const DotList = styled("ul", {
   selectedIndex: number;
   onDotButtonClick: (index: number) => void;
 }
+// ==============================================================
+
+export function CarouselDots({
   sx,
   scrollSnaps,
   selectedIndex,

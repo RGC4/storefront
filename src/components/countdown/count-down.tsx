@@ -4,6 +4,9 @@ import FlexBetween from "components/flex-box/flex-between";
 
 // ==============================================================
 type Props = { expireDate: number };
+// ==============================================================
+
+export default function Countdown({ expireDate }: Props) {
   const { timeLeft } = useCountDown({ expireDate });
 
   return (

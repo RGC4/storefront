@@ -1,6 +1,12 @@
 import Link from "next/link";
+import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
+// GLOBAL CUSTOM COMPONENTS
+import LazyImage from "components/LazyImage";
+// STYLED COMPONENT
+import { StyledRoot } from "./styles";
 
+// ==================================================
 interface Props {
   title: string;
   imgUrl: string;
@@ -9,99 +15,41 @@ interface Props {
   description: string;
   buttonColor?: "dark" | "primary";
 }
+// ==================================================
 
 export default function CarouselCard1({
   title,
   imgUrl,
   buttonText,
-  buttonLink,
   description,
+  buttonColor = "primary"
 }: Props) {
   return (
-    <div
-      style={{
-        width: "100%",
-        height: "700px",
-        maxHeight: "700px",
-        minHeight: "300px",
-        position: "relative",
-        backgroundImage: `url(${imgUrl})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center top",
-        backgroundRepeat: "no-repeat",
-        display: "flex",
-        alignItems: "center",
-        paddingLeft: "clamp(24px, 5vw, 80px)",
-      }}
-    >
-      <div style={{
-        position: "absolute",
-        inset: 0,
-        background: "linear-gradient(to right, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0) 100%)",
-      }} />
+    <StyledRoot>
+      <Grid container spacing={3} alignItems="center">
+        <Grid className="grid-item" size={{ md: 6, xs: 12 }}>
+          <h1 className="title">{title}</h1>
+          <p className="description">{description}</p>
 
-      <div style={{ position: "relative", zIndex: 1, color: "white", maxWidth: "clamp(280px, 35vw, 500px)" }}>
-        <h1
-          style={{
-            fontSize: "clamp(28px, 4vw, 52px)",
-            fontWeight: 900,
-            lineHeight: 1.15,
-            marginTop: 0,
-            marginBottom: "1rem",
-            textShadow: "0 2px 12px rgba(0,0,0,0.6)",
-          }}
-        >
-          {title}
-        </h1>
-        <p
-          style={{
-            fontSize: "clamp(13px, 1.4vw, 18px)",
-            marginBottom: "2rem",
-            opacity: 0.95,
-            lineHeight: 1.6,
-            textShadow: "0 1px 6px rgba(0,0,0,0.7)",
-          }}
-        >
-          {description}
-        </p>
-        <div style={{ display: "flex", gap: "12px" }}>
-          <Link href={buttonLink}>
+          <Link href="/products/search">
             <Button
               size="large"
-              variant="outlined"
               disableElevation
-              style={{
-                height: 44,
-                borderRadius: 0,
-                fontWeight: 700,
-                color: "white",
-                borderColor: "white",
-                paddingInline: "24px",
-                fontSize: "clamp(11px, 1vw, 14px)",
-              }}
+              variant="contained"
+              color={buttonColor}
+              className="button-link"
             >
               {buttonText}
             </Button>
           </Link>
-          <Link href={buttonLink}>
-            <Button
-              size="large"
-              variant="text"
-              disableElevation
-              style={{
-                height: 44,
-                borderRadius: 0,
-                fontWeight: 700,
-                color: "white",
-                paddingInline: "24px",
-                fontSize: "clamp(11px, 1vw, 14px)",
-              }}
-            >
-              Explore
-            </Button>
-          </Link>
-        </div>
-      </div>
-    </div>
+        </Grid>
+
+        <Grid size={{ md: 6, xs: 12 }}>
+          <div className="img-wrapper">
+            <LazyImage fill src={imgUrl} alt={title} sizes="(max-width: 768px) 100vw, 100vw" />
+          </div>
+        </Grid>
+      </Grid>
+    </StyledRoot>
   );
 }

@@ -4,62 +4,64 @@ import { styled } from "@mui/material/styles";
 
 export const StyledRoot = styled("div")(({ theme }) => ({
   width: "100%",
-  padding: "2rem 2rem 3rem",
-  backgroundColor: "#fff",
-  border: "1px solid #e8e8e8",
-
-  "& strong": { fontWeight: 700 },
-  "& .rating": { display: "none" },
-  "& .shop": { display: "none" },
-
+  padding: "1.5rem",
+  borderRadius: theme.spacing(1),
+  backgroundColor: theme.palette.grey[50],
+  "& strong": { fontWeight: 600 },
+  "& .rating": {
+    display: "flex",
+    alignItems: "center",
+    gap: theme.spacing(1),
+    marginBottom: theme.spacing(2)
+  },
+  "& .price": {
+    paddingTop: theme.spacing(1),
+    marginBottom: theme.spacing(3)
+  },
+  "& .shop": {
+    display: "flex",
+    alignItems: "center",
+    gap: theme.spacing(1)
+  },
   "& .variant-group": {
     gap: "0.5rem",
     display: "flex",
     alignItems: "center",
-    flexWrap: "wrap",
-    "& .MuiChip-root": {
-      height: 36,
-      cursor: "pointer",
-      borderRadius: "4px",
-      fontSize: 14,
-    },
-  },
+    "& .MuiChip-root": { height: 28, cursor: "pointer", borderRadius: "6px" }
+  }
 }));
 
 export const ProductImageWrapper = styled("div")(({ theme }) => ({
-  height: 680,
+  height: 500,
   display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
   overflow: "hidden",
   position: "relative",
-  backgroundColor: "#fff",
-  border: "1px solid #e8e8e8",
-
-  "& img": {
-    objectFit: "contain",
-    objectPosition: "center center",
-    padding: "24px",
-  },
-
-  [theme.breakpoints.down("sm")]: {
-    height: 420,
-  },
+  justifyContent: "center",
+  marginBottom: theme.spacing(6),
+  "& img": { objectFit: "cover" },
+  [theme.breakpoints.down("sm")]: { height: 300 },
+  "& + .preview-images": {
+    overflow: "auto",
+    display: "flex",
+    gap: theme.spacing(1),
+    justifyContent: "center"
+  }
 }));
 
 export const PreviewImage = styled("div", {
-  shouldForwardProp: (prop) => prop !== "selected",
-})<{ selected: boolean }>(({ selected }) => ({
+  shouldForwardProp: (prop) => prop !== "selected"
+})<{ selected: boolean }>(({ theme, selected }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  borderRadius: 0,
+  borderRadius: "10px",
   overflow: "hidden",
-  width: 110,
-  height: 110,
+  width: 64,
+  height: 64,
   cursor: "pointer",
   position: "relative",
-  backgroundColor: "#fff",
+  backgroundColor: "white",
+  opacity: selected ? 1 : 0.5,
   transition: "all 0.2s ease-in-out",
-  border: selected ? "2px solid #111" : "1px solid #e8e8e8",
+  border: `1px solid ${selected ? theme.palette.primary.main : theme.palette.divider}`
 }));

@@ -3,6 +3,8 @@ import Typography from "@mui/material/Typography";
 import IconLink from "components/icon-link";
 import { FlexBetween } from "components/flex-box";
 
+// ===================================================
+interface Props {
   title: string;
   linkText?: string;
   seeMoreLink?: string;

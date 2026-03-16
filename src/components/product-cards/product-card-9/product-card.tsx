@@ -16,6 +16,9 @@ import { ContentWrapper, Wrapper } from "./styles";
 
 // ===========================================================
 type Props = { product: Product };
+// ===========================================================
+
+export default function ProductCard9({ product }: Props) {
   const { thumbnail, title, price, discount, rating, slug } = product;
 
   return (

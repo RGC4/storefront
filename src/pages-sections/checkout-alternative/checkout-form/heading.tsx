@@ -16,9 +16,14 @@ const STYLES = {
   backgroundColor: "primary.main"
 };
 
+// ==============================================================
+interface Props extends BoxProps {
   title: string;
   number: number;
 }
+// ==============================================================
+
+export default function Heading({ number, title, ...props }: Props) {
   return (
     <FlexBox gap={1.5} alignItems="center" mb={3.5} {...props}>
       <Avatar variant="rounded" alt={title} sx={STYLES}>

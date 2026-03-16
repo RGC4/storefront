@@ -44,10 +44,15 @@ const validationSchema = yup.object().shape({
 
 type FormValues = yup.InferType<typeof validationSchema>;
 
+// ==============================================================
+interface Props {
   cards: PaymentCard[];
   deliveryTimes: DeliveryTime[];
   deliveryAddresses: DeliveryAddress[];
 }
+// ==============================================================
+
+export default function CheckoutForm({ cards, deliveryAddresses, deliveryTimes }: Props) {
   const initialValues: FormValues = {
     card: "",
     date: "",

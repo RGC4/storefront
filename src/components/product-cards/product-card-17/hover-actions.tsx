@@ -10,8 +10,13 @@ import { HoverWrapper } from "./styles";
 // CUSTOM DATA MODEL
 import Product from "models/Product.model";
 
+// ========================================================
+interface Props {
   product: Product;
 }
+// ========================================================
+
+export default function HoverActions({ product }: Props) {
   const { id, slug, title, price, thumbnail } = product;
 
   const { dispatch } = useCart();

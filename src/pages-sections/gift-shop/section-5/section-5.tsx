@@ -7,6 +7,9 @@ import Product from "models/Product.model";
 
 // =========================================================
 type Props = { title: string; products: Product[] };
+// =========================================================
+
+export default function Section5({ products, title }: Props) {
   return (
     <div className="mt-2">
       <Typography variant="h2" sx={{ mb: 3, lineHeight: 1 }}>

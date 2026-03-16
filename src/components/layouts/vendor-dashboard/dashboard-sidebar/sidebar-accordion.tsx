@@ -23,8 +23,13 @@ const NavExpandRoot = styled("div")({
   }
 });
 
+// ================================================================
+interface Props extends PropsWithChildren {
   item: any;
 }
+// ================================================================
+
+export default function SidebarAccordion({ item, children }: Props) {
   const { name, icon, iconText, badge } = item || {};
 
   const { COMPACT } = useLayout();

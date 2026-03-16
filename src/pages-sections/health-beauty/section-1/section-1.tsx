@@ -10,6 +10,9 @@ import { HealthCarouselItem } from "models/Carousel.model";
 
 // ==========================================================================
 type Props = { carouselData: HealthCarouselItem[] };
+// ==========================================================================
+
+export default function Section1({ carouselData }: Props) {
   return (
     <Box bgcolor="primary.light" mb={3}>
       <Container>

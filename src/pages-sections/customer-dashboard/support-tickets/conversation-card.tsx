@@ -9,6 +9,9 @@ import { Message } from "models/Ticket.model";
 
 // ==============================================================
 type Props = { message: Message };
+// ==============================================================
+
+export default function ConversationCard({ message }: Props) {
   const { imgUrl, name, date, text } = message;
 
   return (

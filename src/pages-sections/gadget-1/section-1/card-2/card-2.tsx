@@ -4,11 +4,16 @@ import Typography from "@mui/material/Typography";
 // STYLED COMPONENT
 import { Wrapper } from "./styles";
 
+// ==========================================================
+interface Props {
   badge: string;
   title: string;
   imgUrl: string;
   url?: string;
 }
+// ==========================================================
+
+export default function CardTwo({ badge, title, imgUrl, url }: Props) {
   return (
     <Link href="/sales-1">
       <Wrapper>

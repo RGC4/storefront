@@ -11,6 +11,9 @@ import { StyledIconButton, FavoriteButton } from "./styles";
 
 // ==============================================================
 type Props = { slug: string };
+// ==============================================================
+
+export default function HoverActions({ slug }: Props) {
   const router = useRouter();
   const [isFavorite, setFavorite] = useState(false);
 

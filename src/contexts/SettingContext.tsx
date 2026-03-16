@@ -5,6 +5,9 @@ import { createContext, PropsWithChildren, useEffect, useState } from "react";
 
 // ============================================================
 export type SettingsOptions = { direction: Direction };
+// ============================================================
+
+// SET "rtl" OR "ltr" HERE
 // THEN GOTO BROWSER CONSOLE AND RUN localStorage.clear() TO CLEAR LOCAL STORAGE
 const initialSettings: SettingsOptions = { direction: "ltr" };
 

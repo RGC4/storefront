@@ -25,10 +25,15 @@ const CardContent = styled("div")(({ theme }) => ({
   ...(theme.direction === "rtl" && { left: "auto", right: 32, textAlign: "right" })
 }));
 
+// ========================================================
+interface Props extends BoxProps {
   img: string;
   children: ReactNode;
   imageFull?: boolean;
 }
+// ========================================================
+
+export default function BannerCard({ img, children, imageFull, ...props }: Props) {
   return (
     <CardWrapper {...props}>
       <Image

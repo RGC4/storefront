@@ -4,5 +4,8 @@ import Product from "models/Product.model";
 
 // ==========================================================
 type Props = { products: Product[] };
+// ==========================================================
+
+export default function ProductsListView({ products }: Props) {
   return products.map((product) => <ProductCard9 key={product.id} product={product} />);
 }

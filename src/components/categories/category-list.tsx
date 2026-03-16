@@ -24,6 +24,8 @@ export const StyledRoot = styled("div", {
   top: position === "absolute" ? "calc(100% + 0.7rem)" : "0.5rem"
 }));
 
+// ==============================================================
+interface Position {
   position?: "absolute" | "relative";
 }
 

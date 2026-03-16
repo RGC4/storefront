@@ -6,6 +6,8 @@ import IconLink from "components/icon-link";
 // STYLED COMPONENT
 import { Wrapper } from "./styles";
 
+// ==========================================================
+interface Props {
   badge: string;
   body: string;
   title: string;

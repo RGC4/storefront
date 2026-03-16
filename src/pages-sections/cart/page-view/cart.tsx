@@ -1,48 +1,46 @@
 "use client";
 
+import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import Container from "@mui/material/Container";
+import Button from "@mui/material/Button";
+// GLOBAL CUSTOM HOOK
+import useCart from "hooks/useCart";
+// CUSTOM COMPONENTS
+import Trash from "icons/Trash";
 import CartItem from "../cart-item";
 import EmptyCart from "../empty-cart";
 import CheckoutForm from "../checkout-form";
-import useCart from "hooks/useCart";
 
 export default function CartPageView() {
-  const { cartList } = useCart();
+  const { state, dispatch } = useCart();
 
-  if (!cartList?.length) {
-    return (
-      <Container
-        maxWidth="xl"
-        sx={{
-          maxWidth: "1500px !important",
-          mt: 6
-        }}
-      >
-        <EmptyCart />
-      </Container>
-    );
+  if (state.cart.length === 0) {
+    return <EmptyCart />;
   }
 
   return (
-    <Container
-      maxWidth="xl"
-      sx={{
-        maxWidth: "1500px !important",
-        mt: 6
-      }}
-    >
-      <Grid container spacing={4}>
-        <Grid item lg={8} md={8} xs={12}>
-          {cartList.map((item) => (
-            <CartItem key={item.id} item={item} />
-          ))}
-        </Grid>
+    <Grid container spacing={3}>
+      <Grid size={{ md: 8, xs: 12 }}>
+        {state.cart.map((item) => (
+          <CartItem key={item.id} item={item} />
+        ))}
 
-        <Grid item lg={4} md={4} xs={12}>
-          <CheckoutForm />
-        </Grid>
+        <Box textAlign="end">
+          <Button
+            disableElevation
+            color="error"
+            variant="outlined"
+            startIcon={<Trash fontSize="small" />}
+            onClick={() => dispatch({ type: "CLEAR_CART" })}
+          >
+            Clear Cart
+          </Button>
+        </Box>
       </Grid>
-    </Container>
+
+      <Grid size={{ md: 4, xs: 12 }}>
+        <CheckoutForm />
+      </Grid>
+    </Grid>
   );
 }

@@ -2,6 +2,8 @@ import { useState, createContext, PropsWithChildren, useContext } from "react";
 
 const TOP_HEADER_AREA = 70;
 
+// ==============================================================
+interface ContextProps {
   COMPACT: number;
   TOP_HEADER_AREA: number;
   sidebarCompact: boolean;

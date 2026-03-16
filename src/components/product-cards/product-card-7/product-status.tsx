@@ -2,6 +2,9 @@ import { StatusWrapper } from "./styles";
 
 // ==============================================================
 type Props = { status: string };
+// ==============================================================
+
+export default function ProductStatus({ status }: Props) {
   return status ? (
     <StatusWrapper>
       <span className="chip">{status}</span>

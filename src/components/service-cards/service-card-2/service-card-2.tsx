@@ -3,10 +3,15 @@ import Typography from "@mui/material/Typography";
 import FlexBox from "components/flex-box/flex-box";
 import IconComponent from "components/IconComponent";
 
+// ==============================================================
+interface Props {
   icon: string;
   title: string;
   description: string;
 }
+// ==============================================================
+
+export default function ServiceCard2({ icon, title, description }: Props) {
   return (
     <FlexBox gap={1} p="1rem">
       <IconComponent

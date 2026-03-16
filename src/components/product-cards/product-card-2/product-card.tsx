@@ -9,6 +9,8 @@ import ProductPrice from "../product-price";
 // CUSTOM DATA MODEL
 import Product from "models/Product.model";
 
+// ========================================================
+interface Props {
   product: Product;
   showReview?: boolean;
 }

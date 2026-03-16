@@ -11,12 +11,17 @@ import Pencil from "icons/Pencil";
 import TableRow from "../table-row";
 import FlexBox from "components/flex-box/flex-box";
 
+// ==============================================================
+interface Props {
   id: string;
   exp: string;
   card_no: string;
   username: string;
   payment_method: string;
 }
+// ==============================================================
+
+export default function ListCard({ exp, card_no, payment_method, id, username }: Props) {
   return (
     <TableRow elevation={0}>
       <FlexBox alignItems="center" gap={1.5}>

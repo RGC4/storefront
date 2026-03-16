@@ -3,9 +3,14 @@ import type { SxProps, Theme } from "@mui/material/styles";
 // STYLED COMPONENT
 import { StyledScrollbar } from "./styles";
 
+// =============================================================
+interface ScrollbarProps extends PropsWithChildren {
   className?: string;
   sx?: SxProps<Theme>;
 }
+// =============================================================
+
+export default function OverlayScrollbar({ sx, children, className }: ScrollbarProps) {
   return (
     <StyledScrollbar
       defer

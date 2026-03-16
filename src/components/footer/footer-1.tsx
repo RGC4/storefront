@@ -3,21 +3,16 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 
-// ==================================================================
-interface Footer1Props extends ComponentProps<typeof Box> {
-  bgcolor?: string;
-  color?: string;
-  mb?: number;
-  pt?: number;
-}
-// ==================================================================
+// ==============================================================
+interface Footer1Props extends ComponentProps<typeof Box> {}
+// ==============================================================
 
 export function Footer1({
   children,
-  bgcolor = "grey.900",
   color = "white",
-  mb = 0,
-  pt = 8,
+  bgcolor = "grey.900",
+  mb = { lg: 0, xs: 8 },
+  pt = { sm: 8, xs: 4 },
   ...props
 }: Footer1Props) {
   return (
@@ -30,7 +25,7 @@ export function Footer1({
       pt={pt}
       {...props}
     >
-      <Container maxWidth="lg">
+      <Container>
         <Grid container spacing={3}>
           {children}
         </Grid>

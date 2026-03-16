@@ -8,8 +8,13 @@ import { NavItemButton, ChevronRightIcon, NavExpandRoot } from "../styles";
 // CUSTOM DATA MODEL
 import { Category } from "models/Common";
 
+// ================================================================
+interface Props extends PropsWithChildren {
   item: Category;
 }
+// ================================================================
+
+export default function SidebarAccordion({ item, children }: Props) {
   const { name, icon } = item;
 
   const pathname = usePathname();

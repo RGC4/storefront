@@ -3,6 +3,9 @@ import MuiTextField, { TextFieldProps } from "@mui/material/TextField";
 
 // ==============================================================
 type Props = TextFieldProps & { name: string };
+// ==============================================================
+
+export default function TextField({ name, helperText, type, ...other }: Props) {
   const { control } = useFormContext();
 
   return (

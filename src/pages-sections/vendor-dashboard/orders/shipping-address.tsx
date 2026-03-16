@@ -3,6 +3,9 @@ import TextField from "@mui/material/TextField";
 
 // ==============================================================
 type Props = { address: string };
+// ==============================================================
+
+export default function ShippingAddress({ address }: Props) {
   return (
     <Card sx={{ px: 3, py: 4 }}>
       <TextField

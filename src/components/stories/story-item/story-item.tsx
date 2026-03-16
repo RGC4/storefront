@@ -1,9 +1,14 @@
 import LazyImage from "components/LazyImage";
 import { StyledRoot } from "./styles";
 
+// ==============================================================
+interface Props {
   image: string;
   handleClick: () => void;
 }
+// ==============================================================
+
+export default function StoryItem({ image, handleClick }: Props) {
   return (
     <StyledRoot onClick={handleClick}>
       <LazyImage

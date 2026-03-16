@@ -3,6 +3,8 @@ import Button from "@mui/material/Button";
 // STYLED COMPONENTS
 import { BannerWrapper, ContentWrapper } from "./styles";
 
+// ==============================================================
+interface Props {
   title: ReactNode;
   ImageComponent: ReactNode;
   isContentCenter?: boolean;

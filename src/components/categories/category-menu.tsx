@@ -24,8 +24,13 @@ const StyledMenuRoot = styled("div", {
   }
 }));
 
+// ===========================================================
+interface Props extends PropsWithChildren {
   render: (handler: (e: MouseEvent<HTMLButtonElement>) => void) => JSX.Element;
 }
+// ===========================================================
+
+export function CategoryMenu({ render, children }: Props) {
   const [open, setOpen] = useState(false);
 
   const handleToggleMenu = useCallback((e: MouseEvent<HTMLButtonElement>) => {

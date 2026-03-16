@@ -9,6 +9,9 @@ import Product from "models/Product.model";
 
 // =========================================================
 type Props = { title: string; products: Product[] };
+// =========================================================
+
+export default function Section6({ products, title }: Props) {
   if (!products || products.length < 1) return null;
 
   return (

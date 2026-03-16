@@ -16,6 +16,9 @@ import { MainCarouselItem } from "models/Market-2.model";
 
 // ======================================================
 type Props = { carouselData: MainCarouselItem[] };
+// ======================================================
+
+export default function Section1({ carouselData }: Props) {
   const { ref, api, options } = useCarousel(
     {
       loop: true,

@@ -13,6 +13,9 @@ import { CategoryNavItem } from "models/CategoryNavList.model";
 
 // ==============================================================
 type Props = { item: CategoryNavItem };
+// ==============================================================
+
+export default function NavAccordion({ item }: Props) {
   const { category } = useParams();
 
   const matchedItem = useMemo(

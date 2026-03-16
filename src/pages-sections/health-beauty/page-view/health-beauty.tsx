@@ -19,6 +19,9 @@ import { mobileNavigationTwo } from "data/layout-data";
 
 // =====================================================
 type Props = { selected?: string };
+// =====================================================
+
+export default async function HealthBeautyPageView({ selected }: Props) {
   const [services, products, navigationList, topNewProducts, mainCarouselData] = await Promise.all([
     api.getServices(),
     api.getProducts(selected),

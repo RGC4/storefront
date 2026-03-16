@@ -1,47 +1,31 @@
-"use client";
+import { Fragment } from "react";
+import Typography from "@mui/material/Typography";
+import { Heading } from "./styles";
 
-import { Fragment, useState } from "react";
-import { Heading, StyledLink } from "./styles";
-import ContactModal from "components/contact-modal";
-
+// ==============================================================
 interface Props {
   email: string;
   phone: string;
   address: string;
 }
+// ==============================================================
 
 export function FooterContact({ email, phone, address }: Props) {
-  const [modalOpen, setModalOpen] = useState(false);
-
   return (
     <Fragment>
       <Heading>Contact Us</Heading>
 
-      {address && (
-        <StyledLink href="#">
-          {address}
-        </StyledLink>
-      )}
+      <Typography variant="body1" sx={{ py: 0.6 }}>
+        {address}
+      </Typography>
 
-      {email && (
-        <>
-          {/* Email opens the contact form modal instead of mailto */}
-          <StyledLink
-            href="#"
-            onClick={(e) => { e.preventDefault(); setModalOpen(true); }}
-          >
-            Email: {email}
-          </StyledLink>
+      <Typography variant="body1" sx={{ py: 0.6 }}>
+        Email: {email}
+      </Typography>
 
-          <ContactModal open={modalOpen} onClose={() => setModalOpen(false)} />
-        </>
-      )}
-
-      {phone && (
-        <StyledLink href={`tel:${phone.replace(/\D/g, "")}`}>
-          Phone: {phone}
-        </StyledLink>
-      )}
+      <Typography variant="body1" sx={{ py: 0.6, mb: 2 }}>
+        Phone: {phone}
+      </Typography>
     </Fragment>
   );
 }

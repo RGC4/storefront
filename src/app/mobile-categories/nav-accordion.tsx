@@ -11,6 +11,9 @@ import { CategoryMenuItem } from "models/Category.model";
 
 // ==============================================================
 type Props = { item: CategoryMenuItem };
+// ==============================================================
+
+export default function NavAccordion({ item: { title, children } }: Props) {
   const [open, setOpen] = useState(false);
 
   return (

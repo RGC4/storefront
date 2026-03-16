@@ -7,6 +7,9 @@ import Icons from "icons/grocery-4";
 // ==============================================================
 type Props = { name: string; icon?: string };
 type Keys = keyof typeof Icons;
+// ==============================================================
+
+export default function ButtonContent({ icon, name }: Props) {
   let content = null;
 
   if (icon) {

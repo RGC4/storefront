@@ -8,12 +8,17 @@ import { calculateDiscount, currency } from "lib";
 // STYLED COMPONENTS
 import { ItemCard, Price } from "./styles";
 
+// =======================================================
+interface Props {
   slug: string;
   price: number;
   title: string;
   imgUrl: string;
   id: string | number;
 }
+// =======================================================
+
+export default function FrequentlyProductCard({
   slug,
   price,
   title,

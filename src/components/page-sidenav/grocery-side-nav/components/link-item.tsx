@@ -2,6 +2,8 @@ import Typography from "@mui/material/Typography";
 // GLOBAL CUSTOM COMPONENTS
 import { NavLink } from "components/nav-link";
 
+// ==============================================================
+interface Props {
   ml: number;
   href: string;
   title: string;

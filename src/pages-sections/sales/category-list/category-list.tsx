@@ -8,6 +8,8 @@ import { CategoryBoxWrapper, StyledChip, StyledRoot } from "./styles";
 // CATEGORY INTERFACE MODEL
 import Category from "models/Category.model";
 
+// ==============================================================
+interface Props extends ComponentProps<"div"> {
   categories: Category[];
 }
 // ==============================================================

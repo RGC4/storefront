@@ -386,7 +386,7 @@ export const products = [
   },
   {
     id: "7e10b5fc-90da-4a78-97f4-05f9a5696cg9",
-    slug: "organic-green-beans ",
+    slug: "organic-green-beans ",
     shop: {
       id: "791e3523-7489-4217-bcc0-d3377fc1945c",
       slug: "word-wide-wishes",

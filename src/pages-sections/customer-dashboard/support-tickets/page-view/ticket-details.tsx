@@ -8,6 +8,9 @@ import Ticket from "models/Ticket.model";
 
 // ==========================================================
 type Props = { ticket: Ticket };
+// ==========================================================
+
+export function TicketDetailsPageView({ ticket }: Props) {
   return (
     <Fragment>
       <DashboardHeader title="Support Ticket" href="/support-tickets" />

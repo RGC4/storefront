@@ -2,6 +2,8 @@ import { ButtonBaseProps } from "@mui/material/ButtonBase";
 // STYLED COMPONENT
 import { StyledButtonBase } from "./styles";
 
+// ==============================================================
+interface Props extends ButtonBaseProps {
   variant?: "light" | "dark";
 }
 // ==============================================================

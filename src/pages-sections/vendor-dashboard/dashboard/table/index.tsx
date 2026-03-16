@@ -45,10 +45,15 @@ const StyledTableRow = styled(TableRow)({
   ":last-child .MuiTableCell-root": { border: 0 }
 });
 
+// =============================================================================
+interface Props {
   dataList: any[];
   tableHeading: any[];
   type: "STOCK_OUT" | "RECENT_PURCHASE";
 }
+// =============================================================================
+
+export default function DataListTable({ dataList, tableHeading, type }: Props) {
   const { order, orderBy, filteredList, handleRequestSort } = useMuiTable({
     listData: dataList
   });

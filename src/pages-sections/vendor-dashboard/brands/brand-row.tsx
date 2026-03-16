@@ -10,6 +10,8 @@ import BazaarSwitch from "components/BazaarSwitch";
 // STYLED COMPONENTS
 import { StyledIconButton, StyledTableCell, StyledTableRow } from "../styles";
 
+// ========================================================================
+interface Brand {
   id: string;
   name: string;
   logo: string;
@@ -18,6 +20,9 @@ import { StyledIconButton, StyledTableCell, StyledTableRow } from "../styles";
 }
 
 type Props = { brand: Brand };
+// ========================================================================
+
+export default function BrandRow({ brand }: Props) {
   const { name, featured, logo, id, slug } = brand;
 
   const [featuredCategory, setFeaturedCategory] = useState(featured);

@@ -18,6 +18,9 @@ import { Seller } from "./types";
 
 // ========================================================================
 type Props = { seller: Seller };
+// ========================================================================
+
+export default function SellerRow({ seller }: Props) {
   const { name, phone, image, balance, published, shopName, package: sellerPackage } = seller;
 
   const [shopPublish, setShopPublish] = useState(published);

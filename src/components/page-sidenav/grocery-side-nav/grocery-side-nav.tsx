@@ -11,6 +11,9 @@ import { CategoryNavItem } from "models/CategoryNavList.model";
 
 // ===========================================================
 type Props = { navigation: CategoryNavItem[] };
+// ===========================================================
+
+export default function GrocerySideNav({ navigation }: Props) {
   return (
     <StyledCard elevation={1}>
       <OverlayScrollbar sx={{ maxHeight: "85dvh", padding: "20px 20px 14px 24px" }}>

@@ -12,10 +12,15 @@ import { ContentWrapper, ImgBox, StyledRoot } from "./styles";
 // CUSTOM DATA MODEL
 import Product from "models/Product.model";
 
+// ============================================================
+interface Props {
   product: Product;
   hideRating?: boolean;
   showProductSize?: boolean;
 }
+// ============================================================
+
+export default function ProductCard6({ hideRating, product }: Props) {
   const { discount, slug, title, price, thumbnail, rating } = product;
 
   return (
