@@ -9,8 +9,4 @@ export default async function Layout1({ children }: PropsWithChildren) {
   const data = await api.getLayoutData();
   if (!data) return <>{children}</>;
   return <ShopLayout1 data={data}>{children}</ShopLayout1>;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b

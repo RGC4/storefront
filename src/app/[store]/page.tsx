@@ -1,17 +1,18 @@
-import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
-const STOREFRONT_QUERY = `
-  query StorefrontByHandle($handle: String!) {
-    metaobject(handle: { type: "storefront", handle: $handle }) {
-      handle
-      fields {
-        key
-        value
-        reference {
-          __typename
-          ... on MediaImage {
-            image { url }
+const COLLECTION_QUERY = `
+  query CollectionByHandle($handle: String!) {
+    collectionByHandle(handle: $handle) {
+      title
+      products(first: 50) {
+        edges {
+          node {
+            id
+            title
+            handle
+            availableForSale
+            featuredImage { url }
           }
         }
       }
@@ -33,70 +34,64 @@ async function shopifyFetch(query: string, variables?: any) {
       cache: "no-store",
     }
   );
-<<<<<<< HEAD
-=======
-
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
   const json = await res.json();
   return json.data;
 }
 
-export default async function StorefrontPage({
+export default async function CollectionPage({
   params,
 }: {
-<<<<<<< HEAD
-  params: Promise<{ store: string }>;
+  params: Promise<{ store: string; handle: string }>;
 }) {
-  const { store } = await params;
+  const { store, handle } = await params;
 
-  const data = await shopifyFetch(STOREFRONT_QUERY, {
-    handle: store,
-=======
-  params: { store: string };
-}) {
-  const data = await shopifyFetch(STOREFRONT_QUERY, {
-    handle: params.store,
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
-  });
+  const data = await shopifyFetch(COLLECTION_QUERY, { handle });
 
-  const meta = data?.metaobject;
-  if (!meta) return notFound();
+  const collection = data?.collectionByHandle;
+  if (!collection) return notFound();
 
-  const heroField = meta.fields.find((f: any) => f.key === "hero_image");
-  const heroImage =
-    heroField?.reference?.__typename === "MediaImage"
-      ? heroField.reference.image.url
-      : null;
-
-  const headline =
-<<<<<<< HEAD
-    meta.fields.find((f: any) => f.key === "hero_headline")?.value || store;
-=======
-    meta.fields.find((f: any) => f.key === "hero_headline")?.value ||
-    params.store;
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
+  const products =
+    collection.products.edges
+      .map((e: any) => e.node)
+      .filter((p: any) => p.availableForSale) || [];
 
   return (
     <main style={{ maxWidth: 1200, margin: "0 auto", padding: 24 }}>
-      {heroImage && (
-        <div style={{ position: "relative", width: "100%", height: 400 }}>
-          <Image
-            src={heroImage}
-            alt={headline}
-            fill
-            style={{ objectFit: "cover" }}
-          />
-        </div>
-      )}
-<<<<<<< HEAD
-      <h1 style={{ marginTop: 24 }}>{headline}</h1>
-    </main>
-  );
-}
-=======
+      <Link href={`/${store}/collections`}>← Back to collections</Link>
 
-      <h1 style={{ marginTop: 24 }}>{headline}</h1>
+      <h1 style={{ marginTop: 16 }}>{collection.title}</h1>
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
+          gap: 16,
+          marginTop: 24,
+        }}
+      >
+        {products.map((p: any) => (
+          <Link
+            key={p.id}
+            href={`/${store}/products/${p.handle}`}
+            style={{
+              textDecoration: "none",
+              border: "1px solid #eee",
+              padding: 12,
+              borderRadius: 12,
+              color: "inherit",
+            }}
+          >
+            {p.featuredImage?.url && (
+              <img
+                src={p.featuredImage.url}
+                alt={p.title}
+                style={{ width: "100%", borderRadius: 8 }}
+              />
+            )}
+            <div style={{ marginTop: 8, fontWeight: 600 }}>{p.title}</div>
+          </Link>
+        ))}
+      </div>
     </main>
   );
 }
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b

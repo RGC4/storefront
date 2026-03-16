@@ -1,9 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-<<<<<<< HEAD
-=======
-// MUI
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
 import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
@@ -11,23 +7,11 @@ import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import Add from "@mui/icons-material/Add";
 import Remove from "@mui/icons-material/Remove";
-<<<<<<< HEAD
 import Trash from "icons/Trash";
 import FlexBox from "components/flex-box/flex-box";
 import { currency } from "lib";
 import { CartLine as CartItem } from "contexts/CartContext";
 
-=======
-// CUSTOM COMPONENTS
-import Trash from "icons/Trash";
-import FlexBox from "components/flex-box/flex-box";
-// CUSTOM UTILS LIBRARY FUNCTION
-import { currency } from "lib";
-// CUSTOM DATA MODEL
-import { CartItem } from "contexts/CartContext";
-
-// STYLED COMPONENTS
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
 const StyledRoot = styled("div")(({ theme }) => ({
   gap: "1rem",
   display: "flex",
@@ -37,12 +21,7 @@ const StyledRoot = styled("div")(({ theme }) => ({
 }));
 
 const StyledAvatar = styled(Avatar)(({ theme }) => ({
-<<<<<<< HEAD
   width: 100, height: 100,
-=======
-  width: 80,
-  height: 80,
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
   borderRadius: 6,
   backgroundColor: theme.palette.grey[100]
 }));
@@ -68,18 +47,10 @@ const QuantityWrapper = styled("div")(({ theme }) => ({
   }
 }));
 
-<<<<<<< HEAD
-=======
-// ==============================================================
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
 interface Props {
   item: CartItem;
   onCart: (amount: number, product: CartItem) => () => void;
 }
-<<<<<<< HEAD
-=======
-// ==============================================================
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
 
 export default function MiniCartItem({ item, onCart }: Props) {
   return (
@@ -91,20 +62,12 @@ export default function MiniCartItem({ item, onCart }: Props) {
       </Link>
 
       <ContentWrapper>
-<<<<<<< HEAD
         <Typography noWrap sx={{ fontSize: 15, fontWeight: 600 }}>
           {item.title}
         </Typography>
 
         {/* FIX: Merged duplicate sx props — second was silently overriding the first */}
         <Typography sx={{ fontSize: 16, fontWeight: 700, mt: 0.25, mb: 1.5 }}>
-=======
-        <Typography noWrap variant="body1">
-          {item.title}
-        </Typography>
-
-        <Typography variant="body1" fontWeight={500} sx={{ mt: 0.25, mb: 1.5 }}>
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
           {currency(item.price * item.qty)}
         </Typography>
 

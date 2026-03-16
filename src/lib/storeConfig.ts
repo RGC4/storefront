@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 // src/lib/storeConfig.ts
-=======
-﻿// src/lib/storeConfig.ts
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
 export type StoreConfig = {
   store: string;                 // URL segment, e.g. "s2"
   storeName: string;             // display name
@@ -51,8 +47,4 @@ export function getStoreConfigFromUrlSegment(store: string): StoreConfig {
     storefrontToken,
     apiVersion: process.env.SHOPIFY_API_VERSION ?? "2026-01",
   };
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b

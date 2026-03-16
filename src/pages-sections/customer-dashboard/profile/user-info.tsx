@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import Link from "next/link";
-=======
-﻿import Link from "next/link";
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import FlexBox from "components/flex-box/flex-box";

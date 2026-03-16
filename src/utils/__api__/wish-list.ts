@@ -49,8 +49,4 @@ export const getWishListProducts = async (page = 1, store: string = "s1") => {
     products: currentProducts,
     totalPages: Math.ceil(allProducts.length / PAGE_SIZE)
   };
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b

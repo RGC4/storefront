@@ -7,8 +7,4 @@ import api from "utils/__api__/layout";
 export default async function Layout({ children }: PropsWithChildren) {
   const data = await api.getLayoutData();
   return <ShopLayout1 data={data}>{children}</ShopLayout1>;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b

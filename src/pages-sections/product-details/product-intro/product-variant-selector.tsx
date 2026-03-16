@@ -3,21 +3,13 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Chip from "@mui/material/Chip";
 import Typography from "@mui/material/Typography";
-<<<<<<< HEAD
 import Product from "models/Product.model";
 
 export default function ProductVariantSelector({ product }: { product: Product }) {
-=======
-// DUMMY DATA
-import productVariants from "data/product-variants";
-
-export default function ProductVariantSelector() {
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-<<<<<<< HEAD
   if (!product?.variants?.length) return null;
 
   const optionMap = new Map<string, string[]>();
@@ -63,44 +55,4 @@ export default function ProductVariantSelector() {
       })}
     </>
   );
-=======
-  return productVariants.map((variant) => (
-    <div className="mb-1" key={variant.id}>
-      <Typography variant="h6" sx={{ mb: 1 }}>
-        {variant.title}
-      </Typography>
-
-      <div className="variant-group">
-        {variant.values.map(({ id, value }) => {
-          const variantNameLowerCase = variant.title.toLowerCase();
-
-          // Base variant params on current params so we can preserve any other param state in the url.
-          const optionSearchParams = new URLSearchParams(searchParams);
-
-          // Update the variant params using the current variant to reflect how the url *would* change,
-          // if the variant was clicked.
-          optionSearchParams.set(variantNameLowerCase, value);
-
-          const optionUrl = () => {
-            router.push(`${pathname}?${optionSearchParams}`, { scroll: false });
-          };
-
-          // The variant is active if it's in the url params.
-          const isActive = searchParams.get(variantNameLowerCase) === value;
-
-          return (
-            <Chip
-              key={id}
-              label={value}
-              size="small"
-              color="primary"
-              onClick={optionUrl}
-              variant={isActive ? "filled" : "outlined"}
-            />
-          );
-        })}
-      </div>
-    </div>
-  ));
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
 }

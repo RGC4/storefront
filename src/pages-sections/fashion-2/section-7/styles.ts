@@ -10,7 +10,6 @@ export const RootStyle = styled("div")(({ theme }) => ({
   justifyContent: "center",
   color: "white",
   textAlign: "center",
-<<<<<<< HEAD
   padding: "4rem 2rem",          // reduced from 7rem → 4rem
   backgroundSize: "cover",
   backgroundPosition: "center",
@@ -46,33 +45,10 @@ export const RootStyle = styled("div")(({ theme }) => ({
     marginBottom: "1rem",
     letterSpacing: "-0.01em",
     [theme.breakpoints.down("sm")]: { fontSize: 36 },
-=======
-  padding: "6rem 2rem",
-  backgroundSize: "cover",
-  backgroundColor: "grey.500",
-  backgroundRepeat: "no-repeat",
-  backgroundImage: "url(/assets/images/banners/banner-11.jpg)",
-
-  "& .subtitle": {
-    fontSize: 30,
-    lineHeight: 1,
-    marginBottom: ".5rem",
-    span: { color: theme.palette.error.main },
-    [theme.breakpoints.down("sm")]: { fontSize: 27 }
-  },
-
-  "& .title": {
-    fontSize: 50,
-    lineHeight: 1,
-    fontWeight: 600,
-    marginBottom: ".5rem",
-    [theme.breakpoints.down("sm")]: { fontSize: 42 }
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
   },
 
   "& .description": {
     fontSize: 18,
-<<<<<<< HEAD
     fontWeight: 400,
     lineHeight: 1.7,
     marginBottom: "2rem",
@@ -80,9 +56,4 @@ export const RootStyle = styled("div")(({ theme }) => ({
     opacity: 0.9,
     [theme.breakpoints.down("sm")]: { fontSize: 15 },
   },
-=======
-    marginBottom: "3rem",
-    [theme.breakpoints.down("sm")]: { fontSize: 16 }
-  }
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
 }));

@@ -45,8 +45,4 @@ export async function getProductByHandle(handle: string): Promise<FurnitureProdu
     variants: p.variants.edges.map((e) => e.node),
     options: p.options,
   };
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b

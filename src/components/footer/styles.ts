@@ -11,10 +11,7 @@ export const StyledLink = styled(Link)(() => ({
   cursor: "pointer",
   position: "relative",
   padding: "0.4rem 0rem",
-<<<<<<< HEAD
   fontSize: 16,
-=======
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
   ":hover": { textDecoration: "underline" }
 }));
 
@@ -33,11 +30,7 @@ export const StyledFooter = styled("footer")(({ theme }) => ({
 }));
 
 export const Heading = styled("h6")({
-<<<<<<< HEAD
   fontSize: 22,
-=======
-  fontSize: 18,
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
   lineHeight: 1,
   fontWeight: 500,
   marginBottom: 12
@@ -74,11 +67,6 @@ export const AppItem = styled("div")({
   padding: "12px 16px",
   alignItems: "center",
   backgroundColor: "#0C2A4D",
-<<<<<<< HEAD
   "& .title": { fontSize: "16px", fontWeight: 500, lineHeight: 1.3 },
   "& .subtitle": { lineHeight: 1, fontSize: "10px" }
-=======
-  "& .title": { fontSize: "14px", fontWeight: 500, lineHeight: 1.3 },
-  "& .subtitle": { lineHeight: 1, fontSize: "8px" }
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
 });

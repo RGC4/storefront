@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 export const GET_ALL_COLLECTIONS = `
-=======
-﻿export const GET_ALL_COLLECTIONS = `
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
   query GetAllCollections($first: Int!) {
     collections(first: $first) {
       edges {

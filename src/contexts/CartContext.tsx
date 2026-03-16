@@ -1,14 +1,10 @@
-<<<<<<< HEAD
 // DESTINATION: src/contexts/CartContext.tsx
-=======
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
 "use client";
 
 import {
   createContext,
   PropsWithChildren,
   useCallback,
-<<<<<<< HEAD
   useEffect,
   useRef,
   useState,
@@ -20,19 +16,6 @@ export interface CartLine {
   lineId: string;
   variantId: string;
   id: string;
-=======
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-
-// ── Types ──────────────────────────────────────────────────────────────────────
-
-export interface CartLine {
-  lineId: string;       // Shopify cart line ID  (used for update/remove)
-  variantId: string;    // gid://shopify/ProductVariant/...
-  id: string;           // same as variantId — kept for legacy compatibility
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
   qty: number;
   title: string;
   slug: string;
@@ -54,26 +37,17 @@ interface CartContextProps {
   updateCartLine: (lineId: string, quantity: number) => Promise<void>;
   removeCartLine: (lineId: string) => Promise<void>;
   clearCart: () => void;
-<<<<<<< HEAD
   cartList: CartLine[];
   checkoutUrl: string | null;
   dispatch: (args: { type: "CHANGE_CART_AMOUNT" | "CLEAR_CART"; payload?: CartLine }) => void;
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
-=======
-  /** Legacy dispatch shim — use addToCart/updateCartLine/removeCartLine instead */
-  dispatch: (args: { type: "CHANGE_CART_AMOUNT" | "CLEAR_CART"; payload?: CartLine }) => void;
-}
-
-// ── Helpers ────────────────────────────────────────────────────────────────────
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
 
 const CART_ID_KEY = "shopify_cart_id";
 
 function mapLines(rawCart: any): CartLine[] {
   if (!rawCart?.lines?.edges) return [];
-<<<<<<< HEAD
   return rawCart.lines.edges
     .map(({ node }: any) => ({
       lineId: node.id,
@@ -89,19 +63,6 @@ function mapLines(rawCart: any): CartLine[] {
     // FIX: filter out any lines Shopify returns with qty 0 — these are
     // inventory-rejected adds that should not appear in the cart UI
     .filter((line: CartLine) => line.qty > 0);
-=======
-  return rawCart.lines.edges.map(({ node }: any) => ({
-    lineId: node.id,
-    variantId: node.merchandise.id,
-    id: node.merchandise.id,
-    qty: node.quantity,
-    title: node.merchandise.product.title,
-    slug: node.merchandise.product.handle,
-    price: parseFloat(node.merchandise.price.amount),
-    currency: node.merchandise.price.currencyCode,
-    thumbnail: node.merchandise.product.images.edges[0]?.node.url ?? "",
-  }));
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
 }
 
 async function callCartApi(body: Record<string, unknown>) {
@@ -114,11 +75,7 @@ async function callCartApi(body: Record<string, unknown>) {
   return res.json();
 }
 
-<<<<<<< HEAD
 // ── Context ──────────────────────────────────────────────────────────────────
-=======
-// ── Context ────────────────────────────────────────────────────────────────────
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
 
 export const CartContext = createContext<CartContextProps>({} as CartContextProps);
 
@@ -130,7 +87,6 @@ export default function CartProvider({ children }: PropsWithChildren) {
     loading: true,
   });
 
-<<<<<<< HEAD
   // Use a ref so callbacks always have the current cartId without needing
   // to be recreated — this fixes the stale closure bug with +/- buttons
   const cartIdRef = useRef<string | null>(null);
@@ -139,9 +95,6 @@ export default function CartProvider({ children }: PropsWithChildren) {
     cartIdRef.current = state.cartId;
   }, [state.cartId]);
 
-=======
-  // On mount: rehydrate existing cart or create a new one
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
   useEffect(() => {
     const init = async () => {
       const storedId = localStorage.getItem(CART_ID_KEY);
@@ -149,10 +102,7 @@ export default function CartProvider({ children }: PropsWithChildren) {
         if (storedId) {
           const rawCart = await callCartApi({ action: "get", cartId: storedId });
           if (rawCart?.id) {
-<<<<<<< HEAD
             cartIdRef.current = rawCart.id;
-=======
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
             setState({
               cartId: rawCart.id,
               checkoutUrl: rawCart.checkoutUrl,
@@ -162,15 +112,9 @@ export default function CartProvider({ children }: PropsWithChildren) {
             return;
           }
         }
-<<<<<<< HEAD
         const newCart = await callCartApi({ action: "create" });
         localStorage.setItem(CART_ID_KEY, newCart.id);
         cartIdRef.current = newCart.id;
-=======
-        // No stored cart or it expired — create fresh
-        const newCart = await callCartApi({ action: "create" });
-        localStorage.setItem(CART_ID_KEY, newCart.id);
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
         setState({
           cartId: newCart.id,
           checkoutUrl: newCart.checkoutUrl,
@@ -186,7 +130,6 @@ export default function CartProvider({ children }: PropsWithChildren) {
   }, []);
 
   const addToCart = useCallback(async (variantId: string, quantity = 1) => {
-<<<<<<< HEAD
     const cartId = cartIdRef.current;
     if (!cartId) return;
     try {
@@ -203,16 +146,6 @@ export default function CartProvider({ children }: PropsWithChildren) {
         console.error("Add to cart: Shopify returned no cart — item may be out of stock");
         return;
       }
-=======
-    if (!state.cartId) return;
-    try {
-      const rawCart = await callCartApi({
-        action: "add",
-        cartId: state.cartId,
-        merchandiseId: variantId,
-        quantity,
-      });
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
       setState((s) => ({
         ...s,
         checkoutUrl: rawCart.checkoutUrl,
@@ -221,7 +154,6 @@ export default function CartProvider({ children }: PropsWithChildren) {
     } catch (err) {
       console.error("Add to cart error:", err);
     }
-<<<<<<< HEAD
   }, []);
 
   const updateCartLine = useCallback(async (lineId: string, quantity: number) => {
@@ -235,19 +167,6 @@ export default function CartProvider({ children }: PropsWithChildren) {
         quantity,
       });
       if (!rawCart?.id) return;
-=======
-  }, [state.cartId]);
-
-  const updateCartLine = useCallback(async (lineId: string, quantity: number) => {
-    if (!state.cartId) return;
-    try {
-      const rawCart = await callCartApi({
-        action: "update",
-        cartId: state.cartId,
-        lineId,
-        quantity,
-      });
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
       setState((s) => ({
         ...s,
         checkoutUrl: rawCart.checkoutUrl,
@@ -256,7 +175,6 @@ export default function CartProvider({ children }: PropsWithChildren) {
     } catch (err) {
       console.error("Update cart error:", err);
     }
-<<<<<<< HEAD
   }, []);
 
   const removeCartLine = useCallback(async (lineId: string) => {
@@ -269,18 +187,6 @@ export default function CartProvider({ children }: PropsWithChildren) {
         lineId,
       });
       if (!rawCart?.id) return;
-=======
-  }, [state.cartId]);
-
-  const removeCartLine = useCallback(async (lineId: string) => {
-    if (!state.cartId) return;
-    try {
-      const rawCart = await callCartApi({
-        action: "remove",
-        cartId: state.cartId,
-        lineId,
-      });
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
       setState((s) => ({
         ...s,
         checkoutUrl: rawCart.checkoutUrl,
@@ -289,7 +195,6 @@ export default function CartProvider({ children }: PropsWithChildren) {
     } catch (err) {
       console.error("Remove cart error:", err);
     }
-<<<<<<< HEAD
   }, []);
 
   const clearCart = useCallback(() => {
@@ -299,24 +204,10 @@ export default function CartProvider({ children }: PropsWithChildren) {
     callCartApi({ action: "create" }).then((newCart) => {
       localStorage.setItem(CART_ID_KEY, newCart.id);
       cartIdRef.current = newCart.id;
-=======
-  }, [state.cartId]);
-
-  const clearCart = useCallback(() => {
-    localStorage.removeItem(CART_ID_KEY);
-    setState((s) => ({ ...s, cartId: null, checkoutUrl: null, cart: [] }));
-    // Create a fresh cart in background
-    callCartApi({ action: "create" }).then((newCart) => {
-      localStorage.setItem(CART_ID_KEY, newCart.id);
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
       setState((s) => ({ ...s, cartId: newCart.id, checkoutUrl: newCart.checkoutUrl }));
     });
   }, []);
 
-<<<<<<< HEAD
-=======
-  // Legacy dispatch shim so existing components don't break
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
   const dispatch = useCallback(
     (args: { type: "CHANGE_CART_AMOUNT" | "CLEAR_CART"; payload?: CartLine }) => {
       if (args.type === "CLEAR_CART") {
@@ -338,7 +229,6 @@ export default function CartProvider({ children }: PropsWithChildren) {
   );
 
   return (
-<<<<<<< HEAD
     <CartContext value={{
       state,
       addToCart,
@@ -349,9 +239,6 @@ export default function CartProvider({ children }: PropsWithChildren) {
       cartList: state.cart,
       checkoutUrl: state.checkoutUrl,
     }}>
-=======
-    <CartContext value={{ state, addToCart, updateCartLine, removeCartLine, clearCart, dispatch }}>
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
       {children}
     </CartContext>
   );

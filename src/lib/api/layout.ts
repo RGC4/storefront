@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { cache } from 'react';
-=======
-﻿import { cache } from 'react';
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
 import type LayoutModel from 'models/Layout.model';
 import { getStoreConfig } from '../storeConfig';
 import { getAllCollections } from './collections';
