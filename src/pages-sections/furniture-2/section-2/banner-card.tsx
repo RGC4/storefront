@@ -3,10 +3,15 @@ import Button from "@mui/material/Button";
 // STYLED COMPONENTS
 import { BannerCardWrapper } from "./styles";
 
+// ==============================================================
+interface Props {
   tag: string;
   title: string;
   ImageComponent: ReactNode;
 }
+// ==============================================================
+
+export default function BannerCard({ ImageComponent, tag, title }: Props) {
   return (
     <BannerCardWrapper>
       {/* IMAGE COMPONENT */}

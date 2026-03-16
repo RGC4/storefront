@@ -19,6 +19,9 @@ import { tableHeading } from "../table-heading";
 
 // =============================================================================
 type Props = { customers: any[] };
+// =============================================================================
+
+export default function CustomersPageView({ customers }: Props) {
   const { order, orderBy, rowsPerPage, filteredList, handleChangePage, handleRequestSort } =
     useMuiTable({ listData: customers });
 

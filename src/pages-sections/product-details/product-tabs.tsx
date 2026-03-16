@@ -19,9 +19,14 @@ const StyledTabs = styled(Tabs)(({ theme }) => ({
   }
 }));
 
+// ==============================================================
+interface Props {
   reviews: ReactNode;
   description: ReactNode;
 }
+// ==============================================================
+
+export default function ProductTabs({ reviews, description }: Props) {
   const [selectedOption, setSelectedOption] = useState(0);
   const handleChangeTab = (_: SyntheticEvent, value: number) => setSelectedOption(value);
 

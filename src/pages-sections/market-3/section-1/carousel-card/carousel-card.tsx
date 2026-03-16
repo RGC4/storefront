@@ -4,6 +4,8 @@ import Typography from "@mui/material/Typography";
 // STYLED COMPONENT
 import { CardWrapper } from "./styles";
 
+// ===============================================================
+interface Props {
   title: string;
   bgImage: string;
   category: string;
@@ -13,6 +15,9 @@ import { CardWrapper } from "./styles";
   description: string;
   mode?: "dark" | "light";
 }
+// ===============================================================
+
+export default function CarouselCard({
   title,
   bgImage,
   category,

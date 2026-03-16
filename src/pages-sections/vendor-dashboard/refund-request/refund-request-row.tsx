@@ -15,6 +15,9 @@ import { RefundRequest } from "./types";
 
 // ========================================================================
 type Props = { request: RefundRequest };
+// ========================================================================
+
+export default function RefundRequestRow({ request }: Props) {
   const { name, image, orderNo, shopName, amount, status } = request;
 
   const STYLE = { fontWeight: 400 };

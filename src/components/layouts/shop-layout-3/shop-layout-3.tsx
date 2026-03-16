@@ -22,10 +22,15 @@ import { Header, HeaderCart, HeaderLogin, MobileHeader, HeaderSearch } from "com
 // CUSTOM DATA MODEL
 import LayoutModel from "models/Layout.model";
 
+// ==============================================================
+interface Props extends PropsWithChildren {
   data: LayoutModel;
   showFooter?: boolean;
   showMobileMenu?: boolean;
 }
+// ==============================================================
+
+export default function ShopLayout3({
   data,
   children,
   showFooter = true,

@@ -8,6 +8,9 @@ import api from "utils/__api__/gadget-3";
 
 // ==============================================================
 type Props = { slug: string };
+// ==============================================================
+
+export default async function GadgetThreeCategoriesPageView({ slug }: Props) {
   const [products, breadcrumb] = await Promise.all([
     api.getAllProductsBySlug(),
     api.getBreadcrumb(slug)

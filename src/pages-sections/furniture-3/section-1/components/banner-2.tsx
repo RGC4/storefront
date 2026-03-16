@@ -4,9 +4,14 @@ import Typography from "@mui/material/Typography";
 // STYLED COMPONENTS
 import { StyledWrapper } from "./styles";
 
+// ==============================================================
+interface Props extends PropsWithChildren {
   title: string;
   description: string;
 }
+// ==============================================================
+
+export default function BannerTwo({ children, title, description }: Props) {
   return (
     <StyledWrapper>
       <Link href="#">

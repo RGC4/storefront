@@ -3,11 +3,16 @@ import Image from "next/image";
 // STYLED COMPONENT
 import { Wrapper } from "./styles";
 
+// ==========================================================
+interface Props {
   badge: string;
   body: string;
   title: string;
   imgUrl: string;
 }
+// ==========================================================
+
+export default function Card({ body, title, imgUrl, badge }: Props) {
   return (
     <Link href="/sales-1">
       <Wrapper>

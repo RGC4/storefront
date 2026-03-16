@@ -43,6 +43,8 @@ export const Wrapper = styled("div")(({ theme }) => ({
   }
 }));
 
+// =============================================================
+interface Props {
   href: string;
   title: string;
   icon?: string;

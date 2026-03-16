@@ -7,6 +7,8 @@ import { ContentWrapper, BadgeBox } from "./styles";
 // API FUNCTIONS
 import api from "utils/__api__/fashion-1";
 
+// ========================================================
+interface Deal {
   imgUrl: string;
   expireDate: string;
   productName: string;
@@ -14,6 +16,9 @@ import api from "utils/__api__/fashion-1";
   offerTagline: string;
   offerDescription: string;
 }
+// ========================================================
+
+export default async function Section5() {
   const hotDealList: Deal[] = await api.getHotDealList();
   if (!hotDealList || !hotDealList.length) return null;
   const item = hotDealList[0];

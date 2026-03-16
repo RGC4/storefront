@@ -1,99 +1,31 @@
-import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import Link from "next/link";
+// GLOBAL CUSTOM COMPONENTS
+import ProductCard1 from "components/product-cards/product-card-1";
+// CUSTOM DATA MODEL
 import Product from "models/Product.model";
 
+// ==============================================================
 type Props = { products: Product[] };
+// ==============================================================
 
 export default function RelatedProducts({ products }: Props) {
-  if (!products?.length) return null;
+  // IF NO PRODUCTS RETURN NULL
+  if (!products || !products.length) return null;
 
   return (
-    <Box sx={{ mt: 6, mb: 4 }}>
-      <Box sx={{
-        display: "flex", alignItems: "center",
-        justifyContent: "space-between",
-        mb: 3, pb: 1.5, borderBottom: "3px solid #111"
-      }}>
-        <Typography sx={{
-          fontSize: { xs: 20, md: 28 },
-          fontWeight: 800,
-          letterSpacing: "-0.01em",
-          textTransform: "uppercase",
-        }}>
-          You May Also Like
-        </Typography>
-      </Box>
+    <div className="mb-4">
+      <Typography variant="h3" sx={{ mb: 3 }}>
+        Related Products
+      </Typography>
 
-      <Box sx={{
-        display: "grid",
-        gridTemplateColumns: { xs: "1fr 1fr", sm: "1fr 1fr 1fr", lg: "1fr 1fr 1fr 1fr" },
-        gap: { xs: 2, md: 3 },
-      }}>
-        {products.slice(0, 8).map((product: any) => (
-          <Link key={product.id} href={`/product/${product.slug}`}
-            style={{ textDecoration: "none", color: "inherit" }}>
-            <Box sx={{
-              bgcolor: "white",
-              border: "1px solid #e8e8e8",
-              transition: "all 0.2s ease",
-              overflow: "hidden",
-              cursor: "pointer",
-              "&:hover": { borderColor: "#aaa", boxShadow: "0 6px 24px rgba(0,0,0,0.09)", transform: "translateY(-2px)" },
-            }}>
-
-              {/* VENDOR + TITLE */}
-              <Box sx={{
-                px: 2, pt: "20px", pb: "18px",
-                borderBottom: "1px solid #f0f0f0",
-                textAlign: "center",
-                height: 120,
-                display: "flex", flexDirection: "column",
-                alignItems: "center", justifyContent: "center",
-              }}>
-                {product.brand && (
-                  <Typography sx={{
-                    fontSize: 21, fontWeight: 800, color: "#111",
-                    textTransform: "uppercase", letterSpacing: "0.08em",
-                    mb: "4px", textAlign: "center",
-                  }}>
-                    {product.brand}
-                  </Typography>
-                )}
-                <Typography sx={{
-                  fontSize: 17, fontWeight: 400, color: "#666", lineHeight: 1.4,
-                  overflow: "hidden", display: "-webkit-box",
-                  WebkitLineClamp: 2, WebkitBoxOrient: "vertical",
-                  textAlign: "center",
-                }}>
-                  {product.title}
-                </Typography>
-              </Box>
-
-              {/* IMAGE */}
-              <Box sx={{
-                height: 460,
-                display: "flex", alignItems: "center", justifyContent: "center",
-                bgcolor: "white", position: "relative",
-                flexShrink: 0,
-              }}>
-                {product.thumbnail && (
-                  <img src={product.thumbnail} alt={product.title}
-                    style={{ width: "100%", height: "100%", objectFit: "contain", padding: "16px" }} />
-                )}
-              </Box>
-
-              {/* PRICE */}
-              <Box sx={{ px: 2, py: "12px", borderTop: "1px solid #f0f0f0", textAlign: "center" }}>
-                <Typography sx={{ fontSize: 18, fontWeight: 800, color: "#111" }}>
-                  ${Number(product.price).toFixed(2)}
-                </Typography>
-              </Box>
-
-            </Box>
-          </Link>
+      <Grid container spacing={3}>
+        {products.map((product) => (
+          <Grid size={{ lg: 3, md: 4, sm: 6, xs: 12 }} key={product.id}>
+            <ProductCard1 product={product} />
+          </Grid>
         ))}
-      </Box>
-    </Box>
+      </Grid>
+    </div>
   );
 }

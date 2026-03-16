@@ -6,10 +6,15 @@ import { format } from "date-fns/format";
 // GLOBAL CUSTOM COMPONENTS
 import FlexBox from "components/flex-box/flex-box";
 
+// ==============================================================
+interface Props {
   id: string;
   status: string;
   createdAt: Date;
 }
+// ==============================================================
+
+export default function OrderActions({ id, createdAt, status }: Props) {
   return (
     <div>
       <FlexBox flexWrap="wrap" alignItems="center" columnGap={4} rowGap={1}>

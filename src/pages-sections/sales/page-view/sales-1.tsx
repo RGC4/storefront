@@ -16,6 +16,8 @@ import { CategoryWrapper } from "../styles";
 import Product from "models/Product.model";
 import Category from "models/Category.model";
 
+// ==============================================================
+interface Props {
   page: number;
   offer: string;
   discount: string;
@@ -24,6 +26,9 @@ import Category from "models/Category.model";
   totalProducts: number;
   categories: Category[];
 }
+// ==============================================================
+
+export default function SalesOnePageView({
   offer,
   discount,
   page,

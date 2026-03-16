@@ -7,12 +7,17 @@ import ShopPagination from "../shop-pagination";
 // CUSTOM DATA MODEL
 import Shop from "models/Shop.model";
 
+// =============================================
+interface Props {
   shops: Shop[];
   totalShops: number;
   totalPages: number;
   firstIndex: number;
   lastIndex: number;
 }
+// =============================================
+
+export default function ShopsPageView({
   totalShops,
   totalPages,
   firstIndex,

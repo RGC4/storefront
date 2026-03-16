@@ -4,12 +4,17 @@ import Button from "@mui/material/Button";
 // STYLED COMPONENTS
 import { CardContent, CardWrapper } from "./styles";
 
+// ========================================================
+interface Props {
   img: string;
   url: string;
   text1: string;
   text2: string;
   text3: string;
 }
+// ========================================================
+
+export default function BannerCard1({ img, url, text1, text2, text3 }: Props) {
   return (
     <CardWrapper>
       <Image fill alt="category" src={img} sizes="(100vw, 240px)" />

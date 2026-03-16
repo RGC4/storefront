@@ -6,8 +6,13 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import { useTranslation } from "react-i18next";
 import BazaarMenu from "components/BazaarMenu";
 
+// ==============================================================
+interface LanguageOption {
   [key: string]: { title: string; value: string };
 }
+// ==============================================================
+
+export function TopbarLanguageSelector({ languages }: { languages: LanguageOption }) {
   const { i18n } = useTranslation();
 
   const handleChangeLanguage = (lang: string) => {

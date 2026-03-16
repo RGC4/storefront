@@ -1,5 +1,3 @@
-export const dynamic = "force-dynamic";
-
 import type { PropsWithChildren } from "react";
 import ShopLayout1 from "components/layouts/shop-layout-1";
 // API FUNCTIONS

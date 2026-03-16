@@ -12,6 +12,9 @@ import { PaymentCard } from "models/Common";
 
 // ==============================================================
 type Props = { cards: PaymentCard[] };
+// ==============================================================
+
+export default function CardList({ cards }: Props) {
   const { field } = useController({ name: "card" });
 
   const handleCardSelect = useCallback(

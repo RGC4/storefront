@@ -8,6 +8,9 @@ import Payment from "models/Payment.model";
 
 // ==============================================================
 type Props = { payment: Payment };
+// ==============================================================
+
+export function PaymentDetailsPageView({ payment }: Props) {
   return (
     <Fragment>
       <DashboardHeader title="Add New Payment" href="/payment-methods" />

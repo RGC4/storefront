@@ -9,8 +9,13 @@ import { StyledBox, StyledDrawer, StyledNavLink, Wrapper } from "./styles";
 // TYPES
 import Item from "./types";
 
+// ==============================================================
+interface Props extends PropsWithChildren {
   navigation: Item[];
 }
+// ==============================================================
+
+export function MobileNavigationBar2({ children, navigation }: Props) {
   const { state } = useCart();
   const [open, setOpen] = useState(false);
 

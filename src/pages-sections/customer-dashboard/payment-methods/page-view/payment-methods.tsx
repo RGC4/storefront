@@ -7,9 +7,14 @@ import DashboardHeader from "../../dashboard-header";
 // CUSTOM DATA MODEL
 import Payment from "models/Payment.model";
 
+// ==============================================================
+interface Props {
   totalPages: number;
   payments: Payment[];
 }
+// ==============================================================
+
+export function PaymentMethodsPageView({ payments, totalPages }: Props) {
   return (
     <Fragment>
       <DashboardHeader Icon={CreditCard} title="Payment Methods" />

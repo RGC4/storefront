@@ -20,6 +20,9 @@ import { RefundRequest } from "../types";
 
 // =============================================================================
 type Props = { requests: RefundRequest[] };
+// =============================================================================
+
+export default function RefundRequestPageView({ requests }: Props) {
   const { order, orderBy, rowsPerPage, filteredList, handleChangePage, handleRequestSort } =
     useMuiTable({ listData: requests });
 

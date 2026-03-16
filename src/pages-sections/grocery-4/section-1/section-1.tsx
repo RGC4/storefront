@@ -14,6 +14,9 @@ import StoryModel from "models/Story.model";
 
 // ==============================================================
 type Props = { stories: StoryModel[] };
+// ==============================================================
+
+export default function Section1({ stories }: Props) {
   const [open, setOpen] = useState(false);
   const [startStory, setStartStory] = useState(0);
 

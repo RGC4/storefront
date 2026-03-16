@@ -19,6 +19,9 @@ import { Review } from "../types";
 
 // =============================================================================
 type Props = { reviews: Review[] };
+// =============================================================================
+
+export default function ReviewsPageView({ reviews }: Props) {
   const { order, orderBy, rowsPerPage, filteredList, handleChangePage, handleRequestSort } =
     useMuiTable({ listData: reviews });
 

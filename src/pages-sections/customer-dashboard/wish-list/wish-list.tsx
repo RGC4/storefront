@@ -8,9 +8,14 @@ import ProductCard17 from "components/product-cards/product-card-17";
 // CUSTOM DATA MODEL
 import Product from "models/Product.model";
 
+// ==================================================================
+interface Props {
   totalPages: number;
   products: Product[];
 }
+// ==================================================================
+
+export default function WishListPageView({ products, totalPages }: Props) {
   return (
     <Fragment>
       <DashboardHeader title="My Wish List" Icon={Favorite} />

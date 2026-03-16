@@ -21,6 +21,9 @@ const CommonWrapper = styled(CommonDiv)({
   }
 });
 
+// ==============================================================
+
+// CARD 1 STYLED COMPONENT
 export const Card1Wrapper = styled(CommonDiv)(({ theme }) => ({
   backgroundColor: "#FFA954",
   img: { position: "relative", zIndex: 1 },

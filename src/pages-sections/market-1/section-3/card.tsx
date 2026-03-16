@@ -5,10 +5,15 @@ import ArrowForward from "@mui/icons-material/ArrowForward";
 // STYLED COMPONENTS
 import { CardButton, CardContent, StyledRoot } from "./styles";
 
+// ==============================================================
+interface Props {
   name: string;
   link: string;
   image: string;
 }
+// ==============================================================
+
+export default function Card({ name, image, link }: Props) {
   return (
     <Link href={link} aria-label={`Go to ${name} category`}>
       <StyledRoot>

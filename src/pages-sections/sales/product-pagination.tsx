@@ -10,10 +10,15 @@ import FlexBetween from "components/flex-box/flex-between";
 // CUSTOM UTILITY FUNCTION
 import { renderProductCount } from "lib";
 
+// ==============================================================
+interface Props {
   page: number;
   perPage: number;
   totalProducts: number;
 }
+// ==============================================================
+
+export default memo(function ProductPagination({ page, perPage, totalProducts }: Props) {
   const router = useRouter();
   const pathname = usePathname();
 

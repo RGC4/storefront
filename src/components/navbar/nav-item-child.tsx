@@ -13,8 +13,13 @@ import { ParentNav, ParentNavItem } from "./styles";
 // DATA TYPES
 import { MenuItemWithChild } from "models/Navigation.model";
 
+// ==============================================================
+interface Props extends PropsWithChildren {
   nav: MenuItemWithChild;
 }
+// ==============================================================
+
+export default function NavItemChild({ nav, children }: Props) {
   const pathname = usePathname();
   const { checkOverflow, elementRef, isRightOverflowing } = useOverflowDetect();
 

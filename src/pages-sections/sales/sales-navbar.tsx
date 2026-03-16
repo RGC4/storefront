@@ -15,6 +15,9 @@ import { SaleNavItem } from "./styles";
 
 // ==========================================================================
 type Props = { categories: Category[]; path: string };
+// ==========================================================================
+
+export default memo(function SalesNavbar({ categories, path }: Props) {
   const params = useParams<{ slug: string }>();
 
   return (

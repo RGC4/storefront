@@ -19,6 +19,9 @@ import { mobileNavigationTwo } from "data/layout-data";
 
 // ==============================================================
 type Props = { selected?: string };
+// ==============================================================
+
+export default async function GiftShopPageView({ selected }: Props) {
   const [products, navList, carouselData, popularProducts, topSailedProducts] = await Promise.all([
     api.getAllProducts(selected),
     api.getCategoryNavigation(),

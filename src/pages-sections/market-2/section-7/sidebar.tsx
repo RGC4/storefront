@@ -11,9 +11,14 @@ import FlexBox from "components/flex-box/flex-box";
 import Shop from "models/Shop.model";
 import Brand from "models/Brand.model";
 
+// ======================================================
+interface Props {
   shops: Shop[];
   brands: Brand[];
 }
+// ======================================================
+
+export default function Sidebar({ brands, shops }: Props) {
   const [selected, setSelected] = useState("");
   const [type, setType] = useState<"brands" | "shops">("brands");
 

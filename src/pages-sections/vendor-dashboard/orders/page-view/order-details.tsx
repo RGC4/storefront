@@ -14,6 +14,9 @@ import Order from "models/Order.model";
 
 // ==============================================================
 type Props = { order: Order };
+// ==============================================================
+
+export default function OrderDetailsPageView({ order }: Props) {
   return (
     <PageWrapper title="Order Details">
       <Grid container spacing={3}>

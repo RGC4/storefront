@@ -32,6 +32,8 @@ const ArrowButton = styled("button")(({ theme }) => ({
   })
 }));
 
+// ==============================================================
+interface Props {
   disablePrev?: boolean;
   disableNext?: boolean;
   onClickPrev: () => void;
@@ -41,6 +43,9 @@ const ArrowButton = styled("button")(({ theme }) => ({
     next?: { sx?: SxProps<Theme> };
   };
 }
+// ==============================================================
+
+export function CarouselArrows({
   slotProps,
   disablePrev,
   disableNext,

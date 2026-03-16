@@ -15,6 +15,8 @@ import { ImageWrapper, ContentWrapper, StyledCard, HoverIconWrapper } from "./st
 // CUSTOM DATA MODEL
 import Product from "models/Product.model";
 
+// ========================================================
+interface Props {
   product: Product;
   showRating?: boolean;
   showProductSize?: boolean;

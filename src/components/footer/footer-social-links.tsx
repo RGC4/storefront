@@ -9,6 +9,9 @@ import FlexBox from "components/flex-box/flex-box";
 import { StyledIconButton } from "./styles";
 import { Variant } from "./types";
 
+// ==============================================================
+
+interface Props {
   variant?: Variant;
   links: {
     google?: string;

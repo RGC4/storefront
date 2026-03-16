@@ -14,11 +14,16 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   ":first-of-type": { paddingLeft: 24 }
 }));
 
+// ==============================================================
+interface Props {
   heading: any[];
   orderBy: string;
   order: "asc" | "desc";
   onRequestSort: (id: string) => void;
 }
+// ==============================================================
+
+export default function TableHeader(props: Props) {
   const { heading, orderBy, order, onRequestSort } = props;
 
   return (

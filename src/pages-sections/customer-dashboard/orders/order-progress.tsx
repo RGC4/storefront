@@ -72,6 +72,8 @@ const DeliveryDateBox = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.primary.light
 }));
 
+// ==============================================================
+interface Props {
   status: OrderStatus;
   deliveredAt: Date;
   isDelivered: boolean;

@@ -6,8 +6,13 @@ import ListItem from "./list-item";
 // CUSTOM DATA MODELS
 import Shop from "models/Shop.model";
 
+// ======================================================
+interface Props {
   shops: Shop[];
 }
+// ======================================================
+
+export default function Sidebar({ shops }: Props) {
   return (
     <Card
       sx={{

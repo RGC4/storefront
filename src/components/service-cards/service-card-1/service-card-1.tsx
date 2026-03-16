@@ -2,10 +2,15 @@ import Typography from "@mui/material/Typography";
 import IconComponent from "components/IconComponent";
 import { FlexRowCenter } from "components/flex-box";
 
+// ==============================================================
+interface Props {
   icon: string;
   title: string;
   description: string;
 }
+// ==============================================================
+
+export default function ServiceCard1({ icon, title, description }: Props) {
   return (
     <FlexRowCenter gap={3}>
       <IconComponent icon={icon} fontSize="large" />

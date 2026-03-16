@@ -15,10 +15,15 @@ const Wrapper = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.grey[900]
 }));
 
+// ==========================================================
+interface Props extends PropsWithChildren {
   open: boolean;
   onClose: () => void;
   drawerWidth?: number;
 }
+// ==========================================================
+
+export default function LayoutDrawer(props: Props) {
   const { children, open, onClose, drawerWidth = 280 } = props || {};
 
   return (

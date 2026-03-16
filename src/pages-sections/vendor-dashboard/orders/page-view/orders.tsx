@@ -21,6 +21,9 @@ import { tableHeading } from "../table-heading";
 
 // =============================================================================
 type Props = { orders: Order[] };
+// =============================================================================
+
+export default function OrdersPageView({ orders }: Props) {
   // RESHAPE THE ORDER LIST BASED TABLE HEAD CELL ID
   const filteredOrders = orders.map((item) => ({
     id: item.id,

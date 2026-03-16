@@ -26,9 +26,14 @@ const footerLinks = [
   { id: 3, title: "Help", url: "/" }
 ];
 
+// ==============================================================
+interface Props extends PropsWithChildren {
   data: LayoutModel;
   navigation: Category[];
 }
+// ==============================================================
+
+export default function ShopLayout4({ children, navigation, data }: Props) {
   const { topbar, header, mobileNavigation } = data;
 
   const [isFixed, setIsFixed] = useState(false);

@@ -9,6 +9,9 @@ import { SubTitle } from "../styles";
 
 // ===========================================================
 type Props = { products: Product[]; title: string };
+// ===========================================================
+
+export default function Section4({ products, title }: Props) {
   return (
     <div className="mb-3">
       <Typography variant="h2" sx={{ lineHeight: 1, mb: 0.5 }}>

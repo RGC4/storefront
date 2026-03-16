@@ -21,6 +21,9 @@ import { tableHeading } from "../table-heading";
 
 // =============================================================================
 type Props = { brands: Brand[] };
+// =============================================================================
+
+export default function BrandsPageView({ brands }: Props) {
   // RESHAPE THE PRODUCT LIST BASED TABLE HEAD CELL ID
   const filteredBrands = brands.map((item) => ({
     id: item.id,

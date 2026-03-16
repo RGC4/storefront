@@ -23,6 +23,11 @@ const validationSchema = yup.object().shape({
   name: yup.string().required("Name is required!")
 });
 
+// ================================================================
+interface Props {}
+// ================================================================
+
+export default function BrandForm(props: Props) {
   const [files, setFiles] = useState<PreviewFile[]>([]);
 
   const initialValues = { name: "", featured: false };

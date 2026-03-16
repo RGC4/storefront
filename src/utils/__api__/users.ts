@@ -1,4 +1,6 @@
 import { cache } from "react";
+import axios from "utils/axiosInstance";
+// CUSTOM DATA MODEL
 import User from "models/User.model";
 
 const INFO_LIST = [
@@ -9,20 +11,16 @@ const INFO_LIST = [
 ];
 
 export const getUser = cache(async (): Promise<User> => {
-  return {
-    id: "",
-    email: "",
-    phone: "",
-    avatar: "",
-    password: "",
-    dateOfBirth: "2000-01-01",
-    verified: false,
-    name: { firstName: "Guest", lastName: "User" }
-  };
+  const response = await axios.get("/api/user-list/1");
+  return response.data;
 });
 
 export const getUserAnalytics = cache(async (id: string) => {
-  return { balance: 0, type: "GUEST", orderSummary: INFO_LIST };
+  return {
+    balance: 5000,
+    type: "SILVER USER",
+    orderSummary: INFO_LIST
+  };
 });
 
 export default { getUser, getUserAnalytics };

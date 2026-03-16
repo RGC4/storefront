@@ -2,8 +2,13 @@ import type { ReactNode } from "react";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox, { CheckboxProps } from "@mui/material/Checkbox";
 
+// ==============================================================
+interface Props extends CheckboxProps {
   label: ReactNode;
 }
+// ==============================================================
+
+export default function CheckboxLabel({ label, ...props }: Props) {
   return (
     <FormControlLabel
       label={label}

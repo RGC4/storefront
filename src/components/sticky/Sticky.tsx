@@ -5,6 +5,8 @@ import clsx from "clsx";
 // STYLED COMPONENT
 import { StyledRoot } from "./styles";
 
+// ============================================================
+interface Props extends PropsWithChildren {
   fixedOn: number;
   scrollDistance?: number;
   onSticky?: (isFixed: boolean) => void;

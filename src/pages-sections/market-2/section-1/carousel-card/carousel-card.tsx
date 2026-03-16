@@ -5,12 +5,17 @@ import Typography from "@mui/material/Typography";
 // STYLED COMPONENT
 import { CardContent, ImageContainer, LinkText } from "./styles";
 
+// ===============================================================
+interface Props {
   title: string;
   imgUrl: string;
   category: string;
   buttonLink: string;
   description: string;
 }
+// ===============================================================
+
+export default function CarouselCard({ title, category, buttonLink, description, imgUrl }: Props) {
   return (
     <Grid container spacing={3}>
       <Grid size={{ xs: 12, md: 6 }}>

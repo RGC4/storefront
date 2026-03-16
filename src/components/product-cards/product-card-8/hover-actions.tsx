@@ -15,6 +15,9 @@ import Product from "models/Product.model";
 
 // ==============================================================
 type Props = { product: Product };
+// ==============================================================
+
+export default function HoverActions({ product }: Props) {
   const { slug, id, title, price, thumbnail } = product;
 
   const { dispatch } = useCart();

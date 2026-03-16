@@ -1,4 +1,4 @@
-import type { ComponentProps, PropsWithChildren } from "react";
+import type { ComponentProps, PropsWithChildren, ReactNode } from "react";
 import Link from "next/link";
 import Box from "@mui/material/Box";
 // CUSTOM COMPONENT
@@ -8,35 +8,50 @@ import { HeaderCategoryDropdown } from "./header-category-dropdown";
 import { HeaderWrapper, StyledContainer } from "./styles";
 
 // ==============================================================
-interface HeaderProps extends ComponentProps<typeof HeaderWrapper> {}
+interface HeaderProps extends ComponentProps<typeof HeaderWrapper> {
+  mobileHeader: ReactNode;
+}
 // ==============================================================
 
-export function Header({ children, ...props }: HeaderProps) {
+export function Header({ children, mobileHeader, ...props }: HeaderProps) {
   return (
     <HeaderWrapper {...props}>
       <StyledContainer>
-        <div>{children}</div>
+        <div className="main-header">{children}</div>
+        <div className="mobile-header">{mobileHeader}</div>
       </StyledContainer>
     </HeaderWrapper>
   );
 }
 
 // ==============================================================
+interface HeaderLeftProps extends ComponentProps<typeof Box> {}
+// ==============================================================
+
+Header.Left = function ({ children, ...props }: HeaderLeftProps) {
+  return (
+    <Box display="flex" minWidth={100} alignItems="center" {...props}>
+      {children}
+    </Box>
+  );
+};
+
+// ==============================================================
 interface HeaderLogoProps {
-  logoUrl: string;
-  width?: number;
-  height?: number;
+  url: string;
 }
 // ==============================================================
 
-Header.Logo = function ({ logoUrl, width = 120, height = 44 }: HeaderLogoProps) {
+Header.Logo = function ({ url }: HeaderLogoProps) {
   return (
     <Link href="/">
       <LazyImage
-        src={logoUrl}
-        alt="Store Logo"
-        width={width}
-        height={height}
+        priority
+        src={url}
+        alt="logo"
+        width={105}
+        height={50}
+        sizes="(max-width: 768px) 80px, 105px"
         sx={{ objectFit: "contain" }}
       />
     </Link>

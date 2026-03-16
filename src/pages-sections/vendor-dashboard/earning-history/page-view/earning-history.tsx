@@ -20,6 +20,9 @@ import { EarningHistory } from "../types";
 
 // =============================================================================
 type Props = { earnings: EarningHistory[] };
+// =============================================================================
+
+export default function EarningHistoryPageView({ earnings }: Props) {
   const { order, orderBy, rowsPerPage, filteredList, handleChangePage, handleRequestSort } =
     useMuiTable({ listData: earnings, defaultSort: "no" });
 

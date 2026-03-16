@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+// MUI
 import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
@@ -7,11 +8,15 @@ import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import Add from "@mui/icons-material/Add";
 import Remove from "@mui/icons-material/Remove";
+// CUSTOM COMPONENTS
 import Trash from "icons/Trash";
 import FlexBox from "components/flex-box/flex-box";
+// CUSTOM UTILS LIBRARY FUNCTION
 import { currency } from "lib";
-import { CartLine as CartItem } from "contexts/CartContext";
+// CUSTOM DATA MODEL
+import { CartItem } from "contexts/CartContext";
 
+// STYLED COMPONENTS
 const StyledRoot = styled("div")(({ theme }) => ({
   gap: "1rem",
   display: "flex",
@@ -21,7 +26,8 @@ const StyledRoot = styled("div")(({ theme }) => ({
 }));
 
 const StyledAvatar = styled(Avatar)(({ theme }) => ({
-  width: 100, height: 100,
+  width: 80,
+  height: 80,
   borderRadius: 6,
   backgroundColor: theme.palette.grey[100]
 }));
@@ -47,10 +53,12 @@ const QuantityWrapper = styled("div")(({ theme }) => ({
   }
 }));
 
+// ==============================================================
 interface Props {
   item: CartItem;
   onCart: (amount: number, product: CartItem) => () => void;
 }
+// ==============================================================
 
 export default function MiniCartItem({ item, onCart }: Props) {
   return (
@@ -62,12 +70,11 @@ export default function MiniCartItem({ item, onCart }: Props) {
       </Link>
 
       <ContentWrapper>
-        <Typography noWrap sx={{ fontSize: 15, fontWeight: 600 }}>
+        <Typography noWrap variant="body1">
           {item.title}
         </Typography>
 
-        {/* FIX: Merged duplicate sx props — second was silently overriding the first */}
-        <Typography sx={{ fontSize: 16, fontWeight: 700, mt: 0.25, mb: 1.5 }}>
+        <Typography variant="body1" fontWeight={500} sx={{ mt: 0.25, mb: 1.5 }}>
           {currency(item.price * item.qty)}
         </Typography>
 

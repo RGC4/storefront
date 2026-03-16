@@ -2,6 +2,8 @@ import { useFormContext, Controller } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import MuiAutocomplete, { AutocompleteProps } from "@mui/material/Autocomplete";
 
+// ==============================================================
+interface Props<
   Value,
   Multiple extends boolean | undefined,
   DisableClearable extends boolean | undefined,
@@ -11,6 +13,9 @@ import MuiAutocomplete, { AutocompleteProps } from "@mui/material/Autocomplete";
   label?: string;
   placeholder?: string;
 }
+// ==============================================================
+
+export default function Autocomplete<
   Value,
   Multiple extends boolean | undefined,
   DisableClearable extends boolean | undefined,

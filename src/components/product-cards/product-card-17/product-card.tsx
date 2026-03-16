@@ -11,6 +11,8 @@ import Product from "models/Product.model";
 // CUSTOM UTILS FUNCTION
 import { currency } from "lib";
 
+// ========================================================
+interface Props {
   product: Product;
   bgWhite?: boolean;
 }

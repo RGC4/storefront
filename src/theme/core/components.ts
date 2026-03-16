@@ -4,6 +4,8 @@ import { ThemeComponents } from "theme/types";
 import { classes } from "theme/utils";
 import { typography } from "./typography";
 
+// ========================================================
+declare module "@mui/material/Button" {
   interface ButtonPropsColorOverrides {
     dark: true;
     paste: true;

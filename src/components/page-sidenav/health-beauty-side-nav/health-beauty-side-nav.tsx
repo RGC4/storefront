@@ -10,6 +10,9 @@ import { CategoryNavItem } from "models/CategoryNavList.model";
 
 // =================================================================
 type Props = { navigation: CategoryNavItem[] };
+// =================================================================
+
+export default function HealthBeautySideNav({ navigation }: Props) {
   return (
     <NavbarRoot>
       <div className="title">

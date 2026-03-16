@@ -2,6 +2,8 @@ import { Fragment, ReactNode, useCallback, useState, MouseEvent } from "react";
 import Menu from "@mui/material/Menu";
 import { SxProps, Theme } from "@mui/material/styles";
 
+// ===============================================================
+interface Props {
   open?: boolean;
   sx?: SxProps<Theme>;
   direction?: "left" | "right" | "center";

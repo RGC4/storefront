@@ -5,6 +5,9 @@ import { Circle, DotListItem } from "../styles";
 
 // ==============================================================
 type Item = { title: string; href: string };
+// ==============================================================
+
+// RENDER THE NESTED CHILD
 export const renderChild = (child: Item[], active: string) => {
   return child.map((item) => (
     <Link href={item.href} key={item.title}>
