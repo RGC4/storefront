@@ -2,13 +2,13 @@
 
 import { styled } from "@mui/material/styles";
 
-// STYLED COMPONENTS
 export const StyledRoot = styled("div")(({ theme }) => ({
-  gap: 16,
+  gap: 24,
   flexGrow: 1,
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
+  padding: "42px 24px",
   borderRight: `1px solid ${theme.palette.divider}`,
   ":last-child": { borderRight: 0 },
   [theme.breakpoints.down("md")]: {
@@ -18,6 +18,6 @@ export const StyledRoot = styled("div")(({ theme }) => ({
     borderRight: 0,
     justifyContent: "flex-start"
   },
-  h4: { fontSize: 17, fontWeight: 600 },
-  p: { color: theme.palette.grey[600] }
+  h4: { fontSize: 26, fontWeight: 700, marginBottom: 6, lineHeight: 1.2 },
+  p: { color: theme.palette.grey[600], fontSize: 18, lineHeight: 1.4 }
 }));

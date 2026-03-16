@@ -16,12 +16,6 @@ export default function Section9() {
               description="Smartwatch Is Good For You"
               image="/assets/images/gadget-1/banner-7.jpg"
             />
-
-            <BannerCard
-              title="Headphones"
-              description="The future seems bright. Headphones for the Future."
-              image="/assets/images/gadget-1/banner-11.jpg"
-            />
           </Box>
         </Grid>
 

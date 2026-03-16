@@ -34,7 +34,6 @@ async function shopifyFetch(query: string, variables?: any) {
       cache: "no-store",
     }
   );
-
   const json = await res.json();
   return json.data;
 }
@@ -42,11 +41,11 @@ async function shopifyFetch(query: string, variables?: any) {
 export default async function CollectionPage({
   params,
 }: {
-  params: { store: string; handle: string };
+  params: Promise<{ store: string; handle: string }>;
 }) {
-  const data = await shopifyFetch(COLLECTION_QUERY, {
-    handle: params.handle,
-  });
+  const { store, handle } = await params;
+
+  const data = await shopifyFetch(COLLECTION_QUERY, { handle });
 
   const collection = data?.collectionByHandle;
   if (!collection) return notFound();
@@ -58,9 +57,7 @@ export default async function CollectionPage({
 
   return (
     <main style={{ maxWidth: 1200, margin: "0 auto", padding: 24 }}>
-      <Link href={`/${params.store}/collections`}>
-        ← Back to collections
-      </Link>
+      <Link href={`/${store}/collections`}>← Back to collections</Link>
 
       <h1 style={{ marginTop: 16 }}>{collection.title}</h1>
 
@@ -75,7 +72,7 @@ export default async function CollectionPage({
         {products.map((p: any) => (
           <Link
             key={p.id}
-            href={`/${params.store}/products/${p.handle}`}
+            href={`/${store}/products/${p.handle}`}
             style={{
               textDecoration: "none",
               border: "1px solid #eee",
@@ -91,9 +88,7 @@ export default async function CollectionPage({
                 style={{ width: "100%", borderRadius: 8 }}
               />
             )}
-            <div style={{ marginTop: 8, fontWeight: 600 }}>
-              {p.title}
-            </div>
+            <div style={{ marginTop: 8, fontWeight: 600 }}>{p.title}</div>
           </Link>
         ))}
       </div>

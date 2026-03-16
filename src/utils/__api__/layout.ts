@@ -1,8 +1,9 @@
+// DESTINATION: src/utils/__api__/layout.ts
 import { cache } from "react";
 import { storefrontQuery } from "lib/shopify";
 import storeConfig from "config/store.config";
 
-export const getLayoutData = cache(async () => {
+const getLayoutData = cache(async () => {
   const data = await storefrontQuery(
     `query { collections(first: 50, sortKey: TITLE) { edges { node { id title handle } } } }`,
     {}
@@ -29,7 +30,7 @@ export const getLayoutData = cache(async () => {
       navigation: [],
     },
     footer: {
-      logo: "/assets/stores/s1/logo/logo-2.png",
+      logo: storeConfig.logo,
       description: storeConfig.footerDescription,
       appStoreUrl: "",
       playStoreUrl: "",
@@ -39,9 +40,10 @@ export const getLayoutData = cache(async () => {
         { title: "Privacy Policy",     url: "#" },
       ],
       customers: [
-        { title: "Contact Us",          url: "/contact" },
-        { title: "Track Your Order",    url: "/order-lookup" },
-        { title: "Returns & Exchanges", url: "/returns" },
+        { title: "Contact Us",              url: "/contact" },
+        { title: "Track Your Order",        url: "/order-lookup" },
+        { title: "Returns & Exchanges",     url: "/returns" },
+        { title: "Corporate & Bulk Orders", url: `/mailto:${storeConfig.email}` },
       ],
       socials: {
         google:    storeConfig.social.google,
@@ -51,6 +53,7 @@ export const getLayoutData = cache(async () => {
         instagram: storeConfig.social.instagram,
       },
       contact: {
+        phone:   storeConfig.phone,
         email:   storeConfig.email,
         address: storeConfig.address,
       },

@@ -49,9 +49,9 @@ Header.Logo = function ({ url }: HeaderLogoProps) {
         priority
         src={url}
         alt="logo"
-        width={105}
-        height={50}
-        sizes="(max-width: 768px) 80px, 105px"
+        width={230}
+        height={100}
+        sizes="(max-width: 768px) 130px, 180px"
         sx={{ objectFit: "contain" }}
       />
     </Link>

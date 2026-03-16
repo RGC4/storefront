@@ -7,26 +7,20 @@ interface Props {
   address: string;
 }
 
-export function FooterContact({ email, phone, address }: Props) {
+export function FooterContact({ email, address }: Props) {
   return (
     <Fragment>
       <Heading>Contact Us</Heading>
 
       {address && (
-        <StyledLink href="#" style={{ pointerEvents: "none" }}>
+        <StyledLink href="#">
           {address}
         </StyledLink>
       )}
 
       {email && (
-        <StyledLink href={`mailto:${email}`}>
+        <StyledLink href="/contact">
           Email: {email}
-        </StyledLink>
-      )}
-
-      {phone && (
-        <StyledLink href={`tel:${phone.replace(/\D/g, "")}`}>
-          Phone: {phone}
         </StyledLink>
       )}
     </Fragment>

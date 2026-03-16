@@ -1,4 +1,3 @@
-import Container from "@mui/material/Container";
 // GLOBAL CUSTOM COMPONENT
 import ServiceCard3 from "components/service-cards/service-card-3";
 // STYLED COMPONENTS
@@ -11,12 +10,12 @@ export default async function Section2() {
   if (!services || !services.length) return null;
 
   return (
-    <Container className="mt-2">
+    <>
       <RootStyle>
         {services.map(({ id, icon, title, description }) => (
           <ServiceCard3 key={id} icon={icon} title={title} description={description!} />
         ))}
       </RootStyle>
-    </Container>
+    </>
   );
 }
