@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { Geist } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
-import type { Metadata } from "next";
 
 export const geist = Geist({
   subsets: ["latin"]
@@ -32,15 +31,12 @@ interface RootLayoutProps {
 }
 // ==============================================================
 
-export const metadata: Metadata = {
-  verification: {
-    google: "xPe6mYQNmkBfZaSR4_IDNrpNR_-KymGUKhlNdlFU-Ng",
-  },
-};
-
 export default function RootLayout({ children, modal }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <meta name="google-site-verification" content="xPe6mYQNmkBfZaSR4_IDNrpNR_-KymGUKhlNdlFU-Ng" />
+      </head>
       <body id="body" className={geist.className}>
         <CartProvider>
           <SettingsProvider>
@@ -49,13 +45,10 @@ export default function RootLayout({ children, modal }: RootLayoutProps) {
                 {modal}
                 {children}
               </RTL>
-
               <ProgressBar />
             </ThemeProvider>
           </SettingsProvider>
         </CartProvider>
-
-        {/* GA ID loaded from env — set NEXT_PUBLIC_GA_ID in your .env */}
         {process.env.NEXT_PUBLIC_GA_ID && (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
         )}
