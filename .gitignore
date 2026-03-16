@@ -29,3 +29,6 @@ next-env.d.ts
 
 # cleanup
 .DS_Store
+
+.vercel
+.env*.local
