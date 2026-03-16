@@ -6,17 +6,12 @@ import { BoxProps } from "@mui/material/Box";
 // STYLED COMPONENTS
 import { CardWrapper, CardContent, CardLink } from "./styles";
 
-// ========================================================
-interface Props extends BoxProps {
   img: string;
   url: string;
   title: string;
   subTitle: string;
   contentPosition?: "left" | "right";
 }
-// ========================================================
-
-export default function BannerCard2({
   img,
   url,
   title,

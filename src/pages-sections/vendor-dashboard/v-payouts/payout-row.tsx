@@ -7,9 +7,6 @@ import { Payout } from "./types";
 
 // =============================================================================
 type Props = { payout: Payout };
-// =============================================================================
-
-export default function PayoutRow({ payout }: Props) {
   const { no, amount, date, payment } = payout;
 
   return (

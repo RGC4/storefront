@@ -17,9 +17,6 @@ import { Menu, MenuItemWithChild } from "models/Navigation.model";
 
 // ==============================================================
 type Props = { navigation: Menu[] };
-// ==============================================================
-
-export function NavigationList({ navigation }: Props) {
   const renderNestLevel = (children: MenuItemWithChild[]) => {
     return children.map((nav) => {
       if (nav.child) {

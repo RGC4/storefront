@@ -7,9 +7,6 @@ import Product from "models/Product.model";
 
 // ==============================================================
 type Props = { products: Product[] };
-// ==============================================================
-
-export default memo(function ProductList({ products }: Props) {
   return (
     <Grid container spacing={3} minHeight={500}>
       {products.map((product) => (

@@ -8,8 +8,6 @@ import Typography from "@mui/material/Typography";
 
 import { TitleBadge, Wrapper, StatusChip, Overlay } from "./styles";
 
-// =========================================================
-interface PageCardProps {
   no?: number;
   title: string;
   imgUrl: string;
@@ -17,9 +15,6 @@ interface PageCardProps {
   previewUrl: string;
   disabled?: boolean;
 }
-// =========================================================
-
-export default function PageCard({
   no,
   title,
   imgUrl,

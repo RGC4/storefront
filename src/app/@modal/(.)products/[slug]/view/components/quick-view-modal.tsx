@@ -13,11 +13,7 @@ const dialogStyles = {
 };
 
 const dialogContentStyles = {
-<<<<<<< HEAD
-  maxWidth: 1000,
-=======
   maxWidth: 500,
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
   width: "100%",
   padding: 0
 };

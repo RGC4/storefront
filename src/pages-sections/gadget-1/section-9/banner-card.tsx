@@ -3,8 +3,6 @@ import Typography from "@mui/material/Typography";
 import LazyImage from "components/LazyImage";
 import { StyledRoot } from "./styles";
 
-// ==============================================================
-interface Props {
   image: string;
   title: string;
   description: string;
@@ -12,9 +10,6 @@ interface Props {
   imageHeight?: number;
   centerContent?: boolean;
 }
-// ==============================================================
-
-export default function BannerCard({
   image,
   title,
   description,

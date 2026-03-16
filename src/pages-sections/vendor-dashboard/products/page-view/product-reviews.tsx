@@ -27,9 +27,6 @@ const tableHeading = [
 
 // =============================================================================
 type Props = { reviews: Review[] };
-// =============================================================================
-
-export default function ProductReviewsPageView({ reviews }: Props) {
   // RESHAPE THE REVIEW LIST BASED TABLE HEAD CELL ID
   const filteredReviews = reviews.map((item) => ({
     id: item.id,

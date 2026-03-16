@@ -14,9 +14,6 @@ import api from "utils/__api__/furniture-1";
 
 // ==============================================================
 type Props = { selected?: string };
-// ==============================================================
-
-export default async function FurnitureOnePageView({ selected }: Props) {
   const [topNewProducts, furnitureProducts, topSellingProducts, navList] = await Promise.all([
     api.getTopNewProducts(),
     api.getFurnitureProducts(selected),

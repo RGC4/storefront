@@ -14,16 +14,11 @@ const StyledCard = styled(Card)(() => ({
   padding: "0.75rem 1rem"
 }));
 
-// ==============================================================================
-interface Props extends HtmlHTMLAttributes<HTMLElement> {
   title: string;
   imgUrl?: string;
   sx?: SxProps<Theme>;
   isSelected?: boolean;
 }
-// ==============================================================================
-
-export default function ListItem({ sx, title, imgUrl, isSelected, ...others }: Props) {
   return (
     <StyledCard
       elevation={0}

@@ -16,9 +16,6 @@ import Product from "models/Product.model";
 
 // ===========================================================
 type Props = { product: Product };
-// ===========================================================
-
-export default function LongProductCard({ product }: Props) {
   if (!product) return null;
 
   const { slug, title, price, thumbnail, rating, discount } = product;

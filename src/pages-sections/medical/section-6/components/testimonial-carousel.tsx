@@ -14,9 +14,6 @@ import { TestimonialCard, TestimonialRootStyle } from "./styles";
 
 // ==============================================================
 type Props = { testimonials: any[] };
-// ==============================================================
-
-export default function TestimonialCarousel({ testimonials }: Props) {
   const { ref, api, arrows } = useCarousel();
 
   return (

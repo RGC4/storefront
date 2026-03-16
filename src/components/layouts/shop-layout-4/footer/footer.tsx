@@ -3,17 +3,12 @@ import Divider from "@mui/material/Divider";
 // STYLED COMPONENT
 import { StyledRoot } from "./styles";
 
-// ==============================================================
-interface Props {
   links: {
     id: number;
     url: string;
     title: string;
   }[];
 }
-// ==============================================================
-
-export default function Footer({ links }: Props) {
   return (
     <StyledRoot>
       <Divider />

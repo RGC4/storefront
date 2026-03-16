@@ -4,9 +4,6 @@ import { TagRoot } from "../styles";
 
 // ==============================================================
 type Props = { tags: string[] };
-// ==============================================================
-
-export default function ProductTags({ tags }: Props) {
   return (
     <TagRoot>
       {tags.map((item) => (

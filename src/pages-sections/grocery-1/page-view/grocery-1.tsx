@@ -18,9 +18,6 @@ import { mobileNavigationTwo } from "data/layout-data";
 
 // =====================================================
 type Props = { selected?: string };
-// =====================================================
-
-export default async function GroceryOnePageView({ selected }: Props) {
   const [products, popularProducts, trendingProducts, grocery1NavList] = await Promise.all([
     api.getProducts(selected),
     api.getPopularProducts(),

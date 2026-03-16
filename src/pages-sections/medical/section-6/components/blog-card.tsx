@@ -6,15 +6,10 @@ import LazyImage from "components/LazyImage";
 // STYLED COMPONENTS
 import { BlogCardWrapper } from "./styles";
 
-// ==============================================================
-interface Props {
   date: string;
   image: string;
   title: string;
 }
-// ==============================================================
-
-export default async function BlogCard({ date, image, title }: Props) {
   return (
     <BlogCardWrapper>
       <div className="img-wrapper">

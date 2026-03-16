@@ -7,9 +7,6 @@ import { Request } from "./types";
 
 // ==============================================================
 type Props = { row: Request };
-// ==============================================================
-
-export default function RequestRow({ row }: Props) {
   const { no, date, status, message, amount } = row;
   return (
     <StyledTableRow role="checkbox">

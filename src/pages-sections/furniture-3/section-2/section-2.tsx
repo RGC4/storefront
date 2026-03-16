@@ -5,8 +5,6 @@ import ProductCard15 from "components/product-cards/product-card-15";
 // CUSTOM DATA MODEL
 import Product from "models/Product.model";
 
-// ==============================================================
-interface Props {
   products: Product[];
   breadcrumb?: string;
 }

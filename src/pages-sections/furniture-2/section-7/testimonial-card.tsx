@@ -4,17 +4,12 @@ import LazyImage from "components/LazyImage";
 // STYLED COMPONENTS
 import { ImageWrapper, Wrapper } from "./styles";
 
-// ==============================================================
-interface Testimonial {
   id: string;
   comment: string;
   user: { name: string; avatar: string; designation: string };
 }
 
 type Props = { testimonial: Testimonial };
-// ==============================================================
-
-export default function TestimonialCard({ testimonial: { comment, user } }: Props) {
   return (
     <Wrapper>
       <div className="user-info">

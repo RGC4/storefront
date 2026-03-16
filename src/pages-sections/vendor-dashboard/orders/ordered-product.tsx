@@ -16,9 +16,6 @@ import Order from "models/Order.model";
 
 // ==============================================================
 type Props = { product: Order["items"][0] };
-// ==============================================================
-
-export default function OrderedProduct({ product }: Props) {
   const { product_img, product_name, product_price, product_quantity } = product || {};
 
   return (

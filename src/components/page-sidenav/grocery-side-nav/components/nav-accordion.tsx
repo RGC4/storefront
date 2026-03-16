@@ -12,9 +12,6 @@ import { CategoryNavItem } from "models/CategoryNavList.model";
 
 // ==============================================================
 type Props = { item: CategoryNavItem };
-// ==============================================================
-
-export default function NavAccordion({ item }: Props) {
   const { icon, title, child } = item;
 
   const [open, setOpen] = useState(true);

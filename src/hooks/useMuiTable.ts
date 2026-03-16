@@ -2,9 +2,6 @@ import { useState } from "react";
 
 // ================================================================
 type Order = "asc" | "desc";
-// ================================================================
-
-export function descendingComparator(a: any, b: any, orderBy: string) {
   if (b[orderBy] < a[orderBy]) return -1;
   if (b[orderBy] > a[orderBy]) return 1;
   return 0;
@@ -28,15 +25,10 @@ export function stableSort<T>(array: T[], comparator: (a: T, b: T) => number) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-// ================================================================
-interface Props<T> {
   listData: T[];
   defaultSort?: string;
   defaultOrder?: "asc" | "desc";
 }
-// ================================================================
-
-export default function useMuiTable<T>({
   listData = [],
   defaultSort = "name",
   defaultOrder = "asc"

@@ -16,8 +16,6 @@ import { currency } from "lib";
 // STYLED COMPONENTS
 import { StyledTableRow, CategoryWrapper, StyledTableCell, StyledIconButton } from "../styles";
 
-// ========================================================================
-interface Product {
   id: string;
   slug: string;
   name: string;
@@ -29,9 +27,6 @@ interface Product {
 }
 
 type Props = { product: Product };
-// ========================================================================
-
-export default function ProductRow({ product }: Props) {
   const { category, name, price, image, brand, id, published, slug } = product;
 
   const [productPublish, setProductPublish] = useState(published);

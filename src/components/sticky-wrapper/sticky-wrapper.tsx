@@ -3,14 +3,9 @@ import Container from "@mui/material/Container";
 // STYLED COMPONENTS
 import { ContentWrapper } from "./styles";
 
-// ==============================================================
-interface Props extends PropsWithChildren {
   SideNav: ReactNode;
   className?: string;
 }
-// ==============================================================
-
-export default function StickyWrapper({ SideNav, children, className }: Props) {
   return (
     <Container>
       <ContentWrapper className={className}>

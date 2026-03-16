@@ -8,9 +8,6 @@ import Ticket from "models/Ticket.model";
 
 // ==============================================================
 type Props = { ticket: Ticket };
-// ==============================================================
-
-export default function TicketRow({ ticket }: Props) {
   const { title, type, date, category } = ticket;
 
   return (

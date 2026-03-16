@@ -3,15 +3,10 @@ import Typography from "@mui/material/Typography";
 import LazyImage from "components/LazyImage";
 import { ImageContainer, StyledRoot } from "./styles";
 
-// ============================================================
-interface Props {
   image: string;
   title: string;
   slug: string;
 }
-// ============================================================
-
-export default function CategoryCard({ image, title, slug }: Props) {
   return (
     <Link href={`/products/search?category=${slug}`}>
       <StyledRoot>

@@ -12,8 +12,6 @@ import { MenuListItem, MenusContainer, Wrapper } from "./styles";
 // DATA TYPES
 import { MegaMenuItem } from "models/Navigation.model";
 
-// ===============================================================
-interface Props {
   title: string;
   menuList: MegaMenuItem[][];
 }

@@ -4,8 +4,6 @@ import Typography from "@mui/material/Typography";
 // STYLED COMPONENTS
 import { StyledRoot, UserInfo, ContentWrapper } from "./styles";
 
-// ==============================================================
-interface Props {
   name: string;
   image: string;
   title: string;
@@ -13,9 +11,6 @@ interface Props {
   comment: string;
   designation: string;
 }
-// ==============================================================
-
-export default function TestimonialCard1({
   name,
   image,
   title,

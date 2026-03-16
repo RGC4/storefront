@@ -1,6 +1,4 @@
-// =====================================================// =====================================================
-  // Branding
-  primaryColor:   process.env.NEXT_PUBLIC_PRIMARY_COLOR   || "#D23F57",
+// =====================================================  primaryColor:   process.env.NEXT_PUBLIC_PRIMARY_COLOR   || "#D23F57",
   secondaryColor: process.env.NEXT_PUBLIC_SECONDARY_COLOR || "#2B3445",
   logo:           process.env.NEXT_PUBLIC_LOGO_URL        || "/assets/stores/s1/logo/logo-1.png",
 

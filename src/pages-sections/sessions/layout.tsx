@@ -7,7 +7,6 @@ import FlexRowCenter from "components/flex-box/flex-row-center";
 // COMMON STYLED COMPONENT
 import { Wrapper } from "./styles";
 
-// =======================================================        {bottomContent}
       </Wrapper>
     </FlexRowCenter>
   );

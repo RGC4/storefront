@@ -5,15 +5,10 @@ import ArrowDropUp from "@mui/icons-material/ArrowDropUp";
 // GLOBAL CUSTOM COMPONENTS
 import FlexBox from "components/flex-box/flex-box";
 
-// =========================================================
-interface Props extends PropsWithChildren {
   title: string;
   percentage: string;
   amount: string | number;
 }
-// =========================================================
-
-export default function Card2({ children, title, amount, percentage }: Props) {
   return (
     <Card
       sx={{

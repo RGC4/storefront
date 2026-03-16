@@ -31,9 +31,6 @@ const SELECT_PROPS = {
 
 // ==============================================================
 type Props = { deliveryTimes: DeliveryTime[] };
-// ==============================================================
-
-export default function DeliveryDate({ deliveryTimes }: Props) {
   const { dates } = useDeliveryDate();
 
   return (

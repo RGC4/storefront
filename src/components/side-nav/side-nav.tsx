@@ -3,8 +3,6 @@ import Drawer from "@mui/material/Drawer";
 // GLOBAL CUSTOM COMPONENT
 import OverlayScrollbar from "components/overlay-scrollbar";
 
-// ================================================================
-interface Props {
   open?: boolean;
   width?: number;
   children: ReactNode;
@@ -12,9 +10,6 @@ interface Props {
   position?: "left" | "right";
   handler: (event: () => void) => ReactNode;
 }
-// ================================================================
-
-export default function SideNav({
   position = "left",
   open = false,
   width = 280,

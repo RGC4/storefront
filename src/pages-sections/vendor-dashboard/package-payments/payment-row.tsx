@@ -10,9 +10,6 @@ import { PackagePayment } from "./types";
 
 // ==============================================================
 type Props = { payment: PackagePayment };
-// ==============================================================
-
-export default function PaymentRow({ payment }: Props) {
   const { no, date, seller, amount, package: sellerPackage, payment: packagePayment } = payment;
 
   return (

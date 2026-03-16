@@ -9,9 +9,6 @@ import { EarningHistory } from "./type";
 
 // =============================================================================
 type Props = { row: EarningHistory };
-// =============================================================================
-
-export default function VendorEarningRow({ row }: Props) {
   const { no, orderNo, adminCommission, sellerEarning, date } = row;
 
   return (

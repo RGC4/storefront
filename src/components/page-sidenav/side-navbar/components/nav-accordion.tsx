@@ -13,9 +13,6 @@ import { CategoryNavItem } from "models/CategoryNavList.model";
 
 // ==============================================================
 type Props = { item: CategoryNavItem };
-// ==============================================================
-
-export default function Accordion({ item }: Props) {
   const { category } = useParams();
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("");

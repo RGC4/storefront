@@ -1,16 +1,11 @@
 import Link from "next/link";
 import Typography from "@mui/material/Typography";
 
-// ==============================================================
-interface NavLinkProps {
   url: string;
   title: string;
   color?: string;
   borderColor?: string;
 }
-// ==============================================================
-
-export function NavLink2({
   url,
   color,
   title = "SHOP NOW",

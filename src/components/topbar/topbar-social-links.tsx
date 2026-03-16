@@ -5,17 +5,12 @@ import Instagram from "@mui/icons-material/Instagram";
 // GLOBAL CUSTOM COMPONENT
 import FlexBox from "components/flex-box/flex-box";
 
-// ==============================================================
-interface Props {
   links: {
     twitter?: string;
     facebook?: string;
     instagram?: string;
   };
 }
-// ==============================================================
-
-export function TopbarSocialLinks({ links }: Props) {
   const { twitter, facebook, instagram } = links;
 
   return (

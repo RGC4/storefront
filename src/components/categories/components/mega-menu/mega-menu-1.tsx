@@ -6,15 +6,10 @@ import LazyImage from "components/LazyImage";
 // CUSTOM DATA MODEL
 import { CategoryMenuItem, CategoryOffer } from "models/Category.model";
 
-// =========================================================
-interface Props {
   minWidth?: string;
   banner?: CategoryOffer;
   data: CategoryMenuItem[];
 }
-// =========================================================
-
-export default function MegaMenu1({ banner, data }: Props) {
   return (
     <ColumnList list={data} banner={banner}>
       {banner?.position === "bottom" ? (

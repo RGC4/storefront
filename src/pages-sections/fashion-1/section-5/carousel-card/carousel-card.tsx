@@ -9,8 +9,6 @@ import { Countdown } from "components/countdown";
 // STYLED COMPONENT
 import { ContentWrapper, FavoriteButton, ImageWrapper } from "./styles";
 
-// ================================================================
-interface Props {
   imgUrl: string;
   expireDate: number;
   buttonText: string;
@@ -19,9 +17,6 @@ interface Props {
   offerTagline: string;
   offerDescription: string;
 }
-// ================================================================
-
-export default function CarouselCard({
   imgUrl,
   offerName,
   expireDate,

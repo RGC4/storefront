@@ -20,9 +20,6 @@ import { PackagePayment } from "../types";
 
 // ==============================================================
 type Props = { payments: PackagePayment[] };
-// ==============================================================
-
-export default function PackagePaymentPageView({ payments }: Props) {
   const { order, orderBy, rowsPerPage, filteredList, handleChangePage, handleRequestSort } =
     useMuiTable({ listData: payments, defaultSort: "no" });
 

@@ -9,8 +9,6 @@ import { ColumnContent, StyledRoot } from "./styles";
 // CUSTOM DATA MODEL
 import { CategoryMenuItem, CategoryOffer } from "models/Category.model";
 
-// ==============================================================
-interface Props extends PropsWithChildren {
   minWidth?: number;
   banner?: CategoryOffer;
   list: CategoryMenuItem[];

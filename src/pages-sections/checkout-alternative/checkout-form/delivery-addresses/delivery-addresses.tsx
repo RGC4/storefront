@@ -43,9 +43,6 @@ const AddressCard = styled("div", {
 
 // ==============================================================
 type Props = { deliveryAddresses: DeliveryAddress[] };
-// ==============================================================
-
-export default function DeliveryAddresses({ deliveryAddresses }: Props) {
   const {
     openModal,
     editDeliveryAddress,

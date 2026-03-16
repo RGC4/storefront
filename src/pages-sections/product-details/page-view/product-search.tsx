@@ -31,8 +31,6 @@ const SORT_OPTIONS = [
   { label: "Price High to Low", value: "desc" }
 ];
 
-// ==============================================================
-interface Props {
   filters: Filters;
   products: Product[];
   pageCount: number;
@@ -40,9 +38,6 @@ interface Props {
   firstIndex: number;
   totalProducts: number;
 }
-// ==============================================================
-
-export default function ProductSearchPageView({
   filters,
   products,
   pageCount,

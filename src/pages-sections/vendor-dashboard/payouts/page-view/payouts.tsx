@@ -20,9 +20,6 @@ import { Payout } from "../types";
 
 // =============================================================================
 type PayoutsProps = { payouts: Payout[] };
-// =============================================================================
-
-export default function PayoutsPageView({ payouts }: PayoutsProps) {
   const { order, orderBy, rowsPerPage, filteredList, handleChangePage, handleRequestSort } =
     useMuiTable({ listData: payouts, defaultSort: "no" });
 

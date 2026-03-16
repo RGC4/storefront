@@ -26,14 +26,9 @@ const validationSchema = yup.object({
 
 type FormValues = yup.InferType<typeof validationSchema>;
 
-// ==================================================================
-interface Props {
   handleCloseModal: () => void;
   deliveryAddress?: DeliveryAddress;
 }
-// ==================================================================
-
-export default function DeliveryAddressForm({ deliveryAddress, handleCloseModal }: Props) {
   const initialValues: FormValues = useMemo(
     () => ({
       name: deliveryAddress?.name || "",

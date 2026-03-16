@@ -11,9 +11,6 @@ import Order from "models/Order.model";
 
 // ==============================================================
 type Props = { order: Order };
-// ==============================================================
-
-export default function OrderSummery({ order }: Props) {
   return (
     <Grid container spacing={3}>
       <Grid size={{ md: 6, xs: 12 }}>

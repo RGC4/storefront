@@ -19,9 +19,6 @@ const validationSchema = yup.object().shape({
 
 // =============================================================
 type Props = { address: Address };
-// =============================================================
-
-export default function AddressForm({ address }: Props) {
   const initialValues = {
     name: address.title || "",
     contact: address.phone || "",

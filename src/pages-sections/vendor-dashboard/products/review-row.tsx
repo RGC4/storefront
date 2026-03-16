@@ -10,8 +10,6 @@ import FlexBox from "components/flex-box/flex-box";
 // STYLED COMPONENTS
 import { StyledIconButton, StyledTableCell, StyledTableRow } from "../styles";
 
-// ========================================================================
-interface Review {
   customer: string;
   product: string;
   comment: string;
@@ -20,9 +18,6 @@ interface Review {
 }
 
 type Props = { review: Review };
-// ========================================================================
-
-export default function ReviewRow({ review }: Props) {
   const { customer, product, comment, published, productImage } = review;
 
   const [productPublish, setProductPublish] = useState(published);

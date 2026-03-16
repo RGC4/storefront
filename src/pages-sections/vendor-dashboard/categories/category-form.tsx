@@ -24,11 +24,6 @@ const validationSchema = yup.object().shape({
   name: yup.string().required("Name required")
 });
 
-// ================================================================
-interface Props {}
-// ================================================================
-
-export default function CategoryForm(props: Props) {
   const [files, setFiles] = useState<PreviewFile[]>([]);
 
   const initialValues = { name: "", parent: "", featured: false };

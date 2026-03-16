@@ -7,14 +7,9 @@ import { ModalWrapper } from "./styles";
 // STORIES INTERFACES
 import { ReactInstaStoriesProps } from "react-insta-stories/dist/interfaces";
 
-// ==============================================================
-interface Props extends ReactInstaStoriesProps {
   open: boolean;
   handleClose: () => void;
 }
-// ==============================================================
-
-export default function StoryViewer({
   open,
   stories,
   handleClose,

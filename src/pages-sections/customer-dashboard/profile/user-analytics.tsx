@@ -15,9 +15,6 @@ import api from "utils/__api__/users";
 
 // ==============================================================
 type Props = { user: User };
-// ==============================================================
-
-export default async function UserAnalytics({ user }: Props) {
   const { balance, orderSummary, type } = await api.getUserAnalytics(user.id);
 
   return (

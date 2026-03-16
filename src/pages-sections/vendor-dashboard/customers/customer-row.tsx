@@ -13,9 +13,6 @@ import { StyledIconButton, StyledTableCell, StyledTableRow } from "../styles";
 
 // ========================================================================
 type Props = { customer: any };
-// ========================================================================
-
-export default function CustomerRow({ customer }: Props) {
   const { email, name, phone, avatar, balance, orders } = customer;
 
   const STYLE = { fontWeight: 400 };

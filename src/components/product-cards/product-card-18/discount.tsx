@@ -20,8 +20,6 @@ const StyledChip = styled(Chip, {
   ...(shape === "square" && { borderRadius: 0 })
 }));
 
-// ==============================================================
-interface Props extends ChipProps {
   discount: number;
   shape?: "rounded" | "square";
 }

@@ -14,9 +14,6 @@ import { StyledRoot, StyledGrid, ContentWrapper, GridItemTwo, CarouselButton } f
 
 // ==========================================================
 type Props = { carouselData: GiftCarouselItem[] };
-// ==========================================================
-
-export default function Section1({ carouselData }: Props) {
   const theme = useTheme();
   const { ref, api, dots } = useCarousel();
 

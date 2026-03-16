@@ -4,9 +4,6 @@ import { StyledButton, StyledHeadingRoot } from "./styles";
 
 // ==============================================================
 type Props = { title: string };
-// ==============================================================
-
-export default function Heading({ title }: Props) {
   return (
     <StyledHeadingRoot>
       <h2 className="title">{title}</h2>

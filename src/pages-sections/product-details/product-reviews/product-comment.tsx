@@ -7,17 +7,12 @@ import FlexBox from "components/flex-box/flex-box";
 // CUSTOM UTILS LIBRARY FUNCTION
 import { getDateDifference } from "lib";
 
-// ===========================================================
-interface Props {
   name: string;
   date: string;
   imgUrl: string;
   rating: number;
   comment: string;
 }
-// ===========================================================
-
-export default function ProductComment(props: Props) {
   const { name, imgUrl, rating, date, comment } = props;
 
   return (

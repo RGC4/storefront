@@ -38,8 +38,6 @@ const StyledRoot = styled("div")(({ theme }) => ({
   }
 }));
 
-// ==============================================================
-interface WithButton {
   Icon?: never;
   href?: string;
   title: string;
@@ -52,9 +50,6 @@ interface WithoutButton {
 }
 
 type Props = WithoutButton | WithButton;
-// ==============================================================
-
-export default function DashboardHeader({ title, href, Icon }: Props) {
   return (
     <StyledRoot>
       <div className="left">

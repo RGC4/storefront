@@ -18,9 +18,6 @@ import { Menu } from "models/Navigation.model";
 
 // ==============================================================
 type Props = { navigation: Menu[] };
-// ==============================================================
-
-export function MobileMenu({ navigation }: Props) {
   const [openDrawer, setOpenDrawer] = useState(false);
   const handleClose = useCallback(() => setOpenDrawer(false), []);
   const handleOpen = useCallback(() => setOpenDrawer(true), []);

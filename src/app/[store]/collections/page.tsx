@@ -35,10 +35,7 @@ async function shopifyFetch(query: string, variables?: any) {
       cache: "no-store",
     }
   );
-<<<<<<< HEAD
-=======
 
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
   const json = await res.json();
   return json.data;
 }
@@ -46,19 +43,10 @@ async function shopifyFetch(query: string, variables?: any) {
 export default async function CollectionsIndex({
   params,
 }: {
-<<<<<<< HEAD
-  params: Promise<{ store: string }>;
-}) {
-  const { store } = await params;
-
-  const data = await shopifyFetch(STOREFRONT_QUERY, {
-    handle: store,
-=======
   params: { store: string };
 }) {
   const data = await shopifyFetch(STOREFRONT_QUERY, {
     handle: params.store,
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
   });
 
   const meta = data?.metaobject;
@@ -88,11 +76,7 @@ export default async function CollectionsIndex({
         {collections.map((c: any) => (
           <Link
             key={c.handle}
-<<<<<<< HEAD
-            href={`/${store}/collections/${c.handle}`}
-=======
             href={`/${params.store}/collections/${c.handle}`}
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
             style={{
               textDecoration: "none",
               border: "1px solid #eee",
@@ -108,20 +92,12 @@ export default async function CollectionsIndex({
                 style={{ width: "100%", borderRadius: 8 }}
               />
             )}
-<<<<<<< HEAD
-            <div style={{ marginTop: 8, fontWeight: 600 }}>{c.title}</div>
-=======
             <div style={{ marginTop: 8, fontWeight: 600 }}>
               {c.title}
             </div>
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
           </Link>
         ))}
       </div>
     </main>
   );
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b

@@ -19,9 +19,6 @@ import LayoutModel from "models/Layout.model";
 
 // ==============================================================
 type Props = { data: LayoutModel };
-// ==============================================================
-
-export default function MobileCategoriesPageView({ data }: Props) {
   const { header, mobileNavigation } = data;
 
   const router = useRouter();

@@ -10,15 +10,10 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import SearchInput from "components/SearchInput";
 import FlexBox from "components/flex-box/flex-box";
 
-// ===============================================================
-interface Props {
   url: string;
   buttonText: string;
   searchPlaceholder: string;
 }
-// ===============================================================
-
-export default function SearchArea({
   url = "/",
   buttonText = "Add Product",
   searchPlaceholder = "Search Product..."

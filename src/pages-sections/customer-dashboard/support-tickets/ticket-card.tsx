@@ -13,9 +13,6 @@ import Ticket from "models/Ticket.model";
 
 // ==============================================================
 type Props = { ticket: Ticket };
-// ==============================================================
-
-export default function TicketCard({ ticket }: Props) {
   const { id, slug, title, type, status, date, category } = ticket;
 
   return (
