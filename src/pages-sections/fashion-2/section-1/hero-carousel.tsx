@@ -10,17 +10,17 @@ const SLIDES = [
   {
     src: `/assets/stores/${STORE_ID}/videos/hero-1.mp4`,
     headline: "Authentic Italian - designer purses and handbags.",
-    subheadline: "Luxury that bBelongs in the spotlight.",
+    subheadline: "Luxury that Belongs in the spotlight.",
   },
   {
     src: `/assets/stores/${STORE_ID}/videos/hero-2.mp4`,
     headline: "Style that turns moments with friends into lasting memories.",
-    subheadline: "Unforgetable moments are priceless.",
+    subheadline: "Unforgetable Moments are Priceless.",
   },
   {
     src: `/assets/stores/${STORE_ID}/videos/hero-3.mp4`,
     headline: "Genuine Italian Leather. Exceptional Craftsmanship.",
-    subheadline: "Exceptional service on every order, every time.",
+    subheadline: "Exceptional Service on Every order, Every time.",
   },
 ];
 
