@@ -14,9 +14,6 @@ import { CartItem as CartModel } from "contexts/CartContext";
 
 // =========================================================
 type Props = { item: CartModel };
-// =========================================================
-
-export default function CartItem({ item }: Props) {
   const { id, title, price, thumbnail, slug, qty } = item;
 
   const { dispatch } = useCart();

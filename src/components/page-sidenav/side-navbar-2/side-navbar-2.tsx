@@ -14,9 +14,6 @@ import { Category } from "models/Common";
 
 // ==============================================================
 type Props = { navigation: Category[] };
-// ==============================================================
-
-export default function SideNavbarTwo({ navigation }: Props) {
   const pathname = usePathname();
 
   const renderLevels = (data: Category[]) => {

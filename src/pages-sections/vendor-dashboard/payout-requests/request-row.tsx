@@ -9,9 +9,6 @@ import { Request } from "./types";
 
 // ==============================================================
 type Props = { request: Request };
-// ==============================================================
-
-export default function RequestRow({ request }: Props) {
   const { no, seller, shopName, totalAmount, requestAmount, date, status } = request;
 
   return (

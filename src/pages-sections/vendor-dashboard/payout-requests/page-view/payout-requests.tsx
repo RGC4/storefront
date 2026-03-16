@@ -20,9 +20,6 @@ import { Request } from "../types";
 
 // =============================================================================
 type Props = { requests: Request[] };
-// =============================================================================
-
-export default function PayoutRequestsPageView({ requests }: Props) {
   const { order, orderBy, rowsPerPage, filteredList, handleChangePage, handleRequestSort } =
     useMuiTable({ listData: requests, defaultSort: "no" });
 

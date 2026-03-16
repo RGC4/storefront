@@ -4,8 +4,6 @@ import { BoxProps } from "@mui/material/Box";
 // GLOBAL CUSTOM COMPONENTS
 import FlexBox from "components/flex-box/flex-box";
 
-// ==============================================================
-interface Props extends BoxProps {
   rating: number;
   showRating?: boolean;
 }

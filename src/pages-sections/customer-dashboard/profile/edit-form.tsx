@@ -23,9 +23,6 @@ const validationSchema = yup.object().shape({
 
 // ==============================================================
 type Props = { user: User };
-// ==============================================================
-
-export default function ProfileEditForm({ user }: Props) {
   const initialValues = {
     email: user?.email || "",
     contact: user?.phone || "",

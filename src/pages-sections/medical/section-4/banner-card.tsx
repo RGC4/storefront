@@ -4,17 +4,12 @@ import Typography from "@mui/material/Typography";
 // STYLED COMPONENTS
 import { BannerCardWrapper } from "./styles";
 
-// ==============================================================
-interface Props {
   tag: string;
   title: string;
   subTitle: string;
   bgColor?: string;
   ImageComponent: ReactNode;
 }
-// ==============================================================
-
-export default function BannerCard({ ImageComponent, tag, title, subTitle, bgColor }: Props) {
   return (
     <BannerCardWrapper bgColor={bgColor}>
       <div className="content">

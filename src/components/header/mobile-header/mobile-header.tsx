@@ -3,11 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import Box from "@mui/material/Box";
 
-// ==============================================================
-interface MobileHeaderProps extends ComponentProps<typeof Box> {}
-// ==============================================================
-
-export function MobileHeader({ children, ...props }: MobileHeaderProps) {
   return (
     <Box display="flex" alignItems="center" justifyContent="space-between" width="100%" {...props}>
       {children}
@@ -15,8 +10,6 @@ export function MobileHeader({ children, ...props }: MobileHeaderProps) {
   );
 }
 
-// ==================================================================
-interface MobileHeaderLeftProps extends ComponentProps<typeof Box> {}
 // ==================================================================
 
 MobileHeader.Left = function ({ children, ...props }: MobileHeaderLeftProps) {
@@ -35,8 +28,6 @@ MobileHeader.Logo = function ({ logoUrl }: { logoUrl: string }) {
   );
 };
 
-// ==================================================================
-interface MobileHeaderRightProps extends ComponentProps<typeof Box> {}
 // ==================================================================
 
 MobileHeader.Right = function ({ children, ...props }: MobileHeaderRightProps) {

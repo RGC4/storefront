@@ -12,8 +12,6 @@ export const metadata: Metadata = {
   keywords: ["e-commerce", "e-commerce template", "next.js", "react"]
 };
 
-// ==============================================================
-interface Props {
   searchParams: Promise<{
     q: string;
     sale: string;
@@ -26,9 +24,6 @@ interface Props {
     category: string;
   }>;
 }
-// ==============================================================
-
-export default async function ProductSearch({ searchParams }: Props) {
   const { q, page, sort, sale, prices, colors, brands, rating, category } = await searchParams;
 
   const [filters, data] = await Promise.all([

@@ -9,14 +9,9 @@ import { CategoryMenuItem } from "models/Navigation.model";
 // STYLED COMPONENTS
 import { Wrapper, StyledCard, CategoryList, MenusContainer, CategoryListItem } from "./styles";
 
-// ===============================================================
-interface Props {
   title: string;
   menuList: CategoryMenuItem[];
 }
-// ===============================================================
-
-export function CategoryBasedMenu({ title, menuList }: Props) {
   const [selected, setSelected] = useState(menuList[0].title);
 
   const list = menuList.reduce<string[]>((prev, curr) => [...prev, curr.title], []);

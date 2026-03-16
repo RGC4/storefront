@@ -14,13 +14,8 @@ import Product from "models/Product.model";
 // CUSTOM UTILS FUNCTION
 import { calculateDiscount, currency } from "lib";
 
-// ========================================================
-interface Props {
   product: Product;
 }
-// ========================================================
-
-export default function ProductCard18({ product }: Props) {
   const { slug, title, price, thumbnail, images, discount } = product;
 
   const hasDiscount = discount > 0;

@@ -9,9 +9,6 @@ import User from "models/User.model";
 
 // ============================================================
 type Props = { user: User };
-// ============================================================
-
-export function ProfilePageView({ user }: Props) {
   return (
     <Fragment>
       <DashboardHeader title="My Profile" Icon={User3} />

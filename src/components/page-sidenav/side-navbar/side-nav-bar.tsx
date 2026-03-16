@@ -11,17 +11,12 @@ import { BorderBox, ColorBorder, NavbarRoot } from "./styles";
 // CUSTOM DATA MODEL
 import CategoryNavList from "models/CategoryNavList.model";
 
-// ==================================================================
-interface Props {
   navList: CategoryNavList[];
   sx?: SxProps<Theme>;
   line?: "dash" | "solid";
   variant?: "transparent" | "colored";
 }
 
-// ==================================================================
-
-export default function SideNavbar({
   sx,
   navList,
   line = "solid",

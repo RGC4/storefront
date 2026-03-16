@@ -11,9 +11,6 @@ import Address from "models/Address.model";
 
 // ==============================================================
 type Props = { address: Address };
-// ==============================================================
-
-export default function AddressListItem({ address }: Props) {
   return (
     <Link href={`/address/${address.id}`}>
       <TableRow elevation={0}>

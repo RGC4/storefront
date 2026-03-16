@@ -39,13 +39,8 @@ const INPUT_PROPS = {
   )
 };
 
-// ==============================================================
-interface Props {
   categories: CategoryLink[];
 }
-// ==============================================================
-
-export function SearchInput1({ categories }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [search, setSearch] = useState("");

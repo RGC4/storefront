@@ -5,15 +5,10 @@ import ProductsCarousel from "./products-carousel";
 // CUSTOM DATA MODEL
 import Product from "models/Product.model";
 
-// ====================================================
-interface Props {
   heading: string;
   description: string;
   products: Product[];
 }
-// ====================================================
-
-export default function Section3({ products, heading, description }: Props) {
   if (!products || !products.length) return null;
 
   return (

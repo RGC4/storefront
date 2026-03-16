@@ -15,14 +15,9 @@ const StyledRoot = styled("div")(() => ({
   "& .MuiTypography-root": { marginBottom: "1rem" }
 }));
 
-// ==============================================================
-interface Props {
   reset: () => void;
   error: Error & { digest?: string };
 }
-// ==============================================================
-
-export default function Error({ error, reset }: Props) {
   console.log(error, error.message);
 
   return (

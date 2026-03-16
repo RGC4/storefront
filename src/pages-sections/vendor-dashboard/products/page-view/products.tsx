@@ -29,9 +29,6 @@ const tableHeading = [
 
 // =============================================================================
 type Props = { products: Product[] };
-// =============================================================================
-
-export default function ProductsPageView({ products }: Props) {
   // RESHAPE THE PRODUCT LIST BASED TABLE HEAD CELL ID
   const reshapedProducts = products.map((item) => ({
     id: item.id,

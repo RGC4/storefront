@@ -12,14 +12,9 @@ import { Wrapper } from "./styles";
 // CUSTOM DATA MODEL
 import Product from "models/Product.model";
 
-// ===========================================
-interface Props {
   title: string;
   products: Product[];
 }
-// ===========================================
-
-export default function ListBlock({ title, products }: Props) {
   return (
     <Fragment>
       <Typography variant="h3" sx={{ mb: "1.5rem" }}>

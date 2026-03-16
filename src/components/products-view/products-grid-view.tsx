@@ -6,9 +6,6 @@ import Product from "models/Product.model";
 
 // ========================================================
 type Props = { products: Product[] };
-// ========================================================
-
-export default function ProductsGridView({ products }: Props) {
   return (
     <Grid container spacing={3}>
       {products.map((product: Product) => (

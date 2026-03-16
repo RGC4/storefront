@@ -5,16 +5,11 @@ import { NavLink3 } from "components/nav-link";
 // STYLED COMPONENTS
 import { RootStyle, ImageBox, DateBox } from "./styles";
 
-// =====================================================
-interface Props {
   date: string;
   image: string;
   title: string;
   description: string;
 }
-// =====================================================
-
-export default function BlogCard({ image, title, date, description }: Props) {
   return (
     <RootStyle>
       <ImageBox>

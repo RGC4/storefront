@@ -34,10 +34,7 @@ async function shopifyFetch(query: string, variables?: any) {
       cache: "no-store",
     }
   );
-<<<<<<< HEAD
-=======
 
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
   const json = await res.json();
   return json.data;
 }
@@ -45,19 +42,11 @@ async function shopifyFetch(query: string, variables?: any) {
 export default async function CollectionPage({
   params,
 }: {
-<<<<<<< HEAD
-  params: Promise<{ store: string; handle: string }>;
-}) {
-  const { store, handle } = await params;
-
-  const data = await shopifyFetch(COLLECTION_QUERY, { handle });
-=======
   params: { store: string; handle: string };
 }) {
   const data = await shopifyFetch(COLLECTION_QUERY, {
     handle: params.handle,
   });
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
 
   const collection = data?.collectionByHandle;
   if (!collection) return notFound();
@@ -69,13 +58,9 @@ export default async function CollectionPage({
 
   return (
     <main style={{ maxWidth: 1200, margin: "0 auto", padding: 24 }}>
-<<<<<<< HEAD
-      <Link href={`/${store}/collections`}>← Back to collections</Link>
-=======
       <Link href={`/${params.store}/collections`}>
         ← Back to collections
       </Link>
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
 
       <h1 style={{ marginTop: 16 }}>{collection.title}</h1>
 
@@ -90,11 +75,7 @@ export default async function CollectionPage({
         {products.map((p: any) => (
           <Link
             key={p.id}
-<<<<<<< HEAD
-            href={`/${store}/products/${p.handle}`}
-=======
             href={`/${params.store}/products/${p.handle}`}
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
             style={{
               textDecoration: "none",
               border: "1px solid #eee",
@@ -110,20 +91,12 @@ export default async function CollectionPage({
                 style={{ width: "100%", borderRadius: 8 }}
               />
             )}
-<<<<<<< HEAD
-            <div style={{ marginTop: 8, fontWeight: 600 }}>{p.title}</div>
-=======
             <div style={{ marginTop: 8, fontWeight: 600 }}>
               {p.title}
             </div>
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
           </Link>
         ))}
       </div>
     </main>
   );
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b

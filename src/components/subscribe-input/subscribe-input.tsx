@@ -3,15 +3,10 @@ import TextField, { TextFieldProps } from "@mui/material/TextField";
 // STYLED COMPONENT
 import { StyledButton } from "./styles";
 
-// ==============================================================
-interface Props {
   buttonText?: string;
   inputSx?: SxProps<Theme>;
   buttonSx?: SxProps<Theme>;
 }
-// ==============================================================
-
-export default function SubscribeInput({
   fullWidth,
   slotProps,
   inputSx,

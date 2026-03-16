@@ -22,13 +22,8 @@ import { Header, HeaderCart, HeaderLogin, HeaderSearch, MobileHeader } from "com
 // CUSTOM DATA MODEL
 import LayoutModel from "models/Layout.model";
 
-// ==============================================================
-interface Props extends PropsWithChildren {
   data: LayoutModel;
 }
-// ==============================================================
-
-export default function SalesLayout({ children, data }: Props) {
   const { header, topbar, mobileNavigation, footer } = data;
 
   const MOBILE_VERSION_HEADER = (

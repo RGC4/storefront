@@ -6,8 +6,6 @@ import ArrowDropDown from "@mui/icons-material/ArrowDropDown";
 // GLOBAL CUSTOM COMPONENTS
 import { FlexBetween, FlexBox } from "components/flex-box";
 
-// ========================================================
-interface Props {
   color: string;
   title: string;
   status?: "up" | "down";
@@ -15,9 +13,6 @@ interface Props {
   amount2: string | number;
   percentage: string | number;
 }
-// ========================================================
-
-export default function Card1(props: Props) {
   const { title, amount1, amount2, percentage, status = "up", color = "info.main" } = props;
 
   return (

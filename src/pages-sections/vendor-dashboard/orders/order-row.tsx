@@ -10,9 +10,6 @@ import { StatusWrapper, StyledIconButton, StyledTableCell, StyledTableRow } from
 
 // ========================================================================
 type Props = { order: any };
-// ========================================================================
-
-export default function OrderRow({ order }: Props) {
   const { amount, id, qty, purchaseDate, billingAddress, status } = order;
 
   return (

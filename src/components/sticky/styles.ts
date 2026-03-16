@@ -1,7 +1,5 @@
 import { keyframes, styled } from "@mui/material/styles";
 
-// ==============================================================
-interface Props {
   fixed?: boolean;
   fixedOn?: number;
   componentHeight?: number;

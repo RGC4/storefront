@@ -7,14 +7,9 @@ import { FlexBetween, FlexBox } from "components/flex-box";
 // CUSTOM UTILS LIBRARY FUNCTION
 import { currency } from "lib";
 
-// ==============================================================
-interface Props {
   total: number;
   discount: number;
 }
-// ==============================================================
-
-export default function TotalSummery({ total, discount }: Props) {
   return (
     <Card sx={{ px: 3, py: 4 }}>
       <Typography variant="h5" sx={{ mb: 2 }}>

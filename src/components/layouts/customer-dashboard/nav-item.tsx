@@ -21,16 +21,11 @@ const icons = {
   CreditCard
 };
 
-// ==============================================================
-interface Item {
   icon: string;
   href: string;
   title: string;
   count?: number;
 }
-// ==============================================================
-
-export default function NavItem({ item }: { item: Item }) {
   const { href, icon, title, count } = item;
 
   const pathname = usePathname();

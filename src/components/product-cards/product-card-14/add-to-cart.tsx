@@ -9,9 +9,6 @@ import { StyledButton } from "./styles";
 
 // ==============================================================
 type Props = { product: Product };
-// ==============================================================
-
-export default function AddToCart({ product }: Props) {
   const { id, slug, title, thumbnail, price } = product;
 
   const [isLoading, setIsLoading] = useState(false);

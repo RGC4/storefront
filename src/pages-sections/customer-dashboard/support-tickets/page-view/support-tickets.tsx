@@ -7,14 +7,9 @@ import DashboardHeader from "../../dashboard-header";
 // CUSTOM DATA MODEL
 import Ticket from "models/Ticket.model";
 
-// =============================================
-interface Props {
   tickets: Ticket[];
   totalPages: number;
 }
-// =============================================
-
-export function TicketsPageView({ tickets, totalPages }: Props) {
   return (
     <Fragment>
       <DashboardHeader title="Support Ticket" Icon={Headset} />

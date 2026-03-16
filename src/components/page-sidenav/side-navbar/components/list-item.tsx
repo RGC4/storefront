@@ -10,9 +10,6 @@ import { CategoryNavItem } from "models/CategoryNavList.model";
 
 // ==============================================================
 type Props = { item: CategoryNavItem };
-// ==============================================================
-
-export default function ListItem({ item }: Props) {
   const { category } = useParams();
 
   return (

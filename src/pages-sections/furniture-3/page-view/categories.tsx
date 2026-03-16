@@ -8,9 +8,6 @@ import api from "utils/__api__/furniture-3";
 
 // ==============================================================
 type Props = { slug: string };
-// ==============================================================
-
-export default async function FurnitureThreeCategoriesPageView({ slug }: Props) {
   const [products, breadcrumb] = await Promise.all([
     api.getAllProductsBySlug(),
     api.getBreadcrumb(slug)

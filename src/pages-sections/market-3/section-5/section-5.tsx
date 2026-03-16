@@ -13,9 +13,6 @@ import { StyledCard, StyledListItem } from "./styles";
 
 // ======================================================================
 type Props = { data: CategoryBasedProducts };
-// ======================================================================
-
-export default function Section5({ data }: Props) {
   if (!data) return null;
   const { category, products } = data;
 

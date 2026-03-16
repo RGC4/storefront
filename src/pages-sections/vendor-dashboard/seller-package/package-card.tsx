@@ -36,9 +36,6 @@ const PackageHeading = styled("h1")(({ theme }) => ({
 
 // ===================================================
 type Props = { listItem: PackageItem };
-// ===================================================
-
-export default function SellerPackageCard({ listItem }: Props) {
   const { packageName, price, icon, features = [] } = listItem;
 
   return (

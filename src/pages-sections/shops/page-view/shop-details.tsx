@@ -18,9 +18,6 @@ import Filters from "models/Filters";
 
 // ============================================================
 type Props = { shop: Shop; filters: Filters };
-// ============================================================
-
-export default function ShopDetailsPageView({ shop, filters }: Props) {
   return (
     <Container className="mt-2 mb-3">
       {/* SHOP INTRODUCTION AREA */}

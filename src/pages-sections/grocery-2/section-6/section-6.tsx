@@ -8,9 +8,6 @@ import Product from "models/Product.model";
 
 // =======================================================
 type Props = { title: string; products: Product[] };
-// =======================================================
-
-export default function Section6({ products, title }: Props) {
   return (
     <div className="mb-3">
       <Typography variant="h2" sx={{ mb: 3 }}>

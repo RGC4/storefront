@@ -17,14 +17,9 @@ const StyledLink = styled(Link, {
   ":hover": { color: `${theme.palette.primary.main} !important` }
 }));
 
-// ==============================================================
-export interface NavLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
   className?: string;
 }
-// ==============================================================
-
-export function NavLink({ href, children, style, className, ...props }: NavLinkProps) {
   const pathname = usePathname();
 
   const isActive = useMemo(() => {

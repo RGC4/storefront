@@ -18,9 +18,6 @@ import Shop from "models/Shop.model";
 
 // =======================================================
 type Props = { shop: Shop };
-// =======================================================
-
-export default function ShopIntroCard({ shop }: Props) {
   const { name, phone, address, coverPicture, profilePicture, socialLinks } = shop;
 
   const socials = [

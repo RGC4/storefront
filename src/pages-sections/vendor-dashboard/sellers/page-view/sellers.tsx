@@ -21,9 +21,6 @@ import { Seller } from "../types";
 
 // =============================================================================
 type Props = { sellers: Seller[] };
-// =============================================================================
-
-export default function SellersPageView({ sellers }: Props) {
   const { order, orderBy, rowsPerPage, filteredList, handleChangePage, handleRequestSort } =
     useMuiTable({ listData: sellers });
 

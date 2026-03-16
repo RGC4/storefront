@@ -10,9 +10,6 @@ import Product from "models/Product.model";
 
 // ==============================================================
 type Props = { product: Product };
-// ==============================================================
-
-export default function AddToCart({ product }: Props) {
   const { slug, id, price, thumbnail, title } = product;
 
   const { dispatch } = useCart();

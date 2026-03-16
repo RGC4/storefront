@@ -7,14 +7,9 @@ import Typography from "@mui/material/Typography";
 // DROPZONE
 import { useDropzone } from "react-dropzone";
 
-// ========================================================
-interface Props {
   info?: string;
   onChange: (files: File[]) => void;
 }
-// ========================================================
-
-export default function DropZone({ onChange, info }: Props) {
   const onDrop = useCallback((acceptedFiles: File[]) => onChange(acceptedFiles), [onChange]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({

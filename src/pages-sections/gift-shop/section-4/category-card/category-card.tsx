@@ -3,15 +3,10 @@ import Typography from "@mui/material/Typography";
 // STYLED COMPONENTS
 import { ImageWrapper, StyledRoot } from "./styles";
 
-// ===================================================
-interface Props {
   title: string;
   imgUrl: string;
   available: string;
 }
-// ===================================================
-
-export default function CategoryCard({ imgUrl, title, available }: Props) {
   return (
     <StyledRoot>
       <ImageWrapper>

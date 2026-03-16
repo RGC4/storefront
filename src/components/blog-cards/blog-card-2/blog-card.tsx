@@ -7,8 +7,6 @@ import IconLink from "components/icon-link";
 // STYLED COMPONENTS
 import { ContentWrapper, ImageContainer, StyledRoot } from "./styles";
 
-// ==============================================================
-interface Props {
   date: string;
   title: string;
   thumbnail: string;

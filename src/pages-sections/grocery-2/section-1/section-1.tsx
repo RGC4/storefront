@@ -10,9 +10,6 @@ import { GridItemOne, GridItemTwo, StyledRoot, StyledGrid } from "./styles";
 
 // ========================================================================
 type Props = { carouselData: GroceryTwoCarouselItem[] };
-// ========================================================================
-
-export default function Section1({ carouselData }: Props) {
   return (
     <StyledRoot className="mb-3">
       <HeroCarousel>

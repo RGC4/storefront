@@ -20,9 +20,6 @@ interface Props {
   order: "asc" | "desc";
   onRequestSort: (id: string) => void;
 }
-// ==============================================================
-
-export default function TableHeader({ order, heading, orderBy, onRequestSort }: Props) {
   return (
     <TableHead sx={{ backgroundColor: "grey.50" }}>
       <TableRow>

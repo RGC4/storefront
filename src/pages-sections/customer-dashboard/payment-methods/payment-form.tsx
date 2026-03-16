@@ -20,9 +20,6 @@ const validationSchema = yup.object().shape({
 
 // ==============================================================
 type Props = { payment: Payment };
-// ==============================================================
-
-export default function PaymentForm({ payment }: Props) {
   const initialValues = {
     exp: payment?.exp || "",
     cvc: payment?.cvc || "",

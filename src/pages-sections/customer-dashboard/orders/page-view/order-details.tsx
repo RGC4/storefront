@@ -9,9 +9,6 @@ import Order from "models/Order.model";
 
 // =============================================================
 type Props = { order: Order };
-// =============================================================
-
-export function OrderDetailsPageView({ order }: Props) {
   return (
     <Fragment>
       <DashboardHeader href="/orders" title="Order Details" />

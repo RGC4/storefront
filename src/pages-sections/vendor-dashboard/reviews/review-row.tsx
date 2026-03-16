@@ -13,9 +13,6 @@ import { Review } from "./types";
 
 // =============================================================================
 type Props = { review: Review };
-// =============================================================================
-
-export default function ReviewRow({ review }: Props) {
   const { image, name, customer, comment, rating } = review;
 
   return (

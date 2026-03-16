@@ -3,8 +3,6 @@ import NavbarCategoryDropdown from "./category-dropdown";
 import { StyledRoot, InnerContainer } from "./styles";
 
 // =========================================================================
-interface SecondaryHeaderProps extends ComponentProps<typeof StyledRoot> {}
-// =========================================================================
 
 export function SecondaryHeader({ elevation = 2, border = 0, children }: SecondaryHeaderProps) {
   return (

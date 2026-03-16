@@ -7,14 +7,9 @@ import DashboardHeader from "../../dashboard-header";
 // CUSTOM DATA MODEL
 import Address from "models/Address.model";
 
-// =======================================================
-interface Props {
   totalPages: number;
   addresses: Address[];
 }
-// =======================================================
-
-export function AddressPageView({ addresses, totalPages }: Props) {
   return (
     <Fragment>
       <DashboardHeader Icon={Location} title="My Addresses" />

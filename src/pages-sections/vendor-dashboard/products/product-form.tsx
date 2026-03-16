@@ -35,11 +35,6 @@ const validationSchema = yup.object({
 
 type FormValues = yup.InferType<typeof validationSchema>;
 
-// ================================================================
-interface Props {}
-// ================================================================
-
-export default function ProductForm(props: Props) {
   const [files, setFiles] = useState<PreviewFile[]>([]);
 
   const initialValues: FormValues = {

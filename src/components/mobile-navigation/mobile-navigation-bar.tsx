@@ -12,9 +12,6 @@ import { MobileNavItem } from "models/Layout.model";
 
 // ==============================================================
 type Props = { navigation: MobileNavItem[] };
-// ==============================================================
-
-export function MobileNavigationBar({ navigation }: Props) {
   const { state } = useCart();
 
   return (

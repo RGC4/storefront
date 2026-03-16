@@ -9,13 +9,8 @@ import { Header, HeaderCart, HeaderLogin, MobileHeader, HeaderSearch } from "com
 // CUSTOM DATA MODEL
 import LayoutModel from "models/Layout.model";
 
-// ==============================================================
-interface LayoutProps extends PropsWithChildren {
   data: LayoutModel;
 }
-// ==============================================================
-
-export default function ShopLayout2({ children, data }: LayoutProps) {
   const { header, topbar, mobileNavigation } = data;
 
   const MOBILE_VERSION_HEADER = (

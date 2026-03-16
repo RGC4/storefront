@@ -10,8 +10,6 @@ import BazaarSwitch from "components/BazaarSwitch";
 // STYLED COMPONENTS
 import { StyledTableRow, CategoryWrapper, StyledTableCell, StyledIconButton } from "../styles";
 
-// ========================================================================
-interface Category {
   id: string;
   name: string;
   slug: string;
@@ -21,9 +19,6 @@ interface Category {
 }
 
 type Props = { category: Category };
-// ========================================================================
-
-export default function CategoryRow({ category }: Props) {
   const { image, name, level, featured, id, slug } = category;
 
   const [featuredCategory, setFeaturedCategory] = useState(featured);

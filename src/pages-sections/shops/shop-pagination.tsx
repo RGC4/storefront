@@ -6,16 +6,11 @@ import Typography from "@mui/material/Typography";
 // GLOBAL CUSTOM COMPONENTS
 import FlexBetween from "components/flex-box/flex-between";
 
-// ==============================================================
-interface Props {
   totalShops: number;
   totalPages: number;
   lastIndex: number;
   firstIndex: number;
 }
-// ==============================================================
-
-export default function ShopPagination({ totalShops, totalPages, firstIndex, lastIndex }: Props) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();

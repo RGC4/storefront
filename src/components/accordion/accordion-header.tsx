@@ -2,14 +2,9 @@ import type { ComponentProps } from "react";
 import ChevronRight from "icons/ChevronRight";
 import { RootContainer } from "./styles";
 
-// =================================================================
-interface AccordionHeaderProps extends ComponentProps<typeof RootContainer> {
   open?: boolean;
   showIcon?: boolean;
 }
-// =================================================================
-
-export default function AccordionHeader({
   sx,
   ref,
   children,

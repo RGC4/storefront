@@ -9,9 +9,6 @@ import Product from "models/Product.model";
 
 // ===================================================================
 type Props = { heading: string; products: Product[] };
-// ===================================================================
-
-export default function Section4({ heading, products }: Props) {
   return (
     <div>
       <Typography variant="h1">{heading}</Typography>
