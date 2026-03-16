@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import Box from "@mui/material/Box";
@@ -66,7 +66,7 @@ export default function CTASection() {
           </Box>
 
           <PrimaryButton size="large" sx={{ px: 5, py: 2, fontSize: "1.2rem" }}>
-            🚀 Get Bazaar Now
+            ðŸš€ Get Bazaar Now
           </PrimaryButton>
 
           {/* Stats Grid */}
@@ -93,7 +93,7 @@ export default function CTASection() {
 
             <Box textAlign="center">
               <Typography variant="h3" fontWeight={700} color="primary.main">
-                4.5 ★
+                4.5 â˜…
               </Typography>
 
               <Typography variant="body1" color="text.secondary">
@@ -121,15 +121,15 @@ export default function CTASection() {
             flexDirection={{ xs: "column", sm: "row" }}
           >
             <Typography variant="body2" color="text.secondary">
-              💰 Unbeatable value for your purchase
+              ðŸ’° Unbeatable value for your purchase
             </Typography>
 
             <Typography variant="body2" color="text.secondary">
-              🔒 Secure payment
+              ðŸ”’ Secure payment
             </Typography>
 
             <Typography variant="body2" color="text.secondary">
-              ⚡ Instant download
+              âš¡ Instant download
             </Typography>
           </Box>
         </CTAContainer>
@@ -137,3 +137,4 @@ export default function CTASection() {
     </StyledRoot>
   );
 }
+

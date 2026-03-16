@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Box from "@mui/material/Box";
@@ -19,7 +19,7 @@ const TESTIMONIALS = [
     avatar: "/assets/images/faces/1.jpg",
     rating: 5,
     testimonial:
-      "Bazaar saved us months of development time. The code quality is exceptional and the design is absolutely stunning. Our e-commerce site looks professional and modern."
+      "Prestige Apparel Group saved us months of development time. The code quality is exceptional and the design is absolutely stunning. Our e-commerce site looks professional and modern."
   },
   {
     id: 2,
@@ -144,3 +144,4 @@ export default function Testimonials() {
     </TestimonialsSection>
   );
 }
+

@@ -1,4 +1,4 @@
-import Switch, { SwitchProps } from "@mui/material/Switch";
+﻿import Switch, { SwitchProps } from "@mui/material/Switch";
 import { styled } from "@mui/material/styles";
 
 // STYLED COMPONENT
@@ -35,3 +35,4 @@ const StyledSwitch = styled(Switch)(({ theme }) => ({
 export default function BazaarSwitch(props: SwitchProps) {
   return <StyledSwitch {...props} />;
 }
+

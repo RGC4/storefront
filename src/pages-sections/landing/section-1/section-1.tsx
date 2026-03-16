@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
@@ -29,7 +29,7 @@ export default function Section1() {
             {/* Trust Indicator Badge */}
             <TrustIndicators>
               <Chip
-                label="🔥 Trusted by 1,900+ developers"
+                label="ðŸ”¥ Trusted by 1,900+ developers"
                 variant="filled"
                 sx={{
                   fontWeight: 600,
@@ -107,7 +107,7 @@ export default function Section1() {
                     textTransform: "none"
                   }}
                 >
-                  🚀 Get Bazaar Pro
+                  ðŸš€ Get Bazaar Pro
                 </PulseButton>
               </a>
 
@@ -214,3 +214,4 @@ export default function Section1() {
     </HeroSection>
   );
 }
+

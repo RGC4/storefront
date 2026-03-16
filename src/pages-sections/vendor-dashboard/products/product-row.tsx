@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import Box from "@mui/material/Box";
@@ -92,3 +92,4 @@ export default function ProductRow({ product }: Props) {
     </StyledTableRow>
   );
 }
+

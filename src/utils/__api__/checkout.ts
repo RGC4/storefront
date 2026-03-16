@@ -1,4 +1,4 @@
-import { cache } from "react";
+﻿import { cache } from "react";
 import { DeliveryTime, DeliveryAddress, PaymentCard } from "models/Common";
 
 const DUMMY_ADDRESS_LIST = [
@@ -65,3 +65,4 @@ export const getDeliveryTimes = cache(async (): Promise<DeliveryTime[]> => {
 export const getCards = cache(async (): Promise<PaymentCard[]> => {
   return CARD_LIST;
 });
+

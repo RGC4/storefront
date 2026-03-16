@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -92,3 +92,4 @@ const demos = [
   { id: 8, path: "/gift-shop", img: "/assets/images/landing/gift-shop.png" },
   { id: 11, path: "/health-beauty", img: "/assets/images/landing/healthbeauty.png" }
 ];
+

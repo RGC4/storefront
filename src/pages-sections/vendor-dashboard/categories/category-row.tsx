@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
@@ -72,3 +72,4 @@ export default function CategoryRow({ category }: Props) {
     </StyledTableRow>
   );
 }
+

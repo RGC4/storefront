@@ -1,4 +1,4 @@
-import Typography from "@mui/material/Typography";
+﻿import Typography from "@mui/material/Typography";
 // GLOBAL CUSTOM COMPONENTS
 import Container from "components/Container";
 import LazyImage from "components/LazyImage";
@@ -43,3 +43,4 @@ export default function Section9() {
     </Container>
   );
 }
+
