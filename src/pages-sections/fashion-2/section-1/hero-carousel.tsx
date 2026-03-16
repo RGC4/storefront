@@ -9,12 +9,12 @@ const STORE_ID = process.env.NEXT_PUBLIC_STORE_ID || "s1";
 const SLIDES = [
   {
     src: `/assets/stores/${STORE_ID}/videos/hero-1.mp4`,
-    headline: "Authentic Italian - designer purses and handbags.",
+    headline: "Authentic Italian Designer Purses and Handbags.",
     subheadline: "Luxury that Belongs in the spotlight.",
   },
   {
     src: `/assets/stores/${STORE_ID}/videos/hero-2.mp4`,
-    headline: "Style that turns moments with friends into lasting memories.",
+    headline: "Style that Lives in the Moment.",
     subheadline: "Unforgetable Moments are Priceless.",
   },
   {
