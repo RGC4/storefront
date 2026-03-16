@@ -26,3 +26,19 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# filmora and temp video files
+public/assets/stores/s1/videos/Filmora Outputs/
+*.wfp
+*.m4a
+
+# temp and log files
+repomix-output.xml
+*.log
+dump*.txt
+*-current.txt
+test-results.txt
+test-output.txt
+cart-context-current.txt
+minicart-current.txt
+minicart-modal-cu
