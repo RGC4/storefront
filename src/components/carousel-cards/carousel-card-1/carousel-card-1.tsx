@@ -34,10 +34,6 @@ export default function CarouselCard1({
         paddingLeft: "clamp(24px, 5vw, 80px)",
       }}
     >
-<<<<<<< HEAD
-=======
-      {/* Subtle left gradient for text readability */}
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
       <div style={{
         position: "absolute",
         inset: 0,
@@ -87,11 +83,7 @@ export default function CarouselCard1({
               {buttonText}
             </Button>
           </Link>
-<<<<<<< HEAD
           <Link href={buttonLink}>
-=======
-          <Link href="/collections">
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
             <Button
               size="large"
               variant="text"

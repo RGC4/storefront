@@ -43,8 +43,4 @@ export default function Section5() {
       </Grid>
     </Container>
   );
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b

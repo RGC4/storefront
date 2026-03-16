@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Link from "next/link";
@@ -96,36 +95,5 @@ export default function RelatedProducts({ products }: Props) {
         ))}
       </Box>
     </Box>
-=======
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-// GLOBAL CUSTOM COMPONENTS
-import ProductCard1 from "components/product-cards/product-card-1";
-// CUSTOM DATA MODEL
-import Product from "models/Product.model";
-
-// ==============================================================
-type Props = { products: Product[] };
-// ==============================================================
-
-export default function RelatedProducts({ products }: Props) {
-  // IF NO PRODUCTS RETURN NULL
-  if (!products || !products.length) return null;
-
-  return (
-    <div className="mb-4">
-      <Typography variant="h3" sx={{ mb: 3 }}>
-        Related Products
-      </Typography>
-
-      <Grid container spacing={3}>
-        {products.map((product) => (
-          <Grid size={{ lg: 3, md: 4, sm: 6, xs: 12 }} key={product.id}>
-            <ProductCard1 product={product} />
-          </Grid>
-        ))}
-      </Grid>
-    </div>
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
   );
 }

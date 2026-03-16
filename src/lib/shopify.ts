@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 // src/lib/shopify.ts
-=======
-﻿// src/lib/shopify.ts
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
 import { createStorefrontApiClient } from "@shopify/storefront-api-client";
 import { getStoreConfigFromUrlSegment } from "@/lib/storeConfig";
 
@@ -28,8 +24,4 @@ export async function shopifyFetch<T>(
 
   if (errors) throw new Error(`Shopify API Error: ${JSON.stringify(errors)}`);
   return data as T;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b

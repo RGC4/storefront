@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 "use client";
 
 import { useState } from "react";
@@ -10,14 +9,10 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Close from "@mui/icons-material/Close";
-=======
-import Button from "@mui/material/Button";
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
 // LOCAL CUSTOM COMPONENT
 import { RootStyle } from "./styles";
 
 export default function Section7() {
-<<<<<<< HEAD
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -209,20 +204,5 @@ export default function Section7() {
         </DialogContent>
       </Dialog>
     </>
-=======
-  return (
-    <RootStyle>
-      <p className="subtitle">
-        Extra <span color="primary.main">30% Off</span> Online
-      </p>
-
-      <h1 className="title">Summer Season Sale</h1>
-      <p className="description">Free shipping on orders over $99</p>
-
-      <Button variant="contained" size="large" color="dark">
-        Shop Now
-      </Button>
-    </RootStyle>
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
   );
 }

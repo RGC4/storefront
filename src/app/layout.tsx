@@ -3,7 +3,7 @@ import { Geist } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const geist = Geist({
-  subsets: ["latin"]
+  subsets: ["latin"],
 });
 
 import "overlayscrollbars/overlayscrollbars.css";
@@ -24,38 +24,21 @@ import ProgressBar from "components/progress";
 // IMPORT i18n SUPPORT FILE
 import "i18n";
 
-// ==============================================================
-interface RootLayoutProps {
-  children: ReactNode;
-  modal: ReactNode;
-}
-// ==============================================================
-
-export default function RootLayout({ children, modal }: RootLayoutProps) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body id="body" className={geist.className}>
-        <CartProvider>
-          <SettingsProvider>
+    <html lang="en">
+      <body className={geist.className}>
+        <SettingsProvider>
+          <CartProvider>
             <ThemeProvider>
               <RTL>
-                {modal}
+                <ProgressBar />
                 {children}
               </RTL>
-
-              <ProgressBar />
             </ThemeProvider>
-          </SettingsProvider>
-        </CartProvider>
-
-<<<<<<< HEAD
-        {/* GA ID loaded from env — set NEXT_PUBLIC_GA_ID in your .env */}
-        {process.env.NEXT_PUBLIC_GA_ID && (
-          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
-        )}
-=======
-        <GoogleAnalytics gaId="G-XKPD36JXY0" />
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
+          </CartProvider>
+        </SettingsProvider>
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ""} />
       </body>
     </html>
   );

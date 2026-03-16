@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 "use client";
 
 import Card from "@mui/material/Card";
@@ -30,17 +29,6 @@ export default function PaymentSummary() {
   const shipping = subtotal >= 99 ? 0 : 9.99;
   const total = subtotal + shipping;
 
-=======
-import Card from "@mui/material/Card";
-import Divider from "@mui/material/Divider";
-import Typography from "@mui/material/Typography";
-// LOCAL CUSTOM COMPONENT
-import PaymentItem from "./payment-item";
-// CUSTOM UTILS LIBRARY FUNCTION
-import { currency } from "lib";
-
-export default function PaymentSummary() {
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
   return (
     <Card
       elevation={0}
@@ -48,7 +36,6 @@ export default function PaymentSummary() {
         border: "1px solid",
         borderColor: "divider",
         backgroundColor: "grey.50",
-<<<<<<< HEAD
         padding: { sm: 3, xs: 2 },
       }}
     >
@@ -71,21 +58,6 @@ export default function PaymentSummary() {
           🎉 You qualify for free shipping!
         </Typography>
       )}
-=======
-        padding: { sm: 3, xs: 2 }
-      }}
-    >
-      <PaymentItem title="Subtotal:" amount={2610} />
-      <PaymentItem title="Shipping:" />
-      <PaymentItem title="Tax:" amount={40} />
-      <PaymentItem title="Discount:" amount={40} />
-
-      <Divider sx={{ my: 2 }} />
-
-      <Typography variant="h4" textAlign="right">
-        {currency(2650)}
-      </Typography>
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
     </Card>
   );
 }

@@ -1,5 +1,4 @@
 import Typography from "@mui/material/Typography";
-<<<<<<< HEAD
 import Product from "models/Product.model";
 
 function parseDescription(raw: string) {
@@ -50,24 +49,6 @@ export default function ProductDescription({ product }: { product: Product }) {
         <Typography sx={{ fontSize: 20, lineHeight: 2 }}
           dangerouslySetInnerHTML={{ __html: product.description }} />
       )}
-=======
-
-export default function ProductDescription() {
-  return (
-    <div>
-      <Typography variant="h3" sx={{ mb: 2 }}>
-        Specification:
-      </Typography>
-
-      <div>
-        Brand: Beats <br />
-        Model: S450 <br />
-        Wireless Bluetooth Headset <br />
-        FM Frequency Response: 87.5 – 108 MHz <br />
-        Feature: FM Radio, Card Supported (Micro SD / TF) <br />
-        Made in China <br />
-      </div>
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
     </div>
   );
 }

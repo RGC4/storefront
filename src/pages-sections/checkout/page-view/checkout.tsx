@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 "use client";
 
 import { useState } from "react";
@@ -181,23 +180,5 @@ export default function CheckoutPage() {
         </Grid>
       </Grid>
     </Box>
-=======
-import Grid from "@mui/material/Grid";
-// LOCAL CUSTOM COMPONENTS
-import CheckoutForm from "../checkout-form";
-import CheckoutSummary from "../checkout-summery";
-
-export default function CheckoutPageView() {
-  return (
-    <Grid container flexWrap="wrap-reverse" spacing={3}>
-      <Grid size={{ md: 8, xs: 12 }}>
-        <CheckoutForm />
-      </Grid>
-
-      <Grid size={{ md: 4, xs: 12 }}>
-        <CheckoutSummary />
-      </Grid>
-    </Grid>
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
   );
 }

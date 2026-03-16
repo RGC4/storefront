@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import type { Metadata } from "next";
-=======
-﻿import type { Metadata } from "next";
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
 import { AddressPageView } from "pages-sections/customer-dashboard/address/page-view";
 import api from "utils/__api__/address";
 

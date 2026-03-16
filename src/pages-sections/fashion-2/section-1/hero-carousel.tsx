@@ -1,6 +1,5 @@
 "use client";
 
-<<<<<<< HEAD
 import { useEffect, useRef, useState } from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -177,28 +176,5 @@ export default function VideoHero() {
       </Box>
 
     </div>
-=======
-import { Fragment, PropsWithChildren } from "react";
-import { Carousel, CarouselDots, useCarousel } from "components/slider";
-
-export default function HeroCarousel({ children }: PropsWithChildren) {
-  const { ref, api, dots } = useCarousel({ loop: true });
-
-  return (
-    <Fragment>
-      <div style={{ position: "relative", width: "100%" }}>
-        <Carousel ref={ref} api={api}>
-          {children}
-        </Carousel>
-        <div style={{ position: "absolute", bottom: "16px", width: "100%", display: "flex", justifyContent: "center", zIndex: 10 }}>
-          <CarouselDots
-            scrollSnaps={dots.scrollSnaps}
-            selectedIndex={dots.selectedIndex}
-            onDotButtonClick={dots.onDotButtonClick}
-          />
-        </div>
-      </div>
-    </Fragment>
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
   );
 }

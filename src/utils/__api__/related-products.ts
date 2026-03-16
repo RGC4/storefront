@@ -1,5 +1,4 @@
 import { cache } from "react";
-<<<<<<< HEAD
 import { storefrontQuery } from "lib/shopify";
 import Product from "models/Product.model";
 
@@ -36,17 +35,4 @@ export const getFrequentlyBought = cache(async (): Promise<Product[]> => {
     `query { products(first: 4, sortKey: CREATED_AT, reverse: true) { edges { node { ${FIELDS} } } } }`, {}
   );
   return data?.products?.edges?.map(({ node }: any) => mapProduct(node)) ?? [];
-=======
-import axios from "utils/axiosInstance";
-import Product from "models/Product.model";
-
-export const getFrequentlyBought = cache(async (): Promise<Product[]> => {
-  const response = await axios.get("/api/frequently-bought-products");
-  return response.data;
-});
-
-export const getRelatedProducts = cache(async (): Promise<Product[]> => {
-  const response = await axios.get("/api/related-products");
-  return response.data;
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
 });

@@ -1,15 +1,11 @@
-<<<<<<< HEAD
 "use client";
 
 import { useState } from "react";
-=======
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
 import type { PropsWithChildren } from "react";
 // MUI
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
-<<<<<<< HEAD
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -64,27 +60,6 @@ export function CustomerDashboardLayout({ children }: PropsWithChildren) {
           </Grid>
 
           {/* Main content — full width on mobile */}
-=======
-// LOCAL CUSTOM COMPONENTS
-import { Navigation } from "./navigation";
-
-const gridStyle = {
-  display: {
-    xs: "none",
-    lg: "block"
-  }
-};
-
-export function CustomerDashboardLayout({ children }: PropsWithChildren) {
-  return (
-    <Box bgcolor="grey.50" py={{ xs: 3, sm: 4 }}>
-      <Container>
-        <Grid container spacing={3}>
-          <Grid size={{ lg: 3, xs: 12 }} sx={gridStyle}>
-            <Navigation />
-          </Grid>
-
->>>>>>> 2ff45f2b3f7572b535ac984c23adf29d3a61394b
           <Grid size={{ lg: 9, xs: 12 }}>{children}</Grid>
         </Grid>
       </Container>
