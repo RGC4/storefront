@@ -1,30 +1,26 @@
 import type { ReactNode } from "react";
 import { Geist } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
-
-export const geist = Geist({
-  subsets: ["latin"],
-});
-
-import "overlayscrollbars/overlayscrollbars.css";
-
-// THEME PROVIDER
+import { headers } from "next/headers";
+import { getStoreConfig } from "@/lib/store-config";
+import { getLayoutData } from "utils/__api__/layout";
+import ShopLayout1 from "components/layouts/shop-layout-1/shop-layout-1";
 import ThemeProvider from "theme/theme-provider";
-
-// PRODUCT CART PROVIDER
 import CartProvider from "contexts/CartContext";
-
-// SITE SETTINGS PROVIDER
 import SettingsProvider from "contexts/SettingContext";
-
-// GLOBAL CUSTOM COMPONENTS
 import RTL from "components/rtl";
 import ProgressBar from "components/progress";
-
-// IMPORT i18n SUPPORT FILE
+import "overlayscrollbars/overlayscrollbars.css";
 import "i18n";
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export const geist = Geist({ subsets: ["latin"] });
+
+export default async function RootLayout({ children }: { children: ReactNode }) {
+  const headersList = await headers();
+  const storeId = headersList.get("x-store-id") || "s1";
+  const storeConfig = await getStoreConfig(storeId);
+  const layoutData = await getLayoutData();
+
   return (
     <html lang="en">
       <body className={geist.className}>
@@ -33,7 +29,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <ThemeProvider>
               <RTL>
                 <ProgressBar />
-                {children}
+                <ShopLayout1 data={layoutData} storeConfig={storeConfig}>
+                  {children}
+                </ShopLayout1>
               </RTL>
             </ThemeProvider>
           </CartProvider>
