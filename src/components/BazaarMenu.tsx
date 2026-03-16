@@ -1,4 +1,4 @@
-import { Fragment, ReactNode, useCallback, useState, MouseEvent } from "react";
+﻿import { Fragment, ReactNode, useCallback, useState, MouseEvent } from "react";
 import Menu from "@mui/material/Menu";
 import { SxProps, Theme } from "@mui/material/styles";
 
@@ -57,3 +57,4 @@ export default function BazaarMenu({ open, sx, handler, options, direction = "le
     </Fragment>
   );
 }
+

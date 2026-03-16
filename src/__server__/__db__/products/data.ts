@@ -1,4 +1,4 @@
-import { uniq } from "lodash";
+﻿import { uniq } from "lodash";
 import products from "data/product-database";
 import bazaarReactDatabase from "data/bazaar-react-database";
 
@@ -90,3 +90,4 @@ export const reviews = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Varius massa id ut mattis. Facilisis vitae gravida egestas ac account."
   }
 ];
+

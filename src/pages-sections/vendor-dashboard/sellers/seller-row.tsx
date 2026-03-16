@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
@@ -76,3 +76,4 @@ export default function SellerRow({ seller }: Props) {
     </StyledTableRow>
   );
 }
+

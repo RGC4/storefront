@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import MenuItem from "@mui/material/MenuItem";
 import TouchRipple from "@mui/material/ButtonBase";
@@ -45,3 +45,4 @@ export function TopbarLanguageSelector({ languages }: { languages: LanguageOptio
     />
   );
 }
+

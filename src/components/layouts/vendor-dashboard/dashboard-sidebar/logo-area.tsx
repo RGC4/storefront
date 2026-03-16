@@ -1,4 +1,4 @@
-import Avatar from "@mui/material/Avatar";
+﻿import Avatar from "@mui/material/Avatar";
 // GLOBAL CUSTOM COMPONENT
 import FlexBetween from "components/flex-box/flex-between";
 // LOCAL CUSTOM HOOK
@@ -16,7 +16,7 @@ export default function LogoArea() {
       justifyContent={COMPACT ? "center" : "space-between"}
     >
       <Avatar
-        alt="Bazaar Logo"
+        alt="Prestige Apparel Group"
         src={COMPACT ? "/assets/images/bazaar-white-sm.svg" : "/assets/images/logo.svg"}
         sx={{ borderRadius: 0, width: "auto", marginLeft: COMPACT ? 0 : 1 }}
       />
@@ -30,3 +30,4 @@ export default function LogoArea() {
     </FlexBetween>
   );
 }
+
