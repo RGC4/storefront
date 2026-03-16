@@ -9,18 +9,18 @@ const STORE_ID = process.env.NEXT_PUBLIC_STORE_ID || "s1";
 const SLIDES = [
   {
     src: `/assets/stores/${STORE_ID}/videos/hero-1.mp4`,
-    headline: "Authentic Italian Luxury Purses & Bags.",
-    subheadline: "Luxury That Belongs in the Spotlight.",
+    headline: "Authentic Italian - designer purses and handbags."
+    subheadline: "Luxury that bBelongs in the spotlight.",
   },
   {
     src: `/assets/stores/${STORE_ID}/videos/hero-2.mp4`,
-    headline: "Your purse/bag is your personality.",
-    subheadline: "Unforgetable moments with friends.",
+    headline: "Style that turns moments with friends into lasting memories.",
+    subheadline: "Unforgetable moments are priceless.",
   },
   {
     src: `/assets/stores/${STORE_ID}/videos/hero-3.mp4`,
     headline: "Genuine Italian Leather. Exceptional Craftsmanship.",
-    subheadline: "Exceptional service on every order, every time",
+    subheadline: "Exceptional service on every order, every time.",
   },
 ];
 
