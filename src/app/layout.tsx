@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Geist } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import type { Metadata } from "next";
 
 export const geist = Geist({
   subsets: ["latin"]
@@ -30,6 +31,12 @@ interface RootLayoutProps {
   modal: ReactNode;
 }
 // ==============================================================
+
+export const metadata: Metadata = {
+  verification: {
+    google: "xPe6mYQNmkBfZaSR4_IDNrpNR_-KymGUKhlNdlFU-Ng",
+  },
+};
 
 export default function RootLayout({ children, modal }: RootLayoutProps) {
   return (
