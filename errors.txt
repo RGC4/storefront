@@ -19,31 +19,46 @@ At line:1 char:1
 
 > Build error occurred
 Error: Turbopack build failed with 1 errors:
-./src/app/fashion-2/layout.tsx:3:1
-Export getLayoutData doesn't exist in target module
-[0m [90m 1 |[39m [36mimport[39m { headers } [36mfrom[39m [32m"next/headers"[39m[33m;[39m
- [90m 2 |[39m [36mimport[39m { getStoreConfig } [36mfrom[39m [32m"@/lib/store-config"[39m[33m;[39m
-[31m[1m>[22m[39m[90m 3 |[39m [36mimport[39m { getLayoutData } [36mfrom[39m 
-[32m"utils/__api__/layout"[39m[33m;[39m
+./src/app/layout.tsx:4:1
+Ecmascript file had an error
+[0m [90m 2 |[39m [36mimport[39m { [33mGeist[39m } [36mfrom[39m [32m"next/font/google"[39m[33m;[39m
+ [90m 3 |[39m [36mimport[39m { [33mGoogleAnalytics[39m } [36mfrom[39m 
+[32m"@next/third-parties/google"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m { headers } [36mfrom[39m [32m"next/headers"[39m[33m;[39m
  [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[3
 1m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[
 31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
 [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
 [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39
 m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[3
-9m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[
-39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
-[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m
-[39m
- [90m 4 |[39m [36mimport[39m [33mShopLayout1[39m [36mfrom[39m 
-[32m"components/layouts/shop-layout-1/shop-layout-1"[39m[33m;[39m
- [90m 5 |[39m
- [90m 6 |[39m [36mexport[39m [36mdefault[39m [36masync[39m [36mfunction[39m [33mFashion2Layout[39m({[0m
+9m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 5 |[39m [36mimport[39m { getStoreConfig } [36mfrom[39m [32m"@/lib/store-config"[39m[33m;[39m
+ [90m 6 |[39m [36mimport[39m { getLayoutData } [36mfrom[39m [32m"utils/__api__/layout"[39m[33m;[39m
+ [90m 7 |[39m [36mimport[39m [33mShopLayout1[39m [36mfrom[39m 
+[32m"components/layouts/shop-layout-1/shop-layout-1"[39m[33m;[39m[0m
 
-The export getLayoutData was not found in module [project]/src/utils/__api__/layout.ts [app-rsc] (ecmascript).
-Did you mean to import default?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the 
-requested export doesn't exist.
+You're importing a component that needs "next/headers". That only works in a Server Component but one of its parents 
+is marked with "use client", so it's a Client Component.
+Learn more: https://nextjs.org/docs/app/building-your-application/rendering
 
 
-    at <unknown> (./src/app/fashion-2/layout.tsx:3:1)
+
+Import traces:
+  Client Component Browser:
+    ./src/app/layout.tsx [Client Component Browser]
+    ./src/theme/core/typography.ts [Client Component Browser]
+    ./src/theme/theme-options.ts [Client Component Browser]
+    ./src/theme/theme-provider.tsx [Client Component Browser]
+    ./src/theme/theme-provider.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/layout.tsx [Client Component SSR]
+    ./src/theme/core/typography.ts [Client Component SSR]
+    ./src/theme/theme-options.ts [Client Component SSR]
+    ./src/theme/theme-provider.tsx [Client Component SSR]
+    ./src/theme/theme-provider.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+
+    at <unknown> (./src/app/layout.tsx:4:1)
