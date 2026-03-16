@@ -1,10 +1,6 @@
-import type { ReactNode } from "react";
+﻿import type { ReactNode } from "react";
 import { Geist } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
-import { headers } from "next/headers";
-import { getStoreConfig } from "@/lib/store-config";
-import { getLayoutData } from "utils/__api__/layout";
-import ShopLayout1 from "components/layouts/shop-layout-1/shop-layout-1";
 import ThemeProvider from "theme/theme-provider";
 import CartProvider from "contexts/CartContext";
 import SettingsProvider from "contexts/SettingContext";
@@ -15,12 +11,7 @@ import "i18n";
 
 export const geist = Geist({ subsets: ["latin"] });
 
-export default async function RootLayout({ children }: { children: ReactNode }) {
-  const headersList = await headers();
-  const storeId = headersList.get("x-store-id") || "s1";
-  const storeConfig = await getStoreConfig(storeId);
-  const layoutData = await getLayoutData();
-
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className={geist.className}>
@@ -29,9 +20,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
             <ThemeProvider>
               <RTL>
                 <ProgressBar />
-                <ShopLayout1 data={layoutData} storeConfig={storeConfig}>
-                  {children}
-                </ShopLayout1>
+                {children}
               </RTL>
             </ThemeProvider>
           </CartProvider>
