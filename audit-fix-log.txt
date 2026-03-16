@@ -1,0 +1,14 @@
+Audit fix run: 2026-03-07 10:55:13
+Project root: C:\dev\s1
+FAIL [Step 1 - Fix product page double data unwrap] File not found: C:\dev\s1\src\app\product\[slug]\page.tsx
+FAIL [Step 2 - Fix collection product link route] File not found: C:\dev\s1\src\app\collections\[slug]\page.tsx
+PASS [Step 3a - Expose checkoutUrl from useCart in checkout page] C:\dev\s1\src\pages-sections\checkout\page-view\checkout.tsx
+PASS [Step 3b - Add onClick handler to Proceed To Payment button] C:\dev\s1\src\pages-sections\checkout\page-view\checkout.tsx
+PASS [Step 4 - Fix mini-cart drawer width 420 to 520] C:\dev\s1\src\app\@modal\(.)mini-cart\page.tsx
+PASS [Step 5 - Fix Section 6 data source getProducts to getFeatureProducts] C:\dev\s1\src\pages-sections\fashion-2\section-6\section-6.tsx
+FAIL [Step 6] CartContext missing cartList - manual fix needed in C:\dev\s1\src\contexts\CartContext.tsx
+PASS [Step 7] Asset exists: C:\dev\s1\public\assets\stores\s1\logo\logo-transparent.png
+PASS [Step 7] Asset exists: C:\dev\s1\public\assets\stores\s1\videos\hero-3.mp4
+
+Manual steps: Step 3c (CartContext checkoutUrl), Step 8 (variant selector)
+Run completed: 2026-03-07 10:55:13

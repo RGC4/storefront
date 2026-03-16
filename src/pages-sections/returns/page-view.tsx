@@ -1,0 +1,369 @@
+// DESTINATION: src/pages-sections/returns/page-view.tsx
+"use client";
+
+import { useState, useRef } from "react";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Card from "@mui/material/Card";
+import Stack from "@mui/material/Stack";
+import Alert from "@mui/material/Alert";
+import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
+import MenuItem from "@mui/material/MenuItem";
+import Container from "@mui/material/Container";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import CircularProgress from "@mui/material/CircularProgress";
+
+const RETURN_REASONS = [
+  "Item not as described",
+  "Wrong item received",
+  "Damaged / defective",
+  "Changed my mind",
+  "Size / fit issue",
+  "Other",
+];
+
+const RESOLUTIONS = ["Refund to original payment method", "Store credit"];
+
+const PHOTO_REASONS = ["Damaged / defective", "Wrong item received", "Item not as described"];
+
+export default function ReturnsPageView() {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    orderNumber: "",
+    itemDescription: "",
+    reason: "Item not as described",
+    resolution: "Refund to original payment method",
+    message: "",
+  });
+  const [photos, setPhotos] = useState<File[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<{ ticketId: string } | null>(null);
+  const [error, setError] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const showPhotoUpload = PHOTO_REASONS.includes(form.reason);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    setPhotos((prev) => {
+      const combined = [...prev, ...files];
+      return combined.slice(0, 5);
+    });
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  const removePhoto = (index: number) => {
+    setPhotos((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+    try {
+      const formData = new FormData();
+      formData.append("name", form.name);
+      formData.append("email", form.email);
+      formData.append("orderNumber", form.orderNumber);
+      formData.append("category", "Return / Exchange");
+      formData.append("subject", `Return Request — Order #${form.orderNumber} — ${form.reason}`);
+      formData.append(
+        "message",
+        `Item: ${form.itemDescription}\nReason: ${form.reason}\nResolution Requested: ${form.resolution}\n\nAdditional Notes:\n${form.message}`
+      );
+      formData.append("priority", "Normal");
+      photos.forEach((file) => formData.append("photos", file));
+
+      const res = await fetch("/api/contact", { method: "POST", body: formData });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Submission failed.");
+      setResult({ ticketId: data.ticketId });
+    } catch (err: any) {
+      setError(err.message || "Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <Container maxWidth="lg" sx={{ py: { xs: 4, md: 6 } }}>
+      <Box mb={4}>
+        <Typography variant="h3" fontWeight={700} gutterBottom>
+          Returns & Exchanges
+        </Typography>
+        <Typography variant="body1" color="text.secondary" maxWidth={580}>
+          We want you to love what you receive. If something isn't quite right, we'll make it easy —
+          just fill out the form and we'll take it from there.
+        </Typography>
+      </Box>
+
+      <Grid container spacing={3}>
+        {/* LEFT — form */}
+        <Grid size={{ xs: 12, md: 8 }}>
+          <Card elevation={0} sx={{ p: { xs: 2.5, sm: 4 }, border: "1px solid", borderColor: "divider" }}>
+            {result ? (
+              <Box textAlign="center" py={4}>
+                <Typography variant="h5" fontWeight={700} gutterBottom color="primary">
+                  Return Request Submitted ✓
+                </Typography>
+                <Typography variant="body1" color="text.secondary" mb={2}>
+                  We've received your request and will be in touch within 1–2 business days with next steps, including your prepaid return shipping label.
+                </Typography>
+                <Typography variant="body2" color="text.secondary" mb={1}>
+                  Your reference number:
+                </Typography>
+                <Typography
+                  variant="h6"
+                  fontWeight={700}
+                  sx={{
+                    display: "inline-block",
+                    px: 3, py: 1,
+                    bgcolor: "primary.light",
+                    color: "primary.main",
+                    borderRadius: 2,
+                    letterSpacing: 2,
+                    mb: 3,
+                  }}
+                >
+                  {result.ticketId}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  A confirmation email has been sent to you. Please hold onto your item and do not ship anything back until you receive your return label and instructions from us.
+                </Typography>
+                <Button variant="outlined" sx={{ mt: 4 }} href="/">
+                  Continue Shopping
+                </Button>
+              </Box>
+            ) : (
+              <Box component="form" onSubmit={handleSubmit}>
+                <Typography variant="h6" fontWeight={600} mb={2.5}>
+                  Return Request Form
+                </Typography>
+
+                {error && <Alert severity="error" sx={{ mb: 2.5 }}>{error}</Alert>}
+
+                <Stack spacing={2}>
+                  <Grid container spacing={2}>
+                    <Grid size={{ xs: 12, sm: 6 }}>
+                      <TextField fullWidth required name="name" label="Full Name" value={form.name} onChange={handleChange} />
+                    </Grid>
+                    <Grid size={{ xs: 12, sm: 6 }}>
+                      <TextField fullWidth required name="email" type="email" label="Email Address" value={form.email} onChange={handleChange} />
+                    </Grid>
+                  </Grid>
+
+                  <Grid container spacing={2}>
+                    <Grid size={{ xs: 12, sm: 6 }}>
+                      <TextField
+                        fullWidth required
+                        name="orderNumber"
+                        label="Order Number"
+                        placeholder="e.g. 1001"
+                        value={form.orderNumber}
+                        onChange={handleChange}
+                        helperText="Found in your order confirmation email"
+                      />
+                    </Grid>
+                    <Grid size={{ xs: 12, sm: 6 }}>
+                      <TextField
+                        fullWidth required
+                        name="itemDescription"
+                        label="Item Name / Description"
+                        placeholder="e.g. Black Leather Tote Bag"
+                        value={form.itemDescription}
+                        onChange={handleChange}
+                      />
+                    </Grid>
+                  </Grid>
+
+                  <Grid container spacing={2}>
+                    <Grid size={{ xs: 12, sm: 6 }}>
+                      <TextField select fullWidth name="reason" label="Return Reason" value={form.reason} onChange={handleChange}>
+                        {RETURN_REASONS.map((r) => (
+                          <MenuItem key={r} value={r}>{r}</MenuItem>
+                        ))}
+                      </TextField>
+                    </Grid>
+                    <Grid size={{ xs: 12, sm: 6 }}>
+                      <TextField select fullWidth name="resolution" label="Preferred Resolution" value={form.resolution} onChange={handleChange}>
+                        {RESOLUTIONS.map((r) => (
+                          <MenuItem key={r} value={r}>{r}</MenuItem>
+                        ))}
+                      </TextField>
+                    </Grid>
+                  </Grid>
+
+                  <TextField
+                    fullWidth
+                    multiline
+                    rows={5}
+                    name="message"
+                    label="Additional Notes (optional)"
+                    value={form.message}
+                    onChange={handleChange}
+                    placeholder="Tell us a little more about the issue…"
+                  />
+
+                  {/* Conditional photo upload */}
+                  {showPhotoUpload && (
+                    <Box
+                      sx={{
+                        border: "1px dashed",
+                        borderColor: "divider",
+                        borderRadius: 2,
+                        p: 2.5,
+                        bgcolor: "grey.50",
+                      }}
+                    >
+                      <Typography variant="body2" fontWeight={600} mb={0.5}>
+                        📷 Add Photos
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary" mb={1.5}>
+                        A picture really helps — please include clear photos of the item, the tag, and the issue. You can upload up to 5 images (JPG, PNG).
+                      </Typography>
+
+                      {photos.length > 0 && (
+                        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: 1.5 }}>
+                          {photos.map((file, i) => (
+                            <Box
+                              key={i}
+                              sx={{
+                                position: "relative",
+                                width: 72,
+                                height: 72,
+                                borderRadius: 1,
+                                overflow: "hidden",
+                                border: "1px solid",
+                                borderColor: "divider",
+                              }}
+                            >
+                              <Box
+                                component="img"
+                                src={URL.createObjectURL(file)}
+                                alt={`photo-${i}`}
+                                sx={{ width: "100%", height: "100%", objectFit: "cover" }}
+                              />
+                              <IconButton
+                                size="small"
+                                onClick={() => removePhoto(i)}
+                                sx={{
+                                  position: "absolute",
+                                  top: 1,
+                                  right: 1,
+                                  bgcolor: "rgba(0,0,0,0.55)",
+                                  color: "#fff",
+                                  p: "2px",
+                                  "&:hover": { bgcolor: "rgba(0,0,0,0.75)" },
+                                }}
+                              >
+                                ✕
+                              </IconButton>
+                            </Box>
+                          ))}
+                        </Box>
+                      )}
+
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/jpeg,image/png,image/webp"
+                        multiple
+                        style={{ display: "none" }}
+                        onChange={handlePhotoChange}
+                      />
+                      <Button
+                        variant="outlined"
+                        size="small"
+                        disabled={photos.length >= 5}
+                        onClick={() => fileInputRef.current?.click()}
+                      >
+                        {photos.length === 0 ? "Choose Photos" : `Add More (${photos.length}/5)`}
+                      </Button>
+                    </Box>
+                  )}
+
+                  <Button
+                    fullWidth size="large" type="submit" variant="contained" disabled={loading}
+                    startIcon={loading ? <CircularProgress size={18} color="inherit" /> : null}
+                  >
+                    {loading ? "Submitting…" : "Submit Return Request"}
+                  </Button>
+                </Stack>
+              </Box>
+            )}
+          </Card>
+        </Grid>
+
+        {/* RIGHT — policy sidebar */}
+        <Grid size={{ xs: 12, md: 4 }}>
+          <Stack spacing={2.5}>
+
+            <Card elevation={0} sx={{ p: 3, border: "1px solid", borderColor: "divider" }}>
+              <Typography variant="h6" fontWeight={600} mb={2}>The Basics</Typography>
+              <Stack spacing={1.5} divider={<Divider />}>
+                {[
+                  { label: "⏱ 7 Business Days", value: "Submit your request within 7 business days of receiving your order." },
+                  { label: "🏷 Free Return Shipping", value: "We'll email you a prepaid return label — no need to arrange anything yourself." },
+                  { label: "✔ Original Condition", value: "Items should be unworn and unwashed, with all tags, boxes, and dust bags included." },
+                  { label: "💰 Refunds", value: "Once we receive and check your return, your refund is on its way within 5 business days." },
+                ].map(({ label, value }) => (
+                  <Box key={label}>
+                    <Typography variant="body2" fontWeight={600}>{label}</Typography>
+                    <Typography variant="body2" color="text.secondary">{value}</Typography>
+                  </Box>
+                ))}
+              </Stack>
+            </Card>
+
+            <Card elevation={0} sx={{ p: 3, border: "1px solid", borderColor: "divider" }}>
+              <Typography variant="h6" fontWeight={600} mb={1.5}>A Few Things to Keep in Mind</Typography>
+              <Stack spacing={1.5} divider={<Divider />}>
+
+                <Box>
+                  <Typography variant="body2" fontWeight={600} mb={0.5}>Wrong or damaged item?</Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    We're so sorry! Just include a couple of clear photos with your request and we'll sort it out for you straight away.
+                  </Typography>
+                </Box>
+
+                <Box>
+                  <Typography variant="body2" fontWeight={600} mb={0.5}>Want a different size or style?</Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Simply place a new order for what you'd like, then submit a return for your original item. Once we receive it back, your refund will follow within 5 business days.
+                  </Typography>
+                </Box>
+
+                <Box>
+                  <Typography variant="body2" fontWeight={600} mb={0.5}>Package not arrived?</Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Please let us know within 14 days of your shipping confirmation and we'll look into it right away.
+                  </Typography>
+                </Box>
+
+              </Stack>
+            </Card>
+
+            <Card elevation={0} sx={{ p: 3, border: "1px solid", borderColor: "divider" }}>
+              <Typography variant="h6" fontWeight={600} mb={1}>We're Here to Help</Typography>
+              <Typography variant="body2" color="text.secondary" mb={2}>
+                Any questions at all? Our team is just a message away.
+              </Typography>
+              <Button variant="outlined" fullWidth href="/contact">
+                Contact Us
+              </Button>
+            </Card>
+
+          </Stack>
+        </Grid>
+      </Grid>
+    </Container>
+  );
+}
