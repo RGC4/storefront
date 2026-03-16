@@ -9,18 +9,18 @@ const STORE_ID = process.env.NEXT_PUBLIC_STORE_ID || "s1";
 const SLIDES = [
   {
     src: `/assets/stores/${STORE_ID}/videos/hero-1.mp4`,
-    headline: "Authentic Italian Designer Purses and Handbags.",
-    subheadline: "Luxury that Belongs in the spotlight.",
+    headline: "Moments That Deserve to Be Noticed.",
+    subheadline: "Luxury That Belongs in the Spotlight.",
   },
   {
     src: `/assets/stores/${STORE_ID}/videos/hero-2.mp4`,
-    headline: "Style that Lives in the Moment.",
-    subheadline: "Unforgetable Moments are Priceless.",
+    headline: "Friends. Laughter. Timeless Style.",
+    subheadline: "Unforgettable moments.",
   },
   {
     src: `/assets/stores/${STORE_ID}/videos/hero-3.mp4`,
     headline: "Genuine Italian Leather. Exceptional Craftsmanship.",
-    subheadline: "Exceptional Service on Every order, Every time.",
+    subheadline: "Exceptional service on every order, every time.",
   },
 ];
 
@@ -75,14 +75,14 @@ export default function VideoHero() {
         <source src={slide.src} type="video/mp4" />
       </video>
 
-      {/* 20% DARK OVERLAY */}
+      {/* DARK OVERLAY */}
       <div style={{
         position: "absolute",
         inset: 0,
         backgroundColor: "rgba(0, 0, 0, 0.20)",
       }} />
 
-      {/* TEXT OVERLAY — positioned at 85% from top */}
+      {/* TEXT OVERLAY */}
       <Box sx={{
         position: "absolute",
         top: "85%",
@@ -99,20 +99,22 @@ export default function VideoHero() {
         <Typography variant="h1" sx={{
           color: "white",
           fontWeight: 700,
-          mb: 2,
-          whiteSpace: "nowrap",
-          fontSize: { xs: "2.4rem", sm: "3rem", md: "4.8rem" },
+          mb: 1,
+          whiteSpace: { xs: "normal", md: "nowrap" },
+          fontSize: { xs: "1.8rem", sm: "2.6rem", md: "4.8rem" },
           textShadow: "0 2px 8px rgba(0,0,0,0.4)",
-          lineHeight: 1.1,
+          lineHeight: 1.15,
+          maxWidth: { xs: "90vw", md: "none" },
         }}>
           {slide.headline}
         </Typography>
         <Typography sx={{
           color: "rgba(255,255,255,0.92)",
-          whiteSpace: "nowrap",
+          whiteSpace: { xs: "normal", md: "nowrap" },
           fontWeight: 400,
-          fontSize: { xs: "1.1rem", sm: "1.3rem", md: "1.8rem" },
+          fontSize: { xs: "1rem", sm: "1.3rem", md: "1.8rem" },
           textShadow: "0 1px 4px rgba(0,0,0,0.4)",
+          maxWidth: { xs: "85vw", md: "none" },
         }}>
           {slide.subheadline}
         </Typography>
