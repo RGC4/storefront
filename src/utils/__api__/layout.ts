@@ -5,7 +5,36 @@ import storeConfig from "config/store.config";
 
 const getLayoutData = cache(async () => {
   const data = await storefrontQuery(
-    `query { collections(first: 50, sortKey: TITLE) { edges { node { id title handle } } } }`,
+    `query {
+      collections(first: 50, sortKey: TITLE) {
+        edges {
+          node {
+            id
+            title
+            handle
+            image {
+              url
+              altText
+            }
+            products(first: 6) {
+              edges {
+                node {
+                  id
+                  title
+                  handle
+                  priceRange {
+                    minVariantPrice { amount currencyCode }
+                  }
+                  images(first: 1) {
+                    edges { node { url altText } }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }`,
     {}
   );
 
@@ -19,7 +48,14 @@ const getLayoutData = cache(async () => {
     href: `/collections/${c.handle}`,
     icon: "ShoppingBag",
     value: c.handle,
-    children: [],
+    image: c.image?.url || null,
+    children: c.products.edges.map(({ node: p }: any) => ({
+      title: p.title,
+      href: `/product/${p.handle}`,
+      image: p.images.edges[0]?.node.url || null,
+      price: p.priceRange.minVariantPrice.amount,
+      currency: p.priceRange.minVariantPrice.currencyCode,
+    })),
   }));
 
   return {
