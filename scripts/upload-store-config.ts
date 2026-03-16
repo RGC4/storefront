@@ -1,7 +1,13 @@
-// Run this once to upload the initial s1 store config to Vercel Blob
+// Run this to upload the initial s1 store config directly to Vercel Blob
 // Usage: npx tsx scripts/upload-store-config.ts
 
-const config = {
+import { put } from "@vercel/blob";
+import { config } from "dotenv";
+
+// Load .env.local
+config({ path: ".env.local" });
+
+const storeConfig = {
   storeId: "s1",
   name: "Prestige Apparel Group",
   email: "info@prestigeapparelgroup.com",
@@ -28,14 +34,19 @@ const config = {
 };
 
 async function uploadConfig() {
-  const res = await fetch("http://localhost:3000/api/admin/store-config", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ storeId: "s1", config }),
-  });
+  console.log("Uploading s1 config to Vercel Blob...");
+  
+  const blob = await put(
+    "stores/s1.json",
+    JSON.stringify(storeConfig, null, 2),
+    {
+      access: "public",
+      contentType: "application/json",
+      addRandomSuffix: false,
+    }
+  );
 
-  const data = await res.json();
-  console.log("Uploaded:", data);
+  console.log("Success! Config uploaded to:", blob.url);
 }
 
-uploadConfig();
+uploadConfig().catch(console.error);
