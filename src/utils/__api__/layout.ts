@@ -1,9 +1,8 @@
-// DESTINATION: src/utils/__api__/layout.ts
 import { cache } from "react";
 import { storefrontQuery } from "lib/shopify";
 import storeConfig from "config/store.config";
 
-const getLayoutData = cache(async () => {
+export const getLayoutData = cache(async () => {
   const data = await storefrontQuery(
     `query { collections(first: 50, sortKey: TITLE) { edges { node { id title handle } } } }`,
     {}
