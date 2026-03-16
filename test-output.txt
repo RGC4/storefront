@@ -1,0 +1,62 @@
+--- Products (first 5) ---
+Γ£à 5 products found
+
+  Title:       Im The Queen Jaquard Gold Sweatshirt  Hoodie
+  Handle:      im-the-queen-jaquard-gold-sweatshirt-hoodie
+  Price:       811.3 CAD
+  Variant ID:  gid://shopify/ProductVariant/51052046549270
+  In Stock:    true
+  Image:       Γ£à
+
+  Title:       Black GuitarTrumpet Print Silk Shirt Top
+  Handle:      black-guitartrumpet-print-silk-shirt-top
+  Price:       539.4 CAD
+  Variant ID:  gid://shopify/ProductVariant/51052046418198
+  In Stock:    true
+  Image:       Γ£à
+
+  Title:       White Cotton #dgfamily Sleeveless Shirt Tank Top
+  Handle:      white-cotton-dgfamily-sleeveless-shirt-tank-top
+  Price:       564.5 CAD
+  Variant ID:  gid://shopify/ProductVariant/51052046287126
+  In Stock:    true
+  Image:       Γ£à
+
+  Title:       Pink Family Silk Tank  Mama Blouse Top Shirt
+  Handle:      pink-family-silk-tank-mama-blouse-top-shirt
+  Price:       539.4 CAD
+  Variant ID:  gid://shopify/ProductVariant/51052046123286
+  In Stock:    true
+  Image:       Γ£à
+
+  Title:       Black Rose Print Floral Shirt Top Blouse
+  Handle:      black-rose-print-floral-shirt-top-blouse
+  Price:       539.4 CAD
+  Variant ID:  gid://shopify/ProductVariant/51052046057750
+  In Stock:    true
+  Image:       Γ£à
+
+--- Collections (first 10) ---
+Γ£à 4 collections found
+  - shirts | Shirts
+  - pants | Pants
+  - accessories | Accessories
+  - outerwear | Outerwear
+
+--- Cart Creation Test ---
+Γ£à Cart created
+  Cart ID:       gid://shopify/Cart/hWN9GEcS02RAWKm03GgbjXM2?key=89222f39275f0779395faf937d114564
+  Checkout URL:  https://rgc4-3.myshopify.com/cart/c/hWN9GEcS02RAWKm03GgbjXM2?key=89222f39275f0779395faf937d114564&_s=2e7819ce-53d3-4760-9ad2-850cc4bcb810&_y=422e4633-be1b-4508-be49-6c75f39f0f03
+
+--- Add to Cart Test ---
+Γ£à Item added to cart
+  Total items: 1
+  Product:     Im The Queen Jaquard Gold Sweatshirt  Hoodie
+  Variant:     IT38|XS
+  Price:       811.3 CAD
+  Checkout URL: https://rgc4-3.myshopify.com/cart/c/hWN9GEcS02RAWKm03GgbjXM2?key=89222f39275f0779395faf937d114564&_s=e211680e-1e0d-41cf-8bfc-e0e503a42fac&_y=d150445a-40cf-4b77-962e-b626e7d752f2
+
+--- Summary ---
+Products available:   Γ£à
+Collections available: Γ£à
+Cart create works:    Γ£à
