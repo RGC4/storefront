@@ -117,7 +117,7 @@ export default function VideoHero() {
             width: "auto",
             height: "auto",
             objectFit: "cover",
-            objectPosition: "center 30%",
+            objectPosition: "center center",
           }}
         />
         <div style={overlayStyle} />
@@ -144,7 +144,7 @@ export default function VideoHero() {
           width: "auto",
           height: "auto",
           objectFit: "cover",
-          objectPosition: "center 30%",
+          objectPosition: "center center",
         }}
       >
         <source src={slide.src} type="video/mp4" />
