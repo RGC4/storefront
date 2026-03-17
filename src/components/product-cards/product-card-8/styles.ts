@@ -20,17 +20,17 @@ export const Card = styled("div")({
 });
 
 export const CardHeader = styled("div")({
-  padding: "20px 16px 18px",
+  padding: "10px 12px 8px",
   borderBottom: "1px solid #f0f0f0",
   textAlign: "center",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  height: 120,
+  height: 80,
 
   ".vendor": {
-    fontSize: 21,
+    fontSize: 14,
     fontWeight: 800,
     color: "#111",
     textTransform: "uppercase",
@@ -40,7 +40,7 @@ export const CardHeader = styled("div")({
   },
 
   ".title": {
-    fontSize: 17,
+    fontSize: 12,
     fontWeight: 400,
     lineHeight: 1.4,
     color: "#666",
@@ -54,7 +54,7 @@ export const CardHeader = styled("div")({
 
 export const CardMedia = styled("div")({
   width: "100%",
-  height: 460,
+  height: 200,
   position: "relative",
   display: "flex",
   alignItems: "center",
