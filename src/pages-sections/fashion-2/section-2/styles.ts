@@ -8,7 +8,7 @@ export const RootStyle = styled("div")(({ theme }) => ({
   width: "100%",
   gridTemplateColumns: "repeat(4, 1fr)",
   backgroundColor: theme.palette.common.white,
-  borderTop: `1px solid ${theme.palette.divider}`,
+  borderTop: `1px solid ${theme.palette.divider}`, [theme.breakpoints.down("sm")]: { display: "none" },
   borderBottom: `1px solid ${theme.palette.divider}`,
   [theme.breakpoints.down("md")]: {
     gridTemplateColumns: "repeat(2, 1fr)"
