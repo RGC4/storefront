@@ -116,8 +116,8 @@ const getBrands = cache(async () => []);
 const getServices = cache(async () => [
   { id: "1", icon: "Truck", title: "Free Delivery", description: "On all orders" },
   { id: "2", icon: "Payment", title: "Secure Payment", description: "Safe & protected" },
-  { id: "3", icon: "Verified", title: "Quality Products", description: "100% guaranteed" },
-  { id: "4", icon: "Support", title: "Human Support", description: "Real people, always here" },
+  { id: "3", icon: "Verified", title: "Authentic Products", description: "100% guaranteed" },
+  { id: "4", icon: "Support", title: "Human Support", description: "To serve you" },
 ] as any);
 
 export default {
