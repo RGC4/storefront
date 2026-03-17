@@ -8,11 +8,9 @@ import Typography from "@mui/material/Typography";
 import {
   Footer1, FooterContact, FooterLinksWidget, FooterSocialLinks
 } from "components/footer";
-import { MobileMenu } from "components/mobile-navbar";
 import { MobileNavigationBar } from "components/mobile-navigation";
 import { SearchInput2 } from "components/search-box";
-import { Topbar, TopbarLanguageSelector, TopbarSocialLinks } from "components/topbar";
-import { Header, HeaderCart, HeaderLogin, MobileHeader, HeaderSearch } from "components/header";
+import { HeaderCart, HeaderLogin, MobileHeader, HeaderSearch } from "components/header";
 import LayoutModel from "models/Layout.model";
 
 interface Props extends PropsWithChildren { data: LayoutModel; }
@@ -21,7 +19,7 @@ const HEADER_LOGO_URL = "/assets/stores/s1/logo/logo-header.png";
 const FOOTER_LOGO_URL = "/assets/stores/s1/logo/logo-footer.png";
 
 const NAV_LINK_STYLE: React.CSSProperties = {
-  fontSize: "1.08rem",     // ~17px — 15% larger than 15px
+  fontSize: "1.08rem",
   fontWeight: 600,
   color: "#1a1a2e",
   textDecoration: "none",
@@ -47,9 +45,8 @@ export default function ShopLayout1({ children, data }: Props) {
   const MOBILE_VERSION_HEADER = (
     <MobileHeader>
       <MobileHeader.Left>
-        <MobileMenu navigation={header.navigation} />
+        <MobileHeader.Logo logoUrl={HEADER_LOGO_URL} />
       </MobileHeader.Left>
-      <MobileHeader.Logo logoUrl={HEADER_LOGO_URL} />
       <MobileHeader.Right>
         <HeaderSearch><SearchInput2 /></HeaderSearch>
         <HeaderLogin />
@@ -78,7 +75,7 @@ export default function ShopLayout1({ children, data }: Props) {
         height: 100,
       }}>
 
-        {/* DESKTOP HEADER — plain div, no MUI Container, logo at true far-left */}
+        {/* DESKTOP HEADER */}
         <div className="main-header" style={{
           display: "flex",
           alignItems: "center",
@@ -100,7 +97,7 @@ export default function ShopLayout1({ children, data }: Props) {
             />
           </Link>
 
-          {/* NAV — pushed right via marginLeft: auto */}
+          {/* NAV */}
           <nav style={{
             display: "flex",
             gap: "2rem",
@@ -141,7 +138,7 @@ export default function ShopLayout1({ children, data }: Props) {
             ))}
           </nav>
 
-          {/* ICONS — right */}
+          {/* ICONS */}
           <div style={{
             display: "flex",
             alignItems: "center",
@@ -165,11 +162,11 @@ export default function ShopLayout1({ children, data }: Props) {
 
       </div>
 
-      {/* Responsive: swap desktop/mobile header at 1150px */}
+      {/* Responsive: swap desktop/mobile header at 768px */}
       <style>{`
-        @media (max-width: 1150px) {
+        @media (max-width: 768px) {
           .main-header { display: none !important; }
-          .mobile-header { display: flex !important; }
+          .mobile-header { display: flex !important; align-items: center; padding: 0 16px; }
         }
       `}</style>
 
