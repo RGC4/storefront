@@ -40,7 +40,7 @@ export default function ProductGallery({ images }: { images: string[] }) {
   const visibleImages = images.slice(thumbStart, thumbStart + VISIBLE_THUMBS);
 
   return (
-    <div style={{ display: "flex", gap: "12px", width: "100%", height: "638px" }}>
+    <div style={{ display: "flex", gap: "12px", width: "100%", height: "clamp(300px, 50vw, 638px)" }}>
 
       {/* LEFT: Thumbnail strip - wider */}
       <div style={{
