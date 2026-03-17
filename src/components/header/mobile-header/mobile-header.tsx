@@ -21,7 +21,7 @@ interface MobileHeaderLeftProps extends ComponentProps<typeof Box> {}
 
 MobileHeader.Left = function ({ children, ...props }: MobileHeaderLeftProps) {
   return (
-    <Box flex={1} {...props}>
+    <Box flex={1} display="flex" alignItems="center" {...props}>
       {children}
     </Box>
   );
@@ -29,8 +29,15 @@ MobileHeader.Left = function ({ children, ...props }: MobileHeaderLeftProps) {
 
 MobileHeader.Logo = function ({ logoUrl }: { logoUrl: string }) {
   return (
-    <Link href="/">
-      <Image width={60} height={44} src={logoUrl} alt="logo" />
+    <Link href="/" style={{ display: "flex", alignItems: "center" }}>
+      <Image
+        width={200}
+        height={60}
+        src="/assets/stores/s1/logo/logo-header-mobile.png"
+        alt="Prestige Apparel Group"
+        priority
+        style={{ objectFit: "contain", objectPosition: "left center" }}
+      />
     </Link>
   );
 };
@@ -41,7 +48,7 @@ interface MobileHeaderRightProps extends ComponentProps<typeof Box> {}
 
 MobileHeader.Right = function ({ children, ...props }: MobileHeaderRightProps) {
   return (
-    <Box display="flex" justifyContent="end" flex={1} {...props}>
+    <Box display="flex" justifyContent="end" alignItems="center" flexShrink={0} {...props}>
       {children}
     </Box>
   );
