@@ -27,7 +27,7 @@ export default function MiniCart() {
   return (
     <Box
       sx={{
-        width: 520,
+        width: { xs: "100vw", sm: 420, md: 520 },
         maxWidth: "100vw",
         height: "100vh",
         display: "flex",
