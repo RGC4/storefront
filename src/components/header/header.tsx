@@ -44,16 +44,36 @@ interface HeaderLogoProps {
 
 Header.Logo = function ({ url }: HeaderLogoProps) {
   return (
-    <Link href="/">
-      <LazyImage
-        priority
-        src={url}
-        alt="logo"
-        width={230}
-        height={100}
-        sizes="(max-width: 768px) 130px, 180px"
-        sx={{ objectFit: "contain" }}
-      />
+    <Link href="/" style={{ textDecoration: "none" }}>
+      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <LazyImage
+          priority
+          src={url}
+          alt="logo"
+          width={230}
+          height={100}
+          sizes="(max-width: 768px) 130px, 180px"
+          sx={{ objectFit: "contain" }}
+        />
+        <Box
+          component="span"
+          sx={{
+            display: "block",
+            fontFamily: "'Geist', sans-serif",
+            fontSize: { xs: "0.6rem", md: "0.7rem" },
+            fontWeight: 400,
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            color: "text.primary",
+            textAlign: "center",
+            mt: "-6px",
+            mb: "4px",
+            whiteSpace: "nowrap",
+          }}
+        >
+          Luxury Italian Handbags
+        </Box>
+      </Box>
     </Link>
   );
 };
