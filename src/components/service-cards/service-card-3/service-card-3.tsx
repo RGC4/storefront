@@ -13,7 +13,7 @@ interface Props {
 export default function ServiceCard3({ icon, title, description }: Props) {
   return (
     <StyledRoot>
-      <IconComponent icon={icon} sx={{ fontSize: 40 }} />
+      <IconComponent icon={icon} sx={{ fontSize: 28, flexShrink: 0 }} />
 
       <div>
         <h4>{title}</h4>
