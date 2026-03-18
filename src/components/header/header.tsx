@@ -71,7 +71,7 @@ Header.Logo = function ({ url }: HeaderLogoProps) {
             whiteSpace: "nowrap",
           }}
         >
-          Luxury Italian Handbags
+          Luxury Handbags Manufactured and Shipped from Italy
         </Box>
       </Box>
     </Link>
