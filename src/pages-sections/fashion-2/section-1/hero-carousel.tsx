@@ -53,15 +53,15 @@ export default function VideoHero() {
   const tagline = (
     <Box sx={{
       position: "absolute",
-      top: { xs: "12%", sm: "10%", md: "13%" },
+      top: { xs: "10%", sm: "10%", md: "12%" },
       left: 0,
       px: { xs: 3, sm: 6, md: 12 },
     }}>
       <Typography sx={{
-        color: "rgba(255,255,255,0.78)",
+        color: "rgba(255,255,255,0.82)",
         fontWeight: 400,
-        fontSize: { xs: "0.55rem", sm: "0.65rem", md: "0.72rem" },
-        letterSpacing: { xs: "0.2em", md: "0.28em" },
+        fontSize: { xs: "0.75rem", sm: "0.9rem", md: "1.375rem" },
+        letterSpacing: { xs: "0.18em", md: "0.22em" },
         textTransform: "uppercase",
         textShadow: "0 1px 8px rgba(0,0,0,0.7)",
         lineHeight: 1,
