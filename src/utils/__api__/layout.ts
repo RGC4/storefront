@@ -1,9 +1,23 @@
-// DESTINATION: src/utils/__api__/layout.ts
+// src/utils/__api__/layout.ts
 import { cache } from "react";
 import { storefrontQuery } from "lib/shopify";
-import storeConfig from "config/store.config";
+import { getStoreConfig } from "lib/storeData";
+
+const STORE_ID = process.env.NEXT_PUBLIC_STORE_ID || "s1";
 
 const getLayoutData = cache(async () => {
+  // Load store config from Vercel Blob
+  const storeConfig = await getStoreConfig(STORE_ID);
+
+  // Fallback values if blob is unavailable
+  const logo        = storeConfig?.logo?.header        || "/assets/stores/s1/logo/logo-header.png";
+  const footerLogo  = storeConfig?.logo?.footer        || "/assets/stores/s1/logo/logo-footer.png";
+  const description = storeConfig?.footerDescription   || "";
+  const email       = storeConfig?.email               || "";
+  const phone       = storeConfig?.phone               || "";
+  const address     = storeConfig?.address             || "";
+  const social      = storeConfig?.social              || { google: "", twitter: "", youtube: "", facebook: "", instagram: "", tiktok: "" };
+
   const data = await storefrontQuery(
     `query {
       collections(first: 50, sortKey: TITLE) {
@@ -60,14 +74,14 @@ const getLayoutData = cache(async () => {
 
   return {
     header: {
-      logo: storeConfig.logo,
+      logo,
       categories: collections,
       categoryMenus,
       navigation: [],
     },
     footer: {
-      logo: storeConfig.logo,
-      description: storeConfig.footerDescription,
+      logo: footerLogo,
+      description,
       appStoreUrl: "",
       playStoreUrl: "",
       about: [
@@ -79,34 +93,34 @@ const getLayoutData = cache(async () => {
         { title: "Contact Us",              url: "/contact" },
         { title: "Track Your Order",        url: "/order-lookup" },
         { title: "Returns & Exchanges",     url: "/returns" },
-        { title: "Corporate & Bulk Orders", url: `/mailto:${storeConfig.email}` },
+        { title: "Corporate & Bulk Orders", url: `mailto:${email}` },
       ],
       socials: {
-        google:    storeConfig.social.google,
-        twitter:   storeConfig.social.twitter,
-        youtube:   storeConfig.social.youtube,
-        facebook:  storeConfig.social.facebook,
-        instagram: storeConfig.social.instagram,
+        google:    social.google    || "",
+        twitter:   social.twitter   || "",
+        youtube:   social.youtube   || "",
+        facebook:  social.facebook  || "",
+        instagram: social.instagram || "",
       },
       contact: {
-        phone:   storeConfig.phone,
-        email:   storeConfig.email,
-        address: storeConfig.address,
+        phone,
+        email,
+        address,
       },
     },
     topbar: {
-      title: "Free Express Shipping on Orders Over $99",
-      label: "HOT",
+      title: "",
+      label: "",
       socials: {},
-      languageOptions: { en: { title: "EN", value: "en" } },
+      languageOptions: {},
     },
     mobileNavigation: {
-      logo: storeConfig.logo,
+      logo,
       version1: [
-        { title: "Home",    icon: "Home",                href: "/",                  badge: false },
-        { title: "Shop",    icon: "CategoryOutlined",    href: "/mobile-categories", badge: false },
-        { title: "Cart",    icon: "ShoppingBagOutlined", href: "/cart",              badge: true  },
-        { title: "Account", icon: "User2",               href: "/profile",           badge: false },
+        { title: "Home",    icon: "Home",        href: "/",           badge: false },
+        { title: "Shop",    icon: "ShoppingBag", href: "/collections", badge: false },
+        { title: "Cart",    icon: "Cart",        href: "/cart",        badge: true  },
+        { title: "Account", icon: "User",        href: "/profile",     badge: false },
       ],
       version2: [],
     },
