@@ -63,6 +63,19 @@ export default function VideoHero() {
       opacity: textVisible ? 1 : 0,
       transition: "opacity 600ms ease",
     }}>
+      {/* Luxury tagline above headline */}
+      <Typography sx={{
+        color: "rgba(255,255,255,0.85)",
+        fontWeight: 400,
+        fontSize: { xs: "0.65rem", sm: "0.75rem", md: "0.85rem" },
+        letterSpacing: "0.22em",
+        textTransform: "uppercase",
+        textShadow: "0 1px 6px rgba(0,0,0,0.6)",
+        mb: 1,
+      }}>
+        Luxury Handbags Directly From Italy
+      </Typography>
+
       <Typography variant="h1" sx={{
         color: "white",
         fontWeight: 700,
