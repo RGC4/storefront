@@ -50,6 +50,27 @@ export default function VideoHero() {
 
   const slide = SLIDES[current];
 
+  const tagline = (
+    <Box sx={{
+      position: "absolute",
+      top: { xs: "12%", sm: "10%", md: "13%" },
+      left: 0,
+      px: { xs: 3, sm: 6, md: 12 },
+    }}>
+      <Typography sx={{
+        color: "rgba(255,255,255,0.78)",
+        fontWeight: 400,
+        fontSize: { xs: "0.55rem", sm: "0.65rem", md: "0.72rem" },
+        letterSpacing: { xs: "0.2em", md: "0.28em" },
+        textTransform: "uppercase",
+        textShadow: "0 1px 8px rgba(0,0,0,0.7)",
+        lineHeight: 1,
+      }}>
+        Luxury Handbags Direct From Italy
+      </Typography>
+    </Box>
+  );
+
   const textOverlay = (
     <Box sx={{
       position: "absolute",
@@ -63,19 +84,6 @@ export default function VideoHero() {
       opacity: textVisible ? 1 : 0,
       transition: "opacity 600ms ease",
     }}>
-      {/* Luxury tagline above headline */}
-      <Typography sx={{
-        color: "rgba(255,255,255,0.85)",
-        fontWeight: 400,
-        fontSize: { xs: "0.65rem", sm: "0.75rem", md: "0.85rem" },
-        letterSpacing: "0.22em",
-        textTransform: "uppercase",
-        textShadow: "0 1px 6px rgba(0,0,0,0.6)",
-        mb: 1,
-      }}>
-        Luxury Handbags Directly From Italy
-      </Typography>
-
       <Typography variant="h1" sx={{
         color: "white",
         fontWeight: 700,
@@ -134,6 +142,7 @@ export default function VideoHero() {
           }}
         />
         <div style={overlayStyle} />
+        {tagline}
         {textOverlay}
       </div>
     );
@@ -163,6 +172,7 @@ export default function VideoHero() {
         <source src={slide.src} type="video/mp4" />
       </video>
       <div style={overlayStyle} />
+      {tagline}
       {textOverlay}
     </div>
   );
