@@ -8,9 +8,7 @@ import ProductVariantSelector from "./product-variant-selector";
 import { currency } from "lib";
 import { StyledRoot } from "./styles";
 import Product from "models/Product.model";
-
 type Props = { product: Product };
-
 export default function ProductIntro({ product }: Props) {
   const {
     title,
@@ -20,16 +18,13 @@ export default function ProductIntro({ product }: Props) {
     categories,
     description,
   } = product as any;
-
   return (
     <StyledRoot>
       <Grid container spacing={4} alignItems="flex-start">
         <Grid size={{ lg: 7, md: 7, xs: 12 }}>
           <ProductGallery images={product.images!} />
         </Grid>
-
         <Grid size={{ lg: 5, md: 5, xs: 12 }}>
-
           {/* CATEGORY PILLS */}
           <Box sx={{ mb: 2.5, display: "flex", gap: 1, flexWrap: "wrap" }}>
             {Array.isArray(categories) &&
@@ -52,7 +47,7 @@ export default function ProductIntro({ product }: Props) {
               ))}
           </Box>
 
-          {/* BRAND — 20% bigger: was 32md, now 38md */}
+          {/* BRAND */}
           <Typography
             sx={{
               fontSize: { xs: 30, md: 38 },
@@ -67,7 +62,7 @@ export default function ProductIntro({ product }: Props) {
             {brand || ""}
           </Typography>
 
-          {/* TITLE — 20% bigger: was 18md, now 22md */}
+          {/* TITLE */}
           <Typography
             sx={{
               fontSize: { xs: 18, md: 22 },
@@ -82,12 +77,12 @@ export default function ProductIntro({ product }: Props) {
 
           <Divider sx={{ mb: 3.5 }} />
 
-          {/* PRICING GRID — 20% bigger: was 22, now 26 */}
+          {/* PRICING — stacks vertically on mobile, 3 columns on desktop */}
           <Box
             sx={{
               display: "grid",
-              gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-              gap: 2,
+              gridTemplateColumns: { xs: "1fr", sm: "repeat(3, minmax(0, 1fr))" },
+              gap: { xs: 1.5, sm: 2 },
               mb: 3.5,
             }}
           >
@@ -95,7 +90,7 @@ export default function ProductIntro({ product }: Props) {
               <Typography sx={{ fontSize: 12, color: "#999", mb: 0.5, textTransform: "uppercase", letterSpacing: "0.08em" }}>
                 Price
               </Typography>
-              <Typography sx={{ fontSize: 26, fontWeight: 800, color: "#111" }}>
+              <Typography sx={{ fontSize: { xs: 22, md: 26 }, fontWeight: 800, color: "#111" }}>
                 {currency(price)}
               </Typography>
             </Box>
@@ -105,7 +100,7 @@ export default function ProductIntro({ product }: Props) {
                 <Typography sx={{ fontSize: 12, color: "#999", mb: 0.5, textTransform: "uppercase", letterSpacing: "0.08em" }}>
                   Est. Retail Price
                 </Typography>
-                <Typography sx={{ fontSize: 26, fontWeight: 800, color: "#111" }}>
+                <Typography sx={{ fontSize: { xs: 22, md: 26 }, fontWeight: 800, color: "#111" }}>
                   {currency(comparePrice)}
                 </Typography>
               </Box>
@@ -116,7 +111,7 @@ export default function ProductIntro({ product }: Props) {
                 <Typography sx={{ fontSize: 12, color: "#999", mb: 0.5, textTransform: "uppercase", letterSpacing: "0.08em" }}>
                   Savings
                 </Typography>
-                <Typography sx={{ fontSize: 26, fontWeight: 800, color: "#27ae60" }}>
+                <Typography sx={{ fontSize: { xs: 22, md: 26 }, fontWeight: 800, color: "#27ae60" }}>
                   {currency(comparePrice - price)}
                 </Typography>
               </Box>
@@ -135,7 +130,7 @@ export default function ProductIntro({ product }: Props) {
 
           <Divider sx={{ mb: 3.5 }} />
 
-          {/* INLINE DESCRIPTION — 20% bigger: was 14, now 17 */}
+          {/* DESCRIPTION */}
           {description && (
             <Typography
               sx={{
