@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import OverlayScrollbar from "components/overlay-scrollbar";
 import { MobileNavigationBar } from "components/mobile-navigation";
 import { StyledRoot, CategoryListItem } from "./styles";
@@ -37,39 +36,58 @@ export default function MobileCategoriesPageView({ data }: Props) {
         ))}
       </OverlayScrollbar>
 
-      {/* RIGHT PANEL — products in selected category */}
+      {/* RIGHT PANEL — sub-category list with product counts */}
       <div className="container">
-        {selected?.children?.length > 0 ? (
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem", padding: "0.75rem" }}>
-            {selected.children.map((product: any, i: number) => (
-              <div
-                key={i}
-                onClick={() => router.push(product.href)}
-                style={{ cursor: "pointer", borderRadius: 8, overflow: "hidden", border: "1px solid #f0f0f0" }}
-              >
-                {product.image && (
-                  <img
-                    src={product.image}
-                    alt={product.title}
-                    style={{ width: "100%", height: 120, objectFit: "cover" }}
-                  />
-                )}
-                <div style={{ padding: "0.5rem" }}>
-                  <p style={{ fontSize: "0.75rem", fontWeight: 500, margin: 0, lineHeight: 1.3 }}>{product.title}</p>
-                  <p style={{ fontSize: "0.75rem", color: "#D23F57", margin: "4px 0 0", fontWeight: 600 }}>
-                    {product.currency} {parseFloat(product.price).toFixed(2)}
-                  </p>
+        {/* All collections list with counts — matches the screenshot layout */}
+        <div>
+          {header.categoryMenus.map((item: any, i: number) => (
+            <div
+              key={i}
+              onClick={() => router.push(item.href)}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "0.85rem 0.25rem",
+                borderBottom: "1px solid #f0f0f0",
+                cursor: "pointer",
+              }}
+            >
+              <span style={{ fontSize: "0.9rem", color: "#333" }}>{item.title}</span>
+              <span style={{ fontSize: "0.9rem", color: "#555" }}>{item.productCount ?? 0}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Product grid for selected category */}
+        {selected?.children?.length > 0 && (
+          <div style={{ marginTop: "1rem" }}>
+            <p style={{ fontSize: "0.8rem", fontWeight: 600, color: "#888", marginBottom: "0.5rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+              Featured in {selected.title}
+            </p>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+              {selected.children.map((product: any, i: number) => (
+                <div
+                  key={i}
+                  onClick={() => router.push(product.href)}
+                  style={{ cursor: "pointer", borderRadius: 8, overflow: "hidden", border: "1px solid #f0f0f0" }}
+                >
+                  {product.image && (
+                    <img
+                      src={product.image}
+                      alt={product.title}
+                      style={{ width: "100%", height: 120, objectFit: "cover" }}
+                    />
+                  )}
+                  <div style={{ padding: "0.5rem" }}>
+                    <p style={{ fontSize: "0.75rem", fontWeight: 500, margin: 0, lineHeight: 1.3 }}>{product.title}</p>
+                    <p style={{ fontSize: "0.75rem", color: "#D23F57", margin: "4px 0 0", fontWeight: 600 }}>
+                      {product.currency} {parseFloat(product.price).toFixed(2)}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div
-            style={{ padding: "2rem", textAlign: "center", cursor: "pointer" }}
-            onClick={() => router.push(selected?.href || "/")}
-          >
-            <p style={{ fontSize: "1rem", fontWeight: 500 }}>View all {selected?.title}</p>
-            <p style={{ fontSize: "0.85rem", color: "#888", marginTop: 4 }}>Tap to browse collection →</p>
+              ))}
+            </div>
           </div>
         )}
       </div>

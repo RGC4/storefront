@@ -30,6 +30,9 @@ const getLayoutData = cache(async () => {
               url
               altText
             }
+            productsCount {
+              count
+            }
             products(first: 6) {
               edges {
                 node {
@@ -63,6 +66,7 @@ const getLayoutData = cache(async () => {
     icon: "ShoppingBag",
     value: c.handle,
     image: c.image?.url || null,
+    productCount: c.productsCount?.count ?? 0,
     children: c.products.edges.map(({ node: p }: any) => ({
       title: p.title,
       href: `/product/${p.handle}`,
