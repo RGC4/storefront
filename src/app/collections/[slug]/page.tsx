@@ -13,6 +13,7 @@ const COLLECTION_QUERY = `
         edges {
           node {
             id title handle vendor tags
+            availableForSale
             featuredImage { url }
             priceRange { minVariantPrice { amount currencyCode } }
             compareAtPriceRange { minVariantPrice { amount currencyCode } }
@@ -36,6 +37,7 @@ function mapProduct(node: any) {
     discount: comparePrice > price ? Math.round(((comparePrice - price) / comparePrice) * 100) : 0,
     thumbnail: node.featuredImage?.url ?? "",
     tags: node.tags ?? [],
+    availableForSale: node.availableForSale ?? true,
   };
 }
 
