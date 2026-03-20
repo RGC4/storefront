@@ -77,6 +77,10 @@ export default function CollectionView({ title, description, products }: Props) 
     if (designers.length > 0 && !designers.includes(p.vendor)) return false;
     if (color && !p.tags.some(t => t.toLowerCase() === `color: ${color.toLowerCase()}`)) return false;
     return true;
+  }).sort((a, b) => {
+    const vendorCompare = a.vendor.localeCompare(b.vendor);
+    if (vendorCompare !== 0) return vendorCompare;
+    return a.title.localeCompare(b.title);
   }), [products, designers, color]);
 
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
