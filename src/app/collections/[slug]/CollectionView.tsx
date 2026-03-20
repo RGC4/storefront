@@ -23,6 +23,7 @@ interface Product {
   discount: number;
   thumbnail: string;
   tags: string[];
+  availableForSale: boolean;
 }
 
 interface Props {
@@ -48,15 +49,15 @@ function extractVendors(products: Product[]): string[] {
 
 const dropdownSx = {
   bgcolor: "white",
-  minWidth: 320,                // wider
-  fontSize: 18,                 // 20% larger than 15
+  minWidth: 320,
+  fontSize: 18,
   "& .MuiSelect-select": { fontSize: 18, py: "10px" },
   "& .MuiOutlinedInput-notchedOutline": { borderColor: "#ddd" },
   "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: "#999" },
 };
 
 const filterLabelSx = {
-  fontSize: 13,                 // 20% larger than 11
+  fontSize: 13,
   fontWeight: 700,
   textTransform: "uppercase" as const,
   letterSpacing: "0.08em",
@@ -205,6 +206,7 @@ export default function CollectionView({ title, description, products }: Props) 
                   width: "100%", bgcolor: "white", border: "1px solid #e8e8e8",
                   display: "flex", flexDirection: "column", overflow: "hidden", cursor: "pointer",
                   transition: "all 0.2s ease",
+                  opacity: product.availableForSale ? 1 : 0.6,
                   "&:hover": { borderColor: "#aaa", boxShadow: "0 6px 24px rgba(0,0,0,0.09)", transform: "translateY(-2px)" },
                 }}>
 
@@ -234,7 +236,14 @@ export default function CollectionView({ title, description, products }: Props) 
                       <img src={product.thumbnail} alt={product.title}
                         style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "center", padding: "16px" }} />
                     )}
-                    {product.discount > 0 && (
+                    {/* Out of Stock badge */}
+                    {!product.availableForSale && (
+                      <Box sx={{ position: "absolute", top: 10, right: 10, bgcolor: "#888", color: "white", px: "10px", py: "4px", fontSize: 12, fontWeight: 800, letterSpacing: "0.05em" }}>
+                        OUT OF STOCK
+                      </Box>
+                    )}
+                    {/* Discount badge */}
+                    {product.availableForSale && product.discount > 0 && (
                       <Box sx={{ position: "absolute", top: 10, left: 10, bgcolor: "#c41230", color: "white", px: "10px", py: "4px", fontSize: 12, fontWeight: 800, letterSpacing: "0.05em" }}>
                         {product.discount}% OFF
                       </Box>
@@ -254,8 +263,13 @@ export default function CollectionView({ title, description, products }: Props) 
                       )}
                       <Typography sx={{ fontSize: 12, color: "#bbb", ml: "auto" }}>CAD</Typography>
                     </Box>
-                    <Box sx={{ mt: 2, py: 1.5, textAlign: "center", bgcolor: "#111", color: "white", fontSize: 13, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" }}>
-                      Shop Now
+                    <Box sx={{
+                      mt: 2, py: 1.5, textAlign: "center", fontSize: 13, fontWeight: 700,
+                      letterSpacing: "0.08em", textTransform: "uppercase",
+                      bgcolor: product.availableForSale ? "#111" : "#aaa",
+                      color: "white",
+                    }}>
+                      {product.availableForSale ? "Shop Now" : "Out of Stock"}
                     </Box>
                   </Box>
 
