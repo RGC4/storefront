@@ -11,7 +11,7 @@ import Checkbox from "@mui/material/Checkbox";
 import ListItemText from "@mui/material/ListItemText";
 import BackButton from "components/BackButton";
 
-const PAGE_SIZE = 24;
+const PAGE_SIZE = 48;
 
 interface Product {
   id: string;
