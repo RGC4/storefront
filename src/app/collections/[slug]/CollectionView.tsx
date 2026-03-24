@@ -1,3 +1,4 @@
+﻿
 "use client";
 
 import { useState, useMemo } from "react";
@@ -238,7 +239,7 @@ export default function CollectionView({ title, description, products }: Props) 
                   <Box sx={{ position: "relative", width: "100%", height: 460, bgcolor: "white", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
                     {product.thumbnail && (
                       <img src={product.thumbnail} alt={product.title}
-                        style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "center", padding: "16px" }} />
+                        style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
                     )}
                     {/* Out of Stock badge */}
                     {!product.availableForSale && (
