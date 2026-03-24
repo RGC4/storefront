@@ -1,4 +1,19 @@
-﻿"use client";
+"use client";
+
+/**
+ * src/components/product-cards/product-card-8/styles.ts
+ *
+ * FIXES in this version:
+ * - Removed padding: "8%" on img (was shrinking Fendi even smaller)
+ * - objectFit: "contain" so full bag is always visible
+ * - background: "#f8f8f8" on CardMedia for clean letterbox fill
+ * - Discount badge stays in CardMedia only (do NOT add it in CardHeader)
+ *
+ * NOTE: After deploying this, run the audit script to permanently
+ * fix the Fendi source image whitespace:
+ *   node scripts/audit-images.js --fix --trim
+ */
+
 import { styled } from "@mui/material/styles";
 
 export const Card = styled("div")({
@@ -55,17 +70,16 @@ export const CardMedia = styled("div")({
   width: "100%",
   aspectRatio: "1 / 1",
   flexShrink: 0,
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  background: "#fff",
-  overflow: "hidden",
   position: "relative",
+  background: "#f8f8f8",
+  overflow: "hidden",
   img: {
     width: "100%",
     height: "100%",
-    objectFit: "cover",
+    objectFit: "contain",       // full bag always visible — no cropping
     objectPosition: "center",
+    display: "block",
+    // NO padding — padding shrinks the image inside the box
   },
   ".discount-badge": {
     position: "absolute",
@@ -77,6 +91,7 @@ export const CardMedia = styled("div")({
     fontSize: 12,
     fontWeight: 800,
     letterSpacing: "0.05em",
+    zIndex: 1,
   },
 });
 
