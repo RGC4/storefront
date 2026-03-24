@@ -10,17 +10,17 @@ export const RootStyle = styled("div")(({ theme }) => ({
   justifyContent: "center",
   color: "white",
   textAlign: "center",
-  padding: "4rem 2rem",          // reduced from 7rem → 4rem
+  padding: "4rem 2rem",
   backgroundSize: "cover",
   backgroundPosition: "center",
-  backgroundColor: "#2a1f0e",
+  backgroundColor: "#000000",
   backgroundRepeat: "no-repeat",
   position: "relative",
   "&::before": {
     content: '""',
     position: "absolute",
     inset: 0,
-    background: "rgba(20, 14, 6, 0.55)",
+    background: "rgba(0, 0, 0, 0.55)",
   },
   "& > *": {
     position: "relative",
@@ -40,10 +40,12 @@ export const RootStyle = styled("div")(({ theme }) => ({
 
   "& .title": {
     fontSize: 54,
-    lineHeight: 1.1,
     fontWeight: 700,
-    marginBottom: "1rem",
+    lineHeight: 1.1,
     letterSpacing: "-0.01em",
+    // Reset browser/MUI h1 defaults that shrink the font
+    margin: "0 0 1rem 0",
+    padding: 0,
     [theme.breakpoints.down("sm")]: { fontSize: 36 },
   },
 
@@ -51,9 +53,11 @@ export const RootStyle = styled("div")(({ theme }) => ({
     fontSize: 18,
     fontWeight: 400,
     lineHeight: 1.7,
-    marginBottom: "2rem",
     maxWidth: 520,
     opacity: 0.9,
+    // Reset browser p defaults
+    margin: "0 0 2rem 0",
+    padding: 0,
     [theme.breakpoints.down("sm")]: { fontSize: 15 },
   },
 }));

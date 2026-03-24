@@ -1,4 +1,4 @@
-// src/utils/__api__/layout.ts
+﻿// src/utils/__api__/layout.ts
 import { cache } from "react";
 import { storefrontQuery } from "lib/shopify";
 import { getStoreConfig } from "lib/storeData";
@@ -6,10 +6,8 @@ import { getStoreConfig } from "lib/storeData";
 const STORE_ID = process.env.NEXT_PUBLIC_STORE_ID || "s1";
 
 const getLayoutData = cache(async () => {
-  // Load store config from Vercel Blob
   const storeConfig = await getStoreConfig(STORE_ID);
 
-  // Fallback values if blob is unavailable
   const logo        = storeConfig?.logo?.header        || "/assets/stores/s1/logo/logo-header.png";
   const footerLogo  = storeConfig?.logo?.footer        || "/assets/stores/s1/logo/logo-footer.png";
   const description = storeConfig?.footerDescription   || "";
@@ -26,22 +24,13 @@ const getLayoutData = cache(async () => {
             id
             title
             handle
-            image {
-              url
-              altText
-            }
+            image { url altText }
             products(first: 6) {
               edges {
                 node {
-                  id
-                  title
-                  handle
-                  priceRange {
-                    minVariantPrice { amount currencyCode }
-                  }
-                  images(first: 1) {
-                    edges { node { url altText } }
-                  }
+                  id title handle
+                  priceRange { minVariantPrice { amount currencyCode } }
+                  images(first: 1) { edges { node { url altText } } }
                 }
               }
             }
@@ -85,16 +74,19 @@ const getLayoutData = cache(async () => {
       description,
       appStoreUrl: "",
       playStoreUrl: "",
+      // Left column â€” About Us
       about: [
-        { title: "About Us",           url: "#" },
-        { title: "Terms & Conditions", url: "#" },
-        { title: "Privacy Policy",     url: "#" },
+        { title: "About Us",           url: "/about" },
+        { title: "Contact Us",         url: "/contact" },
+        { title: "Terms & Conditions", url: "/policies/s1_terms_and_conditions.html" },
+        { title: "Privacy Policy",     url: "/policies/s1_privacy_policy.html" },
       ],
+      // Right column â€” Customer Care
       customers: [
-        { title: "Contact Us",              url: "/contact" },
-        { title: "Track Your Order",        url: "/order-lookup" },
-        { title: "Returns & Exchanges",     url: "/returns" },
-        { title: "Corporate & Bulk Orders", url: `mailto:${email}` },
+        { title: "Track Your Order",    url: "/order-lookup" },
+        { title: "Shipping Policy",     url: "/policies/s1_shipping_policy.html" },
+        { title: "Returns & Exchanges", url: "/returns" },
+        { title: "Refund Policy",       url: "/policies/s1_refund_policy.html" },
       ],
       socials: {
         google:    social.google    || "",
@@ -103,11 +95,7 @@ const getLayoutData = cache(async () => {
         facebook:  social.facebook  || "",
         instagram: social.instagram || "",
       },
-      contact: {
-        phone,
-        email,
-        address,
-      },
+      contact: { phone, email, address },
     },
     topbar: {
       title: "",
@@ -118,7 +106,7 @@ const getLayoutData = cache(async () => {
     mobileNavigation: {
       logo,
       version1: [
-        { title: "Home",    icon: "Home",        href: "/",           badge: false },
+        { title: "Home",    icon: "Home",        href: "/",            badge: false },
         { title: "Shop",    icon: "ShoppingBag", href: "/collections", badge: false },
         { title: "Cart",    icon: "Cart",        href: "/cart",        badge: true  },
         { title: "Account", icon: "User",        href: "/profile",     badge: false },

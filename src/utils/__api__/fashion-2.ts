@@ -1,124 +1,138 @@
-import { cache } from "react";
+﻿import { cache } from "react";
 import { storefrontQuery } from "lib/shopify";
 import storeConfig from "config/store.config";
 import fs from "fs";
 import path from "path";
+import Product, { ProductVariant } from "models/Product.model";
 
-function mapProduct(p: any) {
-  const price = parseFloat(p.priceRange?.minVariantPrice?.amount || 0);
-  const comparePrice = parseFloat(p.compareAtPriceRange?.minVariantPrice?.amount || 0);
-  const images = p.images?.edges?.map((e: any) => e.node.src) || [];
+// â”€â”€ Shopify response shapes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+interface ShopifyImageEdge { node: { src: string } }
+interface ShopifyVariantEdge { node: { id: string; title: string; price: { amount: string }; availableForSale: boolean } }
+
+interface ShopifyProduct {
+  id: string;
+  title: string;
+  handle: string;
+  vendor: string;
+  tags: string[];
+  description?: string;
+  priceRange: { minVariantPrice: { amount: string; currencyCode: string } };
+  compareAtPriceRange: { minVariantPrice: { amount: string; currencyCode: string } };
+  images: { edges: ShopifyImageEdge[] };
+  variants: { edges: ShopifyVariantEdge[] };
+}
+
+interface ShopifyEdge<T> { node: T }
+
+// â”€â”€ Mapper â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+function mapProduct(p: ShopifyProduct): Product {
+  const price = parseFloat(p.priceRange?.minVariantPrice?.amount || "0");
+  const comparePrice = parseFloat(p.compareAtPriceRange?.minVariantPrice?.amount || "0");
+  const images = p.images?.edges?.map((e) => e.node.src) ?? [];
+
   return {
-    id: p.id, slug: p.handle, title: p.title, brand: p.vendor || null,
-    price, comparePrice,
+    id: p.id,
+    slug: p.handle,
+    title: p.title,
+    brand: p.vendor || undefined,
+    price,
+    comparePrice: comparePrice > 0 ? comparePrice : undefined,
     discount: comparePrice > price ? Math.round(((comparePrice - price) / comparePrice) * 100) : 0,
-    colors: [], thumbnail: images[0] || "", images,
-    variants: p.variants?.edges?.map((e: any) => e.node) || [],
-    categories: p.tags || [], reviews: [], rating: 0,
+    colors: [],
+    thumbnail: images[0] ?? "",
+    images,
+    variants: p.variants?.edges?.map((e): ProductVariant => e.node) ?? [],
+    categories: p.tags ?? [],
+    reviews: [],
+    rating: 0,
     shop: {
       id: "", name: storeConfig.name, slug: "", email: storeConfig.email,
       verified: true, coverPicture: "", profilePicture: "",
+      phone: "", address: "",
       socialLinks: { facebook: null, youtube: null, twitter: null, instagram: null },
-      user: { id: "", email: storeConfig.email, verified: true, name: { firstName: storeConfig.name, lastName: "" } }
+      user: {
+        id: "", email: storeConfig.email, verified: true,
+        name: { firstName: storeConfig.name, lastName: "" }
+      }
     },
   };
 }
 
-async function fetchProducts(limit = 24) {
+// â”€â”€ Queries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+async function fetchProducts(limit = 24): Promise<Product[]> {
   const data = await storefrontQuery(
     `query P($n:Int!){products(first:$n,sortKey:BEST_SELLING){edges{node{id title handle vendor tags priceRange{minVariantPrice{amount currencyCode}}compareAtPriceRange{minVariantPrice{amount currencyCode}}images(first:3){edges{node{src:url}}}variants(first:5){edges{node{id title price{amount}availableForSale}}}}}}}`,
     { n: limit }
   );
-  return data?.products?.edges?.map(({ node }: any) => mapProduct(node)) ?? [];
+  return data?.products?.edges?.map(({ node }: ShopifyEdge<ShopifyProduct>) => mapProduct(node)) ?? [];
 }
 
-const getProducts = cache(async () => fetchProducts(24));
-const getFeatureProducts = cache(async () => (await fetchProducts(8)).filter((p: any) => p.categories?.includes("feature")));
-const getSaleProducts = cache(async () => (await fetchProducts(8)).filter((p: any) => p.categories?.includes("sale")));
-const getPopularProducts = cache(async () => (await fetchProducts(8)).filter((p: any) => p.categories?.includes("popular")));
-const getBestWeekProducts = cache(async () => (await fetchProducts(8)).filter((p: any) => p.categories?.includes("best-week")));
+export const getProducts = cache(() => fetchProducts(24));
+export const getFeatureProducts = cache(async () => (await fetchProducts(8)).filter(p => p.categories?.includes("feature")));
+export const getSaleProducts = cache(async () => (await fetchProducts(8)).filter(p => p.categories?.includes("sale")));
+export const getPopularProducts = cache(async () => (await fetchProducts(8)).filter(p => p.categories?.includes("popular")));
+export const getBestWeekProducts = cache(async () => (await fetchProducts(8)).filter(p => p.categories?.includes("best-week")));
 
-const getLatestProducts = cache(async () => {
+export const getLatestProducts = cache(async (): Promise<Product[]> => {
   const data = await storefrontQuery(
     `query{products(first:8,sortKey:CREATED_AT,reverse:true){edges{node{id title handle vendor tags priceRange{minVariantPrice{amount currencyCode}}images(first:3){edges{node{src:url}}}variants(first:5){edges{node{id title price{amount}availableForSale}}}}}}}`,
     {}
   );
-  return data?.products?.edges?.map(({ node }: any) => mapProduct(node)) ?? [];
+  return data?.products?.edges?.map(({ node }: ShopifyEdge<ShopifyProduct>) => mapProduct(node)) ?? [];
 });
 
-const getCategories = cache(async () => {
+interface ShopifyCollection {
+  id: string;
+  title: string;
+  handle: string;
+  description: string;
+  image?: { src: string; altText?: string };
+  products: { edges: { node: { featuredImage?: { url: string } } }[] };
+}
+
+export const getCategories = cache(async () => {
   const data = await storefrontQuery(
-    `query { collections(first: 50, sortKey: TITLE) { edges { node { 
-      id title handle description 
+    `query { collections(first: 50, sortKey: TITLE) { edges { node {
+      id title handle description
       image { src: url altText }
       products(first: 1) { edges { node { featuredImage { url } } } }
     } } } }`,
     {}
   );
-  return data?.collections?.edges?.map(({ node: c }: any) => ({
-    id: c.id,
-    name: c.title,
-    icon: null,
-    image: c.image?.src || c.products?.edges?.[0]?.node?.featuredImage?.url || "",
-    slug: c.handle,
-    parent: [],
-    description: c.description || null,
+  return data?.collections?.edges?.map(({ node: c }: ShopifyEdge<ShopifyCollection>) => ({
+    id:          c.id,
+    name:        c.title,
+    slug:        c.handle,
+    description: c.description,
+    image:       c.image?.src ?? c.products?.edges?.[0]?.node?.featuredImage?.url ?? "",
   })) ?? [];
 });
 
-const getMainCarouselData = cache(async () => {
-  const storeId = storeConfig.storeId;
-  const picDir = path.join(process.cwd(), "public", "pictures", storeId);
-
-  try {
-    if (fs.existsSync(picDir)) {
-      const files = fs.readdirSync(picDir);
-
-      const mp4 = files.find(f => f.endsWith(".mp4"));
-      if (mp4) {
-        return [{
-          title: storeConfig.heroTitle,
-          imgUrl: `/pictures/${storeId}/${mp4}`,
-          isVideo: true,
-          description: storeConfig.heroSubtitle,
-          buttonText: storeConfig.heroButtonText,
-          buttonLink: storeConfig.heroButtonLink,
-        }];
-      }
-
-      const heroImages = files
-        .filter(f => /^hero-\d+\.(png|jpg|jpeg|webp)$/i.test(f))
-        .sort();
-
-      if (heroImages.length > 0) {
-        return heroImages.map((img, i) => ({
-          title: i === 0 ? storeConfig.heroTitle : "",
-          imgUrl: `/pictures/${storeId}/${img}`,
-          description: i === 0 ? storeConfig.heroSubtitle : "",
-          buttonText: i === 0 ? storeConfig.heroButtonText : "",
-          buttonLink: storeConfig.heroButtonLink,
-        }));
-      }
-    }
-  } catch {}
-
+export const getMainCarouselData = cache(async () => {
+  const cfg = storeConfig as any;
+  const slides = cfg?.heroSlides ?? [];
+  if (slides.length > 0) return slides;
   return [{
-    title: storeConfig.heroTitle,
-    imgUrl: "/assets/images/banners/banner-1.png",
-    description: storeConfig.heroSubtitle,
-    buttonText: storeConfig.heroButtonText,
-    buttonLink: storeConfig.heroButtonLink,
+    title:       cfg.heroTitle       || "New Collection",
+    description: cfg.heroSubtitle    || "",
+    buttonText:  cfg.heroButtonText  || "Shop Now",
+    buttonLink:  cfg.heroButtonLink  || "/collections",
   }];
 });
 
-const getBlogs = cache(async () => []);
-const getBrands = cache(async () => []);
-const getServices = cache(async () => [
-  { id: "1", icon: "Truck", title: "Free Delivery", description: "On all orders" },
-  { id: "2", icon: "Payment", title: "Secure Payment", description: "Safe & protected" },
-  { id: "3", icon: "Verified", title: "Authentic Products", description: "100% guaranteed" },
-  { id: "4", icon: "Support", title: "Human Support", description: "To serve you" },
-] as any);
+export interface ServiceCard { id: string; icon: string; title: string; description: string }
+
+export const getBlogs    = cache(async () => []);
+export const getBrands   = cache(async () => []);
+export const getServices = cache(async (): Promise<ServiceCard[]> => [
+  { id: "1", icon: "Truck",    title: "Free Delivery",      description: "On all orders"                  },
+  { id: "2", icon: "Payment",  title: "Secure Payment",     description: "Safe & protected"               },
+  { id: "3", icon: "Verified", title: "Authentic Products", description: "100% guaranteed"                },
+  { id: "4", icon: "Support",  title: "Concierge Care",     description: "White-glove service, every time" },
+]);
 
 export default {
   getBlogs, getBrands, getProducts, getServices, getCategories,

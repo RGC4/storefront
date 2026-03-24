@@ -1,5 +1,4 @@
-"use client";
-
+﻿"use client";
 import { styled } from "@mui/material/styles";
 
 export const Card = styled("div")({
@@ -19,24 +18,24 @@ export const Card = styled("div")({
 });
 
 export const CardHeader = styled("div")({
-  padding: "20px 16px 18px",
+  padding: "16px",
   borderBottom: "1px solid #f0f0f0",
   textAlign: "center",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  height: 120,
-  "@media (max-width: 768px)": { height: 70, padding: "8px 10px" },
+  height: 110,
+  flexShrink: 0,
+  "@media (max-width: 768px)": { height: 80, padding: "8px 10px" },
   ".vendor": {
-    fontSize: 21,
+    fontSize: 22,
     fontWeight: 800,
     color: "#111",
     textTransform: "uppercase",
     letterSpacing: "0.08em",
     marginBottom: 4,
-    textAlign: "center",
-    "@media (max-width: 768px)": { fontSize: 12 },
+    "@media (max-width: 768px)": { fontSize: 14 },
   },
   ".title": {
     fontSize: 17,
@@ -48,25 +47,25 @@ export const CardHeader = styled("div")({
     WebkitLineClamp: 2,
     WebkitBoxOrient: "vertical" as const,
     textAlign: "center",
-    "@media (max-width: 768px)": { fontSize: 11 },
+    "@media (max-width: 768px)": { fontSize: 13 },
   },
 });
 
 export const CardMedia = styled("div")({
   width: "100%",
-  height: 460,
-  position: "relative",
+  aspectRatio: "1 / 1",
+  flexShrink: 0,
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
   background: "#fff",
-  "@media (max-width: 768px)": { height: 160 },
+  overflow: "hidden",
+  position: "relative",
   img: {
     width: "100%",
     height: "100%",
-    objectFit: "contain",
+    objectFit: "cover",
     objectPosition: "center",
-    padding: "16px",
   },
   ".discount-badge": {
     position: "absolute",
@@ -85,6 +84,7 @@ export const CardContent = styled("div")({
   padding: "12px 16px 14px",
   borderTop: "1px solid #f0f0f0",
   textAlign: "center",
+  flexShrink: 0,
   ".price-block": {
     display: "flex",
     alignItems: "center",
@@ -92,13 +92,13 @@ export const CardContent = styled("div")({
     gap: 8,
   },
   ".retail-price": {
-    fontSize: 13,
+    fontSize: 17,
     color: "#999",
     textDecoration: "line-through",
   },
   ".wholesale-price": {
-    fontSize: 16,
-    fontWeight: 700,
+    fontSize: 26,
+    fontWeight: 800,
     color: "#111",
   },
 });

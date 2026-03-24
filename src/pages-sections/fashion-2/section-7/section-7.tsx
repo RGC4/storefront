@@ -9,7 +9,6 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Close from "@mui/icons-material/Close";
-// LOCAL CUSTOM COMPONENT
 import { RootStyle } from "./styles";
 
 export default function Section7() {
@@ -57,7 +56,6 @@ export default function Section7() {
         </Button>
       </RootStyle>
 
-      {/* EMAIL SIGNUP MODAL */}
       <Dialog
         open={open}
         onClose={handleClose}
@@ -71,52 +69,25 @@ export default function Section7() {
           }
         }}
       >
-        {/* Gold accent bar */}
         <Box sx={{ height: 8, background: "linear-gradient(90deg, #b8972e 0%, #d4af55 50%, #b8972e 100%)" }} />
 
         <DialogContent sx={{ px: { xs: 4, sm: 7 }, py: { xs: 5, sm: 6 }, position: "relative" }}>
-
-          {/* Close button */}
           <IconButton onClick={handleClose} sx={{ position: "absolute", top: 16, right: 16, color: "grey.400" }}>
             <Close sx={{ fontSize: 26 }} />
           </IconButton>
 
           {!submitted ? (
             <>
-              {/* Eyebrow */}
-              <Typography sx={{
-                color: "#b8972e",
-                letterSpacing: "0.25em",
-                fontSize: "0.875rem",
-                fontWeight: 700,
-                textTransform: "uppercase",
-                mb: 1.5,
-              }}>
+              <Typography sx={{ color: "#b8972e", letterSpacing: "0.25em", fontSize: "0.875rem", fontWeight: 700, textTransform: "uppercase", mb: 1.5 }}>
                 Exclusively Yours
               </Typography>
-
-              {/* Headline */}
-              <Typography sx={{
-                fontWeight: 700,
-                fontSize: { xs: "1.75rem", sm: "2.25rem" },
-                lineHeight: 1.2,
-                color: "#1a1a2e",
-                mb: 2,
-              }}>
+              <Typography sx={{ fontWeight: 700, fontSize: { xs: "1.75rem", sm: "2.25rem" }, lineHeight: 1.2, color: "#1a1a2e", mb: 2 }}>
                 Handcrafted in Italy.<br />Curated for You.
               </Typography>
-
-              {/* Body copy */}
-              <Typography sx={{
-                color: "text.secondary",
-                fontSize: { xs: "1rem", sm: "1.1rem" },
-                lineHeight: 1.8,
-                mb: 4,
-              }}>
+              <Typography sx={{ color: "text.secondary", fontSize: { xs: "1rem", sm: "1.1rem" }, lineHeight: 1.8, mb: 4 }}>
                 Join our insider list for first access to new collections,
                 members-only pricing, and stories from the artisans behind every bag.
               </Typography>
-
               <Box component="form" onSubmit={handleSubmit} sx={{ display: "flex", flexDirection: "column", gap: 2.5 }}>
                 <TextField
                   label="Your email address"
@@ -129,9 +100,7 @@ export default function Section7() {
                   inputProps={{ style: { fontSize: "1.05rem", padding: "18px 14px" } }}
                   InputLabelProps={{ style: { fontSize: "1rem" } }}
                   sx={{
-                    "& .MuiOutlinedInput-root": {
-                      "&.Mui-focused fieldset": { borderColor: "#b8972e", borderWidth: 2 },
-                    },
+                    "& .MuiOutlinedInput-root": { "&.Mui-focused fieldset": { borderColor: "#b8972e", borderWidth: 2 } },
                     "& label.Mui-focused": { color: "#b8972e" },
                   }}
                 />
@@ -140,14 +109,9 @@ export default function Section7() {
                   variant="contained"
                   fullWidth
                   sx={{
-                    backgroundColor: "#1a1a2e",
-                    color: "white",
-                    py: 2,
-                    fontSize: "1.05rem",
-                    letterSpacing: "0.15em",
-                    textTransform: "uppercase",
-                    fontWeight: 700,
-                    borderRadius: 1.5,
+                    backgroundColor: "#1a1a2e", color: "white", py: 2,
+                    fontSize: "1.05rem", letterSpacing: "0.15em", textTransform: "uppercase",
+                    fontWeight: 700, borderRadius: 1.5,
                     "&:hover": { backgroundColor: "#b8972e" },
                     transition: "background-color 250ms ease",
                   }}
@@ -155,43 +119,23 @@ export default function Section7() {
                   Join the Insider List
                 </Button>
               </Box>
-
-              <Typography sx={{
-                display: "block",
-                textAlign: "center",
-                mt: 3,
-                fontSize: "0.875rem",
-                color: "text.disabled",
-              }}>
+              <Typography sx={{ display: "block", textAlign: "center", mt: 3, fontSize: "0.875rem", color: "text.disabled" }}>
                 No spam. Unsubscribe anytime. We respect your privacy.
               </Typography>
             </>
           ) : (
-            /* Success state */
             <Box sx={{ textAlign: "center", py: 5 }}>
-              <Typography sx={{ color: "#b8972e", fontWeight: 700, fontSize: "2rem", mb: 2 }}>
-                Benvenuta! 🇮🇹
-              </Typography>
-              <Typography sx={{ color: "#1a1a2e", fontWeight: 600, fontSize: "1.4rem", mb: 1.5 }}>
-                You're on the list.
-              </Typography>
+              <Typography sx={{ color: "#b8972e", fontWeight: 700, fontSize: "2rem", mb: 2 }}>Benvenuta! 🇮🇹</Typography>
+              <Typography sx={{ color: "#1a1a2e", fontWeight: 600, fontSize: "1.4rem", mb: 1.5 }}>You're on the list.</Typography>
               <Typography sx={{ color: "text.secondary", fontSize: "1.05rem", lineHeight: 1.8, maxWidth: 420, mx: "auto" }}>
-                Watch your inbox for exclusive early access, new arrivals,
-                and members-only offers crafted just for you.
+                Watch your inbox for exclusive early access, new arrivals, and members-only offers crafted just for you.
               </Typography>
               <Button
                 onClick={handleClose}
                 sx={{
-                  mt: 4,
-                  color: "#b8972e",
-                  fontWeight: 700,
-                  fontSize: "0.95rem",
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  border: "2px solid #b8972e",
-                  px: 5,
-                  py: 1.5,
-                  borderRadius: 1.5,
+                  mt: 4, color: "#b8972e", fontWeight: 700, fontSize: "0.95rem",
+                  letterSpacing: "0.12em", textTransform: "uppercase",
+                  border: "2px solid #b8972e", px: 5, py: 1.5, borderRadius: 1.5,
                   "&:hover": { backgroundColor: "#b8972e", color: "white" },
                   transition: "all 250ms ease",
                 }}
@@ -200,7 +144,6 @@ export default function Section7() {
               </Button>
             </Box>
           )}
-
         </DialogContent>
       </Dialog>
     </>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Fragment, PropsWithChildren, useEffect, useState } from "react";
 import Link from "next/link";
@@ -6,7 +6,7 @@ import Image from "next/image";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import {
-  Footer1, FooterContact, FooterLinksWidget, FooterSocialLinks
+  Footer1, FooterLinksWidget
 } from "components/footer";
 import { MobileNavigationBar } from "components/mobile-navigation";
 import { SearchInput2 } from "components/search-box";
@@ -55,11 +55,6 @@ export default function ShopLayout1({ children, data }: Props) {
     </MobileHeader>
   );
 
-  const filteredCustomers = footer.customers?.filter(
-    (item: { title: string; url: string }) =>
-      item.title !== "Corporate & Bulk Orders"
-  );
-
   return (
     <Fragment>
 
@@ -85,7 +80,7 @@ export default function ShopLayout1({ children, data }: Props) {
           gap: "2rem",
         }}>
 
-          {/* LOGO — far left */}
+          {/* LOGO */}
           <Link href="/" style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
             <Image
               src={HEADER_LOGO_URL}
@@ -181,16 +176,18 @@ export default function ShopLayout1({ children, data }: Props) {
               style={{ objectFit: "contain", objectPosition: "left center" }} />
           </Link>
         </Footer1.Brand>
-        <Footer1.Widget1><FooterLinksWidget title="About Us" links={footer.about} /></Footer1.Widget1>
-        <Footer1.Widget2><FooterLinksWidget title="Customer Care" links={filteredCustomers} /></Footer1.Widget2>
-        <Footer1.Contact>
-          <FooterContact phone={footer.contact.phone} email={footer.contact.email} address={footer.contact.address} />
-          <FooterSocialLinks links={footer.socials} />
-        </Footer1.Contact>
+        <Footer1.Widget1><FooterLinksWidget title="About Us"      links={footer.about}     /></Footer1.Widget1>
+        <Footer1.Widget2><FooterLinksWidget title="Customer Care" links={footer.customers} /></Footer1.Widget2>
         <Footer1.Copyright>
           <Divider sx={{ borderColor: "grey.800" }} />
-          <Typography variant="body2" sx={{ py: 3, textAlign: "center", span: { fontWeight: 500 } }}>
-            &copy; Copyright {new Date().getFullYear()} <span>Prestige Apparel Group</span>. All rights reserved.
+          <Typography
+            variant="body2"
+            sx={{ py: 2, textAlign: "center", fontSize: "1.01rem", color: "grey.400" }}
+          >
+            &copy; Copyright {new Date().getFullYear()}{" "}
+            <span style={{ fontWeight: 600, color: "white" }}>Prestige Apparel Group</span>.{" "}
+            Owned and operated by RGC4<sub style={{ fontSize: "0.65em", verticalAlign: "sub" }}>&#8203;</sub>.{" "}
+            All rights reserved.
           </Typography>
         </Footer1.Copyright>
       </Footer1>

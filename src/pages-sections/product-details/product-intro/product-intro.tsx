@@ -8,23 +8,20 @@ import ProductVariantSelector from "./product-variant-selector";
 import { currency } from "lib";
 import { StyledRoot } from "./styles";
 import Product from "models/Product.model";
+
 type Props = { product: Product };
+
 export default function ProductIntro({ product }: Props) {
-  const {
-    title,
-    brand,
-    price,
-    comparePrice,
-    categories,
-    description,
-  } = product as any;
+  const { title, brand, price, comparePrice, categories, description } = product;
+
   return (
     <StyledRoot>
       <Grid container spacing={4} alignItems="flex-start">
         <Grid size={{ lg: 7, md: 7, xs: 12 }}>
-          <ProductGallery images={product.images!} />
+          <ProductGallery images={product.images} />
         </Grid>
         <Grid size={{ lg: 5, md: 5, xs: 12 }}>
+
           {/* CATEGORY PILLS */}
           <Box sx={{ mb: 2.5, display: "flex", gap: 1, flexWrap: "wrap" }}>
             {Array.isArray(categories) &&
@@ -32,14 +29,9 @@ export default function ProductIntro({ product }: Props) {
                 <Box
                   key={item}
                   sx={{
-                    px: 1.4,
-                    py: 0.5,
-                    fontSize: 11,
-                    color: "#888",
-                    background: "#f2f2f2",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.08em",
-                    borderRadius: "3px",
+                    px: 1.4, py: 0.5, fontSize: 11, color: "#888",
+                    background: "#f2f2f2", textTransform: "uppercase",
+                    letterSpacing: "0.08em", borderRadius: "3px",
                   }}
                 >
                   {item}
@@ -50,34 +42,21 @@ export default function ProductIntro({ product }: Props) {
           {/* BRAND */}
           <Typography
             sx={{
-              fontSize: { xs: 30, md: 38 },
-              lineHeight: 1.1,
-              fontWeight: 800,
-              color: "#111",
-              mb: 1.5,
-              textTransform: "uppercase",
-              letterSpacing: "0.04em",
+              fontSize: { xs: 30, md: 38 }, lineHeight: 1.1, fontWeight: 800,
+              color: "#111", mb: 1.5, textTransform: "uppercase", letterSpacing: "0.04em",
             }}
           >
-            {brand || ""}
+            {brand ?? ""}
           </Typography>
 
           {/* TITLE */}
-          <Typography
-            sx={{
-              fontSize: { xs: 18, md: 22 },
-              lineHeight: 1.5,
-              fontWeight: 400,
-              color: "#555",
-              mb: 3.5,
-            }}
-          >
+          <Typography sx={{ fontSize: { xs: 18, md: 22 }, lineHeight: 1.5, fontWeight: 400, color: "#555", mb: 3.5 }}>
             {title}
           </Typography>
 
           <Divider sx={{ mb: 3.5 }} />
 
-          {/* PRICING — stacks vertically on mobile, 3 columns on desktop */}
+          {/* PRICING */}
           <Box
             sx={{
               display: "grid",
@@ -95,7 +74,7 @@ export default function ProductIntro({ product }: Props) {
               </Typography>
             </Box>
 
-            {comparePrice > 0 ? (
+            {comparePrice && comparePrice > 0 ? (
               <Box>
                 <Typography sx={{ fontSize: 12, color: "#999", mb: 0.5, textTransform: "uppercase", letterSpacing: "0.08em" }}>
                   Est. Retail Price
@@ -106,7 +85,7 @@ export default function ProductIntro({ product }: Props) {
               </Box>
             ) : <Box />}
 
-            {comparePrice > price ? (
+            {comparePrice && comparePrice > price ? (
               <Box>
                 <Typography sx={{ fontSize: 12, color: "#999", mb: 0.5, textTransform: "uppercase", letterSpacing: "0.08em" }}>
                   Savings
@@ -132,14 +111,7 @@ export default function ProductIntro({ product }: Props) {
 
           {/* DESCRIPTION */}
           {description && (
-            <Typography
-              sx={{
-                fontSize: 17,
-                lineHeight: 1.9,
-                color: "#555",
-                whiteSpace: "pre-line",
-              }}
-            >
+            <Typography sx={{ fontSize: 17, lineHeight: 1.9, color: "#555", whiteSpace: "pre-line" }}>
               {description}
             </Typography>
           )}
