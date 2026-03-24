@@ -8,7 +8,8 @@ const FormData = require("form-data");
 const https = require("https");
 
 const SHOP = "rgc4-3.myshopify.com";
-const TOKEN = "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";
+
+const token = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN;
 const CANVAS = 800;       // final image size in pixels
 const PRODUCT_SIZE = 680; // bag takes up 85% of canvas
 const BG_COLOR = { r: 255, g: 255, b: 255, alpha: 1 }; // white background
