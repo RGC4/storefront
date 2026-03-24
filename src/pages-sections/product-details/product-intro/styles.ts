@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { styled } from "@mui/material/styles";
 
@@ -37,9 +37,11 @@ export const ProductImageWrapper = styled("div")(({ theme }) => ({
   border: "1px solid #e8e8e8",
 
   "& img": {
+    width: "100%",
+    height: "100%",
     objectFit: "contain",
     objectPosition: "center center",
-    padding: "24px",
+    padding: "8px",
   },
 
   [theme.breakpoints.down("sm")]: {

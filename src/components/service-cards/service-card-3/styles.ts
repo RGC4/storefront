@@ -1,14 +1,14 @@
-"use client";
+﻿"use client";
 
 import { styled } from "@mui/material/styles";
 
 export const StyledRoot = styled("div")(({ theme }) => ({
-  gap: 16,
+  gap: 22,
   flexGrow: 1,
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  padding: "28px 20px",
+  padding: "25px 18px",
   borderRight: `1px solid ${theme.palette.divider}`,
   ":last-child": { borderRight: 0 },
   [theme.breakpoints.down("md")]: {
@@ -19,16 +19,16 @@ export const StyledRoot = styled("div")(({ theme }) => ({
     justifyContent: "flex-start",
   },
   h4: {
-    fontSize: 22,
+    fontSize: 25,
     fontWeight: 700,
     marginBottom: 4,
     lineHeight: 1.2,
-    [theme.breakpoints.down("sm")]: { fontSize: 19 },
+    [theme.breakpoints.down("sm")]: { fontSize: 22 },
   },
   p: {
     color: theme.palette.grey[600],
-    fontSize: 17,
+    fontSize: 19,
     lineHeight: 1.4,
-    [theme.breakpoints.down("sm")]: { fontSize: 15 },
+    [theme.breakpoints.down("sm")]: { fontSize: 17 },
   },
 }));

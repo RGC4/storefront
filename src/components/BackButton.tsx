@@ -1,8 +1,7 @@
-"use client";
+﻿"use client";
 
 import { useRouter } from "next/navigation";
 import Box from "@mui/material/Box";
-import ArrowBackIos from "@mui/icons-material/ArrowBackIos";
 
 export default function BackButton() {
   const router = useRouter();
@@ -14,22 +13,23 @@ export default function BackButton() {
       sx={{
         display: "inline-flex",
         alignItems: "center",
-        gap: 0.5,
+        gap: "10px",
         background: "none",
         border: "none",
         cursor: "pointer",
         color: "#111",
-        fontSize: 14,
+        fontSize: { xs: "16px", md: "18.75px" },
         fontWeight: 600,
         letterSpacing: "0.02em",
-        textTransform: "uppercase",
-        mb: 2,
+        mb: 3,
         px: 0,
-        "&:hover": { color: "#555" },
+        "&:hover": { color: "#b8972e" },
       }}
     >
-      <ArrowBackIos sx={{ fontSize: 13 }} />
-      Back
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="15 18 9 12 15 6" />
+      </svg>
+      Back to Store
     </Box>
   );
 }
