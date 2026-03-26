@@ -7,7 +7,7 @@ const nextConfig = {
       { protocol: "https", hostname: "ui-lib.com" },
     ],
   },
+  allowedDevOrigins: ["farreachingly-manlier-liam.ngrok-free.dev"],
   experimental: { staleTimes: { dynamic: 0 } },
 };
-
 module.exports = nextConfig;

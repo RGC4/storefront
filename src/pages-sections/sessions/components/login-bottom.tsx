@@ -1,26 +1,12 @@
-import { Fragment } from "react";
 import Typography from "@mui/material/Typography";
-import { FlexBox, FlexRowCenter } from "components/flex-box";
-import BoxLink from "./box-link";
+import FlexRowCenter from "components/flex-box/flex-row-center";
 
 export default function LoginBottom() {
   return (
-    <Fragment>
-      <FlexRowCenter gap={1} my={3}>
-        <Typography variant="body2" color="text.secondary">
-          Don&apos;t have account?
-        </Typography>
-
-        <BoxLink title="Register" href="/register" />
-      </FlexRowCenter>
-
-      <FlexBox gap={1} py={2} borderRadius={1} justifyContent="center" bgcolor="grey.50">
-        <Typography variant="body2" color="text.secondary">
-          Forgot your password?
-        </Typography>
-
-        <BoxLink title="Reset It" href="/reset-password" />
-      </FlexBox>
-    </Fragment>
+    <FlexRowCenter gap={1} my={2}>
+      <Typography variant="body2" color="text.secondary" textAlign="center" fontSize="1.1rem">
+        Secure, passwordless sign-in powered by Shopify
+      </Typography>
+    </FlexRowCenter>
   );
 }
