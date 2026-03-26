@@ -1,4 +1,4 @@
-﻿// DESTINATION: src/pages-sections/contact/page-view.tsx
+// DESTINATION: src/pages-sections/contact/page-view.tsx
 "use client";
 
 import { useState } from "react";
@@ -118,7 +118,6 @@ export default function ContactPageView() {
               <Typography sx={{ fontSize: "18px", fontWeight: 600, mb: 2 }}>Get in Touch</Typography>
               <Stack spacing={1.5}>
                 <Box><Typography sx={labelText}>Email</Typography><Typography sx={{ ...bodyText, color: "text.secondary" }}>corporate@prestigeapparelgroup.com</Typography></Box>
-                <Box><Typography sx={labelText}>Phone</Typography><Typography sx={{ ...bodyText, color: "text.secondary" }}>1-630-479-8118</Typography></Box>
                 <Box><Typography sx={labelText}>Hours</Typography><Typography sx={{ ...bodyText, color: "text.secondary" }}>Mon to Fri 9 am to 5 pm CST</Typography></Box>
               </Stack>
             </Card>
