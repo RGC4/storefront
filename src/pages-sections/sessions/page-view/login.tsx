@@ -1,84 +1,54 @@
+// src/pages-sections/sessions/page-view/login.tsx
+// ─────────────────────────────────────────────────────────────────────────────
+// Updated login page — redirects to Shopify's hosted login.
+// Shopify handles: magic link, Google, passkeys.
+// ─────────────────────────────────────────────────────────────────────────────
+
 "use client";
 
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { TextField, FormProvider } from "components/form-hook";
-import Label from "../components/label";
-import EyeToggleButton from "../components/eye-toggle-button";
-import usePasswordVisible from "../use-password-visible";
-
-const validationSchema = yup.object().shape({
-  password: yup.string().required("Password is required"),
-  email: yup.string().email("Invalid email address").required("Email is required"),
-});
+import Box from "@mui/material/Box";
+import { useSearchParams } from "next/navigation";
 
 export default function LoginPageView() {
-  const { visiblePassword, togglePasswordVisible } = usePasswordVisible();
-  const initialValues = { email: "", password: "" };
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
+  const error = searchParams.get("error");
 
-  const methods = useForm({
-    defaultValues: initialValues,
-    resolver: yupResolver(validationSchema),
-  });
+  const handleSignIn = () => {
+    window.location.href = `/api/auth/login?callbackUrl=${encodeURIComponent(callbackUrl)}`;
+  };
 
-  const { handleSubmit, formState: { isSubmitting } } = methods;
-
-  const handleSubmitForm = handleSubmit((values) => {
-    alert(JSON.stringify(values, null, 2));
-  });
+  const errorMessages: Record<string, string> = {
+    auth_failed: "Authentication failed. Please try again.",
+    shopify_error: "Shopify returned an error. Please try again.",
+    state_mismatch: "Security check failed. Please try again.",
+    token_exchange_failed: "Login failed. Please try again.",
+  };
 
   return (
-    <FormProvider methods={methods} onSubmit={handleSubmitForm}>
-      <div className="mb-1">
-        <Label>Email Address</Label>
-        <TextField
-          fullWidth
-          name="email"
-          type="email"
-          size="medium"
-          placeholder="you@example.com"
-        />
-      </div>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 4, alignItems: "center" }}>
+      {error && (
+        <Typography color="error" variant="body2" textAlign="center">
+          {errorMessages[error] || "An error occurred. Please try again."}
+        </Typography>
+      )}
 
-      <div className="mb-1">
-        <Label>Password</Label>
-        <TextField
-          fullWidth
-          size="medium"
-          name="password"
-          autoComplete="current-password"
-          placeholder="••••••••"
-          type={visiblePassword ? "text" : "password"}
-          slotProps={{
-            input: {
-              endAdornment: (
-                <EyeToggleButton show={visiblePassword} click={togglePasswordVisible} />
-              ),
-            },
-          }}
-        />
-      </div>
-
-      <Typography variant="body2" textAlign="right" mb={2}>
-        <Link href="/forget-password" underline="hover" color="primary">
-          Forgot password?
-        </Link>
+      <Typography variant="body1" textAlign="center" color="text.secondary" fontSize="1.5rem">
+        Sign in securely with your email — no password needed.
       </Typography>
 
       <Button
         fullWidth
         size="large"
-        type="submit"
-        color="primary"
         variant="contained"
-        loading={isSubmitting}
+        color="primary"
+        onClick={handleSignIn}
+        sx={{ py: 1.5, fontSize: "1.2rem", borderRadius: 1.5, width: "50%", mx: "auto", display: "block" }}
       >
-        Sign In
+        Sign In / Register
       </Button>
-    </FormProvider>
+    </Box>
   );
 }

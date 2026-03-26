@@ -1,7 +1,6 @@
 import { PropsWithChildren, ReactNode } from "react";
 // LOCAL CUSTOM COMPONENTS
 import LogoWithTitle from "./components/logo-title";
-import SocialButtons from "./components/social-buttons";
 // GLOBAL CUSTOM COMPONENTS
 import FlexRowCenter from "components/flex-box/flex-row-center";
 // COMMON STYLED COMPONENT
@@ -19,6 +18,7 @@ export default function AuthLayout({ children, bottomContent }: Props) {
     <FlexRowCenter
       bgcolor="grey.50"
       flexDirection="column"
+      justifyContent="center"
       minHeight="100vh"
       px={2}
       pb={{ xs: "80px", lg: 0 }}
@@ -26,7 +26,6 @@ export default function AuthLayout({ children, bottomContent }: Props) {
       <Wrapper elevation={6}>
         <LogoWithTitle />
         {children}
-        <SocialButtons />
         {bottomContent}
       </Wrapper>
     </FlexRowCenter>

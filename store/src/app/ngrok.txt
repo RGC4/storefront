@@ -1,0 +1,5 @@
+.\ngrok config add-authtoken 3BS7vd03uMRKS0B83zygjg1G0Ep_6SmhmbbeLoyNuYMLjiEJT
+
+ngrok http --url=farreachingly-manlier-liam.ngrok-free.dev 80
+
+https://farreachingly-manlier-liam.ngrok-free.dev

@@ -1,30 +1,57 @@
+// src/utils/__api__/orders.ts
 import { cache } from "react";
-import axios from "utils/axiosInstance";
-// CUSTOM DATA MODEL
+import { cookies } from "next/headers";
 import Order from "models/Order.model";
 import { IdParams } from "models/Common";
 
-const getOrders = cache(async (page = 0) => {
+const getBaseUrl = () => {
+  return process.env.SHOPIFY_APP_URL || process.env.NEXT_PUBLIC_NGROK_URL || "http://localhost:3000";
+};
+
+const getOrders = cache(async (page = 1) => {
   const PAGE_SIZE = 5;
   const PAGE_NO = page - 1;
 
-  const { data: orders } = await axios.get<Order[]>("/api/users/orders");
+  const cookieStore = await cookies();
+  const allCookies = cookieStore.getAll().map(c => `${c.name}=${c.value}`).join("; ");
+
+  const res = await fetch(`${getBaseUrl()}/api/users/orders`, {
+    headers: { Cookie: allCookies },
+    cache: "no-store",
+  });
+
+  const orders: Order[] = res.ok ? await res.json() : [];
 
   const totalPages = Math.ceil(orders.length / PAGE_SIZE);
   const currentOrders = orders.slice(PAGE_NO * PAGE_SIZE, (PAGE_NO + 1) * PAGE_SIZE);
 
-  const response = { orders: currentOrders, totalOrders: orders.length, totalPages };
-  return response;
+  return { orders: currentOrders, totalOrders: orders.length, totalPages };
 });
 
 const getIds = cache(async () => {
-  const response = await axios.get<IdParams[]>("/api/users/order-ids");
-  return response.data;
+  const cookieStore = await cookies();
+  const allCookies = cookieStore.getAll().map(c => `${c.name}=${c.value}`).join("; ");
+
+  const res = await fetch(`${getBaseUrl()}/api/users/order-ids`, {
+    headers: { Cookie: allCookies },
+    cache: "no-store",
+  });
+
+  const data: IdParams[] = res.ok ? await res.json() : [];
+  return data;
 });
 
 const getOrder = cache(async (id: string) => {
-  const response = await axios.get<Order>("/api/users/order", { params: { id } });
-  return response.data;
+  const cookieStore = await cookies();
+  const allCookies = cookieStore.getAll().map(c => `${c.name}=${c.value}`).join("; ");
+
+  const res = await fetch(`${getBaseUrl()}/api/users/order?id=${id}`, {
+    headers: { Cookie: allCookies },
+    cache: "no-store",
+  });
+
+  const data: Order = res.ok ? await res.json() : null;
+  return data;
 });
 
 export default { getOrders, getOrder, getIds };

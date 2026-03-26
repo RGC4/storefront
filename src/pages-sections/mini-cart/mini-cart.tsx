@@ -15,6 +15,7 @@ export default function MiniCart() {
   const { state, updateCartLine, removeCartLine } = useCart() as any;
   const router = useRouter();
   const items = state?.cart ?? [];
+  const checkoutUrl = state?.checkoutUrl;
 
   const subtotal = parseFloat(
     items.reduce((total: number, item: any) => {
@@ -23,6 +24,12 @@ export default function MiniCart() {
       return total + qty * price;
     }, 0).toFixed(2)
   );
+
+  const handleCheckout = () => {
+    if (checkoutUrl) {
+      window.location.href = checkoutUrl;
+    }
+  };
 
   return (
     <Box
@@ -66,21 +73,19 @@ export default function MiniCart() {
             No products in the cart
           </Typography>
 
-          <Link href="/fashion-2" style={{ textDecoration: "none" }}>
-            <Button
-              variant="contained"
-              sx={{
-                textTransform: "none",
-                borderRadius: 1,
-                px: 3,
-                height: 48,
-                fontSize: 16,
-              }}
-              onClick={() => router.back()}
-            >
-              Continue Shopping
-            </Button>
-          </Link>
+          <Button
+            variant="contained"
+            sx={{
+              textTransform: "none",
+              borderRadius: 1,
+              px: 3,
+              height: 48,
+              fontSize: 16,
+            }}
+            onClick={() => router.back()}
+          >
+            Continue Shopping
+          </Button>
         </Box>
       ) : (
         <>
@@ -251,22 +256,22 @@ export default function MiniCart() {
               </Typography>
             </Box>
 
-            <Link href="/checkout" style={{ textDecoration: "none" }}>
-              <Button
-                fullWidth
-                variant="contained"
-                sx={{
-                  mb: 1.5,
-                  height: 56,
-                  fontWeight: 800,
-                  fontSize: 16,
-                  textTransform: "none",
-                  borderRadius: 0,
-                }}
-              >
-                Checkout
-              </Button>
-            </Link>
+            <Button
+              fullWidth
+              variant="contained"
+              onClick={handleCheckout}
+              disabled={!checkoutUrl}
+              sx={{
+                mb: 1.5,
+                height: 56,
+                fontWeight: 800,
+                fontSize: 16,
+                textTransform: "none",
+                borderRadius: 0,
+              }}
+            >
+              Checkout
+            </Button>
 
             <Link href="/cart" style={{ textDecoration: "none" }}>
               <Button
