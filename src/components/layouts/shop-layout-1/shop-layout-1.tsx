@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { Fragment, PropsWithChildren, useEffect, useState } from "react";
 import Link from "next/link";
@@ -34,6 +34,7 @@ const NAV_LINK_STYLE: React.CSSProperties = {
 export default function ShopLayout1({ children, data }: Props) {
   const { footer, header, mobileNavigation } = data;
   const [scrolled, setScrolled] = useState(false);
+  const policies = (footer as any).policies || [];
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -178,6 +179,7 @@ export default function ShopLayout1({ children, data }: Props) {
         </Footer1.Brand>
         <Footer1.Widget1><FooterLinksWidget title="About Us"      links={footer.about}     /></Footer1.Widget1>
         <Footer1.Widget2><FooterLinksWidget title="Customer Care" links={footer.customers} /></Footer1.Widget2>
+        <Footer1.Contact><FooterLinksWidget title="Policies"      links={policies}         /></Footer1.Contact>
         <Footer1.Copyright>
           <Divider sx={{ borderColor: "grey.800" }} />
           <Typography
