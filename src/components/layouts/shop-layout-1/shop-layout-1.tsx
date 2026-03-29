@@ -3,7 +3,9 @@
 import { Fragment, PropsWithChildren, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
+import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import {
   Footer1, FooterLinksWidget
@@ -170,29 +172,56 @@ export default function ShopLayout1({ children, data }: Props) {
 
       <MobileNavigationBar navigation={mobileNavigation.version1} />
 
-      <Footer1>
-        <Footer1.Brand>
-          <Link href="/">
-            <Image src={FOOTER_LOGO_URL} alt="Store Logo" width={360} height={147}
-              style={{ objectFit: "contain", objectPosition: "left center" }} />
-          </Link>
-        </Footer1.Brand>
-        <Footer1.Widget1><FooterLinksWidget title="About Us"      links={footer.about}     /></Footer1.Widget1>
-        <Footer1.Widget2><FooterLinksWidget title="Customer Care" links={footer.customers} /></Footer1.Widget2>
-        <Footer1.Contact><FooterLinksWidget title="Policies"      links={policies}         /></Footer1.Contact>
-        <Footer1.Copyright>
-          <Divider sx={{ borderColor: "grey.800" }} />
+      {/* FOOTER */}
+      <Box component="footer" bgcolor="grey.900" color="white" mb={{ lg: 0, xs: 8 }} pt={{ sm: 4, xs: 2 }}>
+        <Container>
+          <Box sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: { xs: 4, md: 0 },
+            py: 2,
+          }}>
+            {/* LOGO - flush left */}
+            <Box sx={{ flex: { xs: "1 1 100%", md: "0 0 220px" }, mr: { md: "auto" } }}>
+              <Link href="/">
+                <Image src={FOOTER_LOGO_URL} alt="Store Logo" width={200} height={82}
+                  style={{ objectFit: "contain", objectPosition: "left center" }} />
+              </Link>
+            </Box>
+
+            {/* 3 LINK COLUMNS - centered */}
+            <Box sx={{
+              display: "flex",
+              flex: { xs: "1 1 100%", md: "0 0 auto" },
+              gap: { xs: 4, md: 8 },
+              flexWrap: "wrap",
+              justifyContent: { md: "center" },
+            }}>
+              <Box sx={{ minWidth: 160 }}>
+                <FooterLinksWidget title="About Us" links={footer.about} />
+              </Box>
+              <Box sx={{ minWidth: 160 }}>
+                <FooterLinksWidget title="Customer Care" links={footer.customers} />
+              </Box>
+              <Box sx={{ minWidth: 160 }}>
+                <FooterLinksWidget title="Policies" links={policies} />
+              </Box>
+            </Box>
+          </Box>
+
+          {/* COPYRIGHT */}
+          <Divider sx={{ borderColor: "grey.800", mt: 2 }} />
           <Typography
             variant="body2"
             sx={{ py: 2, textAlign: "center", fontSize: "1.01rem", color: "grey.400" }}
           >
             &copy; Copyright {new Date().getFullYear()}{" "}
             <span style={{ fontWeight: 600, color: "white" }}>Prestige Apparel Group</span>.{" "}
-            Owned and operated by RGC4<sub style={{ fontSize: "0.65em", verticalAlign: "sub" }}>&#8203;</sub>.{" "}
+            Owned and operated by RGC4.{" "}
             All rights reserved.
           </Typography>
-        </Footer1.Copyright>
-      </Footer1>
+        </Container>
+      </Box>
     </Fragment>
   );
 }
