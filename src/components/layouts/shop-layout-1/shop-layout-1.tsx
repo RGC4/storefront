@@ -6,9 +6,10 @@ import Image from "next/image";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import {
-  Footer1, FooterLinksWidget
+  FooterLinksWidget
 } from "components/footer";
 import { MobileNavigationBar } from "components/mobile-navigation";
 import { SearchInput2 } from "components/search-box";
@@ -175,42 +176,33 @@ export default function ShopLayout1({ children, data }: Props) {
       {/* FOOTER */}
       <Box component="footer" bgcolor="grey.900" color="white" mb={{ lg: 0, xs: 8 }} pt={{ sm: 4, xs: 2 }}>
         <Container>
-          <Box sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: { xs: 4, md: 0 },
-            py: 2,
-          }}>
-            {/* LOGO - flush left */}
-            <Box sx={{ flex: { xs: "1 1 100%", md: "0 0 220px" }, mr: { md: "auto" } }}>
+          <Grid container spacing={3} sx={{ py: 2 }}>
+            {/* LOGO - left */}
+            <Grid size={{ xs: 12, md: 3 }}>
               <Link href="/">
-                <Image src={FOOTER_LOGO_URL} alt="Store Logo" width={200} height={82}
+                <Image src={FOOTER_LOGO_URL} alt="Store Logo" width={220} height={90}
                   style={{ objectFit: "contain", objectPosition: "left center" }} />
               </Link>
-            </Box>
+            </Grid>
 
-            {/* 3 LINK COLUMNS - centered */}
-            <Box sx={{
-              display: "flex",
-              flex: { xs: "1 1 100%", md: "0 0 auto" },
-              gap: { xs: 4, md: 8 },
-              flexWrap: "wrap",
-              justifyContent: { md: "center" },
-            }}>
-              <Box sx={{ minWidth: 160 }}>
-                <FooterLinksWidget title="About Us" links={footer.about} />
-              </Box>
-              <Box sx={{ minWidth: 160 }}>
-                <FooterLinksWidget title="Customer Care" links={footer.customers} />
-              </Box>
-              <Box sx={{ minWidth: 160 }}>
-                <FooterLinksWidget title="Policies" links={policies} />
-              </Box>
-            </Box>
-          </Box>
+            {/* ABOUT US */}
+            <Grid size={{ xs: 6, md: 3 }}>
+              <FooterLinksWidget title="About Us" links={footer.about} />
+            </Grid>
+
+            {/* CUSTOMER CARE */}
+            <Grid size={{ xs: 6, md: 3 }}>
+              <FooterLinksWidget title="Customer Care" links={footer.customers} />
+            </Grid>
+
+            {/* POLICIES */}
+            <Grid size={{ xs: 6, md: 3 }}>
+              <FooterLinksWidget title="Policies" links={policies} />
+            </Grid>
+          </Grid>
 
           {/* COPYRIGHT */}
-          <Divider sx={{ borderColor: "grey.800", mt: 2 }} />
+          <Divider sx={{ borderColor: "grey.800" }} />
           <Typography
             variant="body2"
             sx={{ py: 2, textAlign: "center", fontSize: "1.01rem", color: "grey.400" }}
