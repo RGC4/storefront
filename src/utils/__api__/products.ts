@@ -1,6 +1,8 @@
 import { cache } from "react";
 import { storefrontQuery } from "lib/shopify";
 
+const STORE_ID = process.env.NEXT_PUBLIC_STORE_ID || "s1";
+
 // ── Mapper ─────────────────────────────────────────────────────────────────────
 
 function mapProduct(p: any) {
@@ -32,6 +34,8 @@ function mapProduct(p: any) {
       name: process.env.NEXT_PUBLIC_STORE_NAME ?? "Store",
       slug: "",
       email: "",
+      phone: "",
+      address: "",
       verified: true,
       coverPicture: "",
       profilePicture: "",
@@ -39,6 +43,10 @@ function mapProduct(p: any) {
       user: {
         id: "",
         email: "",
+        phone: "",
+        avatar: "",
+        password: "",
+        dateOfBirth: "",
         verified: true,
         name: {
           firstName: process.env.NEXT_PUBLIC_STORE_NAME ?? "Store",
@@ -67,20 +75,20 @@ const PRODUCT_FIELDS = `
   }
 `;
 
-// All products (used for listing pages)
+// All products (used for listing pages) - filtered by store tag
 const getProducts = cache(async (limit = 24) => {
   const data = await storefrontQuery(
-    `query Products($n: Int!) {
-      products(first: $n, sortKey: BEST_SELLING) {
+    `query Products($n: Int!, $q: String) {
+      products(first: $n, sortKey: BEST_SELLING, query: $q) {
         edges { node { ${PRODUCT_FIELDS} } }
       }
     }`,
-    { n: limit }
+    { n: limit, q: `tag:${STORE_ID}` }
   );
   return data.products.edges.map(({ node }: any) => mapProduct(node));
 });
 
-// Single product by handle/slug
+// Single product by handle/slug (no store filter - direct access by handle is fine)
 const getProduct = cache(async (slug: string) => {
   const data = await storefrontQuery(
     `query Product($handle: String!) {
@@ -91,34 +99,36 @@ const getProduct = cache(async (slug: string) => {
   return data.product ? mapProduct(data.product) : null;
 });
 
-// All handles for generateStaticParams
+// All handles for generateStaticParams - filtered by store tag
 const getSlugs = cache(async () => {
   const data = await storefrontQuery(
-    `query {
-      products(first: 250) {
+    `query($q: String) {
+      products(first: 250, query: $q) {
         edges { node { handle } }
       }
-    }`
+    }`,
+    { q: `tag:${STORE_ID}` }
   );
   return data.products.edges.map(({ node }: any) => ({ slug: node.handle }));
 });
 
-// Search products by title
+// Search products by title - filtered by store tag
 const searchProducts = cache(async (name?: string, _category?: string) => {
-  const query = name ? `title:*${name}*` : "";
+  const parts: string[] = [`tag:${STORE_ID}`];
+  if (name) parts.push(`title:*${name}*`);
+  const q = parts.join(" AND ");
   const data = await storefrontQuery(
     `query Search($q: String!) {
       products(first: 20, query: $q) {
         edges { node { ${PRODUCT_FIELDS} } }
       }
     }`,
-    { q: query }
+    { q }
   );
   return data.products.edges.map(({ node }: any) => mapProduct(node));
 });
 
 // Product reviews — Shopify Storefront API doesn't expose reviews natively
-// Return empty array; wire up a reviews app (e.g. Judge.me) here if needed
 const getProductReviews = cache(async () => []);
 
 export default { getSlugs, getProduct, getProducts, searchProducts, getProductReviews };

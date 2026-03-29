@@ -2,18 +2,39 @@ import { cache } from "react";
 import { storefrontQuery } from "lib/shopify";
 import storeConfig from "config/store.config";
 
+const STORE_ID = process.env.NEXT_PUBLIC_STORE_ID || "s1";
+
 const getLayoutData = cache(async () => {
+  // Fetch collections and check which ones have products tagged for this store
   const data = await storefrontQuery(
-    `query { collections(first: 50, sortKey: TITLE) { edges { node { id title handle } } } }`,
-    {}
+    `query StoreCollections($storeTag: String!) {
+      collections(first: 50, sortKey: TITLE) {
+        edges {
+          node {
+            id
+            title
+            handle
+            products(first: 1, filters: [{ tag: $storeTag }]) {
+              edges { node { id } }
+            }
+          }
+        }
+      }
+    }`,
+    { storeTag: STORE_ID }
   );
 
-  const collections = data.collections.edges.map(({ node: c }: any) => ({
+  // Only include collections that have at least 1 product for this store
+  const storeCollections = data.collections.edges
+    .filter(({ node: c }: any) => c.products.edges.length > 0)
+    .map(({ node: c }: any) => c);
+
+  const collections = storeCollections.map((c: any) => ({
     title: c.title,
     value: c.handle,
   }));
 
-  const categoryMenus = data.collections.edges.map(({ node: c }: any) => ({
+  const categoryMenus = storeCollections.map((c: any) => ({
     title: c.title,
     href: `/collections/${c.handle}`,
     icon: "ShoppingBag",
@@ -33,18 +54,15 @@ const getLayoutData = cache(async () => {
       description: storeConfig.footerDescription,
       appStoreUrl: "",
       playStoreUrl: "",
-      // About Us links
       about: [
         { title: "About Us",               url: "/about" },
         { title: "Corporate & Bulk Orders", url: "/contact" },
       ],
-      // Customer Care links
       customers: [
         { title: "Contact Us",          url: "/contact" },
         { title: "Track Your Order",    url: "/order-lookup" },
         { title: "Returns & Exchanges", url: "/returns" },
       ],
-      // Policies links
       policies: [
         { title: "Terms & Conditions", url: "/policies/s1_terms_and_conditions.html" },
         { title: "Privacy Policy",     url: "/policies/s1_privacy_policy.html" },
