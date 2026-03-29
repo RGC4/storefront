@@ -91,22 +91,26 @@ interface ShopifyCollection {
   handle: string;
   description: string;
   image?: { src: string; altText?: string };
-  products: { edges: { node: { featuredImage?: { url: string } } }[] };
+  products: { edges: { node: { tags: string[]; featuredImage?: { url: string } } }[] };
 }
 
 export const getCategories = cache(async () => {
   const data = await storefrontQuery(
-    `query StoreCategories($storeTag: String!) {
+    `query {
       collections(first: 50, sortKey: TITLE) { edges { node {
         id title handle description
         image { src: url altText }
-        products(first: 1, filters: [{ tag: $storeTag }]) { edges { node { featuredImage { url } } } }
+        products(first: 1) { edges { node { tags featuredImage { url } } } }
       } } }
     }`,
-    { storeTag: STORE_ID }
+    {}
   );
   return data?.collections?.edges
-    ?.filter(({ node: c }: ShopifyEdge<ShopifyCollection>) => c.products.edges.length > 0)
+    ?.filter(({ node: c }: ShopifyEdge<ShopifyCollection>) => {
+      const firstProduct = c.products?.edges?.[0]?.node;
+      if (!firstProduct) return false;
+      return firstProduct.tags?.includes(STORE_ID);
+    })
     ?.map(({ node: c }: ShopifyEdge<ShopifyCollection>) => ({
       id:          c.id,
       name:        c.title,
