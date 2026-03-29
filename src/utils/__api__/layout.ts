@@ -36,20 +36,20 @@ const getLayoutData = cache(async () => {
       // About Us links
       about: [
         { title: "About Us",               url: "/about" },
-        { title: "Corporate & Bulk Orders", url: `mailto:${storeConfig.email}` },
+        { title: "Corporate & Bulk Orders", url: "/contact" },
       ],
       // Customer Care links
       customers: [
-        { title: "Contact us",          url: "/contact" },
+        { title: "Contact Us",          url: "/contact" },
         { title: "Track Your Order",    url: "/order-lookup" },
         { title: "Returns & Exchanges", url: "/returns" },
       ],
       // Policies links
       policies: [
-        { title: "Terms & Conditions", url: "/terms" },
-        { title: "Privacy Policy",     url: "/privacy" },
-        { title: "Shipping Policy",    url: "/shipping" },
-        { title: "Refund Policy",      url: "/refund" },
+        { title: "Terms & Conditions", url: "/policies/s1_terms_and_conditions.html" },
+        { title: "Privacy Policy",     url: "/policies/s1_privacy_policy.html" },
+        { title: "Shipping Policy",    url: "/policies/s1_shipping_policy.html" },
+        { title: "Refund Policy",      url: "/policies/s1_refund_policy.html" },
       ],
       socials: {
         google:    storeConfig.social.google,

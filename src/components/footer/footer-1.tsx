@@ -40,7 +40,7 @@ interface Footer1BrandProps extends ComponentProps<typeof Grid> {}
 
 Footer1.Brand = function ({
   children,
-  size = { lg: 4, sm: 6, xs: 12 },
+  size = { lg: 3, sm: 6, xs: 12 },
   ...props
 }: Footer1BrandProps) {
   return (
@@ -56,7 +56,7 @@ interface Footer1Widget1Props extends ComponentProps<typeof Grid> {}
 
 Footer1.Widget1 = function ({
   children,
-  size = { lg: 2, sm: 6, xs: 12 },
+  size = { lg: 3, sm: 6, xs: 12 },
   ...props
 }: Footer1Widget1Props) {
   return (
