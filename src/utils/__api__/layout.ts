@@ -5,28 +5,36 @@ import storeConfig from "config/store.config";
 const STORE_ID = process.env.NEXT_PUBLIC_STORE_ID || "s1";
 
 const getLayoutData = cache(async () => {
-  // Fetch collections and check which ones have products tagged for this store
+  // Fetch all collections with their first product's tags
   const data = await storefrontQuery(
-    `query StoreCollections($storeTag: String!) {
+    `query {
       collections(first: 50, sortKey: TITLE) {
         edges {
           node {
             id
             title
             handle
-            products(first: 1, filters: [{ tag: $storeTag }]) {
-              edges { node { id } }
+            products(first: 1) {
+              edges {
+                node {
+                  tags
+                }
+              }
             }
           }
         }
       }
     }`,
-    { storeTag: STORE_ID }
+    {}
   );
 
-  // Only include collections that have at least 1 product for this store
+  // Only show collections whose products have our store tag
   const storeCollections = data.collections.edges
-    .filter(({ node: c }: any) => c.products.edges.length > 0)
+    .filter(({ node: c }: any) => {
+      const firstProduct = c.products?.edges?.[0]?.node;
+      if (!firstProduct) return false;
+      return firstProduct.tags?.includes(STORE_ID);
+    })
     .map(({ node: c }: any) => c);
 
   const collections = storeCollections.map((c: any) => ({
