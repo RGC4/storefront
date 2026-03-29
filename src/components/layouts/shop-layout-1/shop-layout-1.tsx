@@ -18,8 +18,9 @@ import LayoutModel from "models/Layout.model";
 
 interface Props extends PropsWithChildren { data: LayoutModel; }
 
-const HEADER_LOGO_URL = "/assets/stores/s1/logo/logo-header.png";
-const FOOTER_LOGO_URL = "/assets/stores/s1/logo/logo-footer.png";
+const STORE_ID = process.env.NEXT_PUBLIC_STORE_ID || "s1";
+const HEADER_LOGO_URL = `/assets/stores/${STORE_ID}/logo/logo-header.png`;
+const FOOTER_LOGO_URL = `/assets/stores/${STORE_ID}/logo/logo-footer.png`;
 
 const NAV_LINK_STYLE: React.CSSProperties = {
   fontSize: "1.08rem",
@@ -180,8 +181,8 @@ export default function ShopLayout1({ children, data }: Props) {
             {/* LOGO - left */}
             <Grid size={{ xs: 12, md: 3 }}>
               <Link href="/">
-                <Image src={FOOTER_LOGO_URL} alt="Store Logo" width={220} height={90}
-                  style={{ objectFit: "contain", objectPosition: "left center" }} />
+                <Image src={FOOTER_LOGO_URL} alt="Store Logo" width={570} height={233}
+                  style={{ objectFit: "contain", objectPosition: "left center", marginLeft: "-192px" }} />
               </Link>
             </Grid>
 
