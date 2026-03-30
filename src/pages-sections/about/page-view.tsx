@@ -28,7 +28,7 @@ export default function AboutPageView() {
         variant="body1"
         sx={{ textAlign: "center", color: "text.secondary", fontSize: "1.15rem", maxWidth: 680, mx: "auto", mb: 6, lineHeight: 1.8 }}
       >
-        We believe luxury fashion should be accessible â€” beautifully made, honestly priced, and delivered with care.
+        We believe luxury fashion should be accessible — beautifully made, honestly priced, and delivered with care.
       </Typography>
 
       <Divider sx={{ mb: 5 }} />
@@ -36,7 +36,7 @@ export default function AboutPageView() {
       {/* Who We Are */}
       <Section title="Who We Are">
         {storeName} is a U.S.-based online boutique specializing in premium Italian-crafted apparel and
-        accessories. We curate pieces from trusted artisan suppliers â€” handbags, footwear, and ready-to-wear â€” and
+        accessories. We curate pieces from trusted artisan suppliers — handbags, footwear, and ready-to-wear — and
         bring them directly to customers who appreciate quality and craftsmanship.
       </Section>
 
@@ -52,7 +52,7 @@ export default function AboutPageView() {
         }}
       >
         <Typography sx={{ fontStyle: "italic", fontSize: "1.2rem", color: "#444", lineHeight: 1.75 }}>
-          "Handcrafted in Italy. Curated for You." â€” Every piece in our collection is selected for its quality,
+          "Handcrafted in Italy. Curated for You." — Every piece in our collection is selected for its quality,
           its story, and the hands that made it.
         </Typography>
       </Box>
@@ -83,7 +83,7 @@ export default function AboutPageView() {
 
       {/* US-based */}
       <Section title="Based in the United States">
-        We are a U.S.-based company operated by RGC4. Our customer service team is here to support you â€”
+        We are a U.S.-based company operated by RGC4. Our customer service team is here to support you —
         before, during, and after your purchase.
       </Section>
 
@@ -118,7 +118,7 @@ export default function AboutPageView() {
   );
 }
 
-// â”€â”€ Local helper â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Local helper
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <Box sx={{ mb: 4 }}>
