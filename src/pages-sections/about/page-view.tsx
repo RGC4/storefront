@@ -8,11 +8,11 @@ import Divider from "@mui/material/Divider";
 import Link from "next/link";
 
 const storeName = process.env.NEXT_PUBLIC_STORE_NAME || "Prestige Apparel Group";
+const bodyFontSize = "1.15rem";
 
 export default function AboutPageView() {
   return (
     <Container maxWidth="md" sx={{ py: { xs: 6, md: 9 } }}>
-
       {/* Page title */}
       <Typography
         variant="h1"
@@ -26,7 +26,7 @@ export default function AboutPageView() {
 
       <Typography
         variant="body1"
-        sx={{ textAlign: "center", color: "text.secondary", fontSize: "1.15rem", maxWidth: 680, mx: "auto", mb: 6, lineHeight: 1.8 }}
+        sx={{ textAlign: "center", color: "text.secondary", fontSize: bodyFontSize, maxWidth: 680, mx: "auto", mb: 6, lineHeight: 1.8 }}
       >
         We believe luxury fashion should be accessible — beautifully made, honestly priced, and delivered with care.
       </Typography>
@@ -51,7 +51,7 @@ export default function AboutPageView() {
           borderRadius: "0 6px 6px 0",
         }}
       >
-        <Typography sx={{ fontStyle: "italic", fontSize: "1.2rem", color: "#444", lineHeight: 1.75 }}>
+        <Typography sx={{ fontStyle: "italic", fontSize: bodyFontSize, color: "#444", lineHeight: 1.75 }}>
           "Handcrafted in Italy. Curated for You." — Every piece in our collection is selected for its quality,
           its story, and the hands that made it.
         </Typography>
@@ -66,7 +66,7 @@ export default function AboutPageView() {
 
       {/* Commitment */}
       <Section title="Our Commitment to You">
-        <Box component="ul" sx={{ pl: 3, mt: 1, "& li": { mb: 1, fontSize: "1.1rem", color: "text.secondary" } }}>
+        <Box component="ul" sx={{ pl: 3, mt: 1, "& li": { mb: 1, fontSize: bodyFontSize, color: "text.secondary" } }}>
           <li>Honest product descriptions and accurate photography.</li>
           <li>Transparent pricing with no hidden fees at checkout.</li>
           <li>Responsive customer support for every order.</li>
@@ -91,10 +91,10 @@ export default function AboutPageView() {
 
       {/* Contact CTA */}
       <Box sx={{ textAlign: "center" }}>
-        <Typography sx={{ fontSize: "1.15rem", color: "text.secondary", mb: 1 }}>
+        <Typography sx={{ fontSize: bodyFontSize, color: "text.secondary", mb: 1 }}>
           We&apos;d love to hear from you.
         </Typography>
-        <Typography sx={{ fontSize: "1.1rem" }}>
+        <Typography sx={{ fontSize: bodyFontSize }}>
           Visit our{" "}
           <Link href="/contact" style={{ color: "#b8972e", fontWeight: 600, textDecoration: "none" }}>
             Contact page
@@ -113,7 +113,6 @@ export default function AboutPageView() {
       >
         {storeName} is operated by RGC4, a U.S.-based company.
       </Typography>
-
     </Container>
   );
 }
@@ -126,7 +125,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
         {title}
       </Typography>
       {typeof children === "string" ? (
-        <Typography sx={{ fontSize: "1.1rem", color: "text.secondary", lineHeight: 1.8 }}>
+        <Typography sx={{ fontSize: "1.15rem", color: "text.secondary", lineHeight: 1.8 }}>
           {children}
         </Typography>
       ) : (
