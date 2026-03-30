@@ -1,6 +1,6 @@
 // ============================================================
 // STORE CONFIGURATION
-// Single source of truth — update these values or set via .env
+// Single source of truth -- update these values or set via .env
 // ============================================================
 
 const storeConfig = {
@@ -18,7 +18,11 @@ const storeConfig = {
   // Branding
   primaryColor:   process.env.NEXT_PUBLIC_PRIMARY_COLOR   || "#D23F57",
   secondaryColor: process.env.NEXT_PUBLIC_SECONDARY_COLOR || "#2B3445",
-  logo:           process.env.NEXT_PUBLIC_LOGO_URL        || "/assets/stores/s1/logo/logo-1.png",
+
+  // Logos -- use separate images for header (dark bg) and footer (light bg)
+  logo:           process.env.NEXT_PUBLIC_LOGO_URL         || "/assets/stores/s1/logo/logo-1.png",
+  logoHeader:     process.env.NEXT_PUBLIC_LOGO_HEADER_URL  || "/assets/stores/s1/logo/Logo-header.png",
+  logoFooter:     process.env.NEXT_PUBLIC_LOGO_FOOTER_URL  || "/assets/stores/s1/logo/Logo-footer.png",
 
   // Hero section
   storeId:          process.env.NEXT_PUBLIC_STORE_ID           || "s1",
