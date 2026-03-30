@@ -7,12 +7,13 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import Link from "next/link";
 
-const storeName = process.env.NEXT_PUBLIC_STORE_NAME || "Prestige Apparel Group";
+const storeName = process.env.NEXT_PUBLIC_STORE_NAME || "Imperial Accessories";
 const bodyFontSize = "1.15rem";
 
 export default function AboutPageView() {
   return (
     <Container maxWidth="md" sx={{ py: { xs: 6, md: 9 } }}>
+
       {/* Page title */}
       <Typography
         variant="h1"
@@ -25,7 +26,6 @@ export default function AboutPageView() {
       <Box sx={{ width: 56, height: 3, backgroundColor: "#b8972e", mx: "auto", mb: 2, borderRadius: 2 }} />
 
       <Typography
-        variant="body1"
         sx={{ textAlign: "center", color: "text.secondary", fontSize: bodyFontSize, maxWidth: 680, mx: "auto", mb: 6, lineHeight: 1.8 }}
       >
         We believe luxury fashion should be accessible — beautifully made, honestly priced, and delivered with care.
@@ -113,24 +113,28 @@ export default function AboutPageView() {
       >
         {storeName} is operated by RGC4, a U.S.-based company.
       </Typography>
+
     </Container>
   );
 }
 
-// Local helper
+// Fixed Section helper — forces consistent typography
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <Box sx={{ mb: 4 }}>
       <Typography variant="h6" sx={{ fontWeight: 700, fontSize: "1.2rem", mb: 1 }}>
         {title}
       </Typography>
-      {typeof children === "string" ? (
-        <Typography sx={{ fontSize: "1.15rem", color: "text.secondary", lineHeight: 1.8 }}>
-          {children}
-        </Typography>
-      ) : (
-        children
-      )}
+
+      <Typography
+        sx={{
+          fontSize: "1.15rem",
+          color: "text.secondary",
+          lineHeight: 1.8,
+        }}
+      >
+        {children}
+      </Typography>
     </Box>
   );
 }
