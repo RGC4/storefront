@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Fragment, PropsWithChildren, useEffect, useState } from "react";
@@ -20,8 +21,8 @@ import storeConfig from "config/store.config";
 interface Props extends PropsWithChildren { data: LayoutModel; }
 
 const STORE_ID        = process.env.NEXT_PUBLIC_STORE_ID || "s1";
-const HEADER_LOGO_URL = `/assets/stores/${STORE_ID}/logo/logo-header.svg`;
-const FOOTER_LOGO_URL = `/assets/stores/${STORE_ID}/logo/logo-footer.svg`;
+const HEADER_LOGO_URL = `/assets/stores/${STORE_ID}/logo/logo-header.png`;
+const FOOTER_LOGO_URL = `/assets/stores/${STORE_ID}/logo/logo-footer.png`;
 
 const NAV_LINK_STYLE: React.CSSProperties = {
   fontSize: "1.08rem",
@@ -182,8 +183,8 @@ export default function ShopLayout1({ children, data }: Props) {
             {/* LOGO - left */}
             <Grid size={{ xs: 12, md: 3 }}>
               <Link href="/">
-                <Image src={FOOTER_LOGO_URL} alt={`${storeConfig.name} Logo`} width={320} height={117}
-                  style={{ objectFit: "contain", objectPosition: "left center" }} />
+                <img src={FOOTER_LOGO_URL} alt={`${storeConfig.name} Logo`}
+                  style={{ width: "441px", height: "auto", objectFit: "contain", objectPosition: "left center", marginLeft: "-192px" }} />
               </Link>
             </Grid>
 
