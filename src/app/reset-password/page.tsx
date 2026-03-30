@@ -1,8 +1,8 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { ResetPasswordPageView } from "pages-sections/sessions/page-view";
 
 export const metadata: Metadata = {
-  title: "Reset Password - Prestige Apparel Group",
+  title: `Reset Password - ${process.env.NEXT_PUBLIC_STORE_NAME || "Prestige Apparel Group"}`,
   description:
     "Shop luxury designer bags and fashion at Prestige Apparel Group. Build SEO friendly Online store, delivery app and Multi vendor store",
   authors: [{ name: "UI-LIB", url: "https://ui-lib.com" }],
@@ -12,4 +12,3 @@ export const metadata: Metadata = {
 export default function ResetPassword() {
   return <ResetPasswordPageView />;
 }
-
