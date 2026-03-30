@@ -88,12 +88,12 @@ export default function ShopLayout1({ children, data }: Props) {
         }}>
 
           {/* LOGO */}
-          <Link href="/" style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
+          <Link href="/" style={{ display: "flex", alignItems: "center", flexShrink: 0, height: "100%" }}>
             <Image
               src={HEADER_LOGO_URL}
               alt={`${storeConfig.name} Logo`}
-              width={320}
-              height={117}
+              width={240}
+              height={88}
               priority
               style={{ objectFit: "contain", objectPosition: "left center" }}
             />
@@ -184,7 +184,13 @@ export default function ShopLayout1({ children, data }: Props) {
             <Grid size={{ xs: 12, md: 3 }}>
               <Link href="/">
                 <img src={FOOTER_LOGO_URL} alt={`${storeConfig.name} Logo`}
-                  style={{ width: "441px", height: "auto", objectFit: "contain", objectPosition: "left center", marginLeft: "-192px" }} />
+                  style={{
+                    width:  STORE_ID === "s2" ? "441px" : "441px",
+                    height: "auto",
+                    objectFit: "contain",
+                    objectPosition: "left center",
+                    marginLeft: STORE_ID === "s2" ? "-192px" : "-192px",
+                  }} />
               </Link>
             </Grid>
 
