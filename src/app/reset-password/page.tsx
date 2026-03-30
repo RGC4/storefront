@@ -1,14 +1,15 @@
-import type { Metadata } from "next";
-import ResetPasswordPageView from "pages-sections/sessions/page-view";
-
-const storeName = process.env.NEXT_PUBLIC_STORE_NAME || "Prestige Apparel Group";
+﻿import type { Metadata } from "next";
+import { ResetPasswordPageView } from "pages-sections/sessions/page-view";
 
 export const metadata: Metadata = {
-  title: `Reset Password — ${storeName}`,
-  description: `Reset your account password at ${storeName}.`,
-  authors: [{ name: storeName }],
+  title: "Reset Password - Prestige Apparel Group",
+  description:
+    "Shop luxury designer bags and fashion at Prestige Apparel Group. Build SEO friendly Online store, delivery app and Multi vendor store",
+  authors: [{ name: "UI-LIB", url: "https://ui-lib.com" }],
+  keywords: ["e-commerce", "e-commerce template", "next.js", "react"]
 };
 
 export default function ResetPassword() {
   return <ResetPasswordPageView />;
 }
+
