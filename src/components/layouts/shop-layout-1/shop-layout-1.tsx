@@ -15,12 +15,13 @@ import { MobileNavigationBar } from "components/mobile-navigation";
 import { SearchInput2 } from "components/search-box";
 import { HeaderCart, HeaderLogin, MobileHeader, HeaderSearch } from "components/header";
 import LayoutModel from "models/Layout.model";
+import storeConfig from "config/store.config";
 
 interface Props extends PropsWithChildren { data: LayoutModel; }
 
-const STORE_ID = process.env.NEXT_PUBLIC_STORE_ID || "s1";
-const HEADER_LOGO_URL = `/assets/stores/${STORE_ID}/logo/logo-header.png`;
-const FOOTER_LOGO_URL = `/assets/stores/${STORE_ID}/logo/logo-footer.png`;
+const STORE_ID        = process.env.NEXT_PUBLIC_STORE_ID || "s1";
+const HEADER_LOGO_URL = `/assets/stores/${STORE_ID}/logo/logo-header.svg`;
+const FOOTER_LOGO_URL = `/assets/stores/${STORE_ID}/logo/logo-footer.svg`;
 
 const NAV_LINK_STYLE: React.CSSProperties = {
   fontSize: "1.08rem",
@@ -89,9 +90,9 @@ export default function ShopLayout1({ children, data }: Props) {
           <Link href="/" style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
             <Image
               src={HEADER_LOGO_URL}
-              alt="Store Logo"
-              width={322}
-              height={109}
+              alt={`${storeConfig.name} Logo`}
+              width={320}
+              height={117}
               priority
               style={{ objectFit: "contain", objectPosition: "left center" }}
             />
@@ -181,8 +182,8 @@ export default function ShopLayout1({ children, data }: Props) {
             {/* LOGO - left */}
             <Grid size={{ xs: 12, md: 3 }}>
               <Link href="/">
-                <Image src={FOOTER_LOGO_URL} alt="Store Logo" width={570} height={233}
-                  style={{ objectFit: "contain", objectPosition: "left center", marginLeft: "-192px" }} />
+                <Image src={FOOTER_LOGO_URL} alt={`${storeConfig.name} Logo`} width={320} height={117}
+                  style={{ objectFit: "contain", objectPosition: "left center" }} />
               </Link>
             </Grid>
 
@@ -209,7 +210,7 @@ export default function ShopLayout1({ children, data }: Props) {
             sx={{ py: 2, textAlign: "center", fontSize: "1.01rem", color: "grey.400" }}
           >
             &copy; Copyright {new Date().getFullYear()}{" "}
-            <span style={{ fontWeight: 600, color: "white" }}>Prestige Apparel Group</span>.{" "}
+            <span style={{ fontWeight: 600, color: "white" }}>{storeConfig.name}</span>.{" "}
             Owned and operated by RGC4.{" "}
             All rights reserved.
           </Typography>
