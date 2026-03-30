@@ -7,14 +7,13 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import Link from "next/link";
 
-const storeName = process.env.NEXT_PUBLIC_STORE_NAME || "Imperial Accessories";
+const storeName = process.env.NEXT_PUBLIC_STORE_NAME || "Prestige Apparel Group";
 const bodyFontSize = "1.15rem";
 
 export default function AboutPageView() {
   return (
     <Container maxWidth="md" sx={{ py: { xs: 6, md: 9 } }}>
 
-      {/* Page title */}
       <Typography
         variant="h1"
         sx={{ fontSize: { xs: "2rem", md: "2.6rem" }, fontWeight: 700, textAlign: "center", mb: 1 }}
@@ -22,7 +21,6 @@ export default function AboutPageView() {
         About Us
       </Typography>
 
-      {/* Gold accent rule */}
       <Box sx={{ width: 56, height: 3, backgroundColor: "#b8972e", mx: "auto", mb: 2, borderRadius: 2 }} />
 
       <Typography
@@ -33,14 +31,12 @@ export default function AboutPageView() {
 
       <Divider sx={{ mb: 5 }} />
 
-      {/* Who We Are */}
       <Section title="Who We Are">
         {storeName} is a U.S.-based online boutique specializing in premium Italian-crafted apparel and
         accessories. We curate pieces from trusted artisan suppliers — handbags, footwear, and ready-to-wear — and
         bring them directly to customers who appreciate quality and craftsmanship.
       </Section>
 
-      {/* Pull quote */}
       <Box
         sx={{
           borderLeft: "4px solid #b8972e",
@@ -57,14 +53,12 @@ export default function AboutPageView() {
         </Typography>
       </Box>
 
-      {/* What We Offer */}
       <Section title="What We Offer">
         Our collection focuses on timeless Italian-made goods: structured leather handbags, fine accessories, and
         wardrobe essentials built to last. We partner with established fulfillment networks to offer a broad
         selection while maintaining high standards for the items we carry.
       </Section>
 
-      {/* Commitment */}
       <Section title="Our Commitment to You">
         <Box component="ul" sx={{ pl: 3, mt: 1, "& li": { mb: 1, fontSize: bodyFontSize, color: "text.secondary" } }}>
           <li>Honest product descriptions and accurate photography.</li>
@@ -74,14 +68,12 @@ export default function AboutPageView() {
         </Box>
       </Section>
 
-      {/* Our Story */}
       <Section title="Our Story">
         {storeName} was founded with a simple idea: bring the quality of Italian boutique fashion to
         customers across the United States, without the markup of a traditional retail chain. We are a small,
         dedicated team committed to growing a store our customers can trust.
       </Section>
 
-      {/* US-based */}
       <Section title="Based in the United States">
         We are a U.S.-based company operated by RGC4. Our customer service team is here to support you —
         before, during, and after your purchase.
@@ -89,7 +81,6 @@ export default function AboutPageView() {
 
       <Divider sx={{ my: 5 }} />
 
-      {/* Contact CTA */}
       <Box sx={{ textAlign: "center" }}>
         <Typography sx={{ fontSize: bodyFontSize, color: "text.secondary", mb: 1 }}>
           We&apos;d love to hear from you.
@@ -106,7 +97,6 @@ export default function AboutPageView() {
         </Typography>
       </Box>
 
-      {/* Fine print */}
       <Typography
         variant="body2"
         sx={{ textAlign: "center", color: "text.disabled", mt: 6, pt: 3, borderTop: "1px solid", borderColor: "divider" }}
@@ -118,7 +108,7 @@ export default function AboutPageView() {
   );
 }
 
-// Fixed Section helper — forces consistent typography
+// same fix — forces consistent typography everywhere
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <Box sx={{ mb: 4 }}>
@@ -126,13 +116,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
         {title}
       </Typography>
 
-      <Typography
-        sx={{
-          fontSize: "1.15rem",
-          color: "text.secondary",
-          lineHeight: 1.8,
-        }}
-      >
+      <Typography sx={{ fontSize: "1.15rem", color: "text.secondary", lineHeight: 1.8 }}>
         {children}
       </Typography>
     </Box>
