@@ -92,10 +92,10 @@ export default function ShopLayout1({ children, data }: Props) {
             <Image
               src={HEADER_LOGO_URL}
               alt={`${storeConfig.name} Logo`}
-              width={240}
-              height={88}
+              width={320}
+              height={117}
               priority
-              style={{ objectFit: "contain", objectPosition: "left center" }}
+              style={{ objectFit: "contain", objectPosition: "left center", marginTop: "8px" }}
             />
           </Link>
 
@@ -185,11 +185,12 @@ export default function ShopLayout1({ children, data }: Props) {
               <Link href="/">
                 <img src={FOOTER_LOGO_URL} alt={`${storeConfig.name} Logo`}
                   style={{
-                    width:  STORE_ID === "s2" ? "441px" : "441px",
+                    width: "441px",
                     height: "auto",
                     objectFit: "contain",
                     objectPosition: "left center",
-                    marginLeft: STORE_ID === "s2" ? "-192px" : "-192px",
+                    marginLeft: "-192px",
+                    marginTop: "8px",
                   }} />
               </Link>
             </Grid>
