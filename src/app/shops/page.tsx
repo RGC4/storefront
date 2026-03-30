@@ -6,7 +6,7 @@ import { ShopsPageView } from "pages-sections/shops/page-view";
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: "Shops - Prestige Apparel Group",
+  title: `Shops - ${process.env.NEXT_PUBLIC_STORE_NAME || "Prestige Apparel Group"}`,
   description: "Browse our shops.",
   authors: [{ name: "UI-LIB", url: "https://ui-lib.com" }],
   keywords: ["e-commerce", "e-commerce template", "next.js", "react"]
