@@ -1,6 +1,8 @@
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Geist } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { getStoreConfig } from "@/lib/storeResolver";
 
 export const geist = Geist({
   subsets: ["latin"]
@@ -31,7 +33,18 @@ interface RootLayoutProps {
 }
 // ==============================================================
 
-export default function RootLayout({ children, modal }: RootLayoutProps) {
+export async function generateMetadata(): Promise<Metadata> {
+  const { storeName } = await getStoreConfig();
+  return {
+    title: storeName,
+    description: `Shop at ${storeName}.`,
+    authors: [{ name: storeName }],
+  };
+}
+
+export default async function RootLayout({ children, modal }: RootLayoutProps) {
+  const { storeName } = await getStoreConfig();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -42,7 +55,7 @@ export default function RootLayout({ children, modal }: RootLayoutProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="Prestige Apparel" />
+        <meta name="apple-mobile-web-app-title" content={storeName} />
         <meta name="format-detection" content="telephone=no" />
 
         {/* Safe area + Safari tap highlight fix */}

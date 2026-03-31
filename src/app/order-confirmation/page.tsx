@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import { OrderConfirmationPageView } from "pages-sections/order-confirmation";
+import { storeMetadata } from "@/lib/storeResolver";
 
-export const metadata: Metadata = {
-  title: "Order Confirmed — Prestige Apparel Group",
-  description: "Your order has been confirmed. Thank you for shopping with Prestige Apparel Group.",
-  authors: [{ name: "Prestige Apparel Group" }],
-  keywords: ["order confirmation", "prestige apparel"]
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return storeMetadata("Order Confirmed", "Your order has been confirmed. Thank you for shopping with us.");
+}
 
 export default function OrderConfirmation() {
   return <OrderConfirmationPageView />;

@@ -1,11 +1,10 @@
-﻿// src/app/about/page.tsx
 import type { Metadata } from "next";
 import AboutPageView from "pages-sections/about/page-view";
+import { storeMetadata } from "@/lib/storeResolver";
 
-export const metadata: Metadata = {
-  title: "About Us â€” Prestige Apparel Group",
-  description: "Learn about Prestige Apparel Group â€” premium Italian-crafted apparel and accessories, curated and delivered with care.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return storeMetadata("About Us", "Learn more about us.");
+}
 
 export default function AboutPage() {
   return <AboutPageView />;

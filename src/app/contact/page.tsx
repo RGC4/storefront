@@ -1,11 +1,10 @@
-// DESTINATION: src/app/contact/page.tsx
 import type { Metadata } from "next";
 import ContactPageView from "pages-sections/contact/page-view";
+import { storeMetadata } from "@/lib/storeResolver";
 
-export const metadata: Metadata = {
-  title: "Contact Us — Prestige Apparel Group",
-  description: "Get in touch with our customer support team. Submit a support ticket and we'll respond within 1–2 business days.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return storeMetadata("Contact Us", "Get in touch with our customer support team.");
+}
 
 export default function ContactPage() {
   return <ContactPageView />;

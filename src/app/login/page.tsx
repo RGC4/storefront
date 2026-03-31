@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import { LoginPageView } from "pages-sections/sessions/page-view";
+import { storeMetadata } from "@/lib/storeResolver";
 
-export const metadata: Metadata = {
-  title: "Login — Prestige Apparel Group",
-  description: "Sign in to your Prestige Apparel Group account.",
-  authors: [{ name: "Prestige Apparel Group" }],
-  keywords: ["login", "sign in", "prestige apparel"]
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return storeMetadata("Login", "Sign in to your account.");
+}
 
 export default function Login() {
   return <LoginPageView />;

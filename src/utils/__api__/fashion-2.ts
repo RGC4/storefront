@@ -1,9 +1,6 @@
 import { cache } from "react";
-import { storefrontQuery } from "lib/shopify";
-import storeConfig from "config/store.config";
+import { storefrontQuery, getStoreConfig } from "@/lib/storeResolver";
 import Product, { ProductVariant } from "models/Product.model";
-
-const STORE_ID = process.env.NEXT_PUBLIC_STORE_ID || "s1";
 
 // ── Shopify response shapes ────────────────────────────────────────────────────
 
@@ -27,10 +24,11 @@ interface ShopifyEdge<T> { node: T }
 
 // ── Mapper ─────────────────────────────────────────────────────────────────────
 
-function mapProduct(p: ShopifyProduct): Product {
-  const price = parseFloat(p.priceRange?.minVariantPrice?.amount || "0");
+async function mapProduct(p: ShopifyProduct): Promise<Product> {
+  const cfg          = await getStoreConfig();
+  const price        = parseFloat(p.priceRange?.minVariantPrice?.amount || "0");
   const comparePrice = parseFloat(p.compareAtPriceRange?.minVariantPrice?.amount || "0");
-  const images = p.images?.edges?.map((e) => e.node.src) ?? [];
+  const images       = p.images?.edges?.map((e) => e.node.src) ?? [];
 
   return {
     id: p.id,
@@ -48,14 +46,14 @@ function mapProduct(p: ShopifyProduct): Product {
     reviews: [],
     rating: 0,
     shop: {
-      id: "", name: storeConfig.name, slug: "", email: storeConfig.email,
+      id: "", name: cfg.storeName, slug: "", email: "",
       verified: true, coverPicture: "", profilePicture: "",
       phone: "", address: "",
       socialLinks: { facebook: null, youtube: null, twitter: null, instagram: null },
       user: {
-        id: "", email: storeConfig.email, phone: "", avatar: "", password: "", dateOfBirth: "",
+        id: "", email: "", phone: "", avatar: "", password: "", dateOfBirth: "",
         verified: true,
-        name: { firstName: storeConfig.name, lastName: "" },
+        name: { firstName: cfg.storeName, lastName: "" },
       },
     },
   };
@@ -64,25 +62,29 @@ function mapProduct(p: ShopifyProduct): Product {
 // ── Queries ────────────────────────────────────────────────────────────────────
 
 async function fetchProducts(limit = 24): Promise<Product[]> {
+  const { storeId } = await getStoreConfig();
   const data = await storefrontQuery(
     `query P($n:Int!, $q:String){products(first:$n, sortKey:BEST_SELLING, query:$q){edges{node{id title handle vendor tags priceRange{minVariantPrice{amount currencyCode}}compareAtPriceRange{minVariantPrice{amount currencyCode}}images(first:3){edges{node{src:url}}}variants(first:5){edges{node{id title price{amount}availableForSale}}}}}}}`,
-    { n: limit, q: `tag:${STORE_ID}` }
+    { n: limit, q: `tag:${storeId}` }
   );
-  return data?.products?.edges?.map(({ node }: ShopifyEdge<ShopifyProduct>) => mapProduct(node)) ?? [];
+  const nodes = data?.products?.edges ?? [];
+  return Promise.all(nodes.map(({ node }: ShopifyEdge<ShopifyProduct>) => mapProduct(node)));
 }
 
-export const getProducts = cache(() => fetchProducts(24));
-export const getFeatureProducts = cache(async () => (await fetchProducts(8)).filter(p => p.categories?.includes("feature")));
-export const getSaleProducts = cache(async () => (await fetchProducts(8)).filter(p => p.categories?.includes("sale")));
-export const getPopularProducts = cache(async () => (await fetchProducts(8)).filter(p => p.categories?.includes("popular")));
-export const getBestWeekProducts = cache(async () => (await fetchProducts(8)).filter(p => p.categories?.includes("best-week")));
+export const getProducts          = cache(() => fetchProducts(24));
+export const getFeatureProducts   = cache(async () => (await fetchProducts(8)).filter(p => p.categories?.includes("feature")));
+export const getSaleProducts      = cache(async () => (await fetchProducts(8)).filter(p => p.categories?.includes("sale")));
+export const getPopularProducts   = cache(async () => (await fetchProducts(8)).filter(p => p.categories?.includes("popular")));
+export const getBestWeekProducts  = cache(async () => (await fetchProducts(8)).filter(p => p.categories?.includes("best-week")));
 
 export const getLatestProducts = cache(async (): Promise<Product[]> => {
+  const { storeId } = await getStoreConfig();
   const data = await storefrontQuery(
     `query($q:String){products(first:8, sortKey:CREATED_AT, reverse:true, query:$q){edges{node{id title handle vendor tags priceRange{minVariantPrice{amount currencyCode}}images(first:3){edges{node{src:url}}}variants(first:5){edges{node{id title price{amount}availableForSale}}}}}}}`,
-    { q: `tag:${STORE_ID}` }
+    { q: `tag:${storeId}` }
   );
-  return data?.products?.edges?.map(({ node }: ShopifyEdge<ShopifyProduct>) => mapProduct(node)) ?? [];
+  const nodes = data?.products?.edges ?? [];
+  return Promise.all(nodes.map(({ node }: ShopifyEdge<ShopifyProduct>) => mapProduct(node)));
 });
 
 interface ShopifyCollection {
@@ -95,6 +97,7 @@ interface ShopifyCollection {
 }
 
 export const getCategories = cache(async () => {
+  const { storeId } = await getStoreConfig();
   const data = await storefrontQuery(
     `query {
       collections(first: 50, sortKey: TITLE) { edges { node {
@@ -109,7 +112,7 @@ export const getCategories = cache(async () => {
     ?.filter(({ node: c }: ShopifyEdge<ShopifyCollection>) => {
       const firstProduct = c.products?.edges?.[0]?.node;
       if (!firstProduct) return false;
-      return firstProduct.tags?.includes(STORE_ID);
+      return firstProduct.tags?.includes(storeId);
     })
     ?.map(({ node: c }: ShopifyEdge<ShopifyCollection>) => ({
       id:          c.id,
@@ -121,15 +124,7 @@ export const getCategories = cache(async () => {
 });
 
 export const getMainCarouselData = cache(async () => {
-  const cfg = storeConfig as any;
-  const slides = cfg?.heroSlides ?? [];
-  if (slides.length > 0) return slides;
-  return [{
-    title:       cfg.heroTitle       || "New Collection",
-    description: cfg.heroSubtitle    || "",
-    buttonText:  cfg.heroButtonText  || "Shop Now",
-    buttonLink:  cfg.heroButtonLink  || "/collections",
-  }];
+  return [];
 });
 
 export interface ServiceCard { id: string; icon: string; title: string; description: string }
