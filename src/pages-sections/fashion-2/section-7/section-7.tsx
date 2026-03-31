@@ -1,3 +1,4 @@
+// src/pages-sections/fashion-2/section-7/section-7.tsx
 "use client";
 
 import { useState } from "react";
@@ -8,19 +9,54 @@ import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
 import Close from "@mui/icons-material/Close";
 import { RootStyle } from "./styles";
 
 export default function Section7() {
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [name, setName] = useState("");
+  const [interests, setInterests] = useState("");
+  const [brands, setBrands] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
 
-  const handleClose = () => { setOpen(false); setSubmitted(false); setEmail(""); };
+  const handleClose = () => {
+    setOpen(false);
+    setStatus("idle");
+    setEmail("");
+    setName("");
+    setInterests("");
+    setBrands("");
+    setErrorMsg("");
+  };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) setSubmitted(true);
+    if (!email) return;
+
+    setStatus("loading");
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, name, interests, brands }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to subscribe.");
+      setStatus("success");
+    } catch (err: any) {
+      setStatus("error");
+      setErrorMsg(err.message || "Something went wrong. Please try again.");
+    }
+  };
+
+  const inputSx = {
+    "& .MuiOutlinedInput-root": {
+      "&.Mui-focused fieldset": { borderColor: "#b8972e", borderWidth: 2 },
+    },
+    "& label.Mui-focused": { color: "#b8972e" },
   };
 
   return (
@@ -76,7 +112,27 @@ export default function Section7() {
             <Close sx={{ fontSize: 26 }} />
           </IconButton>
 
-          {!submitted ? (
+          {status === "success" ? (
+            <Box sx={{ textAlign: "center", py: 5 }}>
+              <Typography sx={{ color: "#b8972e", fontWeight: 700, fontSize: "2rem", mb: 2 }}>Welcome! ✨</Typography>
+              <Typography sx={{ color: "#1a1a2e", fontWeight: 600, fontSize: "1.4rem", mb: 1.5 }}>You're on the list.</Typography>
+              <Typography sx={{ color: "text.secondary", fontSize: "1.05rem", lineHeight: 1.8, maxWidth: 420, mx: "auto" }}>
+                Check your inbox for a welcome email with what's trending and details about our personal concierge service.
+              </Typography>
+              <Button
+                onClick={handleClose}
+                sx={{
+                  mt: 4, color: "#b8972e", fontWeight: 700, fontSize: "0.95rem",
+                  letterSpacing: "0.12em", textTransform: "uppercase",
+                  border: "2px solid #b8972e", px: 5, py: 1.5, borderRadius: 1.5,
+                  "&:hover": { backgroundColor: "#b8972e", color: "white" },
+                  transition: "all 250ms ease",
+                }}
+              >
+                Continue Shopping
+              </Button>
+            </Box>
+          ) : (
             <>
               <Typography sx={{ color: "#b8972e", letterSpacing: "0.25em", fontSize: "0.875rem", fontWeight: 700, textTransform: "uppercase", mb: 1.5 }}>
                 Exclusively Yours
@@ -99,50 +155,71 @@ export default function Section7() {
                   variant="outlined"
                   inputProps={{ style: { fontSize: "1.05rem", padding: "18px 14px" } }}
                   InputLabelProps={{ style: { fontSize: "1rem" } }}
-                  sx={{
-                    "& .MuiOutlinedInput-root": { "&.Mui-focused fieldset": { borderColor: "#b8972e", borderWidth: 2 } },
-                    "& label.Mui-focused": { color: "#b8972e" },
-                  }}
+                  sx={inputSx}
                 />
+                <TextField
+                  label="Your name"
+                  fullWidth
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                  variant="outlined"
+                  inputProps={{ style: { fontSize: "1.05rem", padding: "16px 14px" } }}
+                  InputLabelProps={{ style: { fontSize: "1rem" } }}
+                  sx={inputSx}
+                />
+                <Box sx={{ display: "flex", gap: 2, flexDirection: { xs: "column", sm: "row" } }}>
+                  <TextField
+                    label="What items interest you?"
+                    fullWidth
+                    value={interests}
+                    onChange={e => setInterests(e.target.value)}
+                    variant="outlined"
+                    inputProps={{ style: { fontSize: "0.95rem", padding: "16px 14px" } }}
+                    InputLabelProps={{ style: { fontSize: "0.95rem" } }}
+                    sx={inputSx}
+                  />
+                  <TextField
+                    label="Favorite brands?"
+                    fullWidth
+                    value={brands}
+                    onChange={e => setBrands(e.target.value)}
+                    variant="outlined"
+                    placeholder="e.g. Prada, Coach..."
+                    inputProps={{ style: { fontSize: "0.95rem", padding: "16px 14px" } }}
+                    InputLabelProps={{ style: { fontSize: "0.95rem" } }}
+                    sx={inputSx}
+                  />
+                </Box>
                 <Button
                   type="submit"
                   variant="contained"
                   fullWidth
+                  disabled={status === "loading"}
                   sx={{
                     backgroundColor: "#1a1a2e", color: "white", py: 2,
                     fontSize: "1.05rem", letterSpacing: "0.15em", textTransform: "uppercase",
                     fontWeight: 700, borderRadius: 1.5,
                     "&:hover": { backgroundColor: "#b8972e" },
+                    "&.Mui-disabled": { backgroundColor: "#1a1a2e", color: "rgba(255,255,255,0.7)" },
                     transition: "background-color 250ms ease",
                   }}
                 >
-                  Join the Insider List
+                  {status === "loading" ? (
+                    <CircularProgress size={24} sx={{ color: "white" }} />
+                  ) : (
+                    "Join the Insider List"
+                  )}
                 </Button>
               </Box>
+              {status === "error" && (
+                <Typography sx={{ textAlign: "center", mt: 2, fontSize: "0.9rem", color: "error.main" }}>
+                  {errorMsg}
+                </Typography>
+              )}
               <Typography sx={{ display: "block", textAlign: "center", mt: 3, fontSize: "0.875rem", color: "text.disabled" }}>
                 No spam. Unsubscribe anytime. We respect your privacy.
               </Typography>
             </>
-          ) : (
-            <Box sx={{ textAlign: "center", py: 5 }}>
-              <Typography sx={{ color: "#b8972e", fontWeight: 700, fontSize: "2rem", mb: 2 }}>Benvenuta! 🇮🇹</Typography>
-              <Typography sx={{ color: "#1a1a2e", fontWeight: 600, fontSize: "1.4rem", mb: 1.5 }}>You're on the list.</Typography>
-              <Typography sx={{ color: "text.secondary", fontSize: "1.05rem", lineHeight: 1.8, maxWidth: 420, mx: "auto" }}>
-                Watch your inbox for exclusive early access, new arrivals, and members-only offers crafted just for you.
-              </Typography>
-              <Button
-                onClick={handleClose}
-                sx={{
-                  mt: 4, color: "#b8972e", fontWeight: 700, fontSize: "0.95rem",
-                  letterSpacing: "0.12em", textTransform: "uppercase",
-                  border: "2px solid #b8972e", px: 5, py: 1.5, borderRadius: 1.5,
-                  "&:hover": { backgroundColor: "#b8972e", color: "white" },
-                  transition: "all 250ms ease",
-                }}
-              >
-                Continue Shopping
-              </Button>
-            </Box>
           )}
         </DialogContent>
       </Dialog>

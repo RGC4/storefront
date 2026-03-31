@@ -66,7 +66,7 @@ export default function VideoHero() {
         textShadow: "0 1px 8px rgba(0,0,0,0.7)",
         lineHeight: 1,
       }}>
-        Luxury Handbags Direct From Italy
+        {process.env.NEXT_PUBLIC_HERO_TAGLINE || ""}
       </Typography>
     </Box>
   );
