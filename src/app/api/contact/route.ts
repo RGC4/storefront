@@ -1,7 +1,8 @@
-// DESTINATION: src/app/api/contact/route.ts
+// src/app/api/contact/route.ts
 import { NextRequest, NextResponse } from "next/server";
 
 const storeName = process.env.NEXT_PUBLIC_STORE_NAME || "Prestige Apparel Group";
+const SHEETS_WEBHOOK = "https://script.google.com/macros/s/AKfycbxxgx15s6nfPDqc4XDAYdLUsUxtzHs7noA-5JYiPPmlRPbvA28FHJw5k2J41V3lKRTw/exec";
 
 export async function POST(req: NextRequest) {
   try {
@@ -19,6 +20,28 @@ export async function POST(req: NextRequest) {
     const resendKey = process.env.RESEND_API_KEY;
     const fromEmail = process.env.FROM_EMAIL || "noreply@prestigeapparelgroup.com";
     const supportEmail = process.env.SUPPORT_EMAIL || "info@prestigeapparelgroup.com";
+
+    // Log to Google Sheets
+    try {
+      await fetch(SHEETS_WEBHOOK, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          date: new Date().toLocaleString("en-US", { dateStyle: "long", timeStyle: "short" }),
+          ticketId,
+          store: storeName,
+          name,
+          email,
+          category: category || "General",
+          priority: priority || "Normal",
+          orderNumber: orderNumber || "",
+          subject: subject || "",
+          message,
+        }),
+      });
+    } catch (sheetErr) {
+      console.error("Google Sheets log failed:", sheetErr);
+    }
 
     if (resendKey) {
       const storeHtml = `
