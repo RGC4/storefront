@@ -1,6 +1,7 @@
-﻿// src/lib/policyLoader.ts
+// src/lib/policyLoader.ts
 // Reads policy HTML files from public/assets/stores/{storeId}/policies/
 // Extracts structured content for rendering in the site's MUI theme.
+// Auto-replaces the brand name found in the HTML with NEXT_PUBLIC_STORE_NAME.
 
 import { readFileSync } from "fs";
 import { join } from "path";
@@ -24,6 +25,7 @@ export interface PolicyData {
  */
 export function loadPolicy(filename: string): PolicyData {
   const storeId = process.env.NEXT_PUBLIC_STORE_ID || "s1";
+  const storeName = process.env.NEXT_PUBLIC_STORE_NAME || "Store";
   const filePath = join(process.cwd(), "public", "assets", "stores", storeId, "policies", `${filename}.html`);
 
   let html: string;
@@ -36,6 +38,15 @@ export function loadPolicy(filename: string): PolicyData {
       sections: [],
       footer: "",
     };
+  }
+
+  // Auto-detect the brand name from <div class="brand"> and replace with env var store name
+  const brandMatch = html.match(/<div\s+class="brand"[^>]*>(.*?)<\/div>/s);
+  if (brandMatch) {
+    const originalBrand = stripTags(brandMatch[1]).trim();
+    if (originalBrand && originalBrand !== storeName) {
+      html = html.replace(new RegExp(escapeRegex(originalBrand), "g"), storeName);
+    }
   }
 
   // Extract title from <h1>
@@ -70,4 +81,8 @@ export function loadPolicy(filename: string): PolicyData {
 
 function stripTags(html: string): string {
   return html.replace(/<[^>]*>/g, "").trim();
+}
+
+function escapeRegex(str: string): string {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }

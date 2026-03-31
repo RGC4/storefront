@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
+import Button from "@mui/material/Button";
 import Link from "next/link";
 import type { PolicyData } from "@/lib/policyLoader";
 
@@ -18,20 +19,49 @@ interface Props {
 export default function PolicyPage({ policy }: Props) {
   return (
     <Container maxWidth="md" sx={{ py: { xs: 6, md: 9 } }}>
-      <Link
-        href="/"
-        style={{
-          display: "inline-block",
-          marginBottom: 18,
-          color: primaryColor,
-          textDecoration: "none",
-          fontSize: "1rem",
-          fontWeight: 500,
+
+      {/* BACK TO STORE BUTTON */}
+      <Box sx={{ mb: 4 }}>
+        <Button
+          component={Link}
+          href="/"
+          variant="outlined"
+          sx={{
+            fontSize: "1.25rem",
+            fontWeight: 600,
+            textTransform: "none",
+            borderColor: primaryColor,
+            color: primaryColor,
+            borderWidth: 2,
+            px: 4,
+            py: 1.5,
+            borderRadius: 2,
+            "&:hover": {
+              backgroundColor: primaryColor,
+              color: "#fff",
+              borderColor: primaryColor,
+              borderWidth: 2,
+            },
+          }}
+        >
+          &larr; Back to Store
+        </Button>
+      </Box>
+
+      {/* STORE NAME */}
+      <Typography
+        sx={{
+          textAlign: "center",
+          color: "text.secondary",
+          fontSize: "1.05rem",
+          letterSpacing: "0.05em",
+          mb: 1,
         }}
       >
-        &larr; Back to Store
-      </Link>
+        {storeName}
+      </Typography>
 
+      {/* PAGE TITLE */}
       <Typography
         variant="h1"
         sx={{
