@@ -1,4 +1,4 @@
-﻿// src/utils/__api__/layout.ts
+// src/utils/__api__/layout.ts
 import { cache } from "react";
 import { storefrontQuery } from "lib/shopify";
 import { getStoreConfig } from "@/lib/storeResolver";
@@ -55,6 +55,7 @@ const getLayoutData = cache(async () => {
       customers: [
         { title: "Track Order",    url: "/order-tracking" },
         { title: "Help Center",    url: "/contact" },
+        { title: "Returns",        url: "/returns" },
       ],
       policies: [
         { title: "Privacy Policy",       url: "/privacy-policy" },
