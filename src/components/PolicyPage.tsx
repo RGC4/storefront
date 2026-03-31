@@ -9,7 +9,6 @@ import Button from "@mui/material/Button";
 import Link from "next/link";
 import type { PolicyData } from "@/lib/policyLoader";
 
-const storeName = process.env.NEXT_PUBLIC_STORE_NAME || "Prestige Apparel Group";
 const primaryColor = process.env.NEXT_PUBLIC_PRIMARY_COLOR || "#b8972e";
 
 interface Props {
@@ -27,14 +26,14 @@ export default function PolicyPage({ policy }: Props) {
           href="/"
           variant="outlined"
           sx={{
-            fontSize: "1.25rem",
+            fontSize: "1.06rem",
             fontWeight: 600,
             textTransform: "none",
             borderColor: primaryColor,
             color: primaryColor,
             borderWidth: 2,
-            px: 4,
-            py: 1.5,
+            px: 3.4,
+            py: 1.25,
             borderRadius: 2,
             "&:hover": {
               backgroundColor: primaryColor,
@@ -47,19 +46,6 @@ export default function PolicyPage({ policy }: Props) {
           &larr; Back to Store
         </Button>
       </Box>
-
-      {/* STORE NAME */}
-      <Typography
-        sx={{
-          textAlign: "center",
-          color: "text.secondary",
-          fontSize: "1.05rem",
-          letterSpacing: "0.05em",
-          mb: 1,
-        }}
-      >
-        {storeName}
-      </Typography>
 
       {/* PAGE TITLE */}
       <Typography
