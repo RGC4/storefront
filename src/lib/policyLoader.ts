@@ -1,7 +1,7 @@
 // src/lib/policyLoader.ts
 // Reads policy HTML files from public/assets/stores/{storeId}/policies/
 // Extracts structured content for rendering in the site's MUI theme.
-// Auto-replaces brand name and contact email with env var values.
+// Auto-replaces brand name, contact email, and footer with env var values.
 
 import { readFileSync } from "fs";
 import { join } from "path";
@@ -84,9 +84,8 @@ export function loadPolicy(filename: string): PolicyData {
     sections.push({ title, body });
   }
 
-  // Extract footer text
-  const footerMatch = html.match(/<footer[^>]*>(.*?)<\/footer>/s);
-  const footer = footerMatch ? stripTags(footerMatch[1]).trim() : "";
+  // Generate a clean footer using store name — no parent company reference
+  const footer = `© ${new Date().getFullYear()} ${storeName}. All rights reserved.`;
 
   return { pageTitle, intro, sections, footer };
 }
