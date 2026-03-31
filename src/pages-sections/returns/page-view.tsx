@@ -17,6 +17,15 @@ import IconButton from "@mui/material/IconButton";
 import CircularProgress from "@mui/material/CircularProgress";
 import BackButton from "components/BackButton";
 
+interface OrderResult {
+  id: string;
+  name: string;
+  date: string;
+  items: { title: string; variantTitle: string; quantity: number }[];
+  status: string;
+  financial: string;
+}
+
 const RETURN_REASONS = ["Item not as described","Wrong item received","Damaged / defective","Changed my mind","Size / fit issue","Other"];
 const RESOLUTIONS = ["Refund to original payment method", "Store credit"];
 const PHOTO_REASONS = ["Damaged / defective", "Wrong item received", "Item not as described"];
@@ -33,10 +42,82 @@ export default function ReturnsPageView() {
   const [error, setError] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // Order lookup state
+  const [orders, setOrders] = useState<OrderResult[]>([]);
+  const [orderItems, setOrderItems] = useState<{ title: string; variantTitle: string }[]>([]);
+  const [lookingUp, setLookingUp] = useState(false);
+  const [lookupDone, setLookupDone] = useState(false);
+  const lastLookupEmail = useRef("");
+
   const showPhotoUpload = PHOTO_REASONS.includes(form.reason);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => { const files = Array.from(e.target.files || []); setPhotos((prev) => [...prev, ...files].slice(0, 5)); if (fileInputRef.current) fileInputRef.current.value = ""; };
   const removePhoto = (index: number) => setPhotos((prev) => prev.filter((_, i) => i !== index));
+
+  // Look up orders when email field loses focus
+  const handleEmailBlur = async () => {
+    const email = form.email.trim();
+    if (!email || !email.includes("@") || email === lastLookupEmail.current) return;
+    lastLookupEmail.current = email;
+    setLookingUp(true);
+    setLookupDone(false);
+    setOrders([]);
+    setOrderItems([]);
+    try {
+      const res = await fetch("/api/orders-by-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json();
+      const foundOrders: OrderResult[] = data.orders || [];
+      setOrders(foundOrders);
+      setLookupDone(true);
+
+      if (foundOrders.length === 1) {
+        // Auto-fill order number and items
+        const order = foundOrders[0];
+        setForm((prev) => ({ ...prev, orderNumber: order.name }));
+        setOrderItems(order.items.map((i) => ({ title: i.title, variantTitle: i.variantTitle })));
+        if (order.items.length === 1) {
+          const item = order.items[0];
+          setForm((prev) => ({
+            ...prev,
+            orderNumber: order.name,
+            itemDescription: item.variantTitle ? `${item.title} — ${item.variantTitle}` : item.title,
+          }));
+        }
+      }
+    } catch {
+      // Silently fail — user can still type manually
+    } finally {
+      setLookingUp(false);
+    }
+  };
+
+  // When user picks an order from dropdown
+  const handleOrderSelect = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const orderName = e.target.value;
+    setForm((prev) => ({ ...prev, orderNumber: orderName, itemDescription: "" }));
+    const selected = orders.find((o) => o.name === orderName);
+    if (selected) {
+      setOrderItems(selected.items.map((i) => ({ title: i.title, variantTitle: i.variantTitle })));
+      if (selected.items.length === 1) {
+        const item = selected.items[0];
+        setForm((prev) => ({
+          ...prev,
+          itemDescription: item.variantTitle ? `${item.title} — ${item.variantTitle}` : item.title,
+        }));
+      }
+    } else {
+      setOrderItems([]);
+    }
+  };
+
+  // When user picks an item from dropdown
+  const handleItemSelect = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm((prev) => ({ ...prev, itemDescription: e.target.value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); setError(""); setLoading(true);
@@ -56,6 +137,12 @@ export default function ReturnsPageView() {
       setResult({ ticketId: data.ticketId });
     } catch (err: any) { setError(err.message || "Something went wrong. Please try again."); }
     finally { setLoading(false); }
+  };
+
+  // Format order date for display
+  const formatDate = (iso: string) => {
+    try { return new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }); }
+    catch { return ""; }
   };
 
   return (
@@ -87,12 +174,64 @@ export default function ReturnsPageView() {
                 <Stack spacing={2}>
                   <Grid container spacing={2}>
                     <Grid size={{ xs: 12, sm: 6 }}><TextField fullWidth required name="name" label="Full Name" value={form.name} onChange={handleChange} sx={sxInput} /></Grid>
-                    <Grid size={{ xs: 12, sm: 6 }}><TextField fullWidth required name="email" type="email" label="Email Address" value={form.email} onChange={handleChange} sx={sxInput} /></Grid>
+                    <Grid size={{ xs: 12, sm: 6 }}>
+                      <TextField
+                        fullWidth required name="email" type="email" label="Email Address"
+                        value={form.email} onChange={handleChange} onBlur={handleEmailBlur}
+                        helperText={lookingUp ? "Looking up your orders..." : lookupDone && orders.length === 0 ? "No orders found — you can enter details manually" : "Enter the email used for your order"}
+                        sx={sxInput}
+                        slotProps={{
+                          input: {
+                            endAdornment: lookingUp ? <CircularProgress size={18} sx={{ mr: 1 }} /> : null,
+                          },
+                        }}
+                      />
+                    </Grid>
                   </Grid>
+
                   <Grid container spacing={2}>
-                    <Grid size={{ xs: 12, sm: 6 }}><TextField fullWidth required name="orderNumber" label="Order Number" placeholder="e.g. 1001" value={form.orderNumber} onChange={handleChange} helperText="Found in your order confirmation email" sx={sxInput} /></Grid>
-                    <Grid size={{ xs: 12, sm: 6 }}><TextField fullWidth required name="itemDescription" label="Item Name / Description" placeholder="e.g. Black Leather Tote Bag" value={form.itemDescription} onChange={handleChange} sx={sxInput} /></Grid>
+                    <Grid size={{ xs: 12, sm: 6 }}>
+                      {orders.length > 1 ? (
+                        <TextField
+                          select fullWidth required name="orderNumber" label="Select Your Order"
+                          value={form.orderNumber} onChange={handleOrderSelect} sx={sxInput}
+                        >
+                          {orders.map((o) => (
+                            <MenuItem key={o.id} value={o.name} sx={{ fontSize: "16px" }}>
+                              {o.name} — {formatDate(o.date)} ({o.items.length} item{o.items.length !== 1 ? "s" : ""})
+                            </MenuItem>
+                          ))}
+                        </TextField>
+                      ) : (
+                        <TextField
+                          fullWidth required name="orderNumber" label="Order Number" placeholder="e.g. #1001"
+                          value={form.orderNumber} onChange={handleChange}
+                          helperText="Found in your order confirmation email"
+                          sx={sxInput}
+                        />
+                      )}
+                    </Grid>
+                    <Grid size={{ xs: 12, sm: 6 }}>
+                      {orderItems.length > 1 ? (
+                        <TextField
+                          select fullWidth required name="itemDescription" label="Which Item?"
+                          value={form.itemDescription} onChange={handleItemSelect} sx={sxInput}
+                        >
+                          {orderItems.map((item, i) => {
+                            const label = item.variantTitle ? `${item.title} — ${item.variantTitle}` : item.title;
+                            return <MenuItem key={i} value={label} sx={{ fontSize: "16px" }}>{label}</MenuItem>;
+                          })}
+                        </TextField>
+                      ) : (
+                        <TextField
+                          fullWidth required name="itemDescription" label="Item Name / Description"
+                          placeholder="e.g. Black Leather Tote Bag"
+                          value={form.itemDescription} onChange={handleChange} sx={sxInput}
+                        />
+                      )}
+                    </Grid>
                   </Grid>
+
                   <Grid container spacing={2}>
                     <Grid size={{ xs: 12, sm: 6 }}>
                       <TextField select fullWidth name="reason" label="Return Reason" value={form.reason} onChange={handleChange} sx={sxInput}>
