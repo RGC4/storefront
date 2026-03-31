@@ -1,4 +1,4 @@
-// DESTINATION: src/utils/__api__/layout.ts
+﻿// src/utils/__api__/layout.ts
 import { cache } from "react";
 import { storefrontQuery } from "lib/shopify";
 import { getStoreConfig } from "@/lib/storeResolver";
@@ -28,15 +28,12 @@ const getLayoutData = cache(async () => {
       id: node.id, title: node.title, handle: node.handle,
     }));
 
-  // Build categoryMenus from Shopify collections for the header nav
   const categoryMenus = storeCollections.map((col: any) => ({
     title: col.title,
     value: col.handle,
   }));
 
-  // Return the full LayoutModel shape that ShopLayout1 expects
   return {
-    // Raw collections (in case anything else uses them)
     collections: storeCollections,
 
     header: {
@@ -60,10 +57,10 @@ const getLayoutData = cache(async () => {
         { title: "Help Center",    url: "/contact" },
       ],
       policies: [
-        { title: "Privacy Policy",   url: "/privacy-policy" },
-        { title: "Terms of Service", url: "/terms" },
-        { title: "Return Policy",    url: "/return-policy" },
-        { title: "Shipping Policy",  url: "/shipping-policy" },
+        { title: "Privacy Policy",       url: "/privacy-policy" },
+        { title: "Terms and Conditions", url: "/terms" },
+        { title: "Refund Policy",        url: "/return-policy" },
+        { title: "Shipping Policy",      url: "/shipping-policy" },
       ],
       socials: storeConfig.social || {
         facebook: "", instagram: "", twitter: "", youtube: "", google: "",
@@ -85,10 +82,10 @@ const getLayoutData = cache(async () => {
     mobileNavigation: {
       logo: storeConfig.logoHeader || `/assets/stores/${STORE_ID}/logo/logo-header.png`,
       version1: [
-        { title: "Home",       icon: "Home",           href: "/",             badge: false },
-        { title: "Category",   icon: "CategoryOutlined", href: "/collections",  badge: false },
-        { title: "Cart",       icon: "ShoppingBag",    href: "/cart",         badge: true  },
-        { title: "Account",    icon: "User2",          href: "/profile",      badge: false },
+        { title: "Home",       icon: "Home",              href: "/",            badge: false },
+        { title: "Category",   icon: "CategoryOutlined",  href: "/collections", badge: false },
+        { title: "Cart",       icon: "ShoppingBag",       href: "/cart",        badge: true  },
+        { title: "Account",    icon: "User2",             href: "/profile",     badge: false },
       ],
       version2: [],
     },
