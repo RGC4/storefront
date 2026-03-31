@@ -1,4 +1,4 @@
-﻿// DESTINATION: src/pages-sections/returns/page-view.tsx
+// src/pages-sections/returns/page-view.tsx
 "use client";
 
 import { useState, useRef } from "react";
@@ -42,13 +42,15 @@ export default function ReturnsPageView() {
     e.preventDefault(); setError(""); setLoading(true);
     try {
       const formData = new FormData();
-      formData.append("name", form.name); formData.append("email", form.email);
-      formData.append("orderNumber", form.orderNumber); formData.append("category", "Return / Exchange");
-      formData.append("subject", `Return Request — Order #${form.orderNumber} — ${form.reason}`);
-      formData.append("message", `Item: ${form.itemDescription}\nReason: ${form.reason}\nResolution Requested: ${form.resolution}\n\nAdditional Notes:\n${form.message}`);
-      formData.append("priority", "Normal");
+      formData.append("name", form.name);
+      formData.append("email", form.email);
+      formData.append("orderNumber", form.orderNumber);
+      formData.append("item", form.itemDescription);
+      formData.append("reason", form.reason);
+      formData.append("resolution", form.resolution);
+      formData.append("notes", form.message);
       photos.forEach((file) => formData.append("photos", file));
-      const res = await fetch("/api/contact", { method: "POST", body: formData });
+      const res = await fetch("/api/returns", { method: "POST", body: formData });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Submission failed.");
       setResult({ ticketId: data.ticketId });
