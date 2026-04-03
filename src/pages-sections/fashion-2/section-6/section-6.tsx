@@ -16,10 +16,22 @@ export default async function Section6() {
         justifyContent: "space-between",
         mb: 3, pb: 1.5, borderBottom: "3px solid #111"
       }}>
-        <Typography sx={{ fontSize: { xs: 20, md: 30 }, fontWeight: 800, letterSpacing: "-0.02em", textTransform: "uppercase" }}>
+        {/* Section heading: was xs:20 md:30 — now xs:16 md:22 (theme h4) */}
+        <Typography sx={{
+          fontSize: { xs: 16, md: 22 },
+          fontWeight: 800,
+          letterSpacing: "-0.01em",
+          textTransform: "uppercase",
+        }}>
           New Arrivals
         </Typography>
-        <Link href="/collections" style={{ fontSize: 13, fontWeight: 600, color: "#111", textDecoration: "underline", textUnderlineOffset: 3 }}>
+        <Link href="/collections" style={{
+          fontSize: 12,
+          fontWeight: 600,
+          color: "#111",
+          textDecoration: "underline",
+          textUnderlineOffset: 3,
+        }}>
           View All
         </Link>
       </Box>

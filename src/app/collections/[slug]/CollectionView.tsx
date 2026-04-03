@@ -51,7 +51,7 @@ function extractVendors(products: Product[]): string[] {
 function getDescriptionSnippet(raw?: string): string {
   if (!raw) return "";
   const plain = raw.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
-  return plain.length > 120 ? plain.slice(0, 120).trimEnd() + "…" : plain;
+  return plain.length > 120 ? plain.slice(0, 120).trimEnd() + "..." : plain;
 }
 
 const filterLabelSx = {
@@ -167,7 +167,7 @@ export default function CollectionView({ title, description, products }: Props) 
                   transition: "all 0.2s ease", opacity: product.availableForSale ? 1 : 0.6,
                   "&:hover": { borderColor: "#aaa", boxShadow: "0 6px 24px rgba(0,0,0,0.09)", transform: "translateY(-2px)" },
                 }}>
-                  <Box sx={{ px: 2, pt: "18px", pb: "14px", borderBottom: "1px solid #f0f0f0", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: 110 }}>
+                  <Box sx={{ px: 2, pt: "18px", pb: "14px", borderBottom: "1px solid #f0f0f0", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: 90 }}>
                     {product.vendor && (
                       <Typography variant="overline" sx={{ color: "#111", display: "block", mb: "3px" }}>{product.vendor}</Typography>
                     )}

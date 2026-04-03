@@ -21,7 +21,7 @@ function CategoryTile({ cat }: { cat: Category }) {
       style={{ textDecoration: "none", display: "block", flexShrink: 0 }}>
       <Box sx={{
         position: "relative",
-        height: { xs: 280, sm: 380, md: 480 },
+        height: { xs: 200, sm: 280, md: 360 },
         overflow: "hidden",
         bgcolor: "grey.200",
         "&:hover .img": { transform: "scale(1.04)" },
@@ -40,25 +40,27 @@ function CategoryTile({ cat }: { cat: Category }) {
         <Box sx={{
           position: "absolute",
           bottom: 0, left: 0, right: 0,
-          p: { xs: 2, md: 4 },
+          p: { xs: 1.5, md: 2.5 },
           background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 100%)",
         }}>
+          {/* Category name: was xs:20 md:28 — now xs:14 md:18 */}
           <Typography sx={{
             color: "white",
-            fontSize: { xs: 20, md: 28 },
-            fontWeight: 800,
+            fontSize: { xs: 14, md: 18 },
+            fontWeight: 700,
             textTransform: "uppercase",
-            letterSpacing: "0.05em",
+            letterSpacing: "0.06em",
             textShadow: "0 2px 6px rgba(0,0,0,0.5)",
             lineHeight: 1.2,
-            mb: 0.5,
+            mb: 0.25,
           }}>
             {cat.name}
           </Typography>
+          {/* Shop Now label: was xs:12 md:14 — now consistent 11px */}
           <Typography sx={{
-            color: "rgba(255,255,255,0.95)",
-            fontSize: { xs: 12, md: 14 },
-            fontWeight: 700,
+            color: "rgba(255,255,255,0.9)",
+            fontSize: 11,
+            fontWeight: 600,
             letterSpacing: "0.12em",
             textTransform: "uppercase",
             textShadow: "0 1px 4px rgba(0,0,0,0.4)",
@@ -77,7 +79,7 @@ export default function Section3Client({ categories }: { categories: Category[] 
   if (!categories || categories.length === 0) return null;
 
   const useCarousel = categories.length > 5;
-  const tileWidth = 380; // px per tile in carousel mode
+  const tileWidth = 320;
 
   const scroll = (dir: "left" | "right") => {
     if (!scrollRef.current) return;
@@ -87,7 +89,6 @@ export default function Section3Client({ categories }: { categories: Category[] 
     });
   };
 
-  // GRID MODE — 5 or fewer categories
   if (!useCarousel) {
     return (
       <Box sx={{
@@ -106,53 +107,31 @@ export default function Section3Client({ categories }: { categories: Category[] 
     );
   }
 
-  // CAROUSEL MODE — more than 5 categories
   return (
     <Box sx={{ position: "relative", width: "100%", overflow: "hidden" }}>
-
-      {/* LEFT ARROW */}
-      <IconButton onClick={() => scroll("left")} sx={{
-        position: "absolute", left: 8, top: "50%",
-        transform: "translateY(-50%)",
-        zIndex: 10,
-        bgcolor: "rgba(255,255,255,0.9)",
-        boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
-        "&:hover": { bgcolor: "white" },
-      }}>
-        <ArrowBackIos sx={{ fontSize: 18, ml: 0.5 }} />
-      </IconButton>
-
-      {/* SCROLLABLE TRACK */}
-      <Box ref={scrollRef} sx={{
-        display: "flex",
-        overflowX: "auto",
-        scrollSnapType: "x mandatory",
-        scrollbarWidth: "none",
-        "&::-webkit-scrollbar": { display: "none" },
-      }}>
+      <Box
+        ref={scrollRef}
+        sx={{
+          display: "flex",
+          overflowX: "auto",
+          scrollSnapType: "x mandatory",
+          scrollbarWidth: "none",
+          "&::-webkit-scrollbar": { display: "none" },
+          "& > *": { scrollSnapAlign: "start", width: tileWidth, flexShrink: 0 },
+        }}
+      >
         {categories.map((cat) => (
-          <Box key={cat.id} sx={{
-            width: { xs: "50vw", md: `${tileWidth}px` },
-            flexShrink: 0,
-            scrollSnapAlign: "start",
-          }}>
-            <CategoryTile cat={cat} />
-          </Box>
+          <CategoryTile key={cat.id} cat={cat} />
         ))}
       </Box>
-
-      {/* RIGHT ARROW */}
-      <IconButton onClick={() => scroll("right")} sx={{
-        position: "absolute", right: 8, top: "50%",
-        transform: "translateY(-50%)",
-        zIndex: 10,
-        bgcolor: "rgba(255,255,255,0.9)",
-        boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
-        "&:hover": { bgcolor: "white" },
-      }}>
-        <ArrowForwardIos sx={{ fontSize: 18 }} />
+      <IconButton onClick={() => scroll("left")}
+        sx={{ position: "absolute", left: 8, top: "50%", transform: "translateY(-50%)", bgcolor: "rgba(255,255,255,0.85)", "&:hover": { bgcolor: "white" }, zIndex: 2 }}>
+        <ArrowBackIos fontSize="small" />
       </IconButton>
-
+      <IconButton onClick={() => scroll("right")}
+        sx={{ position: "absolute", right: 8, top: "50%", transform: "translateY(-50%)", bgcolor: "rgba(255,255,255,0.85)", "&:hover": { bgcolor: "white" }, zIndex: 2 }}>
+        <ArrowForwardIos fontSize="small" />
+      </IconButton>
     </Box>
   );
 }

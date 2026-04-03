@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { styled } from "@mui/material/styles";
 
@@ -19,16 +19,16 @@ export const StyledRoot = styled("div")(({ theme }) => ({
     justifyContent: "flex-start",
   },
   h4: {
-    fontSize: 25,
+    fontSize: 21,       // was 25 → -15%
     fontWeight: 700,
     marginBottom: 4,
     lineHeight: 1.2,
-    [theme.breakpoints.down("sm")]: { fontSize: 22 },
+    [theme.breakpoints.down("sm")]: { fontSize: 19 }, // was 22 → -15%
   },
   p: {
     color: theme.palette.grey[600],
-    fontSize: 19,
+    fontSize: 16,       // was 19 → -15%
     lineHeight: 1.4,
-    [theme.breakpoints.down("sm")]: { fontSize: 17 },
+    [theme.breakpoints.down("sm")]: { fontSize: 14 }, // was 17 → -15%
   },
 }));

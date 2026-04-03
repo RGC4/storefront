@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { styled } from "@mui/material/styles";
 
 export const Card = styled("div")({
@@ -18,36 +18,36 @@ export const Card = styled("div")({
 });
 
 export const CardHeader = styled("div")({
-  padding: "16px",
+  padding: "14px 12px",
   borderBottom: "1px solid #f0f0f0",
   textAlign: "center",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  height: 110,
+  minHeight: 90,        // was fixed 110 — now min so long titles show fully
   flexShrink: 0,
-  "@media (max-width: 768px)": { height: 80, padding: "8px 10px" },
+  "@media (max-width: 768px)": { minHeight: 70, padding: "8px 10px" },
   ".vendor": {
-    fontSize: 22,
-    fontWeight: 800,
+    fontSize: 13,       // was 22px — reduced to match theme overline
+    fontWeight: 700,
     color: "#111",
     textTransform: "uppercase",
     letterSpacing: "0.08em",
     marginBottom: 4,
-    "@media (max-width: 768px)": { fontSize: 14 },
+    "@media (max-width: 768px)": { fontSize: 12 },
   },
   ".title": {
-    fontSize: 17,
+    fontSize: 13,       // was 17px — reduced to match theme subtitle1
     fontWeight: 400,
     lineHeight: 1.4,
     color: "#666",
     overflow: "hidden",
     display: "-webkit-box",
-    WebkitLineClamp: 2,
+    WebkitLineClamp: 3, // was 2 — allow 3 lines so titles don't get cut off
     WebkitBoxOrient: "vertical" as const,
     textAlign: "center",
-    "@media (max-width: 768px)": { fontSize: 13 },
+    "@media (max-width: 768px)": { fontSize: 12 },
   },
 });
 
@@ -74,14 +74,14 @@ export const CardMedia = styled("div")({
     background: "#c41230",
     color: "white",
     padding: "4px 10px",
-    fontSize: 12,
+    fontSize: 11,       // was 12
     fontWeight: 800,
     letterSpacing: "0.05em",
   },
 });
 
 export const CardContent = styled("div")({
-  padding: "12px 16px 14px",
+  padding: "10px 14px 12px",
   borderTop: "1px solid #f0f0f0",
   textAlign: "center",
   flexShrink: 0,
@@ -92,12 +92,12 @@ export const CardContent = styled("div")({
     gap: 8,
   },
   ".retail-price": {
-    fontSize: 17,
+    fontSize: 13,       // was 17
     color: "#999",
     textDecoration: "line-through",
   },
   ".wholesale-price": {
-    fontSize: 26,
+    fontSize: 18,       // was 26
     fontWeight: 800,
     color: "#111",
   },
