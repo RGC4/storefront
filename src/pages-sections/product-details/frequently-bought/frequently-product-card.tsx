@@ -31,7 +31,7 @@ export default function FrequentlyProductCard({
           <LazyImage alt={title} width={500} height={500} src={imgUrl} />
         </HoverBox>
 
-        <Typography noWrap variant="body1" sx={{ mb: 0.5 }}>
+        <Typography variant="body1" sx={{ mb: 0.5, lineHeight: 1.4, minHeight: "2.8em" }}>
           {title}
         </Typography>
 

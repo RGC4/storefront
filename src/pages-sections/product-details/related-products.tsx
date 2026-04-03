@@ -1,4 +1,4 @@
-﻿import Box from "@mui/material/Box";
+import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Link from "next/link";
 import Product from "models/Product.model";
@@ -34,7 +34,7 @@ export default function RelatedProducts({ products }: Props) {
             }}>
               <Box sx={{
                 px: 2, py: 2, borderBottom: "1px solid #f0f0f0",
-                textAlign: "center", height: 110, flexShrink: 0,
+                textAlign: "center", minHeight: 110, flexShrink: 0,
                 display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
               }}>
                 {product.brand && (
@@ -44,7 +44,7 @@ export default function RelatedProducts({ products }: Props) {
                 )}
                 <Typography sx={{
                   fontSize: 17, fontWeight: 400, color: "#666", lineHeight: 1.4,
-                  overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", textAlign: "center",
+                  overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", textAlign: "center",
                 }}>
                   {product.title}
                 </Typography>

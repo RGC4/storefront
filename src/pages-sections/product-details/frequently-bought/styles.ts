@@ -45,7 +45,7 @@ export const ItemCard = styled(Card)(({ theme }) => ({
   flex: "1 1 0",
   padding: "1rem",
   minWidth: "160px",
-  maxWidth: "220px",
+  maxWidth: "280px",
   margin: theme.spacing(1),
   [theme.breakpoints.down("sm")]: { maxWidth: "100%", margin: 0 }
 }));
