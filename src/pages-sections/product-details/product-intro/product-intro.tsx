@@ -11,6 +11,10 @@ import Product from "models/Product.model";
 
 type Props = { product: Product };
 
+/* ── Font stacks ── */
+const SERIF = '"Playfair Display", "Didot", "Bodoni Moda", "Bodoni MT", "GFS Didot", serif';
+const SANS = '"Helvetica Neue", "Helvetica", "Arial", sans-serif';
+
 export default function ProductIntro({ product }: Props) {
   const { title, brand, price, comparePrice, categories, description } = product;
 
@@ -20,6 +24,9 @@ export default function ProductIntro({ product }: Props) {
 
   return (
     <StyledRoot>
+      {/* Google Font import */}
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap');`}</style>
+
       <Grid container spacing={4} alignItems="flex-start">
         <Grid size={{ lg: 7, md: 7, xs: 12 }}>
           <ProductGallery images={product.images} />
@@ -33,9 +40,10 @@ export default function ProductIntro({ product }: Props) {
                 <Box
                   key={item}
                   sx={{
-                    px: 1.4, py: 0.5, fontSize: 11, color: "#888",
-                    background: "#f2f2f2", textTransform: "uppercase",
-                    letterSpacing: "0.08em", borderRadius: "3px",
+                    px: 1.4, py: 0.5, fontSize: 10, color: "#888",
+                    fontFamily: SANS,
+                    background: "#f5f5f3", textTransform: "uppercase",
+                    letterSpacing: "0.1em", borderRadius: "2px",
                   }}
                 >
                   {item}
@@ -46,19 +54,26 @@ export default function ProductIntro({ product }: Props) {
           {/* BRAND */}
           <Typography
             sx={{
-              fontSize: { xs: 30, md: 38 }, lineHeight: 1.1, fontWeight: 800,
-              color: "#111", mb: 1.5, textTransform: "uppercase", letterSpacing: "0.04em",
+              fontSize: { xs: 28, md: 36 }, lineHeight: 1.1, fontWeight: 400,
+              fontFamily: SANS,
+              color: "#1A1A1A", mb: 1.5, textTransform: "uppercase", letterSpacing: "0.06em",
             }}
           >
             {brand ?? ""}
           </Typography>
 
           {/* TITLE */}
-          <Typography sx={{ fontSize: { xs: 18, md: 22 }, lineHeight: 1.5, fontWeight: 400, color: "#555", mb: 3.5 }}>
+          <Typography
+            sx={{
+              fontSize: { xs: 16, md: 18 }, lineHeight: 1.5, fontWeight: 400,
+              fontFamily: SANS,
+              color: "#555", mb: 3.5, letterSpacing: "0.01em",
+            }}
+          >
             {title}
           </Typography>
 
-          <Divider sx={{ mb: 3.5 }} />
+          <Divider sx={{ borderColor: "#e0e0e0", mb: 3.5 }} />
 
           {/* PRICING */}
           <Box
@@ -70,20 +85,20 @@ export default function ProductIntro({ product }: Props) {
             }}
           >
             <Box>
-              <Typography sx={{ fontSize: 12, color: "#999", mb: 0.5, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+              <Typography sx={{ fontSize: 10, fontFamily: SANS, color: "#999", mb: 0.5, textTransform: "uppercase", letterSpacing: "0.15em", fontWeight: 500 }}>
                 Price
               </Typography>
-              <Typography sx={{ fontSize: { xs: 22, md: 26 }, fontWeight: 800, color: "#111" }}>
+              <Typography sx={{ fontSize: { xs: 22, md: 26 }, fontWeight: 400, fontFamily: SANS, color: "#1A1A1A" }}>
                 {currency(price)}
               </Typography>
             </Box>
 
             {comparePrice && comparePrice > 0 ? (
               <Box>
-                <Typography sx={{ fontSize: 12, color: "#999", mb: 0.5, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                <Typography sx={{ fontSize: 10, fontFamily: SANS, color: "#999", mb: 0.5, textTransform: "uppercase", letterSpacing: "0.15em", fontWeight: 500 }}>
                   Est. Retail Price
                 </Typography>
-                <Typography sx={{ fontSize: { xs: 22, md: 26 }, fontWeight: 800, color: "#111" }}>
+                <Typography sx={{ fontSize: { xs: 22, md: 26 }, fontWeight: 400, fontFamily: SANS, color: "#1A1A1A" }}>
                   {currency(comparePrice)}
                 </Typography>
               </Box>
@@ -91,10 +106,10 @@ export default function ProductIntro({ product }: Props) {
 
             {comparePrice && comparePrice > price ? (
               <Box>
-                <Typography sx={{ fontSize: 12, color: "#999", mb: 0.5, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                <Typography sx={{ fontSize: 10, fontFamily: SANS, color: "#999", mb: 0.5, textTransform: "uppercase", letterSpacing: "0.15em", fontWeight: 500 }}>
                   Savings
                 </Typography>
-                <Typography sx={{ fontSize: { xs: 22, md: 26 }, fontWeight: 800, color: "#27ae60" }}>
+                <Typography sx={{ fontSize: { xs: 22, md: 26 }, fontWeight: 400, fontFamily: SANS, color: "#27ae60" }}>
                   {currency(comparePrice - price)}
                 </Typography>
               </Box>
@@ -114,57 +129,74 @@ export default function ProductIntro({ product }: Props) {
           {/* ═══ DESCRIPTION ═══ */}
           {hasDescription && (
             <Box sx={{ mt: 2 }}>
-              <Divider sx={{ mb: 5 }} />
+              <Divider sx={{ borderColor: "#e0e0e0", mb: "40px" }} />
 
               {descHtml ? (
                 <Box
                   dangerouslySetInnerHTML={{ __html: descHtml }}
                   sx={{
-                    /* ── Body text ── */
-                    fontSize: { xs: 15, md: 16.5 },
-                    lineHeight: 2,
-                    color: "#3a3a3a",
-                    letterSpacing: "0.015em",
+                    maxWidth: 580,
 
-                    /* ── Paragraphs ── */
+                    /* ── Editorial paragraphs — luxury serif ── */
+                    fontSize: { xs: 15, md: 16 },
+                    lineHeight: 1.8,
+                    color: "#1A1A1A",
+                    fontFamily: SERIF,
+                    letterSpacing: "0.01em",
+
+                    /* ── Paragraph spacing ── */
                     "& p": {
-                      mb: 3.5,
+                      mb: "20px",
                       "&:last-child": { mb: 0 },
                     },
 
-                    /* ── Section headers (Details, Dimensions) ── */
+                    /* ── Section headers: DETAILS, DIMENSIONS, ORIGIN ── */
                     "& h4": {
-                      fontSize: { xs: 14, md: 15 },
-                      color: "#111",
-                      fontWeight: 700,
-                      letterSpacing: "0.03em",
+                      fontSize: { xs: 11, md: 12 },
+                      color: "#1A1A1A",
+                      fontWeight: 500,
+                      fontFamily: SANS,
+                      letterSpacing: "0.18em",
+                      textTransform: "uppercase",
                       mt: 0,
-                      mb: 2.5,
-                      pt: 4,
-                      borderTop: "1px solid #e8e8e8",
+                      mb: "14px",
+                      pt: "36px",
+                      borderTop: "1px solid #e0e0e0",
                     },
 
-                    /* ── Bullet lists ── */
+                    /* ── Spec lists — clean sans-serif ── */
                     "& ul": {
-                      listStyle: "disc",
-                      pl: 2.5,
+                      listStyle: "none",
+                      pl: 0,
                       mb: 0,
                     },
                     "& ul li": {
-                      fontSize: { xs: 14, md: 15.5 },
-                      lineHeight: 1.6,
-                      color: "#444",
-                      py: 0.6,
-                      pl: 0.5,
+                      fontSize: { xs: 13, md: 14 },
+                      lineHeight: 1.65,
+                      color: "#1A1A1A",
+                      fontFamily: SANS,
+                      fontWeight: 400,
+                      py: "4px",
+                      pl: "16px",
+                      position: "relative",
+                      "&::before": {
+                        content: '"·"',
+                        position: "absolute",
+                        left: 0,
+                        color: "#999",
+                        fontSize: 16,
+                        lineHeight: 1.65,
+                      },
                     },
 
                     /* ── Bold text ── */
                     "& strong, & b": {
-                      color: "#111",
-                      fontWeight: 700,
+                      color: "#1A1A1A",
+                      fontWeight: 600,
+                      fontFamily: SANS,
                     },
 
-                    /* ── Tables (fallback for older descriptions) ── */
+                    /* ── Tables (legacy fallback) ── */
                     "& table": {
                       width: "100%",
                       borderCollapse: "collapse",
@@ -172,28 +204,35 @@ export default function ProductIntro({ product }: Props) {
                       mb: 2,
                     },
                     "& td": {
-                      py: 1.2,
-                      fontSize: { xs: 14, md: 15 },
+                      py: 1,
+                      fontSize: 14,
+                      fontFamily: SANS,
                       borderBottom: "1px solid #f0f0f0",
                       verticalAlign: "top",
                       "&:first-of-type": {
-                        color: "#111",
-                        fontWeight: 600,
+                        color: "#1A1A1A",
+                        fontWeight: 500,
                         width: "35%",
                         pr: 2,
+                        letterSpacing: "0.05em",
+                        textTransform: "uppercase",
+                        fontSize: 11,
                       },
                       "&:last-of-type": {
-                        color: "#444",
+                        color: "#333",
                       },
                     },
                   }}
                 />
               ) : (
+                /* ── Plain text fallback ── */
                 <Typography
                   sx={{
-                    fontSize: { xs: 15, md: 16.5 },
-                    lineHeight: 2,
-                    color: "#3a3a3a",
+                    maxWidth: 580,
+                    fontSize: { xs: 15, md: 16 },
+                    lineHeight: 1.8,
+                    color: "#1A1A1A",
+                    fontFamily: SERIF,
                     whiteSpace: "pre-line",
                   }}
                 >
@@ -204,9 +243,9 @@ export default function ProductIntro({ product }: Props) {
               {/* Authenticity badge */}
               <Box
                 sx={{
-                  mt: 5,
-                  pt: 3.5,
-                  borderTop: "1px solid #e8e8e8",
+                  mt: "40px",
+                  pt: "24px",
+                  borderTop: "1px solid #e0e0e0",
                   display: "flex",
                   alignItems: "center",
                   gap: 1.5,
@@ -214,8 +253,8 @@ export default function ProductIntro({ product }: Props) {
               >
                 <Box
                   sx={{
-                    width: 8,
-                    height: 8,
+                    width: 6,
+                    height: 6,
                     borderRadius: "50%",
                     background: "#27ae60",
                     flexShrink: 0,
@@ -223,11 +262,12 @@ export default function ProductIntro({ product }: Props) {
                 />
                 <Typography
                   sx={{
-                    fontSize: 12,
-                    color: "#888",
+                    fontSize: 10,
+                    fontFamily: SANS,
+                    color: "#999",
                     textTransform: "uppercase",
-                    letterSpacing: "0.15em",
-                    fontWeight: 600,
+                    letterSpacing: "0.18em",
+                    fontWeight: 500,
                   }}
                 >
                   Authenticity Guaranteed
