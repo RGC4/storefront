@@ -11,10 +11,6 @@ import Product from "models/Product.model";
 
 type Props = { product: Product };
 
-/* ── Font stacks ── */
-const SERIF = '"Playfair Display", "Didot", "Bodoni Moda", "Bodoni MT", "GFS Didot", serif';
-const SANS = '"Helvetica Neue", "Helvetica", "Arial", sans-serif';
-
 export default function ProductIntro({ product }: Props) {
   const { title, brand, price, comparePrice, categories, description } = product;
 
@@ -24,7 +20,6 @@ export default function ProductIntro({ product }: Props) {
 
   return (
     <StyledRoot>
-      {/* Google Font import */}
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap');`}</style>
 
       <Grid container spacing={4} alignItems="flex-start">
@@ -40,10 +35,9 @@ export default function ProductIntro({ product }: Props) {
                 <Box
                   key={item}
                   sx={{
-                    px: 1.4, py: 0.5, fontSize: 10, color: "#888",
-                    fontFamily: SANS,
-                    background: "#f5f5f3", textTransform: "uppercase",
-                    letterSpacing: "0.1em", borderRadius: "2px",
+                    px: 1.4, py: 0.5, fontSize: 11, color: "#888",
+                    background: "#f2f2f2", textTransform: "uppercase",
+                    letterSpacing: "0.08em", borderRadius: "3px",
                   }}
                 >
                   {item}
@@ -54,26 +48,19 @@ export default function ProductIntro({ product }: Props) {
           {/* BRAND */}
           <Typography
             sx={{
-              fontSize: { xs: 28, md: 36 }, lineHeight: 1.1, fontWeight: 400,
-              fontFamily: SANS,
-              color: "#1A1A1A", mb: 1.5, textTransform: "uppercase", letterSpacing: "0.06em",
+              fontSize: { xs: 30, md: 38 }, lineHeight: 1.1, fontWeight: 800,
+              color: "#111", mb: 1.5, textTransform: "uppercase", letterSpacing: "0.04em",
             }}
           >
             {brand ?? ""}
           </Typography>
 
           {/* TITLE */}
-          <Typography
-            sx={{
-              fontSize: { xs: 16, md: 18 }, lineHeight: 1.5, fontWeight: 400,
-              fontFamily: SANS,
-              color: "#555", mb: 3.5, letterSpacing: "0.01em",
-            }}
-          >
+          <Typography sx={{ fontSize: { xs: 18, md: 22 }, lineHeight: 1.5, fontWeight: 400, color: "#555", mb: 3.5 }}>
             {title}
           </Typography>
 
-          <Divider sx={{ borderColor: "#e0e0e0", mb: 3.5 }} />
+          <Divider sx={{ mb: 3.5 }} />
 
           {/* PRICING */}
           <Box
@@ -85,20 +72,20 @@ export default function ProductIntro({ product }: Props) {
             }}
           >
             <Box>
-              <Typography sx={{ fontSize: 10, fontFamily: SANS, color: "#999", mb: 0.5, textTransform: "uppercase", letterSpacing: "0.15em", fontWeight: 500 }}>
+              <Typography sx={{ fontSize: 12, color: "#999", mb: 0.5, textTransform: "uppercase", letterSpacing: "0.08em" }}>
                 Price
               </Typography>
-              <Typography sx={{ fontSize: { xs: 22, md: 26 }, fontWeight: 400, fontFamily: SANS, color: "#1A1A1A" }}>
+              <Typography sx={{ fontSize: { xs: 22, md: 26 }, fontWeight: 800, color: "#111" }}>
                 {currency(price)}
               </Typography>
             </Box>
 
             {comparePrice && comparePrice > 0 ? (
               <Box>
-                <Typography sx={{ fontSize: 10, fontFamily: SANS, color: "#999", mb: 0.5, textTransform: "uppercase", letterSpacing: "0.15em", fontWeight: 500 }}>
+                <Typography sx={{ fontSize: 12, color: "#999", mb: 0.5, textTransform: "uppercase", letterSpacing: "0.08em" }}>
                   Est. Retail Price
                 </Typography>
-                <Typography sx={{ fontSize: { xs: 22, md: 26 }, fontWeight: 400, fontFamily: SANS, color: "#1A1A1A" }}>
+                <Typography sx={{ fontSize: { xs: 22, md: 26 }, fontWeight: 800, color: "#111" }}>
                   {currency(comparePrice)}
                 </Typography>
               </Box>
@@ -106,10 +93,10 @@ export default function ProductIntro({ product }: Props) {
 
             {comparePrice && comparePrice > price ? (
               <Box>
-                <Typography sx={{ fontSize: 10, fontFamily: SANS, color: "#999", mb: 0.5, textTransform: "uppercase", letterSpacing: "0.15em", fontWeight: 500 }}>
+                <Typography sx={{ fontSize: 12, color: "#999", mb: 0.5, textTransform: "uppercase", letterSpacing: "0.08em" }}>
                   Savings
                 </Typography>
-                <Typography sx={{ fontSize: { xs: 22, md: 26 }, fontWeight: 400, fontFamily: SANS, color: "#27ae60" }}>
+                <Typography sx={{ fontSize: { xs: 22, md: 26 }, fontWeight: 800, color: "#27ae60" }}>
                   {currency(comparePrice - price)}
                 </Typography>
               </Box>
@@ -126,153 +113,106 @@ export default function ProductIntro({ product }: Props) {
             <AddToCart product={product} />
           </Box>
 
+          <Divider sx={{ mb: 3.5 }} />
+
           {/* ═══ DESCRIPTION ═══ */}
+          {hasDescription && descHtml ? (
+            <Box
+              dangerouslySetInnerHTML={{ __html: descHtml }}
+              sx={{
+                /* ── Editorial paragraphs ── */
+                fontSize: 17,
+                lineHeight: 1.85,
+                color: "#1A1A1A",
+                fontFamily: '"Playfair Display", "Didot", "Bodoni MT", Georgia, serif',
+
+                "& p": {
+                  mb: 3,
+                  "&:last-child": { mb: 0 },
+                },
+
+                /* ── DETAILS / DIMENSIONS / ORIGIN headers ── */
+                "& h4": {
+                  fontSize: 13,
+                  color: "#111",
+                  fontWeight: 500,
+                  fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+                  letterSpacing: "0.15em",
+                  textTransform: "uppercase",
+                  mt: 5,
+                  mb: 2,
+                  pt: 3,
+                  borderTop: "1px solid #e0e0e0",
+                },
+
+                /* ── Bullet lists ── */
+                "& ul": {
+                  listStyle: "none",
+                  pl: 0,
+                  mb: 0,
+                },
+                "& ul li": {
+                  fontSize: 15,
+                  lineHeight: 1.7,
+                  color: "#1A1A1A",
+                  fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+                  py: 0.5,
+                  pl: 2,
+                  position: "relative",
+                  "&::before": {
+                    content: '"·"',
+                    position: "absolute",
+                    left: 0,
+                    color: "#999",
+                    fontSize: 18,
+                  },
+                },
+
+                /* ── Bold text ── */
+                "& strong, & b": {
+                  color: "#111",
+                  fontWeight: 600,
+                },
+              }}
+            />
+          ) : hasDescription ? (
+            <Typography sx={{ fontSize: 17, lineHeight: 1.85, color: "#1A1A1A", whiteSpace: "pre-line" }}>
+              {descPlain}
+            </Typography>
+          ) : null}
+
+          {/* Authenticity badge */}
           {hasDescription && (
-            <Box sx={{ mt: 2 }}>
-              <Divider sx={{ borderColor: "#e0e0e0", mb: "40px" }} />
-
-              {descHtml ? (
-                <Box
-                  dangerouslySetInnerHTML={{ __html: descHtml }}
-                  sx={{
-                    maxWidth: 580,
-
-                    /* ── Editorial paragraphs — luxury serif ── */
-                    fontSize: { xs: 15, md: 16 },
-                    lineHeight: 1.8,
-                    color: "#1A1A1A",
-                    fontFamily: SERIF,
-                    letterSpacing: "0.01em",
-
-                    /* ── Paragraph spacing ── */
-                    "& p": {
-                      mb: "20px",
-                      "&:last-child": { mb: 0 },
-                    },
-
-                    /* ── Section headers: DETAILS, DIMENSIONS, ORIGIN ── */
-                    "& h4": {
-                      fontSize: { xs: 11, md: 12 },
-                      color: "#1A1A1A",
-                      fontWeight: 500,
-                      fontFamily: SANS,
-                      letterSpacing: "0.18em",
-                      textTransform: "uppercase",
-                      mt: 0,
-                      mb: "14px",
-                      pt: "36px",
-                      borderTop: "1px solid #e0e0e0",
-                    },
-
-                    /* ── Spec lists — clean sans-serif ── */
-                    "& ul": {
-                      listStyle: "none",
-                      pl: 0,
-                      mb: 0,
-                    },
-                    "& ul li": {
-                      fontSize: { xs: 13, md: 14 },
-                      lineHeight: 1.65,
-                      color: "#1A1A1A",
-                      fontFamily: SANS,
-                      fontWeight: 400,
-                      py: "4px",
-                      pl: "16px",
-                      position: "relative",
-                      "&::before": {
-                        content: '"·"',
-                        position: "absolute",
-                        left: 0,
-                        color: "#999",
-                        fontSize: 16,
-                        lineHeight: 1.65,
-                      },
-                    },
-
-                    /* ── Bold text ── */
-                    "& strong, & b": {
-                      color: "#1A1A1A",
-                      fontWeight: 600,
-                      fontFamily: SANS,
-                    },
-
-                    /* ── Tables (legacy fallback) ── */
-                    "& table": {
-                      width: "100%",
-                      borderCollapse: "collapse",
-                      mt: 1,
-                      mb: 2,
-                    },
-                    "& td": {
-                      py: 1,
-                      fontSize: 14,
-                      fontFamily: SANS,
-                      borderBottom: "1px solid #f0f0f0",
-                      verticalAlign: "top",
-                      "&:first-of-type": {
-                        color: "#1A1A1A",
-                        fontWeight: 500,
-                        width: "35%",
-                        pr: 2,
-                        letterSpacing: "0.05em",
-                        textTransform: "uppercase",
-                        fontSize: 11,
-                      },
-                      "&:last-of-type": {
-                        color: "#333",
-                      },
-                    },
-                  }}
-                />
-              ) : (
-                /* ── Plain text fallback ── */
-                <Typography
-                  sx={{
-                    maxWidth: 580,
-                    fontSize: { xs: 15, md: 16 },
-                    lineHeight: 1.8,
-                    color: "#1A1A1A",
-                    fontFamily: SERIF,
-                    whiteSpace: "pre-line",
-                  }}
-                >
-                  {descPlain}
-                </Typography>
-              )}
-
-              {/* Authenticity badge */}
+            <Box
+              sx={{
+                mt: 5,
+                pt: 3,
+                borderTop: "1px solid #e0e0e0",
+                display: "flex",
+                alignItems: "center",
+                gap: 1.5,
+              }}
+            >
               <Box
                 sx={{
-                  mt: "40px",
-                  pt: "24px",
-                  borderTop: "1px solid #e0e0e0",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 1.5,
+                  width: 7,
+                  height: 7,
+                  borderRadius: "50%",
+                  background: "#27ae60",
+                  flexShrink: 0,
+                }}
+              />
+              <Typography
+                sx={{
+                  fontSize: 11,
+                  color: "#999",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.15em",
+                  fontWeight: 500,
                 }}
               >
-                <Box
-                  sx={{
-                    width: 6,
-                    height: 6,
-                    borderRadius: "50%",
-                    background: "#27ae60",
-                    flexShrink: 0,
-                  }}
-                />
-                <Typography
-                  sx={{
-                    fontSize: 10,
-                    fontFamily: SANS,
-                    color: "#999",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.18em",
-                    fontWeight: 500,
-                  }}
-                >
-                  Authenticity Guaranteed
-                </Typography>
-              </Box>
+                Authenticity Guaranteed
+              </Typography>
             </Box>
           )}
         </Grid>
