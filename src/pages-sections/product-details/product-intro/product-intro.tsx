@@ -14,14 +14,8 @@ type Props = { product: Product };
 export default function ProductIntro({ product }: Props) {
   const { title, brand, price, comparePrice, categories, description } = product;
 
-  const descHtml = (product as any).descriptionHtml || "";
-  const descPlain = description || "";
-  const hasDescription = descHtml.trim().length > 0 || descPlain.trim().length > 0;
-
   return (
     <StyledRoot>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap');`}</style>
-
       <Grid container spacing={4} alignItems="flex-start">
         <Grid size={{ lg: 7, md: 7, xs: 12 }}>
           <ProductGallery images={product.images} />
@@ -115,106 +109,24 @@ export default function ProductIntro({ product }: Props) {
 
           <Divider sx={{ mb: 3.5 }} />
 
-          {/* ═══ DESCRIPTION ═══ */}
-          {hasDescription && descHtml ? (
+          {/* DESCRIPTION */}
+          {(product as any).descriptionHtml ? (
             <Box
-              dangerouslySetInnerHTML={{ __html: descHtml }}
+              dangerouslySetInnerHTML={{ __html: (product as any).descriptionHtml }}
               sx={{
-                /* ── Editorial paragraphs ── */
-                fontSize: 17,
-                lineHeight: 1.85,
-                color: "#1A1A1A",
-                fontFamily: '"Playfair Display", "Didot", "Bodoni MT", Georgia, serif',
-
-                "& p": {
-                  mb: 3,
-                  "&:last-child": { mb: 0 },
-                },
-
-                /* ── DETAILS / DIMENSIONS / ORIGIN headers ── */
-                "& h4": {
-                  fontSize: 13,
-                  color: "#111",
-                  fontWeight: 500,
-                  fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
-                  letterSpacing: "0.15em",
-                  textTransform: "uppercase",
-                  mt: 5,
-                  mb: 2,
-                  pt: 3,
-                  borderTop: "1px solid #e0e0e0",
-                },
-
-                /* ── Bullet lists ── */
-                "& ul": {
-                  listStyle: "none",
-                  pl: 0,
-                  mb: 0,
-                },
-                "& ul li": {
-                  fontSize: 15,
-                  lineHeight: 1.7,
-                  color: "#1A1A1A",
-                  fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
-                  py: 0.5,
-                  pl: 2,
-                  position: "relative",
-                  "&::before": {
-                    content: '"·"',
-                    position: "absolute",
-                    left: 0,
-                    color: "#999",
-                    fontSize: 18,
-                  },
-                },
-
-                /* ── Bold text ── */
-                "& strong, & b": {
-                  color: "#111",
-                  fontWeight: 600,
-                },
+                fontSize: 17, lineHeight: 1.9, color: "#555",
+                "& p": { mb: 2.5, "&:last-child": { mb: 0 } },
+                "& h4": { fontSize: 15, fontWeight: 700, color: "#111", mt: 4, mb: 1.5, textTransform: "uppercase", letterSpacing: "0.05em" },
+                "& ul": { listStyle: "disc", pl: 2.5, mb: 2 },
+                "& ul li": { fontSize: 15, lineHeight: 1.8, color: "#555", py: 0.3 },
+                "& strong, & b": { color: "#333", fontWeight: 600 },
               }}
             />
-          ) : hasDescription ? (
-            <Typography sx={{ fontSize: 17, lineHeight: 1.85, color: "#1A1A1A", whiteSpace: "pre-line" }}>
-              {descPlain}
+          ) : description ? (
+            <Typography sx={{ fontSize: 17, lineHeight: 1.9, color: "#555", whiteSpace: "pre-line" }}>
+              {description}
             </Typography>
           ) : null}
-
-          {/* Authenticity badge */}
-          {hasDescription && (
-            <Box
-              sx={{
-                mt: 5,
-                pt: 3,
-                borderTop: "1px solid #e0e0e0",
-                display: "flex",
-                alignItems: "center",
-                gap: 1.5,
-              }}
-            >
-              <Box
-                sx={{
-                  width: 7,
-                  height: 7,
-                  borderRadius: "50%",
-                  background: "#27ae60",
-                  flexShrink: 0,
-                }}
-              />
-              <Typography
-                sx={{
-                  fontSize: 11,
-                  color: "#999",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.15em",
-                  fontWeight: 500,
-                }}
-              >
-                Authenticity Guaranteed
-              </Typography>
-            </Box>
-          )}
         </Grid>
       </Grid>
     </StyledRoot>
