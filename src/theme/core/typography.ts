@@ -1,23 +1,33 @@
 import { geist } from "app/layout";
 import type { Typography } from "theme/types";
 
-export const fontSize = 14;
+export const fontSize = 15;
 
-const fw600 = 600;
+const fw400 = 400;
 const fw500 = 500;
+const fw600 = 600;
+const fw700 = 700;
 
 export const typography: Typography = {
   fontSize,
   htmlFontSize: 16,
   fontFamily: geist.style.fontFamily,
-  body1: { fontSize },
-  body2: { fontSize },
-  h1: { fontSize: 54, fontWeight: fw600, lineHeight: 1.1 }, // large hero/section headings
-  h2: { fontSize: 38, fontWeight: fw600, lineHeight: 1.2 }, // page-level headings
+  h1: { fontSize: 48, fontWeight: fw700, lineHeight: 1.1 },
+  h2: { fontSize: 36, fontWeight: fw700, lineHeight: 1.2 },
   h3: { fontSize: 28, fontWeight: fw600, lineHeight: 1.3 },
-  h4: { fontSize: 20, fontWeight: fw500 },
-  h5: { fontSize: 16, fontWeight: fw500, lineHeight: 1 },
-  h6: { fontSize, fontWeight: fw500 },
-  subtitle1: { fontSize: 16, fontWeight: fw500 },
-  subtitle2: { fontSize: 14, fontWeight: fw500 },
+  h4: { fontSize: 22, fontWeight: fw600, lineHeight: 1.4 },
+  h5: { fontSize: 18, fontWeight: fw600, lineHeight: 1.4 },
+  h6: { fontSize: 16, fontWeight: fw600, lineHeight: 1.4 },
+  body1: { fontSize: 15, fontWeight: fw400, lineHeight: 1.7 },
+  body2: { fontSize: 13, fontWeight: fw400, lineHeight: 1.6 },
+  subtitle1: { fontSize: 13, fontWeight: fw500, lineHeight: 1.4 },
+  subtitle2: { fontSize: 12, fontWeight: fw400, lineHeight: 1.4 },
+  overline: {
+    fontSize: 12,
+    fontWeight: fw600,
+    lineHeight: 1.5,
+    letterSpacing: "0.1em",
+    textTransform: "uppercase",
+  },
+  caption: { fontSize: 11, fontWeight: fw400, lineHeight: 1.5 },
 };

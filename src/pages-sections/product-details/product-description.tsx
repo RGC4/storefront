@@ -1,13 +1,17 @@
 import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 import Product from "models/Product.model";
 
+const SPEC_KEYWORDS = [
+  "Model:", "Color:", "Material:", "Lining:", "Strap:", "Measurements:",
+  "Made in", "Season:", "Dimension:", "Composition:", "Condition:", "Detachable",
+  "Logo details", "Closure:", "Pocket:", "Handle:", "Specifications:",
+];
+
 function parseDescription(raw: string) {
-  const text = raw.replace(/<[^>]+>/g, "").trim();
-  const specKeywords = ["Model:","Color:","Material:","Lining:","Strap:","Measurements:",
-    "Made in","Season:","Dimension:","Composition:","Condition:","Detachable",
-    "Logo details","Closure:","Pocket:","Handle:","Specifications:"];
+  const text = raw.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
   let splitIndex = text.length;
-  for (const keyword of specKeywords) {
+  for (const keyword of SPEC_KEYWORDS) {
     const idx = text.indexOf(keyword);
     if (idx !== -1 && idx < splitIndex) splitIndex = idx;
   }
@@ -15,8 +19,11 @@ function parseDescription(raw: string) {
   const specsRaw = text.slice(splitIndex).trim();
   const specs: string[] = [];
   if (specsRaw) {
-    const regex = new RegExp(`(?=${specKeywords.map((k) => k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join("|")})`, "g");
-    specs.push(...specsRaw.split(regex).map((s) => s.trim()).filter(Boolean));
+    const regex = new RegExp(
+      `(?=${SPEC_KEYWORDS.map(k => k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})`,
+      "g"
+    );
+    specs.push(...specsRaw.split(regex).map(s => s.trim()).filter(Boolean));
   }
   return { intro, specs };
 }
@@ -24,31 +31,27 @@ function parseDescription(raw: string) {
 export default function ProductDescription({ product }: { product: Product }) {
   if (!product.description) return null;
   const { intro, specs } = parseDescription(product.description);
+
   return (
-    <div>
-      <Typography sx={{ mb: 2.5, fontSize: 26, fontWeight: 700 }}>Description</Typography>
+    <Box>
+      <Typography variant="h4" sx={{ mb: 2.5 }}>Description</Typography>
       {intro && (
-        <Typography sx={{ mb: 3, fontSize: 20, lineHeight: 2, color: "text.primary" }}>
+        <Typography variant="body1" sx={{ mb: 3, color: "text.primary" }}>
           {intro}
         </Typography>
       )}
       {specs.length > 0 && (
-        <ul style={{ margin: 0, padding: 0, listStyle: "none" }}>
+        <Box component="ul" sx={{ m: 0, p: 0, listStyle: "none" }}>
           {specs.map((spec, i) => (
-            <li key={i} style={{
-              fontSize: "19px", lineHeight: 1.9, color: "#333",
-              paddingBlock: "10px",
-              borderBottom: i < specs.length - 1 ? "1px solid #f0f0f0" : "none",
-            }}>
-              {spec}
-            </li>
+            <Box component="li" key={i} sx={{ py: "10px", borderBottom: i < specs.length - 1 ? "1px solid #f0f0f0" : "none" }}>
+              <Typography variant="body2" sx={{ color: "#333", lineHeight: 1.9 }}>{spec}</Typography>
+            </Box>
           ))}
-        </ul>
+        </Box>
       )}
       {!intro && specs.length === 0 && (
-        <Typography sx={{ fontSize: 20, lineHeight: 2 }}
-          dangerouslySetInnerHTML={{ __html: product.description }} />
+        <Typography variant="body1" dangerouslySetInnerHTML={{ __html: product.description }} />
       )}
-    </div>
+    </Box>
   );
 }

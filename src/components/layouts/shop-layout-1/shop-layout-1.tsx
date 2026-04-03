@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Fragment, PropsWithChildren, useEffect, useState } from "react";
@@ -9,9 +8,7 @@ import Divider from "@mui/material/Divider";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import {
-  FooterLinksWidget
-} from "components/footer";
+import { FooterLinksWidget } from "components/footer";
 import { MobileNavigationBar } from "components/mobile-navigation";
 import { SearchInput2 } from "components/search-box";
 import { HeaderCart, HeaderLogin, MobileHeader, HeaderSearch } from "components/header";
@@ -25,7 +22,7 @@ const HEADER_LOGO_URL = `/assets/stores/${STORE_ID}/logo/logo-header.png`;
 const FOOTER_LOGO_URL = `/assets/stores/${STORE_ID}/logo/logo-footer.png`;
 
 const NAV_LINK_STYLE: React.CSSProperties = {
-  fontSize: "1.08rem",
+  fontSize: "13px",
   fontWeight: 600,
   color: "#1a1a2e",
   textDecoration: "none",
@@ -64,107 +61,47 @@ export default function ShopLayout1({ children, data }: Props) {
 
   return (
     <Fragment>
-
-      {/* STICKY HEADER */}
       <div style={{
-        position: "sticky",
-        top: 0,
-        zIndex: 100,
+        position: "sticky", top: 0, zIndex: 100,
         backgroundColor: "#ffffff",
         borderBottom: scrolled ? "none" : "1px solid #f0f0f0",
         boxShadow: scrolled ? "0 2px 16px rgba(0,0,0,0.10)" : "none",
         transition: "box-shadow 300ms ease, border-bottom 300ms ease",
         height: 100,
       }}>
-
-        {/* DESKTOP HEADER */}
         <div className="main-header" style={{
-          display: "flex",
-          alignItems: "center",
-          height: "100%",
-          paddingLeft: "24px",
-          paddingRight: "24px",
-          gap: "2rem",
+          display: "flex", alignItems: "center", height: "100%",
+          paddingLeft: "24px", paddingRight: "24px", gap: "2rem",
         }}>
-
-          {/* LOGO */}
           <Link href="/" style={{ display: "flex", alignItems: "center", flexShrink: 0, height: "100%" }}>
-            <Image
-              src={HEADER_LOGO_URL}
-              alt={`${storeConfig.name} Logo`}
-              width={320}
-              height={117}
-              priority
-              style={{ objectFit: "contain", objectPosition: "left center", marginTop: "8px" }}
-            />
+            <Image src={HEADER_LOGO_URL} alt={`${storeConfig.name} Logo`}
+              width={320} height={117} priority
+              style={{ objectFit: "contain", objectPosition: "left center", marginTop: "8px" }} />
           </Link>
-
-          {/* NAV */}
-          <nav style={{
-            display: "flex",
-            gap: "2rem",
-            alignItems: "center",
-            flexWrap: "nowrap",
-            marginLeft: "auto",
-          }}>
-            <Link
-              href="/"
-              style={NAV_LINK_STYLE}
-              onMouseEnter={e => {
-                (e.target as HTMLElement).style.borderBottomColor = "#b8972e";
-                (e.target as HTMLElement).style.color = "#b8972e";
-              }}
-              onMouseLeave={e => {
-                (e.target as HTMLElement).style.borderBottomColor = "transparent";
-                (e.target as HTMLElement).style.color = "#1a1a2e";
-              }}
-            >
+          <nav style={{ display: "flex", gap: "2rem", alignItems: "center", flexWrap: "nowrap", marginLeft: "auto" }}>
+            <Link href="/" style={NAV_LINK_STYLE}
+              onMouseEnter={e => { (e.target as HTMLElement).style.borderBottomColor = "#b8972e"; (e.target as HTMLElement).style.color = "#b8972e"; }}
+              onMouseLeave={e => { (e.target as HTMLElement).style.borderBottomColor = "transparent"; (e.target as HTMLElement).style.color = "#1a1a2e"; }}>
               Home
             </Link>
             {header.categoryMenus?.map((cat: any) => (
-              <Link
-                key={cat.value}
-                href={`/collections/${cat.value}`}
-                style={NAV_LINK_STYLE}
-                onMouseEnter={e => {
-                  (e.target as HTMLElement).style.borderBottomColor = "#b8972e";
-                  (e.target as HTMLElement).style.color = "#b8972e";
-                }}
-                onMouseLeave={e => {
-                  (e.target as HTMLElement).style.borderBottomColor = "transparent";
-                  (e.target as HTMLElement).style.color = "#1a1a2e";
-                }}
-              >
+              <Link key={cat.value} href={`/collections/${cat.value}`} style={NAV_LINK_STYLE}
+                onMouseEnter={e => { (e.target as HTMLElement).style.borderBottomColor = "#b8972e"; (e.target as HTMLElement).style.color = "#b8972e"; }}
+                onMouseLeave={e => { (e.target as HTMLElement).style.borderBottomColor = "transparent"; (e.target as HTMLElement).style.color = "#1a1a2e"; }}>
                 {cat.title}
               </Link>
             ))}
           </nav>
-
-          {/* ICONS */}
-          <div style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "1rem",
-            flexShrink: 0,
-          }}>
-            <div style={{ fontSize: "1.75rem", display: "flex", alignItems: "center" }}>
-              <HeaderLogin />
-            </div>
-            <div style={{ fontSize: "1.75rem", display: "flex", alignItems: "center" }}>
-              <HeaderCart />
-            </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexShrink: 0 }}>
+            <div style={{ fontSize: "1.75rem", display: "flex", alignItems: "center" }}><HeaderLogin /></div>
+            <div style={{ fontSize: "1.75rem", display: "flex", alignItems: "center" }}><HeaderCart /></div>
           </div>
-
         </div>
-
-        {/* MOBILE HEADER */}
         <div className="mobile-header" style={{ display: "none", height: "100%" }}>
           {MOBILE_VERSION_HEADER}
         </div>
-
       </div>
 
-      {/* Responsive: swap desktop/mobile header at 768px */}
       <style>{`
         @media (max-width: 768px) {
           .main-header { display: none !important; }
@@ -177,50 +114,40 @@ export default function ShopLayout1({ children, data }: Props) {
       <MobileNavigationBar navigation={mobileNavigation.version1} />
 
       {/* FOOTER */}
-      <Box component="footer" bgcolor="grey.900" color="white" mb={{ lg: 0, xs: 8 }} pt={{ sm: 4, xs: 2 }}>
+      <Box component="footer" bgcolor="grey.900" color="white" mb={{ lg: 0, xs: 8 }} pt={{ sm: 5, xs: 3 }}>
         <Container>
-          <Grid container spacing={3} sx={{ py: 2 }}>
-            {/* LOGO - left */}
+          <Grid container spacing={4} sx={{ pb: 5 }}>
+
             <Grid size={{ xs: 12, md: 3 }}>
-              <Link href="/">
+              <Link href="/" style={{ display: "inline-block" }}>
                 <img src={FOOTER_LOGO_URL} alt={`${storeConfig.name} Logo`}
-                  style={{
-                    width: "441px",
-                    height: "auto",
-                    objectFit: "contain",
-                    objectPosition: "left center",
-                    marginLeft: "-192px",
-                    marginTop: "8px",
-                  }} />
+                  style={{ width: "100%", maxWidth: "160px", height: "auto", objectFit: "contain", objectPosition: "left center", display: "block", marginTop: "4px" }} />
               </Link>
+              {storeConfig.footerDescription && (
+                <Typography variant="body2" sx={{ mt: 1.5, color: "grey.400", lineHeight: 1.7 }}>
+                  {storeConfig.footerDescription}
+                </Typography>
+              )}
             </Grid>
 
-            {/* ABOUT US */}
             <Grid size={{ xs: 6, md: 3 }}>
               <FooterLinksWidget title="About Us" links={footer.about} />
             </Grid>
 
-            {/* CUSTOMER CARE */}
             <Grid size={{ xs: 6, md: 3 }}>
               <FooterLinksWidget title="Customer Care" links={footer.customers} />
             </Grid>
 
-            {/* POLICIES */}
             <Grid size={{ xs: 6, md: 3 }}>
               <FooterLinksWidget title="Policies" links={policies} />
             </Grid>
-          </Grid>
 
-          {/* COPYRIGHT */}
+          </Grid>
           <Divider sx={{ borderColor: "grey.800" }} />
-          <Typography
-            variant="body2"
-            sx={{ py: 2, textAlign: "center", fontSize: "1.01rem", color: "grey.400" }}
-          >
-            &copy; Copyright {new Date().getFullYear()}{" "}
-            <span style={{ fontWeight: 600, color: "white" }}>{storeConfig.name}</span>.{" "}
-            Owned and operated by RGC4.{" "}
-            All rights reserved.
+          <Typography variant="caption" component="p" sx={{ py: 2.5, textAlign: "center", color: "grey.500" }}>
+            &copy; {new Date().getFullYear()}{" "}
+            <span style={{ fontWeight: 600, color: "rgba(255,255,255,0.7)" }}>{storeConfig.name}</span>.{" "}
+            Owned and operated by RGC4. All rights reserved.
           </Typography>
         </Container>
       </Box>

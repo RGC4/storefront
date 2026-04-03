@@ -10,9 +10,15 @@ export const StyledLink = styled(Link)(() => ({
   display: "block",
   cursor: "pointer",
   position: "relative",
-  padding: "0.4rem 0rem",
-  fontSize: 16,
-  ":hover": { textDecoration: "underline" }
+  padding: "0.35rem 0",
+  fontSize: 13,
+  color: "rgba(255,255,255,0.75)",
+  textDecoration: "none",
+  transition: "color 150ms ease",
+  ":hover": {
+    color: "#ffffff",
+    textDecoration: "underline",
+  },
 }));
 
 export const StyledFooter = styled("footer")(({ theme }) => ({
@@ -24,20 +30,24 @@ export const StyledFooter = styled("footer")(({ theme }) => ({
   "& .links": {
     marginTop: "4rem",
     marginBottom: "1rem",
-    [theme.breakpoints.down("sm")]: { marginTop: 0 }
+    [theme.breakpoints.down("sm")]: { marginTop: 0 },
   },
-  [theme.breakpoints.down("lg")]: { marginBottom: "5rem" }
+  [theme.breakpoints.down("lg")]: { marginBottom: "5rem" },
 }));
 
 export const Heading = styled("h6")({
-  fontSize: 22,
-  lineHeight: 1,
-  fontWeight: 500,
-  marginBottom: 12
+  fontSize: 16,
+  lineHeight: 1.4,
+  fontWeight: 600,
+  marginBottom: 14,
+  marginTop: 0,
+  color: "#ffffff",
+  textTransform: "uppercase",
+  letterSpacing: "0.06em",
 });
 
 export const StyledIconButton = styled(IconButton, {
-  shouldForwardProp: (prop) => prop !== "variant"
+  shouldForwardProp: (prop) => prop !== "variant",
 })<{ variant: Variant }>(({ variant, theme }) => ({
   margin: 4,
   fontSize: 16,
@@ -46,16 +56,16 @@ export const StyledIconButton = styled(IconButton, {
   transition: "all 0.3s ease",
   ".icon": { color: "white" },
   ...(variant === "light" && {
-    backgroundColor: theme.palette.grey[900],
+    backgroundColor: theme.palette.grey[800],
     ":hover": {
       backgroundColor: theme.palette.common.white,
-      ".icon": { color: theme.palette.grey[900] }
-    }
+      ".icon": { color: theme.palette.grey[900] },
+    },
   }),
   ...(variant === "dark" && {
     backgroundColor: theme.palette.grey[900],
-    ":hover": { backgroundColor: theme.palette.grey[700] }
-  })
+    ":hover": { backgroundColor: theme.palette.grey[700] },
+  }),
 }));
 
 export const AppItem = styled("div")({
@@ -67,6 +77,6 @@ export const AppItem = styled("div")({
   padding: "12px 16px",
   alignItems: "center",
   backgroundColor: "#0C2A4D",
-  "& .title": { fontSize: "16px", fontWeight: 500, lineHeight: 1.3 },
-  "& .subtitle": { lineHeight: 1, fontSize: "10px" }
+  "& .title": { fontSize: "15px", fontWeight: 500, lineHeight: 1.3 },
+  "& .subtitle": { lineHeight: 1, fontSize: "11px" },
 });
