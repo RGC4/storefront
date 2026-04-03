@@ -1,6 +1,4 @@
 // src/app/sitemap.ts
-// REPLACES your current static 3-URL sitemap with a dynamic one
-// that pulls ALL products and collections from Shopify
 
 import { MetadataRoute } from "next";
 import { storefrontQuery } from "lib/shopify";
@@ -9,29 +7,31 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://prestigeapparelgro
 const STORE_ID = process.env.NEXT_PUBLIC_STORE_ID || "s1";
 
 async function getAllProducts() {
-  const products: { handle: string; updatedAt: string }[] = [];
+  const products: string[] = [];
   let cursor: string | null = null;
 
   do {
     const data: any = await storefrontQuery(
-      `query Products($first: Int!, $after: String, $query: String) {
-        products(first: 250, after: $after, query: $query) {
+      `query SitemapProducts($n: Int!, $q: String, $after: String) {
+        products(first: $n, after: $after, query: $q) {
           pageInfo { hasNextPage endCursor }
           edges {
             node {
               handle
-              updatedAt
             }
           }
         }
       }`,
-      { first: 250, after: cursor, query: `tag:${STORE_ID}` }
-    ).catch(() => null);
+      { n: 250, q: `tag:${STORE_ID}`, after: cursor }
+    ).catch((err) => {
+      console.error("Sitemap product fetch error:", err);
+      return null;
+    });
 
     if (!data?.products?.edges) break;
 
     for (const { node } of data.products.edges) {
-      products.push({ handle: node.handle, updatedAt: node.updatedAt });
+      products.push(node.handle);
     }
 
     cursor = data.products.pageInfo.hasNextPage
@@ -44,7 +44,7 @@ async function getAllProducts() {
 
 async function getAllCollections() {
   const data: any = await storefrontQuery(
-    `query Collections {
+    `query SitemapCollections {
       collections(first: 250) {
         edges {
           node {
@@ -54,7 +54,10 @@ async function getAllCollections() {
         }
       }
     }`
-  ).catch(() => null);
+  ).catch((err) => {
+    console.error("Sitemap collection fetch error:", err);
+    return null;
+  });
 
   if (!data?.collections?.edges) return [];
   return data.collections.edges.map(({ node }: any) => ({
@@ -64,28 +67,27 @@ async function getAllCollections() {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // Static pages
+  const now = new Date();
+
   const staticPages: MetadataRoute.Sitemap = [
-    { url: BASE_URL, lastModified: new Date(), changeFrequency: "daily", priority: 1.0 },
-    { url: `${BASE_URL}/collections`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
-    { url: `${BASE_URL}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
-    { url: `${BASE_URL}/about`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
-    { url: `${BASE_URL}/privacy-policy`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
-    { url: `${BASE_URL}/terms`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
-    { url: `${BASE_URL}/shipping-policy`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
-    { url: `${BASE_URL}/refund-policy`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
+    { url: BASE_URL, lastModified: now, changeFrequency: "daily", priority: 1.0 },
+    { url: `${BASE_URL}/collections`, lastModified: now, changeFrequency: "daily", priority: 0.9 },
+    { url: `${BASE_URL}/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${BASE_URL}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${BASE_URL}/privacy-policy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${BASE_URL}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${BASE_URL}/shipping-policy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${BASE_URL}/refund-policy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
   ];
 
-  // Dynamic product pages
   const products = await getAllProducts();
-  const productPages: MetadataRoute.Sitemap = products.map((p) => ({
-    url: `${BASE_URL}/products/${p.handle}`,
-    lastModified: new Date(p.updatedAt),
+  const productPages: MetadataRoute.Sitemap = products.map((handle) => ({
+    url: `${BASE_URL}/products/${handle}`,
+    lastModified: now,
     changeFrequency: "weekly" as const,
     priority: 0.8,
   }));
 
-  // Dynamic collection pages
   const collections = await getAllCollections();
   const collectionPages: MetadataRoute.Sitemap = collections.map((c) => ({
     url: `${BASE_URL}/collections/${c.handle}`,
@@ -93,6 +95,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: "daily" as const,
     priority: 0.9,
   }));
+
+  console.log(`Sitemap: ${staticPages.length} static, ${collectionPages.length} collections, ${productPages.length} products`);
 
   return [...staticPages, ...collectionPages, ...productPages];
 }
