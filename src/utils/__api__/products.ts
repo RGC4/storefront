@@ -29,6 +29,7 @@ function mapProduct(p: any) {
     reviews: [],
     rating: 0,
     description: p.description ?? "",
+    descriptionHtml: p.descriptionHtml ?? "",
     shop: {
       id: "",
       name: process.env.NEXT_PUBLIC_STORE_NAME ?? "Store",
@@ -60,7 +61,7 @@ function mapProduct(p: any) {
 // ── Queries ────────────────────────────────────────────────────────────────────
 
 const PRODUCT_FIELDS = `
-  id title handle vendor tags description
+  id title handle vendor tags description descriptionHtml
   priceRange { minVariantPrice { amount currencyCode } }
   compareAtPriceRange { minVariantPrice { amount currencyCode } }
   images(first: 10) { edges { node { url altText } } }
