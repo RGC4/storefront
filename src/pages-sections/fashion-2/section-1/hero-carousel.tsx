@@ -25,7 +25,14 @@ export default function VideoHero() {
   }, [current, isMobile]);
   const handleVideoEnd = () => { setCurrent((prev) => (prev + 1) % SLIDES.length); };
   const slide = SLIDES[current];
-  const textOverlay = (
+  const tagline = (
+    <Box sx={{ position: "absolute", top: { xs: "8%", md: "12%" }, left: 0, px: { xs: 3, sm: 5, md: 8 } }}>
+      <Typography sx={{ color: "rgba(255,255,255,0.82)", fontWeight: 400, fontSize: { xs: "0.7rem", sm: "0.75rem", md: "0.8rem" }, letterSpacing: { xs: "0.18em", md: "0.22em" }, textTransform: "uppercase", textShadow: "0 1px 8px rgba(0,0,0,0.7)", lineHeight: 1 }}>
+        {process.env.NEXT_PUBLIC_HERO_TAGLINE || ""}
+      </Typography>
+    </Box>
+  );
+    const textOverlay = (
     <Box sx={{ position: "absolute", bottom: { xs: "10%", md: "12%" }, left: 0, right: 0, display: "flex", flexDirection: "column", alignItems: "flex-start", px: { xs: 3, sm: 5, md: 8 }, opacity: textVisible ? 1 : 0, transition: "opacity 600ms ease" }}>
       <Typography sx={{ color: "white", fontWeight: 700, mb: 1, fontSize: { xs: "1.32rem", sm: "1.56rem", md: "1.92rem" }, textShadow: "0 2px 12px rgba(0,0,0,0.7)", lineHeight: 1.2, maxWidth: { xs: "90vw", md: "60vw" } }}>
         {slide.headline}
@@ -42,6 +49,7 @@ export default function VideoHero() {
       <div style={containerStyle}>
         <img src={slide.poster} alt={slide.headline} style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", minWidth: "100%", minHeight: "100%", width: "auto", height: "auto", objectFit: "cover" }} />
         <div style={overlayStyle} />
+        {tagline}
         {textOverlay}
       </div>
     );
