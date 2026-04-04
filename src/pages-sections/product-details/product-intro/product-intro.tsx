@@ -22,23 +22,6 @@ export default function ProductIntro({ product }: Props) {
         </Grid>
         <Grid size={{ lg: 5, md: 5, xs: 12 }}>
 
-          {/* CATEGORY PILLS */}
-          <Box sx={{ mb: 2.5, display: "flex", gap: 1, flexWrap: "wrap" }}>
-            {Array.isArray(categories) &&
-              categories.slice(0, 4).map((item: string) => (
-                <Box
-                  key={item}
-                  sx={{
-                    px: 1.4, py: 0.5, fontSize: 11, color: "#888",
-                    background: "#f2f2f2", textTransform: "uppercase",
-                    letterSpacing: "0.08em", borderRadius: "3px",
-                  }}
-                >
-                  {item}
-                </Box>
-              ))}
-          </Box>
-
           {/* BRAND */}
           <Typography
             sx={{
@@ -116,7 +99,7 @@ export default function ProductIntro({ product }: Props) {
               sx={{
                 fontSize: 16, lineHeight: 1.6, color: "#666",
                 "& p": { mb: 2.5, "&:last-child": { mb: 0 } },
-                ""& h4": { fontSize: 13 h4": { fontSize: 16, fontWeight: 700, color: "#111", mt: 4, mb: 1.5, textTransform: "uppercase", letterSpacing: "0.08em" },
+                "& h4": { fontSize: 16, fontWeight: 700, color: "#111", mt: 4, mb: 1.5, textTransform: "uppercase", letterSpacing: "0.08em" },
                 "& ul": { listStyle: "disc", pl: 2.5, mb: 2 },
                 "& ul li": { fontSize: 16, lineHeight: 1.6, color: "#666", py: 0.3 },
                 "& strong, & b": { color: "#333", fontWeight: 700 },
