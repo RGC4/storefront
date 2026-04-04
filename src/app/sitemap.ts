@@ -1,5 +1,7 @@
 // src/app/sitemap.ts
 
+export const dynamic = "force-dynamic";
+
 import { MetadataRoute } from "next";
 import { storefrontQuery } from "lib/shopify";
 
@@ -23,10 +25,7 @@ async function getAllProducts() {
         }
       }`,
       { n: 250, q: `tag:${STORE_ID}`, after: cursor }
-    ).catch((err) => {
-      console.error("Sitemap product fetch error:", err);
-      return null;
-    });
+    ).catch(() => null);
 
     if (!data?.products?.edges) break;
 
@@ -54,10 +53,7 @@ async function getAllCollections() {
         }
       }
     }`
-  ).catch((err) => {
-    console.error("Sitemap collection fetch error:", err);
-    return null;
-  });
+  ).catch(() => null);
 
   if (!data?.collections?.edges) return [];
   return data.collections.edges.map(({ node }: any) => ({

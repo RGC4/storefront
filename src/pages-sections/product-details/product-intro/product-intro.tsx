@@ -98,10 +98,10 @@ export default function ProductIntro({ product }: Props) {
               dangerouslySetInnerHTML={{ __html: (product as any).descriptionHtml }}
               sx={{
                 fontSize: 16, lineHeight: 1.6, color: "#666",
-                "& p": { mb: 2.5, "&:last-child": { mb: 0 } },
-                "& h4": { fontSize: 16, fontWeight: 700, color: "#111", mt: 4, mb: 1.5, textTransform: "uppercase", letterSpacing: "0.08em" },
-                "& ul": { listStyle: "disc", pl: 2.5, mb: 2 },
-                "& ul li": { fontSize: 16, lineHeight: 1.6, color: "#666", py: 0.3 },
+                "& p": { mb: 1.5, "&:last-child": { mb: 0 } },
+                "& h4": { fontSize: 16, fontWeight: 700, color: "#111", mt: 2.5, mb: 0.5, textTransform: "uppercase", letterSpacing: "0.08em" },
+                "& ul": { listStyle: "disc", pl: 2.5, mb: 1 },
+                "& ul li": { fontSize: 16, lineHeight: 1.6, color: "#666", py: 0.2 },
                 "& strong, & b": { color: "#333", fontWeight: 700 },
               }}
             />
