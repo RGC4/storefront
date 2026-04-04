@@ -9,7 +9,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Checkbox from "@mui/material/Checkbox";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
-import BackButton from "components/back-button";
+import BackButton from "components/BackButton";
 
 interface Product {
   id: string;
