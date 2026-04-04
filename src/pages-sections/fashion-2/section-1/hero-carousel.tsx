@@ -47,7 +47,7 @@ export default function VideoHero() {
   if (isMobile) {
     return (
       <div style={containerStyle}>
-        <img src={slide.poster} alt={slide.headline} style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", minWidth: "100%", minHeight: "100%", width: "auto", height: "auto", objectFit: "cover" }} />
+        <img src={slide.poster} alt={slide.headline} style={{ position: "absolute", top: "0", left: "50%", transform: "translateX(-50%)", minWidth: "100%", minHeight: "100%", width: "auto", height: "auto", objectFit: "cover", objectPosition: "center top" }} />
         <div style={overlayStyle} />
         {tagline}
         {textOverlay}
@@ -56,7 +56,7 @@ export default function VideoHero() {
   }
   return (
     <div style={containerStyle}>
-      <video ref={videoRef} onEnded={handleVideoEnd} muted playsInline autoPlay style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", minWidth: "100%", minHeight: "100%", width: "auto", height: "auto", objectFit: "cover" }}>
+      <video ref={videoRef} onEnded={handleVideoEnd} muted playsInline autoPlay style={{ position: "absolute", top: "0", left: "50%", transform: "translateX(-50%)", minWidth: "100%", minHeight: "100%", width: "auto", height: "auto", objectFit: "cover", objectPosition: "center top" }}>
         <source src={slide.src} type="video/mp4" />
       </video>
       <div style={overlayStyle} />

@@ -25,26 +25,26 @@ export const CardHeader = styled("div")({
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  minHeight: 90,        // was fixed 110 — now min so long titles show fully
+  minHeight: 90,        // was fixed 110 â€” now min so long titles show fully
   flexShrink: 0,
   "@media (max-width: 768px)": { minHeight: 70, padding: "8px 10px" },
   ".vendor": {
-    fontSize: 13,       // was 22px — reduced to match theme overline
+    fontSize: 16,       // was 13px â€” increased 25%
     fontWeight: 700,
     color: "#111",
     textTransform: "uppercase",
     letterSpacing: "0.08em",
     marginBottom: 4,
-    "@media (max-width: 768px)": { fontSize: 12 },
+    "@media (max-width: 768px)": { fontSize: 14 },
   },
   ".title": {
-    fontSize: 13,       // was 17px — reduced to match theme subtitle1
+    fontSize: 13,       // was 17px â€” reduced to match theme subtitle1
     fontWeight: 400,
     lineHeight: 1.4,
     color: "#666",
     overflow: "hidden",
     display: "-webkit-box",
-    WebkitLineClamp: 3, // was 2 — allow 3 lines so titles don't get cut off
+    WebkitLineClamp: 3, // was 2 â€” allow 3 lines so titles don't get cut off
     WebkitBoxOrient: "vertical" as const,
     textAlign: "center",
     "@media (max-width: 768px)": { fontSize: 12 },

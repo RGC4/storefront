@@ -22,7 +22,7 @@ const HEADER_LOGO_URL = `/assets/stores/${STORE_ID}/logo/logo-header.png`;
 const FOOTER_LOGO_URL = `/assets/stores/${STORE_ID}/logo/logo-footer.png`;
 
 const NAV_LINK_STYLE: React.CSSProperties = {
-  fontSize: "13px",
+  fontSize: "14px",
   fontWeight: 600,
   color: "#1a1a2e",
   textDecoration: "none",
@@ -93,8 +93,8 @@ export default function ShopLayout1({ children, data }: Props) {
             ))}
           </nav>
           <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexShrink: 0 }}>
-            <div style={{ fontSize: "1.75rem", display: "flex", alignItems: "center" }}><HeaderLogin /></div>
-            <div style={{ fontSize: "1.75rem", display: "flex", alignItems: "center" }}><HeaderCart /></div>
+            <div style={{ fontSize: "2.31rem", display: "flex", alignItems: "center", justifyContent: "center", lineHeight: 1 }}><HeaderLogin /></div>
+            <div style={{ fontSize: "2.31rem", display: "flex", alignItems: "center", justifyContent: "center", lineHeight: 1 }}><HeaderCart /></div>
           </div>
         </div>
         <div className="mobile-header" style={{ display: "none", height: "100%" }}>
@@ -116,29 +116,17 @@ export default function ShopLayout1({ children, data }: Props) {
       {/* FOOTER */}
       <Box component="footer" bgcolor="grey.900" color="white" mb={{ lg: 0, xs: 8 }} pt={{ sm: 5, xs: 3 }}>
         <Container>
-          <Grid container spacing={4} sx={{ pb: 5 }}>
+          <Grid container spacing={4} sx={{ pb: 5, justifyContent: "space-around", textAlign: "center" }}>
 
-            <Grid size={{ xs: 12, md: 3 }}>
-              <Link href="/" style={{ display: "inline-block" }}>
-                <img src={FOOTER_LOGO_URL} alt={`${storeConfig.name} Logo`}
-                  style={{ width: "100%", maxWidth: "160px", height: "auto", objectFit: "contain", objectPosition: "left center", display: "block", marginTop: "4px" }} />
-              </Link>
-              {storeConfig.footerDescription && (
-                <Typography variant="body2" sx={{ mt: 1.5, color: "grey.400", lineHeight: 1.7 }}>
-                  {storeConfig.footerDescription}
-                </Typography>
-              )}
-            </Grid>
-
-            <Grid size={{ xs: 6, md: 3 }}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <FooterLinksWidget title="About Us" links={footer.about} />
             </Grid>
 
-            <Grid size={{ xs: 6, md: 3 }}>
+            <Grid size={{ xs: 6, md: 4 }}>
               <FooterLinksWidget title="Customer Care" links={footer.customers} />
             </Grid>
 
-            <Grid size={{ xs: 6, md: 3 }}>
+            <Grid size={{ xs: 6, md: 4 }}>
               <FooterLinksWidget title="Policies" links={policies} />
             </Grid>
 
