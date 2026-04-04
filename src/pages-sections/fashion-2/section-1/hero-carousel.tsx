@@ -60,7 +60,7 @@ export default function VideoHero() {
       <Typography sx={{
         color: "rgba(255,255,255,0.82)",
         fontWeight: 400,
-        fontSize: { xs: "1.4rem", sm: "1.5rem", md: "1.6rem" },
+        fontSize: { xs: "1.05rem", sm: "1.1rem", md: "1.2rem" },
         letterSpacing: { xs: "0.18em", md: "0.22em" },
         textTransform: "uppercase",
         textShadow: "0 1px 8px rgba(0,0,0,0.7)",
