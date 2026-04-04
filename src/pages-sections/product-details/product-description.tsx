@@ -34,9 +34,9 @@ export default function ProductDescription({ product }: { product: Product }) {
 
   return (
     <Box>
-      <Typography sx={{ fontSize: { xs: 16, md: 22 }, fontWeight: 800, letterSpacing: "-0.01em", textTransform: "uppercase", mb: 2.5 }}>Description</Typography>
+      <Typography sx={{ fontSize: { xs: 19, md: 26 }, fontWeight: 800, letterSpacing: "-0.01em", textTransform: "uppercase", mb: 2.5 }}>Description</Typography>
       {intro && (
-        <Typography sx={{ fontSize: 13, lineHeight: 1.6, color: "#666", mb: 3 }}>
+        <Typography sx={{ fontSize: 16, lineHeight: 1.6, color: "#666", mb: 3 }}>
           {intro}
         </Typography>
       )}
@@ -50,7 +50,7 @@ export default function ProductDescription({ product }: { product: Product }) {
         </Box>
       )}
       {!intro && specs.length === 0 && (
-        <Typography sx={{ fontSize: 13, lineHeight: 1.6, color: "#666" }} dangerouslySetInnerHTML={{ __html: product.description }} />
+        <Typography sx={{ fontSize: 16, lineHeight: 1.6, color: "#666" }} dangerouslySetInnerHTML={{ __html: product.description }} />
       )}
     </Box>
   );

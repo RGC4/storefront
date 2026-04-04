@@ -42,7 +42,7 @@ export default function ProductIntro({ product }: Props) {
           {/* BRAND */}
           <Typography
             sx={{
-              fontSize: { xs: 14, md: 16 }, lineHeight: 1.1, fontWeight: 700,
+              fontSize: { xs: 17, md: 19 }, lineHeight: 1.1, fontWeight: 700,
               color: "#111", mb: 1, textTransform: "uppercase", letterSpacing: "0.08em",
             }}
           >
@@ -50,7 +50,7 @@ export default function ProductIntro({ product }: Props) {
           </Typography>
 
           {/* TITLE */}
-          <Typography sx={{ fontSize: { xs: 12, md: 13 }, lineHeight: 1.4, fontWeight: 400, color: "#666", mb: 3.5 }}>
+          <Typography sx={{ fontSize: { xs: 14, md: 16 }, lineHeight: 1.4, fontWeight: 400, color: "#666", mb: 3.5 }}>
             {title}
           </Typography>
 
@@ -66,20 +66,20 @@ export default function ProductIntro({ product }: Props) {
             }}
           >
             <Box>
-              <Typography sx={{ fontSize: 11, color: "#999", mb: 0.5, textTransform: "uppercase", letterSpacing: "0.08em", fontWeight: 700 }}>
+              <Typography sx={{ fontSize: 13, color: "#999", mb: 0.5, textTransform: "uppercase", letterSpacing: "0.08em", fontWeight: 700 }}>
                 Price
               </Typography>
-              <Typography sx={{ fontSize: 18, fontWeight: 800, color: "#111" }}>
+              <Typography sx={{ fontSize: 22, fontWeight: 800, color: "#111" }}>
                 {currency(price)}
               </Typography>
             </Box>
 
             {comparePrice && comparePrice > 0 ? (
               <Box>
-                <Typography sx={{ fontSize: 11, color: "#999", mb: 0.5, textTransform: "uppercase", letterSpacing: "0.08em", fontWeight: 700 }}>
+                <Typography sx={{ fontSize: 13, color: "#999", mb: 0.5, textTransform: "uppercase", letterSpacing: "0.08em", fontWeight: 700 }}>
                   Est. Retail Price
                 </Typography>
-                <Typography sx={{ fontSize: 13, fontWeight: 400, color: "#999", textDecoration: "line-through" }}>
+                <Typography sx={{ fontSize: 16, fontWeight: 400, color: "#999", textDecoration: "line-through" }}>
                   {currency(comparePrice)}
                 </Typography>
               </Box>
@@ -87,10 +87,10 @@ export default function ProductIntro({ product }: Props) {
 
             {comparePrice && comparePrice > price ? (
               <Box>
-                <Typography sx={{ fontSize: 11, color: "#999", mb: 0.5, textTransform: "uppercase", letterSpacing: "0.08em", fontWeight: 700 }}>
+                <Typography sx={{ fontSize: 13, color: "#999", mb: 0.5, textTransform: "uppercase", letterSpacing: "0.08em", fontWeight: 700 }}>
                   Savings
                 </Typography>
-                <Typography sx={{ fontSize: 13, fontWeight: 700, color: "#c41230" }}>
+                <Typography sx={{ fontSize: 16, fontWeight: 700, color: "#c41230" }}>
                   {currency(comparePrice - price)}
                 </Typography>
               </Box>
@@ -114,16 +114,16 @@ export default function ProductIntro({ product }: Props) {
             <Box
               dangerouslySetInnerHTML={{ __html: (product as any).descriptionHtml }}
               sx={{
-                fontSize: 13, lineHeight: 1.6, color: "#666",
+                fontSize: 16, lineHeight: 1.6, color: "#666",
                 "& p": { mb: 2.5, "&:last-child": { mb: 0 } },
-                "& h4": { fontSize: 13, fontWeight: 700, color: "#111", mt: 4, mb: 1.5, textTransform: "uppercase", letterSpacing: "0.08em" },
+                ""& h4": { fontSize: 13 h4": { fontSize: 16, fontWeight: 700, color: "#111", mt: 4, mb: 1.5, textTransform: "uppercase", letterSpacing: "0.08em" },
                 "& ul": { listStyle: "disc", pl: 2.5, mb: 2 },
-                "& ul li": { fontSize: 13, lineHeight: 1.6, color: "#666", py: 0.3 },
+                "& ul li": { fontSize: 16, lineHeight: 1.6, color: "#666", py: 0.3 },
                 "& strong, & b": { color: "#333", fontWeight: 700 },
               }}
             />
           ) : description ? (
-            <Typography sx={{ fontSize: 13, lineHeight: 1.6, color: "#666", whiteSpace: "pre-line" }}>
+            <Typography sx={{ fontSize: 16, lineHeight: 1.6, color: "#666", whiteSpace: "pre-line" }}>
               {description}
             </Typography>
           ) : null}

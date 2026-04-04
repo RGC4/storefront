@@ -14,7 +14,7 @@ export default function RelatedProducts({ products }: Props) {
         display: "flex", alignItems: "center", justifyContent: "space-between",
         mb: 3, pb: 1.5, borderBottom: "3px solid #111",
       }}>
-        <Typography sx={{ fontSize: { xs: 20, md: 28 }, fontWeight: 800, letterSpacing: "-0.01em", textTransform: "uppercase" }}>
+        <Typography sx={{ fontSize: { xs: 16, md: 22 }, fontWeight: 800, letterSpacing: "-0.01em", textTransform: "uppercase" }}>
           You May Also Like
         </Typography>
       </Box>
@@ -33,17 +33,17 @@ export default function RelatedProducts({ products }: Props) {
               "&:hover": { borderColor: "#aaa", boxShadow: "0 6px 24px rgba(0,0,0,0.09)", transform: "translateY(-2px)" },
             }}>
               <Box sx={{
-                px: 2, py: 2, borderBottom: "1px solid #f0f0f0",
-                textAlign: "center", minHeight: 110, flexShrink: 0,
+                px: "12px", pt: "14px", pb: "14px", borderBottom: "1px solid #f0f0f0",
+                textAlign: "center", minHeight: 90, flexShrink: 0,
                 display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
               }}>
                 {product.brand && (
-                  <Typography sx={{ fontSize: 22, fontWeight: 800, color: "#111", textTransform: "uppercase", letterSpacing: "0.08em", mb: "4px" }}>
+                  <Typography sx={{ fontSize: { xs: 14, md: 16 }, fontWeight: 700, color: "#111", textTransform: "uppercase", letterSpacing: "0.08em", mb: "4px" }}>
                     {product.brand}
                   </Typography>
                 )}
                 <Typography sx={{
-                  fontSize: 17, fontWeight: 400, color: "#666", lineHeight: 1.4,
+                  fontSize: { xs: 12, md: 13 }, fontWeight: 400, color: "#666", lineHeight: 1.4,
                   overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", textAlign: "center",
                 }}>
                   {product.title}
@@ -60,10 +60,17 @@ export default function RelatedProducts({ products }: Props) {
                     style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
                 )}
               </Box>
-              <Box sx={{ px: 2, py: "12px", borderTop: "1px solid #f0f0f0", textAlign: "center", flexShrink: 0 }}>
-                <Typography sx={{ fontSize: 26, fontWeight: 800, color: "#111" }}>
-                  ${Number(product.price).toFixed(2)}
-                </Typography>
+              <Box sx={{ px: "14px", py: "10px", borderTop: "1px solid #f0f0f0", textAlign: "center", flexShrink: 0 }}>
+                <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 1 }}>
+                  {product.compareAtPrice && product.compareAtPrice > product.price && (
+                    <Typography sx={{ fontSize: 13, color: "#999", textDecoration: "line-through" }}>
+                      ${Number(product.compareAtPrice).toFixed(2)}
+                    </Typography>
+                  )}
+                  <Typography sx={{ fontSize: 18, fontWeight: 800, color: "#111" }}>
+                    ${Number(product.price).toFixed(2)}
+                  </Typography>
+                </Box>
               </Box>
             </Box>
           </Link>
