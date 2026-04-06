@@ -53,7 +53,7 @@ export const CardHeader = styled("div")({
 
 export const CardMedia = styled("div")({
   width: "100%",
-  aspectRatio: "1 / 1",
+  aspectRatio: "4 / 3",
   flexShrink: 0,
   display: "flex",
   alignItems: "center",

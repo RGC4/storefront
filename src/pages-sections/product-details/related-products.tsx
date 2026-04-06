@@ -3,6 +3,12 @@ import Typography from "@mui/material/Typography";
 import Link from "next/link";
 import Product from "models/Product.model";
 
+const CLOUDINARY_CLOUD = "dsinnp3ih";
+function optimizeImage(url: string, w = 800, h = 800) {
+  if (!url) return "";
+  return `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/fetch/e_trim:10,c_pad,w_${w},h_${h},b_white,f_auto,q_auto/${encodeURI(url)}`;
+}
+
 type Props = { products: Product[] };
 
 export default function RelatedProducts({ products }: Props) {
@@ -51,13 +57,17 @@ export default function RelatedProducts({ products }: Props) {
               </Box>
               <Box sx={{
                 width: "100%",
-                aspectRatio: "1 / 1",
+                aspectRatio: "4 / 3",
                 flexShrink: 0,
                 overflow: "hidden",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                p: 1,
               }}>
                 {product.thumbnail && (
-                  <img src={product.thumbnail} alt={product.title}
-                    style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
+                  <img src={optimizeImage(product.thumbnail)} alt={product.title}
+                    style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain", objectPosition: "center" }} />
                 )}
               </Box>
               <Box sx={{ px: "14px", py: "10px", borderTop: "1px solid #f0f0f0", textAlign: "center", flexShrink: 0 }}>
