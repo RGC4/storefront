@@ -62,9 +62,9 @@ export const CardMedia = styled("div")({
   overflow: "hidden",
   position: "relative",
   img: {
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
+    maxWidth: "100%",
+    maxHeight: "100%",
+    objectFit: "contain",
     objectPosition: "center",
   },
   ".discount-badge": {

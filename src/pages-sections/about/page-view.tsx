@@ -26,14 +26,14 @@ export default function AboutPageView() {
       <Typography
         sx={{ textAlign: "center", color: "text.secondary", fontSize: bodyFontSize, maxWidth: 680, mx: "auto", mb: 6, lineHeight: 1.8 }}
       >
-        We believe luxury fashion should be accessible â€” beautifully made, honestly priced, and delivered with care.
+        We believe luxury fashion should be accessible — beautifully made, honestly priced, and delivered with care.
       </Typography>
 
       <Divider sx={{ mb: 5 }} />
 
       <Section title="Who We Are">
         {storeName} is a U.S.-based online boutique specializing in premium Italian-crafted apparel and
-        accessories. We curate pieces from trusted artisan suppliers â€” handbags, footwear, and ready-to-wear â€” and
+        accessories. We curate pieces from trusted artisan suppliers — handbags, footwear, and ready-to-wear — and
         bring them directly to customers who appreciate quality and craftsmanship.
       </Section>
 
@@ -48,7 +48,7 @@ export default function AboutPageView() {
         }}
       >
         <Typography sx={{ fontStyle: "italic", fontSize: bodyFontSize, color: "#444", lineHeight: 1.75 }}>
-          &ldquo;Handcrafted in Italy. Curated for You.&rdquo; â€” Every piece in our collection is selected for its quality,
+          &ldquo;Handcrafted in Italy. Curated for You.&rdquo; — Every piece in our collection is selected for its quality,
           its story, and the hands that made it.
         </Typography>
       </Box>
@@ -75,7 +75,7 @@ export default function AboutPageView() {
       </Section>
 
       <Section title="Based in the United States">
-        We are a U.S.-based company operated by RGC4. Our customer service team is here to support you â€”
+        We are a U.S.-based company operated by RGC4. Our customer service team is here to support you —
         before, during, and after your purchase.
       </Section>
 

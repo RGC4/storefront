@@ -6,6 +6,12 @@ import Box from "@mui/material/Box";
 import Product from "models/Product.model";
 import { Card, CardHeader, CardMedia, CardContent } from "./styles";
 
+const CLOUDINARY_CLOUD = "dsinnp3ih";
+function optimizeImage(url: string, w = 800, h = 800) {
+  if (!url) return "";
+  return `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/fetch/e_trim:10,c_pad,w_${w},h_${h},b_white,f_auto,q_auto/${encodeURI(url)}`;
+}
+
 type Props = { product: Product };
 
 export default function ProductCard8({ product }: Props) {
@@ -28,7 +34,7 @@ export default function ProductCard8({ product }: Props) {
         </CardHeader>
 
         <CardMedia>
-          <img src={thumbnail} alt={title} />
+          <img src={optimizeImage(thumbnail)} alt={title} />
           {discount && (
             <Box className="discount-badge">{discount}% OFF</Box>
           )}

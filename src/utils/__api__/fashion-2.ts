@@ -80,7 +80,9 @@ export const getCategories = cache(async () => {
     } } } }`,
     {}
   );
-  return data?.collections?.edges
+  const CATEGORY_ORDER = ["clutch-bags", "crossbody-bags", "shoulder-bags", "handbags", "tote-bags"];
+  
+  const categories = data?.collections?.edges
     ?.filter(({ node: c }: ShopifyEdge<ShopifyCollection>) =>
       c.products?.edges?.[0]?.node?.tags?.includes(storeId)
     )
@@ -88,6 +90,15 @@ export const getCategories = cache(async () => {
       id: c.id, name: c.title, slug: c.handle, description: c.description,
       image: c.image?.src ?? c.products?.edges?.[0]?.node?.featuredImage?.url ?? "",
     })) ?? [];
+  
+  // Sort by custom order, unknowns go to end
+  categories.sort((a: any, b: any) => {
+    const ai = CATEGORY_ORDER.indexOf(a.slug);
+    const bi = CATEGORY_ORDER.indexOf(b.slug);
+    return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+  });
+
+  return categories;
 });
 
 export const getMainCarouselData = cache(async () => []);

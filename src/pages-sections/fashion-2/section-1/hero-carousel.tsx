@@ -112,7 +112,7 @@ export default function VideoHero() {
   const containerStyle = {
     position: "relative" as const,
     width: "100%",
-    height: "640px",
+    height: "90vh",
     overflow: "hidden",
     backgroundColor: "#111",
   };
@@ -131,7 +131,7 @@ export default function VideoHero() {
     minWidth: "100%",
     minHeight: "100%",
     width: "auto",
-    height: "640px",
+    height: "90vh",
     objectFit: "cover" as const,
     objectPosition: "center top",
   };

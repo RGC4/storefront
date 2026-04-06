@@ -11,7 +11,7 @@ export const StyledLink = styled(Link)(() => ({
   cursor: "pointer",
   position: "relative",
   padding: "0.35rem 0",
-  fontSize: 13,
+  fontSize: 15,
   color: "rgba(255,255,255,0.75)",
   textDecoration: "none",
   transition: "color 150ms ease",
@@ -36,10 +36,10 @@ export const StyledFooter = styled("footer")(({ theme }) => ({
 }));
 
 export const Heading = styled("h6")({
-  fontSize: 16,
+  fontSize: 18,
   lineHeight: 1.4,
   fontWeight: 600,
-  marginBottom: 14,
+  marginBottom: 16,
   marginTop: 0,
   color: "#ffffff",
   textTransform: "uppercase",
@@ -50,7 +50,7 @@ export const StyledIconButton = styled(IconButton, {
   shouldForwardProp: (prop) => prop !== "variant",
 })<{ variant: Variant }>(({ variant, theme }) => ({
   margin: 4,
-  fontSize: 16,
+  fontSize: 18,
   borderRadius: 6,
   padding: "10px",
   transition: "all 0.3s ease",
