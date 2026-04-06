@@ -61,6 +61,7 @@ export const CardMedia = styled("div")({
   background: "#fff",
   overflow: "hidden",
   position: "relative",
+  padding: 12,
   img: {
     maxWidth: "100%",
     maxHeight: "100%",

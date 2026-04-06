@@ -60,7 +60,7 @@ export default function VideoHero() {
       <Typography sx={{
         color: "rgba(255,255,255,0.82)",
         fontWeight: 400,
-        fontSize: { xs: "1.05rem", sm: "1.1rem", md: "1.2rem" },
+        fontSize: { xs: "1.16rem", sm: "1.21rem", md: "1.32rem" },
         letterSpacing: { xs: "0.18em", md: "0.22em" },
         textTransform: "uppercase",
         textShadow: "0 1px 8px rgba(0,0,0,0.7)",
@@ -89,7 +89,7 @@ export default function VideoHero() {
         fontWeight: 700,
         mb: 1,
         whiteSpace: "normal",
-        fontSize: { xs: "1.32rem", sm: "1.56rem", md: "1.92rem" },
+        fontSize: { xs: "1.65rem", sm: "1.95rem", md: "2.40rem" },
         textShadow: "0 2px 12px rgba(0,0,0,0.7)",
         lineHeight: 1.2,
         maxWidth: { xs: "90vw", md: "60vw" },
@@ -99,7 +99,7 @@ export default function VideoHero() {
       <Typography sx={{
         color: "rgba(255,255,255,0.95)",
         fontWeight: 400,
-        fontSize: { xs: "0.96rem", sm: "1.02rem", md: "1.14rem" },
+        fontSize: { xs: "1.20rem", sm: "1.28rem", md: "1.43rem" },
         textShadow: "0 1px 6px rgba(0,0,0,0.6)",
         maxWidth: { xs: "90vw", md: "none" },
       }}>
@@ -133,7 +133,7 @@ export default function VideoHero() {
     width: "auto",
     height: "90vh",
     objectFit: "cover" as const,
-    objectPosition: "center top",
+    objectPosition: "center 20%",
   };
 
   if (isMobile) {

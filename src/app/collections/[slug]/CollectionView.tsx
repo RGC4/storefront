@@ -182,7 +182,7 @@ export default function CollectionView({ title, description, products }: Props) 
                     </Typography>
                   </Box>
 
-                  <Box sx={{ position: "relative", width: "100%", height: 300, bgcolor: "white", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", p: 1 }}>
+                  <Box sx={{ position: "relative", width: "100%", height: 300, bgcolor: "white", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", p: 2 }}>
                     {product.thumbnail && (
                       <img src={optimizeImage(product.thumbnail)} alt={product.title} style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "center" }} />
                     )}

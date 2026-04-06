@@ -19,16 +19,16 @@ export const StyledRoot = styled("div")(({ theme }) => ({
     justifyContent: "flex-start",
   },
   h4: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: 700,
     marginBottom: 4,
     lineHeight: 1.2,
-    [theme.breakpoints.down("sm")]: { fontSize: 19 },
+    [theme.breakpoints.down("sm")]: { fontSize: 17 },
   },
   p: {
     color: theme.palette.grey[600],
-    fontSize: 17,
+    fontSize: 15,
     lineHeight: 1.4,
-    [theme.breakpoints.down("sm")]: { fontSize: 15 },
+    [theme.breakpoints.down("sm")]: { fontSize: 14 },
   },
 }));
