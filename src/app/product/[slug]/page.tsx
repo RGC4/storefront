@@ -13,6 +13,7 @@ const PRODUCT_QUERY = `
       handle
       title
       description
+      descriptionHtml
       vendor
       availableForSale
       tags
@@ -66,6 +67,7 @@ export default async function ProductPage({ params }: Props) {
     title: raw.title,
     brand: raw.vendor,
     description: raw.description,
+    descriptionHtml: raw.descriptionHtml,
     thumbnail: raw.featuredImage?.url || "",
     images: raw.images?.edges?.map((edge: any) => edge.node.url) || [],
     variants: raw.variants?.edges?.map((edge: any) => ({
