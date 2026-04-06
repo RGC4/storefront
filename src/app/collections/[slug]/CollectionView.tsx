@@ -66,6 +66,12 @@ const dropdownSx = {
   "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: "#999" },
 };
 
+const CLOUDINARY_CLOUD = "dsinnp3ih";
+function optimizeImage(url: string, width = 800, height = 800) {
+  if (!url) return "";
+  return `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/fetch/e_trim:10,c_pad,w_${width},h_${height},b_white,f_auto,q_auto/${encodeURI(url)}`;
+}
+
 export default function CollectionView({ title, description, products }: Props) {
   const [designers, setDesigners] = useState<string[]>([]);
   const [color, setColor] = useState("");
@@ -169,22 +175,22 @@ export default function CollectionView({ title, description, products }: Props) 
                 }}>
                   <Box sx={{ px: 2, pt: "18px", pb: "14px", borderBottom: "1px solid #f0f0f0", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: 90 }}>
                     {product.vendor && (
-                      <Typography sx={{ fontSize: { xs: 14, md: 16 }, fontWeight: 700, color: "#111", textTransform: "uppercase", letterSpacing: "0.08em", display: "block", mb: "4px" }}>{product.vendor}</Typography>
+                      <Typography sx={{ fontSize: { xs: 16, md: 18 }, fontWeight: 700, color: "#111", textTransform: "uppercase", letterSpacing: "0.08em", display: "block", mb: "4px" }}>{product.vendor}</Typography>
                     )}
                     <Typography sx={{ fontSize: { xs: 12, md: 13 }, fontWeight: 400, lineHeight: 1.4, color: "#666", overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", textAlign: "center" }}>
                       {product.title}
                     </Typography>
                   </Box>
 
-                  <Box sx={{ position: "relative", width: "100%", height: 460, bgcolor: "white", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <Box sx={{ position: "relative", width: "100%", height: 300, bgcolor: "white", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", p: 1 }}>
                     {product.thumbnail && (
-                      <img src={product.thumbnail} alt={product.title} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
+                      <img src={optimizeImage(product.thumbnail)} alt={product.title} style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "center" }} />
                     )}
                     {!product.availableForSale && (
                       <Box sx={{ position: "absolute", top: 10, right: 10, bgcolor: "#888", color: "white", px: "10px", py: "4px", fontSize: 11, fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase" }}>Out of Stock</Box>
                     )}
                     {product.availableForSale && product.discount > 0 && (
-                      <Box sx={{ position: "absolute", top: 10, left: 10, bgcolor: "#c41230", color: "white", px: "10px", py: "4px", fontSize: 11, fontWeight: 800, letterSpacing: "0.05em" }}>{product.discount}% OFF</Box>
+                      <Box sx={{ position: "absolute", top: 10, left: 10, bgcolor: "#c41230", color: "white", px: "12px", py: "5px", fontSize: 12, fontWeight: 800, letterSpacing: "0.05em" }}>{product.discount}% OFF</Box>
                     )}
                   </Box>
 

@@ -33,10 +33,12 @@ export default function ProductGallery({ images }: { images: string[] }) {
 
   if (!images?.length) return null;
 
-  const mainSrc = (url: string) =>
-    url.includes("cdn.shopify.com") ? `${url.split("?")[0]}?width=1400` : url;
-  const thumbSrc = (url: string) =>
-    url.includes("cdn.shopify.com") ? `${url.split("?")[0]}?width=200` : url;
+  const CLOUDINARY_CLOUD = "dsinnp3ih";
+  const cloudinaryUrl = (url: string, w: number, h: number) =>
+    `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/fetch/e_trim,c_pad,w_${w},h_${h},b_white,f_auto,q_auto/${encodeURI(url)}`;
+
+  const mainSrc = (url: string) => cloudinaryUrl(url, 1200, 1200);
+  const thumbSrc = (url: string) => cloudinaryUrl(url, 200, 200);
 
   const prev = () => setCurrent(c => Math.max(0, c - 1));
   const next = () => setCurrent(c => Math.min(images.length - 1, c + 1));
