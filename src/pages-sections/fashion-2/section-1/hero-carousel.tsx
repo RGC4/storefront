@@ -10,22 +10,29 @@ const STORE_ID = process.env.NEXT_PUBLIC_STORE_ID || "s1";
 // How long each mobile slide stays on screen before advancing (ms)
 const MOBILE_SLIDE_DURATION = 5000;
 
+// Hero slides. Each slide has:
+//   src           - desktop video (plays autoplay muted loop)
+//   posterMobile  - mobile primary image (portrait 4:5 crop)
+//   posterDesktop - desktop video poster fallback (landscape crop)
 const SLIDES = [
   {
     src: `/assets/stores/${STORE_ID}/videos/hero-1.mp4`,
-    poster: `/assets/stores/${STORE_ID}/images/hero-1.jpg`,
+    posterMobile: `/assets/stores/${STORE_ID}/images/hero-1-mobile.jpg`,
+    posterDesktop: `/assets/stores/${STORE_ID}/images/hero-1-desktop.jpg`,
     headline: "Moments That Deserve to Be Noticed.",
     subheadline: "Luxury That Belongs in the Spotlight.",
   },
   {
     src: `/assets/stores/${STORE_ID}/videos/hero-2.mp4`,
-    poster: `/assets/stores/${STORE_ID}/images/hero-2.jpg`,
+    posterMobile: `/assets/stores/${STORE_ID}/images/hero-2-mobile.jpg`,
+    posterDesktop: `/assets/stores/${STORE_ID}/images/hero-2-desktop.jpg`,
     headline: "Friends. Laughter. Timeless Style.",
     subheadline: "Unforgettable moments.",
   },
   {
     src: `/assets/stores/${STORE_ID}/videos/hero-3.mp4`,
-    poster: `/assets/stores/${STORE_ID}/images/hero-3.jpg`,
+    posterMobile: `/assets/stores/${STORE_ID}/images/hero-3-mobile.jpg`,
+    posterDesktop: `/assets/stores/${STORE_ID}/images/hero-3-desktop.jpg`,
     headline: "Genuine Italian Leather. Exceptional Craftsmanship.",
     subheadline: "Exceptional service on every order, every time.",
   },
@@ -37,6 +44,7 @@ export default function VideoHero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const isMobile = useMediaQuery("(max-width:768px)");
 
+  // Desktop: video drives the carousel via onEnded
   useEffect(() => {
     if (isMobile) return;
     const video = videoRef.current;
@@ -48,6 +56,7 @@ export default function VideoHero() {
     return () => clearTimeout(t);
   }, [current, isMobile]);
 
+  // Mobile: timer drives the carousel since there is no video
   useEffect(() => {
     if (!isMobile) return;
     setTextVisible(false);
@@ -134,6 +143,7 @@ export default function VideoHero() {
     zIndex: 1,
   };
 
+  // -- MOBILE --------------------------------------------------
   if (isMobile) {
     const nextIndex = (current + 1) % SLIDES.length;
     return (
@@ -145,7 +155,7 @@ export default function VideoHero() {
         backgroundColor: "#111",
       }}>
         <img
-          src={slide.poster}
+          src={slide.posterMobile}
           alt={slide.headline}
           style={{
             width: "100%", height: "100%",
@@ -154,8 +164,9 @@ export default function VideoHero() {
             display: "block",
           }}
         />
+        {/* Preload next slide so swap is instant */}
         <img
-          src={SLIDES[nextIndex].poster}
+          src={SLIDES[nextIndex].posterMobile}
           alt=""
           aria-hidden="true"
           style={{ display: "none" }}
@@ -167,6 +178,10 @@ export default function VideoHero() {
     );
   }
 
+  // -- DESKTOP -------------------------------------------------
+  // Desktop poster is a brief fallback that shows for ~200ms
+  // before the video starts. If posterDesktop doesn't exist yet,
+  // the container background color (#111) shows during that gap.
   const desktopContainerStyle = {
     position: "relative" as const,
     width: "100%",
@@ -196,6 +211,7 @@ export default function VideoHero() {
         muted
         playsInline
         autoPlay
+        poster={slide.posterDesktop}
         style={desktopVideoStyle}
       >
         <source src={slide.src} type="video/mp4" />
