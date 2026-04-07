@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import type { PropsWithChildren } from "react";
 import Box from "@mui/material/Box";
@@ -8,8 +8,9 @@ import { Carousel, CarouselArrows, useCarousel } from "components/slider";
 export default function ProductsCarousel({ children }: PropsWithChildren) {
   const { ref, api, arrows, options } = useCarousel({
     align: "start",
-    slideSpacing: "1.5rem",
-    slidesToShow: { xs: 1, sm: 2, lg: 4, xl: 4 }
+    slideSpacing: "0.75rem",
+    // Mobile: 2 cards visible (was 1 â€” cards were way too big)
+    slidesToShow: { xs: 2, sm: 2, lg: 4, xl: 4 }
   });
 
   return (

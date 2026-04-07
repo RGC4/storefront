@@ -37,6 +37,7 @@ export default function VideoHero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const isMobile = useMediaQuery("(max-width:768px)");
 
+  // Desktop: video drives the carousel via onEnded
   useEffect(() => {
     if (isMobile) return;
     const video = videoRef.current;
@@ -48,6 +49,7 @@ export default function VideoHero() {
     return () => clearTimeout(t);
   }, [current, isMobile]);
 
+  // Mobile: timer drives the carousel since there is no video
   useEffect(() => {
     if (!isMobile) return;
     setTextVisible(false);
@@ -70,16 +72,17 @@ export default function VideoHero() {
   const tagline = (
     <Box sx={{
       position: "absolute",
-      top: { xs: "7%", md: "10%" },
-      left: 0, right: 0,
+      top: { xs: "8%", md: "10%" },
+      left: 0,
+      right: 0,
       px: { xs: 3, sm: 6, md: 8 },
       zIndex: 2,
     }}>
       <Typography sx={{
         color: "rgba(255,255,255,0.82)",
         fontWeight: 400,
-        fontSize: { xs: "0.75rem", sm: "1.21rem", md: "1.32rem" },
-        letterSpacing: { xs: "0.20em", md: "0.22em" },
+        fontSize: { xs: "1.16rem", sm: "1.21rem", md: "1.32rem" },
+        letterSpacing: { xs: "0.18em", md: "0.22em" },
         textTransform: "uppercase",
         textShadow: "0 1px 8px rgba(0,0,0,0.7)",
         lineHeight: 1,
@@ -92,8 +95,9 @@ export default function VideoHero() {
   const textOverlay = (
     <Box sx={{
       position: "absolute",
-      bottom: { xs: "9%", md: "12%" },
-      left: 0, right: 0,
+      bottom: { xs: "10%", md: "12%" },
+      left: 0,
+      right: 0,
       display: "flex",
       flexDirection: "column",
       alignItems: "flex-start",
@@ -105,22 +109,21 @@ export default function VideoHero() {
       <Typography sx={{
         color: "white",
         fontWeight: 700,
-        mb: { xs: 0.75, md: 1 },
+        mb: 1,
         whiteSpace: "normal",
-        fontSize: { xs: "1.5rem", sm: "1.95rem", md: "2.40rem" },
+        fontSize: { xs: "1.65rem", sm: "1.95rem", md: "2.40rem" },
         textShadow: "0 2px 12px rgba(0,0,0,0.7)",
-        lineHeight: { xs: 1.15, md: 1.2 },
-        maxWidth: { xs: "85vw", md: "60vw" },
+        lineHeight: 1.2,
+        maxWidth: { xs: "90vw", md: "60vw" },
       }}>
         {slide.headline}
       </Typography>
       <Typography sx={{
         color: "rgba(255,255,255,0.95)",
         fontWeight: 400,
-        fontSize: { xs: "0.95rem", sm: "1.28rem", md: "1.43rem" },
+        fontSize: { xs: "1.20rem", sm: "1.28rem", md: "1.43rem" },
         textShadow: "0 1px 6px rgba(0,0,0,0.6)",
-        lineHeight: { xs: 1.35, md: 1.4 },
-        maxWidth: { xs: "85vw", md: "none" },
+        maxWidth: { xs: "90vw", md: "none" },
       }}>
         {slide.subheadline}
       </Typography>
@@ -134,6 +137,10 @@ export default function VideoHero() {
     zIndex: 1,
   };
 
+  // -- MOBILE --------------------------------------------------
+  // Fixed 4:5 portrait container. No vh units (avoids iOS Safari
+  // address-bar resize jump). Static image, auto-rotates every
+  // MOBILE_SLIDE_DURATION ms. Preloads next image for smooth swap.
   if (isMobile) {
     const nextIndex = (current + 1) % SLIDES.length;
     return (
@@ -148,12 +155,14 @@ export default function VideoHero() {
           src={slide.poster}
           alt={slide.headline}
           style={{
-            width: "100%", height: "100%",
+            width: "100%",
+            height: "100%",
             objectFit: "cover",
             objectPosition: "center 20%",
             display: "block",
           }}
         />
+        {/* Preload the next slide so swap is instant */}
         <img
           src={SLIDES[nextIndex].poster}
           alt=""
@@ -167,6 +176,8 @@ export default function VideoHero() {
     );
   }
 
+  // -- DESKTOP -------------------------------------------------
+  // Full-bleed 90vh video, autoplay muted loop. Unchanged behavior.
   const desktopContainerStyle = {
     position: "relative" as const,
     width: "100%",

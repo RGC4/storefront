@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useRef } from "react";
 import Box from "@mui/material/Box";
@@ -21,7 +21,7 @@ function CategoryTile({ cat }: { cat: Category }) {
       style={{ textDecoration: "none", display: "block", flexShrink: 0 }}>
       <Box sx={{
         position: "relative",
-        height: { xs: 140, sm: 220, md: 360 },
+        height: { xs: 200, sm: 280, md: 360 },
         overflow: "hidden",
         bgcolor: "grey.200",
         "&:hover .img": { transform: "scale(1.04)" },
@@ -43,7 +43,7 @@ function CategoryTile({ cat }: { cat: Category }) {
           p: { xs: 1.5, md: 2.5 },
           background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 100%)",
         }}>
-          {/* Category name: was xs:20 md:28 â€” now xs:14 md:18 */}
+          {/* Category name: was xs:20 md:28 — now xs:14 md:18 */}
           <Typography sx={{
             color: "white",
             fontSize: { xs: 14, md: 18 },
@@ -56,7 +56,7 @@ function CategoryTile({ cat }: { cat: Category }) {
           }}>
             {cat.name}
           </Typography>
-          {/* Shop Now label: was xs:12 md:14 â€” now consistent 11px */}
+          {/* Shop Now label: was xs:12 md:14 — now consistent 11px */}
           <Typography sx={{
             color: "rgba(255,255,255,0.9)",
             fontSize: 11,

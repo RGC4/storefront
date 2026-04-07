@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useRef, useState } from "react";
 import Typography from "@mui/material/Typography";
@@ -6,9 +6,6 @@ import Box from "@mui/material/Box";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 const STORE_ID = process.env.NEXT_PUBLIC_STORE_ID || "s1";
-
-// How long each mobile slide stays on screen before advancing (ms)
-const MOBILE_SLIDE_DURATION = 5000;
 
 const SLIDES = [
   {
@@ -42,23 +39,9 @@ export default function VideoHero() {
     const video = videoRef.current;
     if (!video) return;
     setTextVisible(false);
-    const t = setTimeout(() => setTextVisible(true), 300);
+    setTimeout(() => setTextVisible(true), 300);
     video.load();
     video.play().catch(() => {});
-    return () => clearTimeout(t);
-  }, [current, isMobile]);
-
-  useEffect(() => {
-    if (!isMobile) return;
-    setTextVisible(false);
-    const fadeIn = setTimeout(() => setTextVisible(true), 300);
-    const advance = setTimeout(() => {
-      setCurrent((prev) => (prev + 1) % SLIDES.length);
-    }, MOBILE_SLIDE_DURATION);
-    return () => {
-      clearTimeout(fadeIn);
-      clearTimeout(advance);
-    };
   }, [current, isMobile]);
 
   const handleVideoEnd = () => {
@@ -70,16 +53,15 @@ export default function VideoHero() {
   const tagline = (
     <Box sx={{
       position: "absolute",
-      top: { xs: "7%", md: "10%" },
-      left: 0, right: 0,
+      top: { xs: "8%", md: "10%" },
+      left: 0,
       px: { xs: 3, sm: 6, md: 8 },
-      zIndex: 2,
     }}>
       <Typography sx={{
         color: "rgba(255,255,255,0.82)",
         fontWeight: 400,
-        fontSize: { xs: "0.75rem", sm: "1.21rem", md: "1.32rem" },
-        letterSpacing: { xs: "0.20em", md: "0.22em" },
+        fontSize: { xs: "1.16rem", sm: "1.21rem", md: "1.32rem" },
+        letterSpacing: { xs: "0.18em", md: "0.22em" },
         textTransform: "uppercase",
         textShadow: "0 1px 8px rgba(0,0,0,0.7)",
         lineHeight: 1,
@@ -92,82 +74,42 @@ export default function VideoHero() {
   const textOverlay = (
     <Box sx={{
       position: "absolute",
-      bottom: { xs: "9%", md: "12%" },
-      left: 0, right: 0,
+      bottom: { xs: "10%", md: "12%" },
+      left: 0,
+      right: 0,
       display: "flex",
       flexDirection: "column",
       alignItems: "flex-start",
       px: { xs: 3, sm: 6, md: 8 },
       opacity: textVisible ? 1 : 0,
       transition: "opacity 600ms ease",
-      zIndex: 2,
     }}>
       <Typography sx={{
         color: "white",
         fontWeight: 700,
-        mb: { xs: 0.75, md: 1 },
+        mb: 1,
         whiteSpace: "normal",
-        fontSize: { xs: "1.5rem", sm: "1.95rem", md: "2.40rem" },
+        fontSize: { xs: "1.65rem", sm: "1.95rem", md: "2.40rem" },
         textShadow: "0 2px 12px rgba(0,0,0,0.7)",
-        lineHeight: { xs: 1.15, md: 1.2 },
-        maxWidth: { xs: "85vw", md: "60vw" },
+        lineHeight: 1.2,
+        maxWidth: { xs: "90vw", md: "60vw" },
       }}>
         {slide.headline}
       </Typography>
       <Typography sx={{
         color: "rgba(255,255,255,0.95)",
         fontWeight: 400,
-        fontSize: { xs: "0.95rem", sm: "1.28rem", md: "1.43rem" },
+        fontSize: { xs: "1.20rem", sm: "1.28rem", md: "1.43rem" },
         textShadow: "0 1px 6px rgba(0,0,0,0.6)",
-        lineHeight: { xs: 1.35, md: 1.4 },
-        maxWidth: { xs: "85vw", md: "none" },
+        maxWidth: { xs: "90vw", md: "none" },
       }}>
         {slide.subheadline}
       </Typography>
     </Box>
   );
 
-  const overlayStyle = {
-    position: "absolute" as const,
-    inset: 0,
-    backgroundColor: "rgba(0, 0, 0, 0.30)",
-    zIndex: 1,
-  };
-
-  if (isMobile) {
-    const nextIndex = (current + 1) % SLIDES.length;
-    return (
-      <div style={{
-        position: "relative",
-        width: "100%",
-        aspectRatio: "4 / 5",
-        overflow: "hidden",
-        backgroundColor: "#111",
-      }}>
-        <img
-          src={slide.poster}
-          alt={slide.headline}
-          style={{
-            width: "100%", height: "100%",
-            objectFit: "cover",
-            objectPosition: "center 20%",
-            display: "block",
-          }}
-        />
-        <img
-          src={SLIDES[nextIndex].poster}
-          alt=""
-          aria-hidden="true"
-          style={{ display: "none" }}
-        />
-        <div style={overlayStyle} />
-        {tagline}
-        {textOverlay}
-      </div>
-    );
-  }
-
-  const desktopContainerStyle = {
+  // At 1920px wide, 40vw = 768px. At 90% zoom that shows nicely with purses below.
+  const containerStyle = {
     position: "relative" as const,
     width: "100%",
     height: "90vh",
@@ -175,7 +117,13 @@ export default function VideoHero() {
     backgroundColor: "#111",
   };
 
-  const desktopVideoStyle = {
+  const overlayStyle = {
+    position: "absolute" as const,
+    inset: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.30)",
+  };
+
+  const mediaStyle = {
     position: "absolute" as const,
     top: "50%",
     left: "50%",
@@ -188,16 +136,20 @@ export default function VideoHero() {
     objectPosition: "center 20%",
   };
 
+  if (isMobile) {
+    return (
+      <div style={containerStyle}>
+        <img src={slide.poster} alt={slide.headline} style={mediaStyle} />
+        <div style={overlayStyle} />
+        {tagline}
+        {textOverlay}
+      </div>
+    );
+  }
+
   return (
-    <div style={desktopContainerStyle}>
-      <video
-        ref={videoRef}
-        onEnded={handleVideoEnd}
-        muted
-        playsInline
-        autoPlay
-        style={desktopVideoStyle}
-      >
+    <div style={containerStyle}>
+      <video ref={videoRef} onEnded={handleVideoEnd} muted playsInline autoPlay style={mediaStyle}>
         <source src={slide.src} type="video/mp4" />
       </video>
       <div style={overlayStyle} />
