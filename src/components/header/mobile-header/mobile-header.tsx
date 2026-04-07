@@ -1,4 +1,4 @@
-import type { ComponentProps } from "react";
+﻿import type { ComponentProps } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Box from "@mui/material/Box";
@@ -33,7 +33,7 @@ MobileHeader.Logo = function ({ logoUrl }: { logoUrl: string }) {
       <Image
         width={200}
         height={60}
-        src="/assets/stores/s1/logo/logo-header-mobile.png"
+        src={logoUrl}
         alt="Prestige Apparel Group"
         priority
         style={{ objectFit: "contain", objectPosition: "left center" }}

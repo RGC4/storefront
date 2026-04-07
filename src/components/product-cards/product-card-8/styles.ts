@@ -51,9 +51,12 @@ export const CardHeader = styled("div")({
   },
 });
 
+// CardMedia: square 1:1 container so square Cloudinary images
+// (800x800) fit perfectly. img uses width/height (not maxW/maxH)
+// so object-fit: contain actually works and prevents cropping.
 export const CardMedia = styled("div")({
   width: "100%",
-  aspectRatio: "4 / 3",
+  aspectRatio: "1 / 1",
   flexShrink: 0,
   display: "flex",
   alignItems: "center",
@@ -64,10 +67,11 @@ export const CardMedia = styled("div")({
   padding: 12,
   "@media (max-width: 768px)": { padding: 6 },
   img: {
-    maxWidth: "100%",
-    maxHeight: "100%",
+    width: "100%",
+    height: "100%",
     objectFit: "contain",
     objectPosition: "center",
+    display: "block",
   },
   ".discount-badge": {
     position: "absolute",
