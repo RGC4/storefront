@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import Typography from "@mui/material/Typography";
@@ -6,6 +6,9 @@ import Box from "@mui/material/Box";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 const STORE_ID = process.env.NEXT_PUBLIC_STORE_ID || "s1";
+
+// How long each mobile slide stays on screen before advancing (ms)
+const MOBILE_SLIDE_DURATION = 5000;
 
 const SLIDES = [
   {
@@ -34,14 +37,30 @@ export default function VideoHero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const isMobile = useMediaQuery("(max-width:768px)");
 
+  // Desktop: video drives the carousel via onEnded
   useEffect(() => {
     if (isMobile) return;
     const video = videoRef.current;
     if (!video) return;
     setTextVisible(false);
-    setTimeout(() => setTextVisible(true), 300);
+    const t = setTimeout(() => setTextVisible(true), 300);
     video.load();
     video.play().catch(() => {});
+    return () => clearTimeout(t);
+  }, [current, isMobile]);
+
+  // Mobile: timer drives the carousel since there is no video
+  useEffect(() => {
+    if (!isMobile) return;
+    setTextVisible(false);
+    const fadeIn = setTimeout(() => setTextVisible(true), 300);
+    const advance = setTimeout(() => {
+      setCurrent((prev) => (prev + 1) % SLIDES.length);
+    }, MOBILE_SLIDE_DURATION);
+    return () => {
+      clearTimeout(fadeIn);
+      clearTimeout(advance);
+    };
   }, [current, isMobile]);
 
   const handleVideoEnd = () => {
@@ -55,7 +74,9 @@ export default function VideoHero() {
       position: "absolute",
       top: { xs: "8%", md: "10%" },
       left: 0,
+      right: 0,
       px: { xs: 3, sm: 6, md: 8 },
+      zIndex: 2,
     }}>
       <Typography sx={{
         color: "rgba(255,255,255,0.82)",
@@ -83,6 +104,7 @@ export default function VideoHero() {
       px: { xs: 3, sm: 6, md: 8 },
       opacity: textVisible ? 1 : 0,
       transition: "opacity 600ms ease",
+      zIndex: 2,
     }}>
       <Typography sx={{
         color: "white",
@@ -108,8 +130,55 @@ export default function VideoHero() {
     </Box>
   );
 
-  // At 1920px wide, 40vw = 768px. At 90% zoom that shows nicely with purses below.
-  const containerStyle = {
+  const overlayStyle = {
+    position: "absolute" as const,
+    inset: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.30)",
+    zIndex: 1,
+  };
+
+  // -- MOBILE --------------------------------------------------
+  // Fixed 4:5 portrait container. No vh units (avoids iOS Safari
+  // address-bar resize jump). Static image, auto-rotates every
+  // MOBILE_SLIDE_DURATION ms. Preloads next image for smooth swap.
+  if (isMobile) {
+    const nextIndex = (current + 1) % SLIDES.length;
+    return (
+      <div style={{
+        position: "relative",
+        width: "100%",
+        aspectRatio: "4 / 5",
+        overflow: "hidden",
+        backgroundColor: "#111",
+      }}>
+        <img
+          src={slide.poster}
+          alt={slide.headline}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "center 20%",
+            display: "block",
+          }}
+        />
+        {/* Preload the next slide so swap is instant */}
+        <img
+          src={SLIDES[nextIndex].poster}
+          alt=""
+          aria-hidden="true"
+          style={{ display: "none" }}
+        />
+        <div style={overlayStyle} />
+        {tagline}
+        {textOverlay}
+      </div>
+    );
+  }
+
+  // -- DESKTOP -------------------------------------------------
+  // Full-bleed 90vh video, autoplay muted loop. Unchanged behavior.
+  const desktopContainerStyle = {
     position: "relative" as const,
     width: "100%",
     height: "90vh",
@@ -117,13 +186,7 @@ export default function VideoHero() {
     backgroundColor: "#111",
   };
 
-  const overlayStyle = {
-    position: "absolute" as const,
-    inset: 0,
-    backgroundColor: "rgba(0, 0, 0, 0.30)",
-  };
-
-  const mediaStyle = {
+  const desktopVideoStyle = {
     position: "absolute" as const,
     top: "50%",
     left: "50%",
@@ -136,20 +199,16 @@ export default function VideoHero() {
     objectPosition: "center 20%",
   };
 
-  if (isMobile) {
-    return (
-      <div style={containerStyle}>
-        <img src={slide.poster} alt={slide.headline} style={mediaStyle} />
-        <div style={overlayStyle} />
-        {tagline}
-        {textOverlay}
-      </div>
-    );
-  }
-
   return (
-    <div style={containerStyle}>
-      <video ref={videoRef} onEnded={handleVideoEnd} muted playsInline autoPlay style={mediaStyle}>
+    <div style={desktopContainerStyle}>
+      <video
+        ref={videoRef}
+        onEnded={handleVideoEnd}
+        muted
+        playsInline
+        autoPlay
+        style={desktopVideoStyle}
+      >
         <source src={slide.src} type="video/mp4" />
       </video>
       <div style={overlayStyle} />
