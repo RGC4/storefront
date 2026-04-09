@@ -58,6 +58,7 @@ export default function RootLayout({ children, modal }: RootLayoutProps) {
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="google-site-verification" content="xPe6mYQNmkBfZaSR4_IDNrpNR_-KymGUKhlNdlFU-Ng" />
+        <meta name="p:domain_verify" content="084f13e279f0d2e678e89f529cf812c8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
