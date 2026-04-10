@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Fragment, PropsWithChildren, useEffect, useState } from "react";
 import Link from "next/link";
@@ -18,8 +18,8 @@ import storeConfig from "config/store.config";
 interface Props extends PropsWithChildren { data: LayoutModel; }
 
 const STORE_ID        = process.env.NEXT_PUBLIC_STORE_ID || "s1";
-const HEADER_LOGO_URL = `/assets/stores/${STORE_ID}/logo/logo-header.png`;
-const FOOTER_LOGO_URL = `/assets/stores/${STORE_ID}/logo/logo-footer.png`;
+const HEADER_LOGO_URL = `/assets/stores/${STORE_ID}/logo/logo-header.jpg`;
+const FOOTER_LOGO_URL = `/assets/stores/${STORE_ID}/logo/logo-footer.jpg`;
 
 const NAV_LINK_STYLE: React.CSSProperties = {
   fontSize: "14px",

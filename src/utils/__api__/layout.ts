@@ -1,4 +1,4 @@
-
+﻿
 // src/utils/__api__/layout.ts
 import { cache } from "react";
 import { storefrontQuery } from "lib/shopify";
@@ -38,14 +38,14 @@ const getLayoutData = cache(async () => {
     collections: storeCollections,
 
     header: {
-      logo: storeConfig.logoHeader || `/assets/stores/${STORE_ID}/logo/logo-header.png`,
+      logo: storeConfig.logoHeader || `/assets/stores/${STORE_ID}/logo/logo-header.jpg`,
       categories: categoryMenus,
       categoryMenus,
       navigation: [],
     },
 
     footer: {
-      logo: storeConfig.logoFooter || `/assets/stores/${STORE_ID}/logo/logo-footer.png`,
+      logo: storeConfig.logoFooter || `/assets/stores/${STORE_ID}/logo/logo-footer.jpg`,
       description: storeConfig.footerDescription || "",
       appStoreUrl: "",
       playStoreUrl: "",
@@ -82,7 +82,7 @@ const getLayoutData = cache(async () => {
     },
 
     mobileNavigation: {
-      logo: storeConfig.logoHeader || `/assets/stores/${STORE_ID}/logo/logo-header.png`,
+      logo: storeConfig.logoHeader || `/assets/stores/${STORE_ID}/logo/logo-header.jpg`,
       version1: [
         { title: "Home",       icon: "Home",              href: "/",            badge: false },
         { title: "Category",   icon: "CategoryOutlined",  href: "/collections", badge: false },

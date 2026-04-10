@@ -1,4 +1,4 @@
-// src/lib/storeSchema.ts
+﻿// src/lib/storeSchema.ts
 // ============================================================
 // STORE CONFIG SCHEMA
 // This is the single source of truth for what a store looks like.
@@ -88,10 +88,10 @@ export const defaultStoreConfig: Omit<StoreConfig, "storeId" | "storeName" | "st
   phone: "",
   address: "",
   logo: {
-    header: "/assets/stores/s1/logo/logo-header.png",
-    headerMobile: "/assets/stores/s1/logo/logo-header-mobile.png",
-    footer: "/assets/stores/s1/logo/logo-footer.png",
-    footerMobile: "/assets/stores/s1/logo/logo-footer-mobile.png",
+    header: "/assets/stores/s1/logo/logo-header.jpg",
+    headerMobile: "/assets/stores/s1/logo/logo-header-mobile.jpg",
+    footer: "/assets/stores/s1/logo/logo-footer.jpg",
+    footerMobile: "/assets/stores/s1/logo/logo-footer-mobile.jpg",
   },
   primaryColor: "#D23F57",
   secondaryColor: "#2B3445",

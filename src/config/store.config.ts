@@ -1,4 +1,4 @@
-// ============================================================
+﻿// ============================================================
 // STORE CONFIGURATION
 // Single source of truth -- update these values or set via .env
 // ============================================================
@@ -21,8 +21,8 @@ const storeConfig = {
 
   // Logos -- use separate images for header (dark bg) and footer (light bg)
   logo:           process.env.NEXT_PUBLIC_LOGO_URL         || "/assets/stores/s1/logo/logo-1.png",
-  logoHeader:     process.env.NEXT_PUBLIC_LOGO_HEADER_URL  || "/assets/stores/s1/logo/Logo-header.png",
-  logoFooter:     process.env.NEXT_PUBLIC_LOGO_FOOTER_URL  || "/assets/stores/s1/logo/Logo-footer.png",
+  logoHeader:     process.env.NEXT_PUBLIC_LOGO_HEADER_URL  || "/assets/stores/s1/logo/logo-header.jpg",
+  logoFooter:     process.env.NEXT_PUBLIC_LOGO_FOOTER_URL  || "/assets/stores/s1/logo/logo-footer.jpg",
 
   // Hero section
   storeId:          process.env.NEXT_PUBLIC_STORE_ID           || "s1",
