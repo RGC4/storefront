@@ -282,10 +282,10 @@ export default function ReturnsPageView() {
               <Typography sx={{ fontSize: "18px", fontWeight: 600, mb: 2 }}>The Basics</Typography>
               <Stack spacing={1.5} divider={<Divider />}>
                 {[
-                  { label: "7 Business Days", value: "Submit your request within 7 business days of receiving your order." },
+                  { label: "14 Business Days", value: "Submit your request within 14 business days of receiving your order." },
                   { label: "Free Return Shipping", value: "We will email you a prepaid return label — no need to arrange anything yourself." },
                   { label: "Original Condition", value: "Items should be unworn and unwashed, with all tags, boxes, and dust bags included." },
-                  { label: "Refunds", value: "Once we receive and check your return, your refund is on its way within 5 business days." },
+                  { label: "Refunds", value: "Once we receive and check your return, your refund is on its way within 14 business days." },
                 ].map(({ label, value }) => (
                   <Box key={label}>
                     <Typography sx={labelText}>{label}</Typography>
@@ -299,7 +299,7 @@ export default function ReturnsPageView() {
               <Stack spacing={1.5} divider={<Divider />}>
                 {[
                   { label: "Wrong or damaged item?", value: "Just include a couple of clear photos with your request and we will sort it out for you straight away." },
-                  { label: "Want a different size or style?", value: "Simply place a new order for what you would like, then submit a return for your original item. Once we receive it back, your refund will follow within 5 business days." },
+                  { label: "Want a different size or style?", value: "Simply place a new order for what you would like, then submit a return for your original item. Once we receive it back, your refund will follow within 14 business days." },
                   { label: "Package not arrived?", value: "Please let us know within 14 days of your shipping confirmation and we will look into it right away." },
                 ].map(({ label, value }) => (
                   <Box key={label}>
@@ -320,3 +320,33 @@ export default function ReturnsPageView() {
     </Container>
   );
 }
+
+// src/lib/policyLoader.ts
+// Reads policy HTML files from public/assets/stores/{storeId}/policies/
+// Extracts structured content for rendering in the site's MUI theme.
+// Auto-replaces brand name, contact email, and footer with env var values.
+
+import { readFileSync } from "fs";
+import { join } from "path";
+
+export interface PolicySection {
+  title: string;
+  /** HTML string for the section body (paragraphs, lists, etc.) */
+  body: string;
+}
+
+export interface PolicyData {
+  pageTitle: string;
+  intro: string;
+  sections: PolicySection[];
+  footer: string;
+}
+
+/**
+ * Load and parse a policy HTML file for the current store.
+ * @param filename - e.g. "privacy_policy", "refund_policy", "shipping_policy", "terms_conditions"
+ */
+export function loadPolicy(filename: string): PolicyData {
+  const storeId = process.env.NEXT_PUBLIC_STORE_ID || "s1";
+  const storeName = process.env.NEXT_PUBLIC_STORE_NAME || "Store";
+  const storeEmail = process.env.NEXT_PUBLIC_STORE_EMAIL || "";
