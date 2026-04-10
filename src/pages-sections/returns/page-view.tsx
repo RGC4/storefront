@@ -320,33 +320,3 @@ export default function ReturnsPageView() {
     </Container>
   );
 }
-
-// src/lib/policyLoader.ts
-// Reads policy HTML files from public/assets/stores/{storeId}/policies/
-// Extracts structured content for rendering in the site's MUI theme.
-// Auto-replaces brand name, contact email, and footer with env var values.
-
-import { readFileSync } from "fs";
-import { join } from "path";
-
-export interface PolicySection {
-  title: string;
-  /** HTML string for the section body (paragraphs, lists, etc.) */
-  body: string;
-}
-
-export interface PolicyData {
-  pageTitle: string;
-  intro: string;
-  sections: PolicySection[];
-  footer: string;
-}
-
-/**
- * Load and parse a policy HTML file for the current store.
- * @param filename - e.g. "privacy_policy", "refund_policy", "shipping_policy", "terms_conditions"
- */
-export function loadPolicy(filename: string): PolicyData {
-  const storeId = process.env.NEXT_PUBLIC_STORE_ID || "s1";
-  const storeName = process.env.NEXT_PUBLIC_STORE_NAME || "Store";
-  const storeEmail = process.env.NEXT_PUBLIC_STORE_EMAIL || "";
