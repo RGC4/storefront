@@ -1,4 +1,3 @@
-﻿
 // src/utils/__api__/layout.ts
 import { cache } from "react";
 import { storefrontQuery } from "lib/shopify";
@@ -6,15 +5,14 @@ import { getStoreConfig } from "@/lib/storeResolver";
 import storeConfig from "config/store.config";
 
 const STORE_ID = process.env.NEXT_PUBLIC_STORE_ID || "s1";
+const CATEGORY_ORDER = ["clutch-bags", "crossbody-bags", "shoulder-bags", "handbags", "tote-bags"];
 
 const getLayoutData = cache(async () => {
-  const { storeId } = getStoreConfig();
-
   const data = await storefrontQuery(
     `query {
       collections(first: 50, sortKey: TITLE) {
         edges { node { id title handle
-          products(first: 1) { edges { node { tags } } }
+          metafield(namespace: "custom", key: "store_ids") { value }
         } }
       }
     }`,
@@ -22,9 +20,15 @@ const getLayoutData = cache(async () => {
   );
 
   const storeCollections = data.collections.edges
-    .filter(({ node }: any) =>
-      node.products?.edges?.[0]?.node?.tags?.includes(storeId)
-    )
+    .filter(({ node }: any) => {
+      const ids = (node.metafield?.value || "").split(",").map((s: string) => s.trim());
+      return ids.includes(STORE_ID);
+    })
+    .sort(({ node: a }: any, { node: b }: any) => {
+      const ai = CATEGORY_ORDER.indexOf(a.handle);
+      const bi = CATEGORY_ORDER.indexOf(b.handle);
+      return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+    })
     .map(({ node }: any) => ({
       id: node.id, title: node.title, handle: node.handle,
     }));
