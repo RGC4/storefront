@@ -107,14 +107,9 @@ export const getCategories = cache(async () => {
   );
 
   const categories = data?.collections?.edges
-    ?.filter(({ node: c }: ShopifyEdge<ShopifyCollection>) => {
-      try {
-        const ids = JSON.parse(c.metafield?.value ?? "[]");
-        return Array.isArray(ids) && ids.includes(STORE_ID);
-      } catch {
-        return false;
-      }
-    })
+    ?.filter(({ node: c }: ShopifyEdge<ShopifyCollection>) =>
+      c.metafield?.value?.split(",").map((s: string) => s.trim()).includes(STORE_ID)
+    )
     ?.map(({ node: c }: ShopifyEdge<ShopifyCollection>) => ({
       id:          c.id,
       name:        c.title,
