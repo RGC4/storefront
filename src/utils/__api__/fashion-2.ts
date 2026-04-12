@@ -84,7 +84,7 @@ export const getCategories = cache(async () => {
   
   const categories = data?.collections?.edges
     ?.filter(({ node: c }: ShopifyEdge<ShopifyCollection>) =>
-      c.products?.edges?.[0]?.node?.tags?.includes(storeId)
+      (c.products?.edges?.length ?? 0) > 0
     )
     ?.map(({ node: c }: ShopifyEdge<ShopifyCollection>) => ({
       id: c.id, name: c.title, slug: c.handle, description: c.description,
