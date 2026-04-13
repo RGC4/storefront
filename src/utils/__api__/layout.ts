@@ -42,14 +42,14 @@ const getLayoutData = cache(async () => {
     collections: storeCollections,
 
     header: {
-      logo: storeConfig.logoHeader || `/assets/stores/${STORE_ID}/logo/logo-header.jpg`,
+      logo: storeConfig.logoHeader || `/assets/stores/${STORE_ID}/logo/logo-header.png`,
       categories: categoryMenus,
       categoryMenus,
       navigation: [],
     },
 
     footer: {
-      logo: storeConfig.logoFooter || `/assets/stores/${STORE_ID}/logo/logo-footer.jpg`,
+      logo: storeConfig.logoFooter || `/assets/stores/${STORE_ID}/logo/logo-footer.png`,
       description: storeConfig.footerDescription || "",
       appStoreUrl: "",
       playStoreUrl: "",
@@ -86,7 +86,7 @@ const getLayoutData = cache(async () => {
     },
 
     mobileNavigation: {
-      logo: storeConfig.logoHeader || `/assets/stores/${STORE_ID}/logo/logo-header.jpg`,
+      logo: storeConfig.logoHeader || `/assets/stores/${STORE_ID}/logo/logo-header.png`,
       version1: [
         { title: "Home",       icon: "Home",              href: "/",            badge: false },
         { title: "Category",   icon: "CategoryOutlined",  href: "/collections", badge: false },
