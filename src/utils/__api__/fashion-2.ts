@@ -1,4 +1,5 @@
-﻿import { cache } from "react";
+
+import { cache } from "react";
 import { storefrontQuery } from "lib/shopify";
 import storeConfig from "config/store.config";
 import fs from "fs";
@@ -63,9 +64,11 @@ function mapProduct(p: ShopifyProduct): Product {
 // â”€â”€ Queries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 async function fetchProducts(limit = 24): Promise<Product[]> {
+  const storeId = process.env.NEXT_PUBLIC_STORE_ID || "s1";
+  const query = `tag:${storeId}`;
   const data = await storefrontQuery(
-    `query P($n:Int!){products(first:$n,sortKey:BEST_SELLING){edges{node{id title handle vendor tags priceRange{minVariantPrice{amount currencyCode}}compareAtPriceRange{minVariantPrice{amount currencyCode}}images(first:3){edges{node{src:url}}}variants(first:5){edges{node{id title price{amount}availableForSale}}}}}}}`,
-    { n: limit }
+    `query P($n:Int!,$q:String!){products(first:$n,sortKey:BEST_SELLING,query:$q){edges{node{id title handle vendor tags priceRange{minVariantPrice{amount currencyCode}}compareAtPriceRange{minVariantPrice{amount currencyCode}}images(first:3){edges{node{src:url}}}variants(first:5){edges{node{id title price{amount}availableForSale}}}}}}}`,
+    { n: limit, q: query }
   );
   return data?.products?.edges?.map(({ node }: ShopifyEdge<ShopifyProduct>) => mapProduct(node)) ?? [];
 }
