@@ -1,3 +1,4 @@
+
 // src/app/collections/[slug]/page.tsx
 // FIXES: No metadata exported, Google sees generic titles for all collections
 
@@ -8,6 +9,8 @@ import CollectionView from "./CollectionView";
 
 const STORE_NAME = process.env.NEXT_PUBLIC_STORE_NAME || "Prestige Apparel Group";
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://prestigeapparelgroup.com";
+
+const STORE_ID = process.env.NEXT_PUBLIC_STORE_ID || "s1";
 
 const COLLECTION_QUERY = `
   query CollectionByHandle($handle: String!, $cursor: String) {
@@ -78,7 +81,9 @@ async function fetchAllProducts(slug: string) {
     cursor = col.products.pageInfo.hasNextPage ? col.products.pageInfo.endCursor : null;
   } while (cursor);
 
-  return { title, description, products: allProducts };
+  // Filter to only show products tagged for this store
+  const storeProducts = allProducts.filter(p => p.tags.includes(STORE_ID));
+  return { title, description, products: storeProducts };
 }
 
 // ── NEW: Dynamic metadata for each collection ──────────────────────────────
