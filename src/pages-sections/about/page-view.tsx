@@ -88,7 +88,7 @@ export default function AboutPageView() {
         <Typography sx={{ fontSize: bodyFontSize }}>
           Visit our{" "}
           <Link href="/contact" style={{ color: "#b8972e", fontWeight: 600, textDecoration: "none" }}>
-            Contact page
+            contact page
           </Link>{" "}
           or email us at{" "}
           <a href="mailto:corporate@prestigeapparelgroup.com" style={{ color: "#b8972e", fontWeight: 600 }}>

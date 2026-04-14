@@ -135,7 +135,7 @@ export default function ShopLayout1({ children, data }: Props) {
           <Typography component="p" sx={{ py: 2.5, textAlign: "center", color: "grey.500", fontSize: "0.825rem" }}>
             &copy; {new Date().getFullYear()}{" "}
             <span style={{ fontWeight: 600, color: "rgba(255,255,255,0.7)" }}>{storeConfig.name}</span>.{" "}
-            Owned and operated by RGC4. All rights reserved.
+            Owned and operated by RGC4 - a U.S. based company. All rights reserved.
           </Typography>
         </Container>
       </Box>
