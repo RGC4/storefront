@@ -79,7 +79,7 @@ export default function AboutPageView() {
         before, during, and after your purchase.
       </Section>
 
-      <Divider sx={{ my: 5 }} />
+      <Divider sx={{ mt: 5, mb: 3 }} />
 
       <Box sx={{ textAlign: "center" }}>
         <Typography sx={{ fontSize: bodyFontSize, color: "text.secondary", mb: 1 }}>
@@ -96,13 +96,6 @@ export default function AboutPageView() {
           </a>
         </Typography>
       </Box>
-
-      <Typography
-        variant="body2"
-        sx={{ textAlign: "center", color: "text.disabled", mt: 6, pt: 3, borderTop: "1px solid", borderColor: "divider" }}
-      >
-        {storeName} is operated by RGC4, a U.S.-based company.
-      </Typography>
 
     </Container>
   );
@@ -122,3 +115,4 @@ function Section({ title, children }: { title: string; children: React.ReactNode
     </Box>
   );
 }
+
