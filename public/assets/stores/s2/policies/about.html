@@ -5,70 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Us | Prestige Apparel Group</title>
   <meta name="description" content="About Us for Prestige Apparel Group.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-:root {
-  --bg: #0f1115;
-  --panel: #171a21;
-  --text: #f5f7fb;
-  --muted: #c4cad6;
-  --accent: #d4af37;
-  --border: #2a2f3a;
-}
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: linear-gradient(180deg, #11151c 0%, #0f1115 100%);
-  color: var(--text);
-  line-height: 1.65;
-}
-.wrap {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 40px 20px 60px;
-}
-.card {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 28px;
-  box-shadow: 0 10px 30px rgba(0,0,0,.25);
-}
-a { color: var(--accent); text-decoration: none; }
-a:hover { text-decoration: underline; }
-.brand { font-size: 0.95rem; color: var(--muted); margin-bottom: 8px; }
-h1, h2 { line-height: 1.25; }
-h1 { margin: 0 0 18px; font-size: 2rem; }
-h2 { margin-top: 28px; font-size: 1.2rem; }
-p, li { color: var(--text); }
-ul { padding-left: 22px; }
-.back { display: inline-block; margin-bottom: 18px; }
-footer {
-  margin-top: 32px;
-  padding-top: 18px;
-  border-top: 1px solid var(--border);
-  color: var(--muted);
-  font-size: 0.95rem;
-}
-</style>
+    :root { --text:#1a1f2e; --muted:#666666; --border:#e8e8e8; --bg:#ffffff; --accent:#b8972e; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font-family:"Inter",Arial,Helvetica,sans-serif; font-size:16px; line-height:1.75; }
+    .top-bar { position:sticky; top:0; z-index:10; background:#fff; border-bottom:1px solid var(--border); padding:14px 0; }
+    .top-bar-inner { max-width:1100px; margin:0 auto; padding:0 40px; display:flex; align-items:center; justify-content:space-between; }
+    .back-link { display:inline-flex; align-items:center; gap:8px; font-size:15px; font-weight:600; color:var(--accent); text-decoration:none; border:2px solid var(--accent); border-radius:6px; padding:8px 18px; }
+    .back-link:hover { background:var(--accent); color:#fff; }
+    .contact-btn { font-size:15px; font-weight:600; color:#fff; background:var(--accent); border-radius:6px; padding:10px 22px; text-decoration:none; }
+    .contact-btn:hover { opacity:0.85; }
+    .wrap { max-width:1100px; margin:0 auto; padding:50px 40px 80px; }
+    .brand { text-align:center; margin-bottom:32px; }
+    .brand h1 { margin:0 0 10px; font-size:2.4rem; font-weight:700; color:var(--text); }
+    .gold-bar { width:48px; height:3px; background:var(--accent); margin:0 auto 32px; border-radius:2px; }
+    .divider { border:none; border-top:1px solid var(--border); margin:0 0 36px; }
+    .policy-title { text-align:center; margin:0 0 10px; font-size:1.9rem; font-weight:700; color:var(--text); }
+    .intro { text-align:center; max-width:760px; margin:0 auto 36px; color:var(--muted); font-size:1rem; }
+    h2 { margin-top:32px; margin-bottom:6px; font-size:1.05rem; font-weight:700; color:var(--text); }
+    p, li { font-size:1rem; color:#333; margin:0 0 4px; }
+    ul { margin-top:8px; padding-left:28px; }
+    li { margin-bottom:8px; }
+    a { color:var(--accent); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    .page-footer { margin-top:48px; padding-top:16px; border-top:1px solid var(--border); color:var(--muted); font-size:0.82rem; text-align:center; }
+  </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card">
-      <a class="back" href="/">&larr; Back to Store</a>
-      <div class="brand">Prestige Apparel Group</div>
-      
-      <h1>About Us</h1>
-      <p>Prestige Apparel Group is an online boutique focused on premium apparel, accessories, and elevated everyday style.</p>
-      <p>Our store curates fashion-forward pieces designed to deliver a refined shopping experience, with an emphasis on presentation, quality, and customer confidence.</p>
-      <p>We work with trusted suppliers and fulfillment partners to bring selected products to customers through a streamlined digital storefront.</p>
-      <h2>Our Approach</h2>
-      <p>We aim to combine modern ecommerce convenience with a polished boutique identity, offering products that reflect a sophisticated and aspirational lifestyle.</p>
-      <h2>Contact</h2>
-      <p>For general inquiries, contact <a href="mailto:corporate@prestigeapparelgroup.com">corporate@prestigeapparelgroup.com</a>.</p>
-    
-      <footer>Prestige Apparel Group is operated by RGC4, a U.S.-based company.</footer>
+  <div class="top-bar"><div class="top-bar-inner">
+    <a href="/" class="back-link">&#8592; Back to Store</a>
+    <a href="/contact" class="contact-btn">Contact Us</a>
+  </div></div>
+  <main class="wrap">
+    <div class="brand">
+      <h1>Prestige Apparel Group</h1>
+      <div class="gold-bar"></div>
     </div>
-  </div>
+    <hr class="divider">
+    <h1 class="policy-title">About Us</h1>
+    <p class="intro">Learn more about Prestige Apparel Group and how we operate.</p>
+    
+    <p>Prestige Apparel Group is a curated online boutique offering premium apparel and accessories from top designers, sourced through trusted supplier relationships.</p>
+    <p>We carry a wide selection of authenticated products and stand behind the quality of everything we sell.</p>
+    <h2>Our Mission</h2>
+    <p>To offer exceptional style at honest prices — with the quality and authenticity our customers deserve.</p>
+    <h2>Sourcing</h2>
+    <p>Our inventory is sourced through trusted wholesale relationships with established suppliers and fulfillment partners.</p>
+    <h2>Contact</h2>
+    <p>For questions, use the <a href="/contact">Contact Us</a> page.</p>
+    <div class="page-footer">Prestige Apparel Group is operated by RGC4, a U.S.-based company.</div>
+  </main>
 </body>
 </html>
