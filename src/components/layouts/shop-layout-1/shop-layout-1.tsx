@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { Fragment, PropsWithChildren, useEffect, useState } from "react";
 import Link from "next/link";
@@ -132,7 +132,7 @@ export default function ShopLayout1({ children, data }: Props) {
 
           </Grid>
           <Divider sx={{ borderColor: "grey.800" }} />
-          <Typography variant="caption" component="p" sx={{ py: 2.5, textAlign: "center", color: "grey.500" }}>
+          <Typography component="p" sx={{ py: 2.5, textAlign: "center", color: "grey.500", fontSize: "0.825rem" }}>
             &copy; {new Date().getFullYear()}{" "}
             <span style={{ fontWeight: 600, color: "rgba(255,255,255,0.7)" }}>{storeConfig.name}</span>.{" "}
             Owned and operated by RGC4. All rights reserved.
