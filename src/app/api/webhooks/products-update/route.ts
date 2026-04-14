@@ -2,7 +2,7 @@
 //
 // Shopify products/update webhook
 // When BrandsGateway overwrites tags, this fires instantly and merges
-// the store tags (s1, s2 etc.) back in based on custom.store_ids metafield.
+// the store tags (s1, s2 etc.) back in based on custom.store_number metafield.
 //
 // Register this URL once in Shopify Admin:
 //   Settings → Notifications → Webhooks → Create webhook
@@ -30,12 +30,12 @@ function verifyWebhook(body: string, hmacHeader: string): boolean {
   return crypto.timingSafeEqual(Buffer.from(hash), Buffer.from(hmacHeader));
 }
 
-// ── Read custom.store_ids metafield via Admin API ─────────────────────────
+// ── Read custom.store_number metafield via Admin API ─────────────────────────
 async function getStoreIdsMetafield(productId: number): Promise<string[]> {
   const query = `
     query GetMetafield($id: ID!) {
       product(id: $id) {
-        metafield(namespace: "custom", key: "store_ids") {
+        metafield(namespace: "custom", key: "store_number") {
           value
         }
       }
@@ -132,8 +132,8 @@ export async function POST(req: NextRequest) {
     const storeIds = await getStoreIdsMetafield(productId);
 
     if (storeIds.length === 0) {
-      // No store_ids metafield set — nothing to restore
-      console.log(`[webhook] Product ${productId} has no store_ids metafield — skipping`);
+      // No store_number metafield set — nothing to restore
+      console.log(`[webhook] Product ${productId} has no store_number metafield — skipping`);
       return NextResponse.json({ ok: true, skipped: true });
     }
 

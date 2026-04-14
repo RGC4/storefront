@@ -1,7 +1,7 @@
 // src/app/api/feed/route.ts
 //
 // Pinterest / Google Shopping XML product feed
-// Filters products by custom.store_ids metafield matching NEXT_PUBLIC_STORE_ID
+// Filters products by custom.store_number metafield matching NEXT_PUBLIC_STORE_ID
 // Works across all stores with zero code changes — only the env var differs per Vercel project
 //
 // Feed URL:  https://your-store.com/api/feed
@@ -34,7 +34,7 @@ const PRODUCTS_QUERY = `
           vendor
           productType
           availableForSale
-          metafield(namespace: "custom", key: "store_ids") { value }
+          metafield(namespace: "custom", key: "store_number") { value }
           priceRange {
             minVariantPrice { amount currencyCode }
           }
@@ -91,7 +91,7 @@ async function fetchStoreProducts() {
 
     for (const edge of page.edges) {
       const node = edge.node;
-      // Exact match on store_ids metafield (comma-separated e.g. "s1,s5")
+      // Exact match on store_number metafield (comma-separated e.g. "s1,s5")
       const storeIds = (node.metafield?.value || "")
         .split(",")
         .map((s: string) => s.trim());
