@@ -17,132 +17,186 @@ interface Props {
 
 export default function PolicyPage({ policy }: Props) {
   return (
-    <Container maxWidth="md" sx={{ py: { xs: 6, md: 9 } }}>
-
-      {/* BACK TO STORE BUTTON */}
-      <Box sx={{ mb: 4 }}>
-        <Button
-          component={Link}
-          href="/"
-          variant="outlined"
-          sx={{
-            fontSize: "1.06rem",
-            fontWeight: 600,
-            textTransform: "none",
-            borderColor: primaryColor,
-            color: primaryColor,
-            borderWidth: 2,
-            px: 3.4,
-            py: 1.25,
-            borderRadius: 2,
-            "&:hover": {
-              backgroundColor: primaryColor,
-              color: "#fff",
-              borderColor: primaryColor,
-              borderWidth: 2,
-            },
-          }}
-        >
-          &larr; Back to Store
-        </Button>
-      </Box>
-
-      {/* PAGE TITLE */}
-      <Typography
-        variant="h1"
-        sx={{
-          fontSize: { xs: "2rem", md: "2.6rem" },
-          fontWeight: 700,
-          textAlign: "center",
-          mb: 1,
-        }}
-      >
-        {policy.pageTitle}
-      </Typography>
-
+    <>
+      {/* DARK BANNER HEADER */}
       <Box
         sx={{
-          width: 56,
-          height: 3,
-          backgroundColor: primaryColor,
-          mx: "auto",
-          mb: 2,
-          borderRadius: 2,
+          backgroundColor: "#0a0a0a",
+          color: "#fff",
+          py: { xs: 5, md: 7 },
+          position: "relative",
         }}
-      />
-
-      {policy.intro && (
-        <Typography
-          sx={{
-            textAlign: "center",
-            color: "text.secondary",
-            fontSize: "1.15rem",
-            maxWidth: 680,
-            mx: "auto",
-            mb: 6,
-            lineHeight: 1.8,
-          }}
-        >
-          {policy.intro}
-        </Typography>
-      )}
-
-      <Divider sx={{ mb: 5 }} />
-
-      {policy.sections.map((section, i) => (
-        <Box key={i} sx={{ mb: 4 }}>
-          <Typography
-            variant="h6"
-            sx={{ fontWeight: 700, fontSize: "1.2rem", mb: 1 }}
+      >
+        <Container maxWidth="lg">
+          {/* BUTTON ROW */}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              mb: { xs: 4, md: 5 },
+              gap: 2,
+              flexWrap: "wrap",
+            }}
           >
-            {section.title}
+            <Button
+              component={Link}
+              href="/"
+              variant="outlined"
+              sx={{
+                fontSize: "0.95rem",
+                fontWeight: 600,
+                textTransform: "none",
+                borderColor: primaryColor,
+                color: primaryColor,
+                borderWidth: 2,
+                px: 3,
+                py: 1.1,
+                borderRadius: 2,
+                backgroundColor: "transparent",
+                "&:hover": {
+                  backgroundColor: primaryColor,
+                  color: "#fff",
+                  borderColor: primaryColor,
+                  borderWidth: 2,
+                },
+              }}
+            >
+              <Box component="span" sx={{ color: primaryColor, mr: 1, fontSize: "1.1rem", fontWeight: 700, "button:hover &": { color: "#fff" } }}>
+                &lt;
+              </Box>
+              Back to Store
+            </Button>
+
+            <Button
+              component={Link}
+              href="/contact"
+              variant="contained"
+              sx={{
+                fontSize: "0.95rem",
+                fontWeight: 600,
+                textTransform: "none",
+                backgroundColor: primaryColor,
+                color: "#fff",
+                borderWidth: 2,
+                borderStyle: "solid",
+                borderColor: primaryColor,
+                px: 3,
+                py: 1.1,
+                borderRadius: 2,
+                boxShadow: "none",
+                "&:hover": {
+                  backgroundColor: "transparent",
+                  color: primaryColor,
+                  borderColor: primaryColor,
+                  boxShadow: "none",
+                },
+              }}
+            >
+              Contact Us
+            </Button>
+          </Box>
+
+          {/* PAGE TITLE */}
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: { xs: "2.5rem", md: "4rem" },
+              fontWeight: 700,
+              textAlign: "center",
+              color: "#fff",
+              mb: 2,
+              lineHeight: 1.1,
+            }}
+          >
+            {policy.pageTitle}
           </Typography>
 
           <Box
             sx={{
-              fontSize: "1.15rem",
-              color: "text.secondary",
-              lineHeight: 1.8,
-              "& p": {
+              width: 64,
+              height: 4,
+              backgroundColor: primaryColor,
+              mx: "auto",
+              mb: 3,
+              borderRadius: 2,
+            }}
+          />
+
+          {policy.intro && (
+            <Typography
+              sx={{
+                textAlign: "center",
+                color: "rgba(255,255,255,0.85)",
+                fontSize: { xs: "1rem", md: "1.2rem" },
+                maxWidth: 860,
+                mx: "auto",
+                lineHeight: 1.7,
+              }}
+            >
+              {policy.intro}
+            </Typography>
+          )}
+        </Container>
+      </Box>
+
+      {/* WHITE CONTENT AREA */}
+      <Container maxWidth="md" sx={{ py: { xs: 5, md: 8 } }}>
+        {policy.sections.map((section, i) => (
+          <Box key={i} sx={{ mb: 4 }}>
+            <Typography
+              variant="h6"
+              sx={{ fontWeight: 700, fontSize: "1.2rem", mb: 1 }}
+            >
+              {section.title}
+            </Typography>
+
+            <Box
+              sx={{
                 fontSize: "1.15rem",
                 color: "text.secondary",
                 lineHeight: 1.8,
-                mb: 2,
-                mt: 0,
-              },
-              "& ul": {
-                pl: 3,
-                mt: 1,
-              },
-              "& li": {
-                mb: 1,
-                fontSize: "1.15rem",
-                color: "text.secondary",
-              },
-              "& a": {
-                color: primaryColor,
-                fontWeight: 600,
-                textDecoration: "none",
-                "&:hover": {
-                  textDecoration: "underline",
+                "& p": {
+                  fontSize: "1.15rem",
+                  color: "text.secondary",
+                  lineHeight: 1.8,
+                  mb: 2,
+                  mt: 0,
                 },
-              },
-            }}
-            dangerouslySetInnerHTML={{ __html: section.body }}
-          />
-        </Box>
-      ))}
+                "& ul": {
+                  pl: 3,
+                  mt: 1,
+                },
+                "& li": {
+                  mb: 1,
+                  fontSize: "1.15rem",
+                  color: "text.secondary",
+                },
+                "& a": {
+                  color: primaryColor,
+                  fontWeight: 600,
+                  textDecoration: "none",
+                  "&:hover": {
+                    textDecoration: "underline",
+                  },
+                },
+              }}
+              dangerouslySetInnerHTML={{ __html: section.body }}
+            />
+          </Box>
+        ))}
 
-      <Divider sx={{ my: 5 }} />
+        <Divider sx={{ my: 5 }} />
 
-      {policy.footer && (
-        <Typography
-          variant="body2"
-          sx={{ textAlign: "center", color: "text.disabled", pt: 3 }}
-        >
-          {policy.footer}
-        </Typography>
-      )}
-    </Container>
+        {policy.footer && (
+          <Typography
+            variant="body2"
+            sx={{ textAlign: "center", color: "text.disabled", pt: 3 }}
+          >
+            {policy.footer}
+          </Typography>
+        )}
+      </Container>
+    </>
   );
 }
