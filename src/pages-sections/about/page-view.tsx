@@ -7,7 +7,10 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import Link from "next/link";
 
-const storeName = process.env.NEXT_PUBLIC_STORE_NAME || "Prestige Apparel Group";
+const storeName = process.env.NEXT_PUBLIC_STORE_NAME || "Imperial Accessories";
+const aboutSpecialty = process.env.NEXT_PUBLIC_ABOUT_SPECIALTY || "premium Italian-crafted luxury handbags";
+const aboutProducts = process.env.NEXT_PUBLIC_ABOUT_PRODUCTS || "luxury handbags";
+const aboutFocus = process.env.NEXT_PUBLIC_ABOUT_FOCUS || "timeless Italian-made luxury handbags built to last";
 const bodyFontSize = "1.15rem";
 
 export default function AboutPageView() {
@@ -54,8 +57,7 @@ export default function AboutPageView() {
       </Box>
 
       <Section title="What We Offer">
-        Our collection focuses on timeless Italian-made goods: structured leather handbags, fine accessories, and
-        wardrobe essentials built to last. We partner with established fulfillment networks to offer a broad
+        Our collection focuses on {aboutFocus}. We partner with established fulfillment networks to offer a broad
         selection while maintaining high standards for the items we carry.
       </Section>
 
@@ -115,4 +117,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
     </Box>
   );
 }
+
+
+
 
