@@ -33,6 +33,7 @@ const PRODUCT_QUERY = `
       availableForSale
       tags
       featuredImage { url }
+      metafield(namespace: "custom", key: "msrp") { value }
       images(first: 20) {
         edges { node { url } }
       }
@@ -256,6 +257,7 @@ export default async function ProductPage({ params }: Props) {
     price: Number(firstVariant?.price?.amount || 0),
     comparePrice: Number(firstVariant?.compareAtPrice?.amount || 0),
     categories: raw.tags || [],
+    msrp: raw.metafield?.value ? Number(raw.metafield.value) : null,
     rating: 0,
     reviews: [],
   };
