@@ -21,7 +21,7 @@ export default function PolicyPage({ policy }: Props) {
       {/* DARK BANNER HEADER */}
       <Box
         sx={{
-          backgroundColor: "#0a0a0a",
+          bgcolor: "grey.900",
           color: "#fff",
           py: { xs: 5, md: 7 },
           position: "relative",
@@ -62,7 +62,7 @@ export default function PolicyPage({ policy }: Props) {
                 },
               }}
             >
-              <Box component="span" sx={{ color: primaryColor, mr: 1, fontSize: "1.1rem", fontWeight: 700, "button:hover &": { color: "#fff" } }}>
+              <Box component="span" sx={{ mr: 1, fontSize: "1.1rem", fontWeight: 700 }}>
                 &lt;
               </Box>
               Back to Store
@@ -185,17 +185,6 @@ export default function PolicyPage({ policy }: Props) {
             />
           </Box>
         ))}
-
-        <Divider sx={{ my: 5 }} />
-
-        {policy.footer && (
-          <Typography
-            variant="body2"
-            sx={{ textAlign: "center", color: "text.disabled", pt: 3 }}
-          >
-            {policy.footer}
-          </Typography>
-        )}
       </Container>
     </>
   );
