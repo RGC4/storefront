@@ -41,12 +41,19 @@ export function loadPolicy(filename: string): PolicyData {
     };
   }
 
-  // Auto-detect the brand name from <div class="brand"> and replace with env var
-  const brandMatch = html.match(/<div\s+class="brand"[^>]*>(.*?)<\/div>/s);
+  // Auto-detect the brand name from <div class="brand"> or <header class="brand"> and replace with env var
+  const brandMatch = html.match(/<(?:div|header)\s+class="brand"[^>]*>([\s\S]*?)<\/(?:div|header)>/);
   if (brandMatch) {
-    const originalBrand = stripTags(brandMatch[1]).trim();
+    const originalBrand = stripTags(brandMatch[1]).trim().split(/\s+/).slice(0, 5).join(" ");
     if (originalBrand && originalBrand !== storeName) {
-      html = html.replace(new RegExp(escapeRegex(originalBrand), "g"), storeName);
+      // Try to replace the h1 inside the brand block
+      const brandH1 = brandMatch[1].match(/<h1[^>]*>(.*?)<\/h1>/s);
+      if (brandH1) {
+        const brandName = stripTags(brandH1[1]).trim();
+        if (brandName && brandName !== storeName) {
+          html = html.replace(new RegExp(escapeRegex(brandName), "g"), storeName);
+        }
+      }
     }
   }
 
@@ -61,25 +68,39 @@ export function loadPolicy(filename: string): PolicyData {
     }
   }
 
-  // Extract title from <h1>
-  const h1Match = html.match(/<h1[^>]*>(.*?)<\/h1>/s);
-  const pageTitle = h1Match ? stripTags(h1Match[1]) : "Policy";
+  // Extract title — prefer <h1 class="policy-title">, fall back to last <h1>
+  let pageTitle = "Policy";
+  const policyTitleMatch = html.match(/<h1[^>]*class="[^"]*policy-title[^"]*"[^>]*>(.*?)<\/h1>/s);
+  if (policyTitleMatch) {
+    pageTitle = stripTags(policyTitleMatch[1]);
+  } else {
+    // Fall back: grab all h1s and use the last one (skips brand header)
+    const allH1s = html.match(/<h1[^>]*>(.*?)<\/h1>/gs);
+    if (allH1s && allH1s.length > 0) {
+      const lastH1 = allH1s[allH1s.length - 1];
+      const inner = lastH1.match(/<h1[^>]*>(.*?)<\/h1>/s);
+      if (inner) pageTitle = stripTags(inner[1]);
+    }
+  }
 
-  // Extract intro - first <p> after <h1> but before any <h2>
-  const afterH1 = html.split(/<\/h1>/s)[1] || "";
-  const beforeFirstH2 = afterH1.split(/<h2/s)[0] || "";
+  // Extract intro — first <p> after the policy title but before any <h2>
+  const titleSplit = policyTitleMatch
+    ? html.split(policyTitleMatch[0])[1] || ""
+    : html.split(/<\/h1>/s).slice(-1)[0] || "";
+  const beforeFirstH2 = titleSplit.split(/<h2/s)[0] || "";
   const introMatch = beforeFirstH2.match(/<p[^>]*>(.*?)<\/p>/s);
   const intro = introMatch ? stripTags(introMatch[1]) : "";
 
   // Extract sections: each <h2> followed by content until the next <h2> or <footer>
   const sections: PolicySection[] = [];
-  const sectionRegex = /<h2[^>]*>(.*?)<\/h2>([\s\S]*?)(?=<h2|<footer|$)/g;
+  const sectionRegex = /<h2[^>]*>(.*?)<\/h2>([\s\S]*?)(?=<h2|<footer|<\/main|<\/body|$)/g;
   let match;
   while ((match = sectionRegex.exec(html)) !== null) {
     const title = stripTags(match[1]).trim();
     const body = match[2]
       .trim()
       .replace(/<\/?div[^>]*>/g, "")
+      .replace(/<p\s+class="fine-print"[^>]*>[\s\S]*?<\/p>/g, "") // strip fine-print footer line
       .trim();
     sections.push({ title, body });
   }
