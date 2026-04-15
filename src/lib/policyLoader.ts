@@ -1,4 +1,13 @@
 // src/lib/policyLoader.ts
+// Reads policy HTML files from public/assets/stores/{storeId}/policies/
+// Permanently strips:
+//   - Any "Contact" section (last section with Contact heading)
+//   - Any "operated by RGC4" lines
+//   - Any <p class="fine-print"> lines
+// Replaces:
+//   - Brand name from HTML with NEXT_PUBLIC_STORE_NAME
+//   - First mailto: email with NEXT_PUBLIC_STORE_EMAIL
+
 import { readFileSync } from "fs";
 import { join } from "path";
 
@@ -13,6 +22,12 @@ export interface PolicyData {
   sections: PolicySection[];
   footer: string;
 }
+
+// Section titles that should be stripped automatically (case-insensitive)
+// Matches "Contact", "9. Contact", "Contact Us", "Contact Information", etc.
+const STRIPPED_SECTION_PATTERNS = [
+  /^(?:\d+\.\s*)?contact(?:\s+us|\s+information|\s+details)?$/i,
+];
 
 export function loadPolicy(filename: string): PolicyData {
   const storeId = process.env.NEXT_PUBLIC_STORE_ID || "s1";
@@ -35,8 +50,8 @@ export function loadPolicy(filename: string): PolicyData {
   // Strip fine-print paragraphs
   html = html.replace(/<p[^>]*class\s*=\s*["']fine-print["'][^>]*>[\s\S]*?<\/p>/gi, "");
 
-  // Strip any "operated by RGC4" lines permanently (all stores, all templates)
-  html = html.replace(/<p[^>]*>.*?operated by RGC4.*?<\/p>/gi, "");
+  // Strip any "operated by RGC4" references
+  html = html.replace(/<p[^>]*>[^<]*operated by RGC4[^<]*<\/p>/gi, "");
 
   // Auto-detect the brand name from <div class="brand"> or <header class="brand">
   const brandMatch = html.match(/<(?:div|header)\s+class\s*=\s*["']brand["'][^>]*>([\s\S]*?)<\/(?:div|header)>/i);
@@ -93,6 +108,11 @@ export function loadPolicy(filename: string): PolicyData {
   let match;
   while ((match = sectionRegex.exec(html)) !== null) {
     const title = stripTags(match[1]).trim();
+
+    // Skip Contact sections entirely — the banner has a Contact Us button
+    const isContactSection = STRIPPED_SECTION_PATTERNS.some((pattern) => pattern.test(title));
+    if (isContactSection) continue;
+
     let body = match[2]
       .trim()
       .replace(/<\/?div[^>]*>/g, "")
