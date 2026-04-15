@@ -32,8 +32,11 @@ export function loadPolicy(filename: string): PolicyData {
     };
   }
 
-  // Strip all fine-print paragraphs FIRST before any processing
+  // Strip fine-print paragraphs
   html = html.replace(/<p[^>]*class\s*=\s*["']fine-print["'][^>]*>[\s\S]*?<\/p>/gi, "");
+
+  // Strip any "operated by RGC4" lines permanently (all stores, all templates)
+  html = html.replace(/<p[^>]*>.*?operated by RGC4.*?<\/p>/gi, "");
 
   // Auto-detect the brand name from <div class="brand"> or <header class="brand">
   const brandMatch = html.match(/<(?:div|header)\s+class\s*=\s*["']brand["'][^>]*>([\s\S]*?)<\/(?:div|header)>/i);
@@ -98,7 +101,6 @@ export function loadPolicy(filename: string): PolicyData {
       .replace(/<\/?html[^>]*>/g, "")
       .trim();
 
-    // Skip empty sections
     if (body && stripTags(body).trim()) {
       sections.push({ title, body });
     }
