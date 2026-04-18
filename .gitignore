@@ -49,3 +49,7 @@ repomix-*.txt
 build-errors.txt
 audit-fix-log.txt
 .env.vercel.local
+
+# Repomix output files
+repomix-*.xml
+repomix-*.txt
