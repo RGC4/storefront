@@ -53,3 +53,14 @@ audit-fix-log.txt
 # Repomix output files
 repomix-*.xml
 repomix-*.txt
+
+# --- Binary assets that should live in Blob/CDN, never git ---
+*.mp4
+*.mov
+*.webm
+*.mkv
+public/assets/stores/*/videos/
+
+# --- Developer tools ---
+ngrok.exe
+*.exe
