@@ -34,3 +34,18 @@ repomix*.xml
 repomix*.txt
 README.zip
  
+# --- Cleanup patterns: keep parallel fix folders and scratch files out ---
+/*-fixes/
+/*-fix/
+/*-fix[0-9]/
+/host-fix*/
+*-current.txt
+dump.txt
+*.old
+/apply-*.ps1
+/Apply-*.ps1
+repomix-*.xml
+repomix-*.txt
+build-errors.txt
+audit-fix-log.txt
+.env.vercel.local
