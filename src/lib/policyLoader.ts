@@ -67,7 +67,7 @@ export async function loadPolicy(filename: string): Promise<PolicyData> {
     }
 
    // For private blobs, use downloadUrl (signed). Falls back to url if absent.
-   const blobToken = process.env.BLOB_READ_WRITE_TOKEN || "";
+  const blobToken = process.env.BLOB_READ_WRITE_TOKEN || "";
     const res = await fetch(blob.url, {
       cache: "no-store",
       headers: blobToken ? { authorization: `Bearer ${blobToken}` } : {},
