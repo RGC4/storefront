@@ -66,9 +66,11 @@ export async function loadPolicy(filename: string): Promise<PolicyData> {
       return FALLBACK;
     }
 
-   const res = await fetch(blob.url, { cache: "no-store" });
+   // For private blobs, use downloadUrl (signed). Falls back to url if absent.
+    const fetchUrl = (blob as any).downloadUrl || blob.url;
+    const res = await fetch(fetchUrl, { cache: "no-store" });
     if (!res.ok) {
-      console.warn(`[policyLoader] fetch failed for ${blobPath}: status=${res.status} url=${blob.url}`);
+      console.warn(`[policyLoader] fetch failed for ${blobPath}: status=${res.status} url=${fetchUrl}`);
       return FALLBACK;
     }
 
