@@ -66,8 +66,11 @@ export async function loadPolicy(filename: string): Promise<PolicyData> {
       return FALLBACK;
     }
 
-    const res = await fetch(blob.url, { cache: "no-store" });
-    if (!res.ok) return FALLBACK;
+   const res = await fetch(blob.url, { cache: "no-store" });
+    if (!res.ok) {
+      console.warn(`[policyLoader] fetch failed for ${blobPath}: status=${res.status} url=${blob.url}`);
+      return FALLBACK;
+    }
 
     let html = await res.text();
 
