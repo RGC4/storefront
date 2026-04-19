@@ -1,4 +1,6 @@
 // src/app/shipping-policy/page.tsx
+export const dynamic = "force-dynamic";
+
 import type { Metadata } from "next";
 import { storeMetadata } from "@/lib/storeResolver";
 import { loadPolicy } from "@/lib/policyLoader";
