@@ -67,10 +67,13 @@ export async function loadPolicy(filename: string): Promise<PolicyData> {
     }
 
    // For private blobs, use downloadUrl (signed). Falls back to url if absent.
-    const fetchUrl = (blob as any).downloadUrl || blob.url;
-    const res = await fetch(fetchUrl, { cache: "no-store" });
+   const blobToken = process.env.BLOB_READ_WRITE_TOKEN || "";
+    const res = await fetch(blob.url, {
+      cache: "no-store",
+      headers: blobToken ? { authorization: `Bearer ${blobToken}` } : {},
+    });
     if (!res.ok) {
-      console.warn(`[policyLoader] fetch failed for ${blobPath}: status=${res.status} url=${fetchUrl}`);
+      console.warn(`[policyLoader] fetch failed for ${blobPath}: status=${res.status} url=${blob.url}`);
       return FALLBACK;
     }
 
