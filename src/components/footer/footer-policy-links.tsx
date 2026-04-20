@@ -1,10 +1,10 @@
 import Link from "next/link";
 
 const policyLinks = [
-  { title: "Privacy Policy", url: "/policies/s1_privacy_policy.html" },
-  { title: "Terms & Conditions", url: "/policies/s1_terms_and_conditions.html" },
-  { title: "Shipping Policy", url: "/policies/s1_shipping_policy.html" },
-  { title: "Refund Policy", url: "/policies/s1_refund_policy.html" },
+  { title: "Privacy Policy",     url: "/privacy-policy" },
+  { title: "Terms & Conditions", url: "/terms" },
+  { title: "Shipping Policy",    url: "/shipping-policy" },
+  { title: "Refund Policy",      url: "/return-policy" },
 ];
 
 export default function FooterPolicyLinks() {

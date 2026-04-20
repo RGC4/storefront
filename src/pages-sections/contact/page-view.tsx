@@ -127,8 +127,8 @@ export default function ContactPageView() {
                 {[
                   { label: "Track Your Order", href: "/order-lookup" },
                   { label: "Start a Return", href: "/returns" },
-                  { label: "Shipping Policy", href: "/policies/s1_shipping_policy.html" },
-                  { label: "Privacy Policy", href: "/policies/s1_privacy_policy.html" },
+                  { label: "Shipping Policy", href: "/shipping-policy" },
+                  { label: "Privacy Policy", href: "/privacy-policy" },
                 ].map(({ label, href }) => (
                   <Typography key={label} component="a" href={href} sx={{ ...bodyText, color: "primary.main", textDecoration: "none", "&:hover": { textDecoration: "underline" } }}>{label}</Typography>
                 ))}
