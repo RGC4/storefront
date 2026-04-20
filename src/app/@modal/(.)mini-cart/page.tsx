@@ -1,12 +1,15 @@
 // DESTINATION: src/app/@modal/(.)mini-cart/page.tsx
 "use client";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Drawer from "@mui/material/Drawer";
 import { MiniCart } from "pages-sections/mini-cart";
 
 export default function MiniCartDrawer() {
   const router = useRouter();
+  const pathname = usePathname();
+
+  if (pathname !== "/mini-cart") return null;
 
   return (
     <Drawer
