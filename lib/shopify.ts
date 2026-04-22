@@ -21,27 +21,6 @@ async function storefrontMutation(query: string, variables: Record<string, unkno
   }
   return json.data;
 }
-// Cart mutations must never be cached — always fetch fresh
-async function storefrontMutation(query: string, variables: Record<string, unknown> = {}) {
-  const domain = process.env.SHOPIFY_STORE_DOMAIN as string;
-  const token = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN as string;
-  const version = process.env.SHOPIFY_API_VERSION || "2026-01";
-  const res = await fetch(`https://${domain}/api/${version}/graphql.json`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-Shopify-Storefront-Access-Token": token,
-    },
-    body: JSON.stringify({ query, variables }),
-    cache: "no-store",
-  });
-  const json = await res.json();
-  if (json.errors) {
-    console.error("Shopify API error:", JSON.stringify(json.errors));
-    return {};
-  }
-  return json.data;
-}
 
 export async function shopifyCreateCart() {
   const data = await storefrontMutation(
