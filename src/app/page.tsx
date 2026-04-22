@@ -6,7 +6,7 @@ import ShopLayout1 from "components/layouts/shop-layout-1";
 import FashionTwoPageView from "pages-sections/fashion-2/page-view";
 import api from "utils/__api__/layout";
 
-const STORE_NAME = process.env.NEXT_PUBLIC_STORE_NAME || "Prestige Apparel Group";
+const STORE_NAME = process.env.NEXT_PUBLIC_STORE_NAME || "Store";
 
 export const metadata: Metadata = {
   title: `${STORE_NAME} — Luxury Designer Bags & Fashion`,
