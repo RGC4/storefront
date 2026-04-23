@@ -106,14 +106,14 @@ export default function CollectionView({ title, description, products }: Props) 
         )}
 
         <Box sx={{ display: "flex", flexWrap: "wrap", gap: 3, alignItems: "flex-end", mt: 2 }}>
-          <Box>
+          <Box sx={{ maxWidth: "100%" }}>
             <Typography sx={filterLabelSx}>Designer</Typography>
             <Select multiple displayEmpty value={designers}
               onChange={e => { setDesigners(typeof e.target.value === "string" ? [e.target.value] : e.target.value as string[]); setPage(1); }}
               renderValue={(selected) => selected.length === 0
                 ? <span style={{ color: "#aaa", fontSize: 15 }}>All Designers</span>
                 : <span style={{ fontSize: 15 }}>{selected.length === 1 ? selected[0] : `${selected.length} designers`}</span>}
-              sx={dropdownSx}>
+              sx={{ ...dropdownSx, minWidth: { xs: "100%", sm: 280 }, maxWidth: "100%" }}>
               {allDesigners.map(d => (
                 <MenuItem key={d} value={d} sx={{ fontSize: 15, py: 0.75 }}>
                   <Checkbox checked={designers.includes(d)} size="small" sx={{ py: 0.5 }} />
@@ -164,51 +164,84 @@ export default function CollectionView({ title, description, products }: Props) 
             <Typography onClick={resetFilters} sx={{ fontSize: 13, color: "#111", textDecoration: "underline", cursor: "pointer", mt: 1 }}>Clear filters</Typography>
           </Box>
         ) : (
-          <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr 1fr", sm: "1fr 1fr 1fr", lg: "1fr 1fr 1fr 1fr" }, gap: { xs: 2, md: 3 }, alignItems: "stretch" }}>
+          <Box sx={{
+            display: "grid",
+            gridTemplateColumns: { xs: "1fr 1fr", sm: "1fr 1fr 1fr", lg: "1fr 1fr 1fr 1fr" },
+            gap: { xs: "12px", md: 3 },
+            alignItems: "stretch",
+            width: "100%",
+          }}>
             {paginated.map((product) => (
-              <Link key={product.id} href={`/product/${product.slug}`} style={{ textDecoration: "none", color: "inherit", display: "flex" }}>
+              <Link key={product.id} href={`/product/${product.slug}`} style={{ textDecoration: "none", color: "inherit", display: "flex", minWidth: 0 }}>
                 <Box sx={{
-                  width: "100%", bgcolor: "white", border: "1px solid #e8e8e8",
+                  width: "100%", minWidth: 0, bgcolor: "white", border: "1px solid #e8e8e8",
                   display: "flex", flexDirection: "column", overflow: "hidden", cursor: "pointer",
                   transition: "all 0.2s ease", opacity: product.availableForSale ? 1 : 0.6,
                   "&:hover": { borderColor: "#aaa", boxShadow: "0 6px 24px rgba(0,0,0,0.09)", transform: "translateY(-2px)" },
                 }}>
-                  <Box sx={{ px: 2, pt: "18px", pb: "14px", borderBottom: "1px solid #f0f0f0", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: 90 }}>
+                  <Box sx={{
+                    px: { xs: "6px", md: 2 },
+                    pt: { xs: "8px", md: "18px" },
+                    pb: { xs: "8px", md: "14px" },
+                    borderBottom: "1px solid #f0f0f0",
+                    textAlign: "center",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    minHeight: { xs: 56, md: 90 },
+                  }}>
                     {product.vendor && (
-                      <Typography sx={{ fontSize: { xs: 16, md: 18 }, fontWeight: 700, color: "#111", textTransform: "uppercase", letterSpacing: "0.08em", display: "block", mb: "4px" }}>{product.vendor}</Typography>
+                      <Typography sx={{
+                        fontSize: { xs: 11, md: 18 },
+                        fontWeight: 700,
+                        color: "#111",
+                        textTransform: "uppercase",
+                        letterSpacing: { xs: "0.05em", md: "0.08em" },
+                        display: "block",
+                        mb: { xs: "2px", md: "4px" },
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                        maxWidth: "100%",
+                      }}>{product.vendor}</Typography>
                     )}
-                    <Typography sx={{ fontSize: { xs: 12, md: 13 }, fontWeight: 400, lineHeight: 1.4, color: "#666", overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", textAlign: "center" }}>
+                    <Typography sx={{
+                      fontSize: { xs: 10, md: 13 },
+                      fontWeight: 400,
+                      lineHeight: 1.3,
+                      color: "#666",
+                      overflow: "hidden",
+                      display: "-webkit-box",
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: "vertical",
+                      textAlign: "center",
+                      maxWidth: "100%",
+                    }}>
                       {product.title}
                     </Typography>
                   </Box>
 
-                  <Box sx={{ position: "relative", width: "100%", height: 300, bgcolor: "white", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", p: 2 }}>
+                  <Box sx={{ position: "relative", width: "100%", aspectRatio: "1 / 1", bgcolor: "white", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", p: { xs: "6px", md: 2 } }}>
                     {product.thumbnail && (
                       <img src={optimizeImage(product.thumbnail)} alt={product.title} style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "center" }} />
                     )}
                     {!product.availableForSale && (
-                      <Box sx={{ position: "absolute", top: 10, right: 10, bgcolor: "#888", color: "white", px: "10px", py: "4px", fontSize: 11, fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase" }}>Out of Stock</Box>
+                      <Box sx={{ position: "absolute", top: { xs: 4, md: 10 }, right: { xs: 4, md: 10 }, bgcolor: "#888", color: "white", px: { xs: "6px", md: "10px" }, py: { xs: "2px", md: "4px" }, fontSize: { xs: 9, md: 11 }, fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase" }}>Out of Stock</Box>
                     )}
                     {product.availableForSale && product.discount > 0 && (
-                      <Box sx={{ position: "absolute", top: 10, left: 10, bgcolor: "#c41230", color: "white", px: "12px", py: "5px", fontSize: 12, fontWeight: 800, letterSpacing: "0.05em" }}>{product.discount}% OFF</Box>
+                      <Box sx={{ position: "absolute", top: { xs: 4, md: 10 }, left: { xs: 4, md: 10 }, bgcolor: "#c41230", color: "white", px: { xs: "6px", md: "12px" }, py: { xs: "2px", md: "5px" }, fontSize: { xs: 9, md: 12 }, fontWeight: 800, letterSpacing: "0.05em" }}>{product.discount}% OFF</Box>
                     )}
                   </Box>
 
-                  {product.description && (
-                    <Box sx={{ px: 2, pt: "10px", borderTop: "1px solid #f7f7f7" }}>
-                      <Typography variant="body2" sx={{ color: "#888", lineHeight: 1.6 }}>{getDescriptionSnippet(product.description)}</Typography>
-                    </Box>
-                  )}
-
-                  <Box sx={{ px: 2, pt: "10px", pb: "14px", borderTop: "1px solid #f0f0f0", display: "flex", flexDirection: "column", flexGrow: 1, mt: "auto" }}>
-                    <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 1 }}>
+                  <Box sx={{ px: { xs: "8px", md: 2 }, pt: { xs: "8px", md: "10px" }, pb: { xs: "10px", md: "14px" }, borderTop: "1px solid #f0f0f0", display: "flex", flexDirection: "column", flexGrow: 1, mt: "auto" }}>
+                    <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: { xs: 0.5, md: 1 }, flexWrap: "wrap" }}>
                       {product.comparePrice > product.price && (
-                        <Typography sx={{ fontSize: 13, color: "#999", textDecoration: "line-through" }}>${product.comparePrice.toFixed(2)}</Typography>
+                        <Typography sx={{ fontSize: { xs: 11, md: 13 }, color: "#999", textDecoration: "line-through" }}>${product.comparePrice.toFixed(2)}</Typography>
                       )}
-                      <Typography sx={{ fontSize: 18, fontWeight: 800, color: "#111" }}>${product.price.toFixed(2)}</Typography>
-                      <Typography sx={{ fontSize: 11, color: "#bbb", ml: "auto" }}>CAD</Typography>
+                      <Typography sx={{ fontSize: { xs: 14, md: 18 }, fontWeight: 800, color: "#111" }}>${product.price.toFixed(2)}</Typography>
                     </Box>
-                    <Box sx={{ mt: 1.5, py: 1.5, textAlign: "center", fontSize: 12, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", bgcolor: product.availableForSale ? "#111" : "#aaa", color: "white" }}>
+                    <Box sx={{ mt: { xs: 1, md: 1.5 }, py: { xs: 1, md: 1.5 }, textAlign: "center", fontSize: { xs: 10, md: 12 }, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", bgcolor: product.availableForSale ? "#111" : "#aaa", color: "white" }}>
                       {product.availableForSale ? "Shop Now" : "Out of Stock"}
                     </Box>
                   </Box>
