@@ -96,7 +96,7 @@ export default function CollectionView({ title, description, products }: Props) 
   const hasFilters = designers.length > 0 || !!color;
 
   return (
-    <Box sx={{ bgcolor: "#fafafa", minHeight: "100vh" }}>
+    <Box sx={{ bgcolor: "#fafafa", minHeight: "100vh", maxWidth: "100vw", overflowX: "hidden" }}>
 
       <Box sx={{ bgcolor: "white", borderBottom: "1px solid #eee", pt: 4, pb: 3, px: { xs: 2, md: 5 } }}>
         <BackButton />
