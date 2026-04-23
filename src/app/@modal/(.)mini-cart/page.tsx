@@ -19,8 +19,11 @@ export default function MiniCartDrawer() {
       sx={{ zIndex: 9999 }}
       slotProps={{
         paper: {
-          sx: { width: 520 }
-        }
+          sx: {
+            width: { xs: "100vw", sm: 420, md: 520 },
+            maxWidth: "100vw",
+          },
+        },
       }}
     >
       <MiniCart />

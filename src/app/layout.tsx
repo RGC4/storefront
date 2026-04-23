@@ -16,7 +16,7 @@ import RTL from "components/rtl";
 import ProgressBar from "components/progress";
 import "i18n";
 
-const STORE_NAME = process.env.NEXT_PUBLIC_STORE_NAME || "Prestige Apparel Group";
+const STORE_NAME = process.env.NEXT_PUBLIC_STORE_NAME || "Store";
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://prestigeapparelgroup.com";
 
 interface RootLayoutProps {
@@ -74,6 +74,10 @@ export default function RootLayout({ children, modal }: RootLayoutProps) {
         />
         <style>{`
           * { -webkit-tap-highlight-color: transparent; }
+          html, body {
+            overflow-x: hidden;
+            max-width: 100vw;
+          }
           body {
             padding-top: env(safe-area-inset-top);
             padding-bottom: env(safe-area-inset-bottom);
