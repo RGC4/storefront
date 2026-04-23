@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, PropsWithChildren, useEffect, useState } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Box from "@mui/material/Box";
@@ -17,7 +17,9 @@ import storeConfig from "config/store.config";
 
 interface Props extends PropsWithChildren { data: LayoutModel; }
 
-const STORE_ID        = process.env.NEXT_PUBLIC_STORE_ID || "s1";
+const STORE_ID = process.env.NEXT_PUBLIC_STORE_ID || "s1";
+const STORE_NAME = process.env.NEXT_PUBLIC_STORE_NAME || "Store";
+const STORE_TAGLINE = process.env.NEXT_PUBLIC_STORE_TAGLINE || "";
 const HEADER_LOGO_URL = `/assets/stores/${STORE_ID}/logo/logo-header.jpg`;
 const FOOTER_LOGO_URL = `/assets/stores/${STORE_ID}/logo/logo-footer.jpg`;
 
@@ -46,35 +48,31 @@ export default function ShopLayout1({ children, data }: Props) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const MOBILE_VERSION_HEADER = (
-    <MobileHeader>
-      <MobileHeader.Left>
-        <MobileHeader.Logo logoUrl={HEADER_LOGO_URL} />
-      </MobileHeader.Left>
-      <MobileHeader.Right>
-        <HeaderSearch><SearchInput2 /></HeaderSearch>
-        <HeaderLogin />
-        <HeaderCart />
-      </MobileHeader.Right>
-    </MobileHeader>
-  );
-
   return (
-    <Fragment>
+    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+      {/* STICKY HEADER - position: fixed so it ALWAYS stays on top, all screens */}
       <div style={{
-        position: "sticky", top: 0, zIndex: 100,
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1000,
         backgroundColor: "#ffffff",
-        borderBottom: scrolled ? "none" : "1px solid #f0f0f0",
-        boxShadow: scrolled ? "0 2px 16px rgba(0,0,0,0.10)" : "none",
-        transition: "box-shadow 300ms ease, border-bottom 300ms ease",
-        height: 100,
+        borderBottom: "1px solid #e8e8e8",
+        boxShadow: scrolled ? "0 2px 12px rgba(0,0,0,0.08)" : "none",
+        transition: "box-shadow 300ms ease",
       }}>
+        {/* DESKTOP HEADER */}
         <div className="main-header" style={{
-          display: "flex", alignItems: "center", height: "100%",
-          paddingLeft: "24px", paddingRight: "24px", gap: "2rem",
+          display: "flex",
+          alignItems: "center",
+          height: 100,
+          paddingLeft: "24px",
+          paddingRight: "24px",
+          gap: "2rem",
         }}>
-          <Link href="/" style={{ display: "flex", alignItems: "center", flexShrink: 0, height: "100%" }}>
-            <Image src={HEADER_LOGO_URL} alt={`${storeConfig.name} Logo`}
+          <Link href="/" style={{ display: "flex", alignItems: "center", flexShrink: 0, height: "100%", textDecoration: "none" }}>
+            <Image src={HEADER_LOGO_URL} alt={`${STORE_NAME} Logo`}
               width={320} height={117} priority
               style={{ objectFit: "contain", objectPosition: "left center", marginTop: "8px" }} />
           </Link>
@@ -97,19 +95,70 @@ export default function ShopLayout1({ children, data }: Props) {
             <div style={{ fontSize: "2.31rem", display: "flex", alignItems: "center", justifyContent: "center", lineHeight: 1 }}><HeaderCart /></div>
           </div>
         </div>
-        <div className="mobile-header" style={{ display: "none", height: "100%" }}>
-          {MOBILE_VERSION_HEADER}
+
+        {/* MOBILE HEADER */}
+        <div className="mobile-header" style={{
+          display: "none",
+          height: 64,
+          paddingLeft: "16px",
+          paddingRight: "16px",
+          alignItems: "center",
+          justifyContent: "space-between",
+          width: "100%",
+          boxSizing: "border-box",
+        }}>
+          <Link href="/" style={{ textDecoration: "none", display: "flex", flexDirection: "column", justifyContent: "center", minWidth: 0, flex: 1, marginRight: "8px" }}>
+            <div style={{
+              fontSize: "16px",
+              fontWeight: 700,
+              color: "#1a1a2e",
+              letterSpacing: "0.02em",
+              lineHeight: 1.1,
+              fontFamily: "serif",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}>
+              {STORE_NAME}
+            </div>
+            {STORE_TAGLINE && (
+              <div style={{
+                fontSize: "9px",
+                fontWeight: 500,
+                color: "#666",
+                letterSpacing: "0.15em",
+                textTransform: "uppercase",
+                marginTop: "2px",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}>
+                {STORE_TAGLINE}
+              </div>
+            )}
+          </Link>
+          <div style={{ display: "flex", alignItems: "center", gap: "4px", flexShrink: 0 }}>
+            <HeaderSearch><SearchInput2 /></HeaderSearch>
+            <HeaderLogin />
+            <HeaderCart />
+          </div>
         </div>
       </div>
+
+      {/* Spacer for fixed header (desktop 100px, mobile 64px) */}
+      <div style={{ height: 100, flexShrink: 0 }} className="header-spacer" />
 
       <style>{`
         @media (max-width: 768px) {
           .main-header { display: none !important; }
-          .mobile-header { display: flex !important; align-items: center; padding: 0 16px; }
+          .mobile-header { display: flex !important; }
+          .header-spacer { height: 64px !important; }
         }
       `}</style>
 
-      {children}
+      <div style={{ flex: 1 }}>
+        {children}
+      </div>
 
       <MobileNavigationBar navigation={mobileNavigation.version1} />
 
@@ -139,6 +188,6 @@ export default function ShopLayout1({ children, data }: Props) {
           </Typography>
         </Container>
       </Box>
-    </Fragment>
+    </div>
   );
 }

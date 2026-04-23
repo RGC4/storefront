@@ -74,10 +74,6 @@ export default function RootLayout({ children, modal }: RootLayoutProps) {
         />
         <style>{`
           * { -webkit-tap-highlight-color: transparent; }
-          html, body {
-            overflow-x: hidden;
-            max-width: 100vw;
-          }
           body {
             padding-top: env(safe-area-inset-top);
             padding-bottom: env(safe-area-inset-bottom);
