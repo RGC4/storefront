@@ -81,6 +81,9 @@ export default function MiniCart() {
               px: 3,
               height: 48,
               fontSize: 16,
+              bgcolor: "#1a1a2e",
+              color: "#fff",
+              "&:hover": { bgcolor: "#2a2a4e" },
             }}
             onClick={() => router.back()}
           >
@@ -268,6 +271,10 @@ export default function MiniCart() {
                 fontSize: 16,
                 textTransform: "none",
                 borderRadius: 0,
+                bgcolor: "#1a1a2e",
+                color: "#fff",
+                "&:hover": { bgcolor: "#2a2a4e" },
+                "&.Mui-disabled": { bgcolor: "#888", color: "#fff" },
               }}
             >
               Checkout
@@ -278,16 +285,39 @@ export default function MiniCart() {
                 fullWidth
                 variant="outlined"
                 sx={{
+                  mb: 1.5,
                   height: 56,
                   fontWeight: 700,
                   fontSize: 16,
                   textTransform: "none",
                   borderRadius: 0,
+                  borderColor: "#1a1a2e",
+                  color: "#1a1a2e",
+                  "&:hover": { borderColor: "#2a2a4e", bgcolor: "#f5f5f7" },
                 }}
               >
                 View Full Cart
               </Button>
             </Link>
+
+            <Button
+              fullWidth
+              variant="text"
+              onClick={() => router.back()}
+              sx={{
+                height: 48,
+                fontSize: 15,
+                fontWeight: 600,
+                textTransform: "none",
+                color: "text.secondary",
+                "&:hover": {
+                  color: "#1a1a2e",
+                  bgcolor: "transparent",
+                },
+              }}
+            >
+              ← Continue Shopping
+            </Button>
           </Box>
         </>
       )}

@@ -60,8 +60,6 @@ function mapLines(rawCart: any): CartLine[] {
       currency: node.merchandise.price.currencyCode,
       thumbnail: node.merchandise.product.images.edges[0]?.node.url ?? "",
     }))
-    // FIX: filter out any lines Shopify returns with qty 0 — these are
-    // inventory-rejected adds that should not appear in the cart UI
     .filter((line: CartLine) => line.qty > 0);
 }
 
@@ -87,8 +85,6 @@ export default function CartProvider({ children }: PropsWithChildren) {
     loading: true,
   });
 
-  // Use a ref so callbacks always have the current cartId without needing
-  // to be recreated — this fixes the stale closure bug with +/- buttons
   const cartIdRef = useRef<string | null>(null);
 
   useEffect(() => {
@@ -139,9 +135,6 @@ export default function CartProvider({ children }: PropsWithChildren) {
         merchandiseId: variantId,
         quantity,
       });
-      // FIX: only update state if Shopify returned a valid cart with an id.
-      // If rawCart is undefined/null (Shopify rejected the add), preserve
-      // existing cart state rather than wiping it with an empty array.
       if (!rawCart?.id) {
         console.error("Add to cart: Shopify returned no cart — item may be out of stock");
         return;
@@ -229,7 +222,7 @@ export default function CartProvider({ children }: PropsWithChildren) {
   );
 
   return (
-    <CartContext value={{
+    <CartContext.Provider value={{
       state,
       addToCart,
       updateCartLine,
@@ -240,6 +233,6 @@ export default function CartProvider({ children }: PropsWithChildren) {
       checkoutUrl: state.checkoutUrl,
     }}>
       {children}
-    </CartContext>
+    </CartContext.Provider>
   );
 }
