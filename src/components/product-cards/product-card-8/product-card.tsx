@@ -51,6 +51,7 @@ export default function ProductCard8({ product }: Props) {
               ${price.toFixed(2)}
             </Typography>
           </Box>
+          <Box className="shop-now">Shop Now</Box>
         </CardContent>
       </Link>
     </Card>
