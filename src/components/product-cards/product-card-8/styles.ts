@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { styled } from "@mui/material/styles";
 
 export const Card = styled("div")({
@@ -58,7 +58,7 @@ export const CardHeader = styled("div")({
 
 export const CardMedia = styled("div")({
   width: "100%",
-  aspectRatio: "1 / 1",
+  height: 320,
   flexShrink: 0,
   display: "flex",
   alignItems: "center",
@@ -67,7 +67,7 @@ export const CardMedia = styled("div")({
   overflow: "hidden",
   position: "relative",
   padding: 12,
-  "@media (max-width: 768px)": { padding: 6 },
+  "@media (max-width: 768px)": { height: 200, padding: 6 },
   img: {
     width: "100%",
     height: "100%",
