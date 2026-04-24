@@ -74,10 +74,10 @@ function optimizeImage(url: string, width = 800, height = 800) {
 
 // ===== CARD DIMENSION LOCKS =====
 // Every card in the grid renders at EXACTLY these heights.
-// Header + Media + Content = total card height (desktop ~490px, mobile ~300px).
+// CONTENT_H increased to give SHOP NOW button proper padding below it.
 const HEADER_H = { xs: 56, md: 90 };
 const MEDIA_H  = { xs: 200, md: 320 };
-const CONTENT_H = { xs: 60, md: 80 };
+const CONTENT_H = { xs: 100, md: 130 };
 
 export default function CollectionView({ title, description, products }: Props) {
   const [designers, setDesigners] = useState<string[]>([]);
@@ -259,16 +259,17 @@ export default function CollectionView({ title, description, products }: Props) 
                     )}
                   </Box>
 
-                  {/* CONTENT — fixed height, no flexGrow */}
+                  {/* CONTENT — fixed height, generous padding above AND below button */}
                   <Box sx={{
                     px: { xs: "8px", md: 2 },
-                    py: 0,
+                    pt: { xs: "12px", md: "16px" },
+                    pb: { xs: "20px", md: "24px" },
                     borderTop: "1px solid #f0f0f0",
                     display: "flex",
                     flexDirection: "column",
-                    justifyContent: "center",
                     height: CONTENT_H,
                     flexShrink: 0,
+                    boxSizing: "border-box",
                   }}>
                     <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: { xs: 0.5, md: 1 }, flexWrap: "nowrap" }}>
                       {product.comparePrice > product.price && (
@@ -276,7 +277,17 @@ export default function CollectionView({ title, description, products }: Props) 
                       )}
                       <Typography sx={{ fontSize: { xs: 14, md: 18 }, fontWeight: 800, color: "#111" }}>${product.price.toFixed(2)}</Typography>
                     </Box>
-                    <Box sx={{ mt: { xs: "6px", md: "10px" }, py: { xs: "6px", md: "10px" }, textAlign: "center", fontSize: { xs: 10, md: 12 }, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", bgcolor: product.availableForSale ? "#111" : "#aaa", color: "white" }}>
+                    <Box sx={{
+                      mt: { xs: "10px", md: "12px" },
+                      py: { xs: "8px", md: "10px" },
+                      textAlign: "center",
+                      fontSize: { xs: 10, md: 12 },
+                      fontWeight: 700,
+                      letterSpacing: "0.08em",
+                      textTransform: "uppercase",
+                      bgcolor: product.availableForSale ? "#111" : "#aaa",
+                      color: "white",
+                    }}>
                       {product.availableForSale ? "Shop Now" : "Out of Stock"}
                     </Box>
                   </Box>
