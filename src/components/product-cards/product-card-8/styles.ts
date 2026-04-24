@@ -25,10 +25,9 @@ export const CardHeader = styled("div")({
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  height: 90,
-  overflow: "hidden",
+  minHeight: 90,
   flexShrink: 0,
-  "@media (max-width: 768px)": { height: 56, padding: "6px 6px" },
+  "@media (max-width: 768px)": { minHeight: 56, padding: "6px 6px" },
   ".vendor": {
     fontSize: 16,
     fontWeight: 700,
@@ -36,10 +35,6 @@ export const CardHeader = styled("div")({
     textTransform: "uppercase",
     letterSpacing: "0.08em",
     marginBottom: 4,
-    whiteSpace: "nowrap",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-    maxWidth: "100%",
     "@media (max-width: 768px)": { fontSize: 11, letterSpacing: "0.05em", marginBottom: 2 },
   },
   ".title": {
@@ -49,7 +44,7 @@ export const CardHeader = styled("div")({
     color: "#666",
     overflow: "hidden",
     display: "-webkit-box",
-    WebkitLineClamp: 2,
+    WebkitLineClamp: 3,
     WebkitBoxOrient: "vertical" as const,
     textAlign: "center",
     "@media (max-width: 768px)": { fontSize: 10, lineHeight: 1.3, WebkitLineClamp: 2 },
@@ -58,7 +53,7 @@ export const CardHeader = styled("div")({
 
 export const CardMedia = styled("div")({
   width: "100%",
-  height: 320,
+  aspectRatio: "4 / 3",
   flexShrink: 0,
   display: "flex",
   alignItems: "center",
@@ -67,13 +62,12 @@ export const CardMedia = styled("div")({
   overflow: "hidden",
   position: "relative",
   padding: 12,
-  "@media (max-width: 768px)": { height: 200, padding: 6 },
+  "@media (max-width: 768px)": { padding: 6 },
   img: {
-    width: "100%",
-    height: "100%",
+    maxWidth: "100%",
+    maxHeight: "100%",
     objectFit: "contain",
     objectPosition: "center",
-    display: "block",
   },
   ".discount-badge": {
     position: "absolute",
