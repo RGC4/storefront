@@ -72,6 +72,13 @@ function optimizeImage(url: string, width = 800, height = 800) {
   return `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/fetch/e_trim:10,c_pad,w_${width},h_${height},b_white,f_auto,q_auto/${encodeURI(url)}`;
 }
 
+// ===== CARD DIMENSION LOCKS =====
+// Every card in the grid renders at EXACTLY these heights.
+// Header + Media + Content = total card height (desktop ~490px, mobile ~300px).
+const HEADER_H = { xs: 56, md: 90 };
+const MEDIA_H  = { xs: 200, md: 320 };
+const CONTENT_H = { xs: 60, md: 80 };
+
 export default function CollectionView({ title, description, products }: Props) {
   const [designers, setDesigners] = useState<string[]>([]);
   const [color, setColor] = useState("");
@@ -168,7 +175,7 @@ export default function CollectionView({ title, description, products }: Props) 
             display: "grid",
             gridTemplateColumns: { xs: "1fr 1fr", sm: "1fr 1fr 1fr", lg: "1fr 1fr 1fr 1fr" },
             gap: { xs: "12px", md: 3 },
-            alignItems: "stretch",
+            alignItems: "start",
             width: "100%",
           }}>
             {paginated.map((product) => (
@@ -179,17 +186,19 @@ export default function CollectionView({ title, description, products }: Props) 
                   transition: "all 0.2s ease", opacity: product.availableForSale ? 1 : 0.6,
                   "&:hover": { borderColor: "#aaa", boxShadow: "0 6px 24px rgba(0,0,0,0.09)", transform: "translateY(-2px)" },
                 }}>
+                  {/* HEADER — fixed height, no growth */}
                   <Box sx={{
                     px: { xs: "6px", md: 2 },
-                    pt: { xs: "8px", md: "18px" },
-                    pb: { xs: "8px", md: "14px" },
+                    py: 0,
                     borderBottom: "1px solid #f0f0f0",
                     textAlign: "center",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
                     justifyContent: "center",
-                    minHeight: { xs: 56, md: 90 },
+                    height: HEADER_H,
+                    flexShrink: 0,
+                    overflow: "hidden",
                   }}>
                     {product.vendor && (
                       <Typography sx={{
@@ -222,9 +231,25 @@ export default function CollectionView({ title, description, products }: Props) 
                     </Typography>
                   </Box>
 
-                  <Box sx={{ position: "relative", width: "100%", aspectRatio: "1 / 1", bgcolor: "white", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", p: { xs: "6px", md: 2 } }}>
+                  {/* MEDIA — fixed pixel height, image letterboxes inside */}
+                  <Box sx={{
+                    position: "relative",
+                    width: "100%",
+                    height: MEDIA_H,
+                    bgcolor: "white",
+                    flexShrink: 0,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    p: { xs: "6px", md: 2 },
+                    overflow: "hidden",
+                  }}>
                     {product.thumbnail && (
-                      <img src={optimizeImage(product.thumbnail)} alt={product.title} style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "center" }} />
+                      <img
+                        src={optimizeImage(product.thumbnail)}
+                        alt={product.title}
+                        style={{ maxWidth: "100%", maxHeight: "100%", width: "auto", height: "auto", objectFit: "contain", objectPosition: "center", display: "block" }}
+                      />
                     )}
                     {!product.availableForSale && (
                       <Box sx={{ position: "absolute", top: { xs: 4, md: 10 }, right: { xs: 4, md: 10 }, bgcolor: "#888", color: "white", px: { xs: "6px", md: "10px" }, py: { xs: "2px", md: "4px" }, fontSize: { xs: 9, md: 11 }, fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase" }}>Out of Stock</Box>
@@ -234,14 +259,24 @@ export default function CollectionView({ title, description, products }: Props) 
                     )}
                   </Box>
 
-                  <Box sx={{ px: { xs: "8px", md: 2 }, pt: { xs: "8px", md: "10px" }, pb: { xs: "10px", md: "14px" }, borderTop: "1px solid #f0f0f0", display: "flex", flexDirection: "column", flexGrow: 1, mt: "auto" }}>
-                    <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: { xs: 0.5, md: 1 }, flexWrap: "wrap" }}>
+                  {/* CONTENT — fixed height, no flexGrow */}
+                  <Box sx={{
+                    px: { xs: "8px", md: 2 },
+                    py: 0,
+                    borderTop: "1px solid #f0f0f0",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    height: CONTENT_H,
+                    flexShrink: 0,
+                  }}>
+                    <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: { xs: 0.5, md: 1 }, flexWrap: "nowrap" }}>
                       {product.comparePrice > product.price && (
                         <Typography sx={{ fontSize: { xs: 11, md: 13 }, color: "#999", textDecoration: "line-through" }}>${product.comparePrice.toFixed(2)}</Typography>
                       )}
                       <Typography sx={{ fontSize: { xs: 14, md: 18 }, fontWeight: 800, color: "#111" }}>${product.price.toFixed(2)}</Typography>
                     </Box>
-                    <Box sx={{ mt: { xs: 1, md: 1.5 }, py: { xs: 1, md: 1.5 }, textAlign: "center", fontSize: { xs: 10, md: 12 }, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", bgcolor: product.availableForSale ? "#111" : "#aaa", color: "white" }}>
+                    <Box sx={{ mt: { xs: "6px", md: "10px" }, py: { xs: "6px", md: "10px" }, textAlign: "center", fontSize: { xs: 10, md: 12 }, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", bgcolor: product.availableForSale ? "#111" : "#aaa", color: "white" }}>
                       {product.availableForSale ? "Shop Now" : "Out of Stock"}
                     </Box>
                   </Box>
