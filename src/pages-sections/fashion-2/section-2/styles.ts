@@ -9,7 +9,6 @@ export const RootStyle = styled("div")(({ theme }) => ({
   gridTemplateColumns: "repeat(4, 1fr)",
   backgroundColor: theme.palette.common.white,
   borderTop: "1px solid #000",
-  borderBottom: "1px solid #000",
   [theme.breakpoints.down("sm")]: { display: "none" },
   [theme.breakpoints.down("md")]: {
     gridTemplateColumns: "repeat(2, 1fr)"
