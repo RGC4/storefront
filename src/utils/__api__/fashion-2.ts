@@ -148,7 +148,7 @@ export const getBrands   = cache(async () => []);
 export const getServices = cache(async (): Promise<ServiceCard[]> => [
   { id: "1", icon: "Truck",    title: "Free Delivery",      description: ""                                },
   { id: "2", icon: "Payment",  title: "Secure Payment",     description: ""                                },
-  { id: "3", icon: "Verified", title: "Authentic Products", description: ""                                },
+  { id: "3", icon: "Verified", title: "Authenticity Guarantee", description: ""                                },
   { id: "4", icon: "Support",  title: "Concierge Care",     description: ""                                },
 ]);
 
