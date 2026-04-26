@@ -11,6 +11,12 @@ export const StyledRoot = styled("div")(({ theme }) => ({
   padding: "25px 18px",
   borderRight: "1px solid #000",
   ":last-child": { borderRight: 0 },
+  [theme.breakpoints.down("md")]: {
+    borderBottom: "1px solid #000",
+    ":nth-of-type(even)": { borderRight: 0 },
+    ":nth-of-type(3)": { borderBottom: 0 },
+    ":nth-of-type(4)": { borderBottom: 0, borderRight: 0 },
+  },
   [theme.breakpoints.down("sm")]: {
     justifyContent: "flex-start",
   },
