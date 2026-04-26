@@ -9,13 +9,8 @@ export const StyledRoot = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "center",
   padding: "25px 18px",
-  borderRight: `1px solid ${theme.palette.divider}`,
-  ":last-child": { borderRight: 0 },
-  [theme.breakpoints.down("md")]: {
-    ":nth-of-type(even)": { borderRight: 0 },
-  },
+  border: "1px solid #000",
   [theme.breakpoints.down("sm")]: {
-    borderRight: 0,
     justifyContent: "flex-start",
   },
   h4: {

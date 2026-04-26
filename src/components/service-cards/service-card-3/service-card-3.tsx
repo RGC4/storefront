@@ -31,7 +31,7 @@ export default function ServiceCard3({ icon, title, description }: Props) {
       )}
       <div>
         <h4>{title}</h4>
-        <p>{description}</p>
+        {description && <p>{description}</p>}
       </div>
     </StyledRoot>
   );

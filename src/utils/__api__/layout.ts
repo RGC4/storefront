@@ -5,7 +5,7 @@ import { getStoreConfig } from "@/lib/storeResolver";
 import storeConfig from "config/store.config";
 
 const STORE_ID = process.env.NEXT_PUBLIC_STORE_ID || "s1";
-const CATEGORY_ORDER = ["clutch-bags", "crossbody-bags", "shoulder-bags", "handbags", "tote-bags"];
+const CATEGORY_ORDER = ["all-bags-over-500", "clutch-bags", "crossbody-bags", "shoulder-bags", "handbags", "tote-bags"];
 
 const getLayoutData = cache(async () => {
   const data = await storefrontQuery(

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useRef } from "react";
 import Box from "@mui/material/Box";
@@ -24,6 +24,7 @@ function CategoryTile({ cat }: { cat: Category }) {
         height: { xs: 140, sm: 220, md: 360 },
         overflow: "hidden",
         bgcolor: "grey.200",
+        border: "1px solid #000",
         "&:hover .img": { transform: "scale(1.04)" },
       }}>
         <Box className="img" component="img"
@@ -78,7 +79,7 @@ export default function Section3Client({ categories }: { categories: Category[] 
 
   if (!categories || categories.length === 0) return null;
 
-  const useCarousel = categories.length > 5;
+  const useCarousel = categories.length > 8;
   const tileWidth = 320;
 
   const scroll = (dir: "left" | "right") => {
@@ -98,7 +99,7 @@ export default function Section3Client({ categories }: { categories: Category[] 
           xs: "1fr 1fr",
           md: `repeat(${categories.length}, 1fr)`,
         },
-        gap: 0,
+        gap: 1,
       }}>
         {categories.map((cat) => (
           <CategoryTile key={cat.id} cat={cat} />
@@ -113,6 +114,7 @@ export default function Section3Client({ categories }: { categories: Category[] 
         ref={scrollRef}
         sx={{
           display: "flex",
+          gap: 1,
           overflowX: "auto",
           scrollSnapType: "x mandatory",
           scrollbarWidth: "none",

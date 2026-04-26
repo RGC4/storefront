@@ -1,4 +1,3 @@
-
 import { cache } from "react";
 import { storefrontQuery } from "lib/shopify";
 import storeConfig from "config/store.config";
@@ -97,7 +96,7 @@ interface ShopifyCollection {
 }
 
 const STORE_ID = process.env.NEXT_PUBLIC_STORE_ID || "s1";
-const CATEGORY_ORDER = ["clutch-bags", "crossbody-bags", "shoulder-bags", "handbags", "tote-bags"];
+const CATEGORY_ORDER = ["all-bags-over-500", "clutch-bags", "crossbody-bags", "shoulder-bags", "handbags", "tote-bags"];
 
 export const getCategories = cache(async () => {
   const data = await storefrontQuery(
@@ -147,10 +146,10 @@ export interface ServiceCard { id: string; icon: string; title: string; descript
 export const getBlogs    = cache(async () => []);
 export const getBrands   = cache(async () => []);
 export const getServices = cache(async (): Promise<ServiceCard[]> => [
-  { id: "1", icon: "Truck",    title: "Free Delivery",      description: "On all orders"                  },
-  { id: "2", icon: "Payment",  title: "Secure Payment",     description: "Safe & protected"               },
-  { id: "3", icon: "Verified", title: "Authentic Products", description: "100% guaranteed"                },
-  { id: "4", icon: "Support",  title: "Concierge Care",     description: "White-glove service, every time" },
+  { id: "1", icon: "Truck",    title: "Free Delivery",      description: ""                                },
+  { id: "2", icon: "Payment",  title: "Secure Payment",     description: ""                                },
+  { id: "3", icon: "Verified", title: "Authentic Products", description: ""                                },
+  { id: "4", icon: "Support",  title: "Concierge Care",     description: ""                                },
 ]);
 
 export default {
