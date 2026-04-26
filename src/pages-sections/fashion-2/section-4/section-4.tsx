@@ -25,8 +25,8 @@ export default async function Section4() {
         }}>
           Best Selling Products
         </Typography>
-        <Link href="/collections" style={{
-          fontSize: 12,
+        <Link href="/collections/all-bags-over-500" style={{
+          fontSize: 14,
           fontWeight: 600,
           color: "#111",
           textDecoration: "underline",

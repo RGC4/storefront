@@ -24,7 +24,7 @@ function CategoryTile({ cat }: { cat: Category }) {
         height: { xs: 140, sm: 220, md: 360 },
         overflow: "hidden",
         bgcolor: "grey.200",
-        border: "1px solid #000",
+        borderRight: "2px solid #000",
         "&:hover .img": { transform: "scale(1.04)" },
       }}>
         <Box className="img" component="img"
@@ -100,7 +100,7 @@ export default function Section3Client({ categories }: { categories: Category[] 
           md: `repeat(${categories.length}, 1fr)`,
         },
         gap: 0,
-      borderBottom: "1px solid #000",
+      borderBottom: "2px solid #000",
       }}>
         {categories.map((cat) => (
           <CategoryTile key={cat.id} cat={cat} />

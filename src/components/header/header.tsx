@@ -50,9 +50,9 @@ Header.Logo = function ({ url }: HeaderLogoProps) {
           priority
           src={url}
           alt="logo"
-          width={230}
-          height={100}
-          sizes="(max-width: 768px) 130px, 180px"
+          width={288}
+          height={125}
+          sizes="(max-width: 768px) 162px, 225px"
           sx={{ objectFit: "contain" }}
         />
         <Box
@@ -71,7 +71,7 @@ Header.Logo = function ({ url }: HeaderLogoProps) {
             whiteSpace: "nowrap",
           }}
         >
-          Luxury Handbags Directly From Italy
+          Procure 100% Authentic Luxury Handbags - Without Risk
         </Box>
       </Box>
     </Link>
