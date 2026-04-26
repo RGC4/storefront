@@ -99,7 +99,8 @@ export default function Section3Client({ categories }: { categories: Category[] 
           xs: "1fr 1fr",
           md: `repeat(${categories.length}, 1fr)`,
         },
-        gap: 1,
+        gap: 0,
+      borderBottom: "1px solid #000",
       }}>
         {categories.map((cat) => (
           <CategoryTile key={cat.id} cat={cat} />
@@ -114,7 +115,7 @@ export default function Section3Client({ categories }: { categories: Category[] 
         ref={scrollRef}
         sx={{
           display: "flex",
-          gap: 1,
+          gap: 0,
           overflowX: "auto",
           scrollSnapType: "x mandatory",
           scrollbarWidth: "none",

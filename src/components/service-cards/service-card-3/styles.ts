@@ -9,7 +9,8 @@ export const StyledRoot = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "center",
   padding: "25px 18px",
-  border: "1px solid #000",
+  borderRight: "1px solid #000",
+  ":last-child": { borderRight: 0 },
   [theme.breakpoints.down("sm")]: {
     justifyContent: "flex-start",
   },

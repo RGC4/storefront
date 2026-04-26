@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useRef, useState } from "react";
 import Typography from "@mui/material/Typography";
@@ -18,21 +18,21 @@ const SLIDES = [
   {
     src: `/assets/stores/${STORE_ID}/videos/hero-1.mp4`,
     posterMobile: `/assets/stores/${STORE_ID}/images/hero-1-mobile.jpg`,
-    posterDesktop: `/assets/stores/${STORE_ID}/images/hero-1-desktop.jpg`,
+    posterDesktop: `/assets/stores/${STORE_ID}/images/hero-1.jpg`,
     headline: "Moments That Deserve to Be Noticed.",
     subheadline: "Luxury That Belongs in the Spotlight.",
   },
   {
     src: `/assets/stores/${STORE_ID}/videos/hero-2.mp4`,
     posterMobile: `/assets/stores/${STORE_ID}/images/hero-2-mobile.jpg`,
-    posterDesktop: `/assets/stores/${STORE_ID}/images/hero-2-desktop.jpg`,
+    posterDesktop: `/assets/stores/${STORE_ID}/images/hero-2.jpg`,
     headline: "Friends. Laughter. Timeless Style.",
     subheadline: "Unforgettable moments.",
   },
   {
     src: `/assets/stores/${STORE_ID}/videos/hero-3.mp4`,
     posterMobile: `/assets/stores/${STORE_ID}/images/hero-3-mobile.jpg`,
-    posterDesktop: `/assets/stores/${STORE_ID}/images/hero-3-desktop.jpg`,
+    posterDesktop: `/assets/stores/${STORE_ID}/images/hero-3.jpg`,
     headline: "Genuine Italian Leather. Exceptional Craftsmanship.",
     subheadline: "Exceptional service on every order, every time.",
   },
