@@ -192,15 +192,12 @@ export default function VideoHero() {
 
   const desktopVideoStyle = {
     position: "absolute" as const,
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    minWidth: "100%",
-    minHeight: "100%",
-    width: "auto",
-    height: "90vh",
+    inset: 0,
+    width: "100%",
+    height: "100%",
     objectFit: "cover" as const,
     objectPosition: "center 20%",
+    display: "block" as const,
   };
 
   return (
@@ -211,6 +208,9 @@ export default function VideoHero() {
         muted
         playsInline
         autoPlay
+        preload="metadata"
+        width={1920}
+        height={1080}
         poster={slide.posterDesktop}
         style={desktopVideoStyle}
       >
