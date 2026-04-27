@@ -64,3 +64,11 @@ public/assets/stores/*/videos/
 # --- Developer tools ---
 ngrok.exe
 *.exe
+
+ -S
+
+# Local backup files
+*.backup
+*.backup-*
+*.bak
+.env.*.backup
