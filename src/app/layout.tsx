@@ -80,6 +80,17 @@ export default function RootLayout({ children, modal }: RootLayoutProps) {
             padding-left: env(safe-area-inset-left);
             padding-right: env(safe-area-inset-right);
           }
+
+          /* ── Hero carousel: guaranteed before first paint so no blowup flash ── */
+          .hero-mobile  { display: block; }
+          .hero-desktop { display: none;  }
+          @media (min-width: 769px) {
+            .hero-mobile  { display: none;  }
+            .hero-desktop { display: block; }
+          }
+          .hero-slide {
+            transition: opacity 600ms ease-in-out;
+          }
         `}</style>
       </head>
       <body id="body" className={geist.className}>

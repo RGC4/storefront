@@ -2,28 +2,12 @@
 // Last confirmed working: 2026-05-01
 // Fixed: SSR flicker, useMediaQuery hydration flash, video remount black flash.
 // Key rules: NO useMediaQuery, NO isMounted, NO key={current} on videos.
-// CSS media queries handle mobile/desktop. All 3 videos stay in DOM, crossfade via opacity.
+// CSS lives in src/app/layout.tsx <head> so it's guaranteed before first paint.
 "use client";
 
 import { useEffect, useRef, useState } from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-
-// =============================================================================
-// All store-specific content lives in Vercel environment variables.
-// Each store (s1, s2, ...) is a separate Vercel project with its own values.
-// Locally, run `vercel env pull .env.local` to sync the active store's vars.
-//
-// Required env vars per store:
-//   NEXT_PUBLIC_STORE_ID         e.g. "s1"
-//   NEXT_PUBLIC_HERO_TAGLINE     small uppercase line above the headline
-//   NEXT_PUBLIC_HERO_TITLE_1     headline for slide 1
-//   NEXT_PUBLIC_HERO_TITLE_2     headline for slide 2
-//   NEXT_PUBLIC_HERO_TITLE_3     headline for slide 3
-//   NEXT_PUBLIC_HERO_SUBTITLE_1  subheadline for slide 1
-//   NEXT_PUBLIC_HERO_SUBTITLE_2  subheadline for slide 2
-//   NEXT_PUBLIC_HERO_SUBTITLE_3  subheadline for slide 3
-// =============================================================================
 
 const STORE_ID = process.env.NEXT_PUBLIC_STORE_ID || "s1";
 const MOBILE_SLIDE_DURATION = 5000;
@@ -53,9 +37,6 @@ const SLIDES = [
   },
 ];
 
-// =============================================================================
-// HeroText - always outside the slide stack so it never remounts
-// =============================================================================
 function HeroText({
   headline,
   subheadline,
@@ -125,24 +106,13 @@ function HeroText({
   );
 }
 
-// =============================================================================
-// VideoHero
-//
-// Key decisions:
-//  - NO useMediaQuery: it flickers on hydration (false → true flash).
-//    CSS media queries handle mobile/desktop show-hide instead.
-//  - NO isMounted guard: it caused the static-image-stuck bug.
-//  - NO key={current} on videos: unmount/remount = black flash.
-//    All 3 videos stay in the DOM; opacity crossfade between them.
-//  - Mobile: images stacked, first one in-flow for height, rest absolute.
-// =============================================================================
 export default function VideoHero() {
   const [current, setCurrent] = useState(0);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([null, null, null]);
   const tagline = process.env.NEXT_PUBLIC_HERO_TAGLINE || "";
   const slide = SLIDES[current];
 
-  // Desktop: play the current video, pause others
+  // Desktop: play current video, pause others
   useEffect(() => {
     videoRefs.current.forEach((vid, i) => {
       if (!vid) return;
@@ -177,24 +147,12 @@ export default function VideoHero() {
 
   return (
     <>
-      <style>{`
-        .hero-mobile  { display: block; }
-        .hero-desktop { display: none;  }
-        @media (min-width: 769px) {
-          .hero-mobile  { display: none;  }
-          .hero-desktop { display: block; }
-        }
-        .hero-slide {
-          transition: opacity ${FADE_DURATION}ms ease-in-out;
-        }
-      `}</style>
-
-      {/* ── MOBILE ── */}
+      {/* ── MOBILE ── (CSS in layout.tsx hides this on desktop) */}
       <div
         className="hero-mobile"
         style={{ position: "relative", width: "100%", overflow: "hidden", backgroundColor: "#111" }}
       >
-        {/* Slide 0 is in-flow so the container gets its natural height */}
+        {/* Slide 0 in-flow so container gets its height */}
         <img
           src={SLIDES[0].posterMobile}
           alt={SLIDES[0].headline}
@@ -208,7 +166,7 @@ export default function VideoHero() {
             opacity: current === 0 ? 1 : 0,
           }}
         />
-        {/* Slides 1+ are absolutely stacked */}
+        {/* Slides 1+ absolutely stacked */}
         {SLIDES.slice(1).map((s, idx) => {
           const i = idx + 1;
           return (
@@ -233,7 +191,7 @@ export default function VideoHero() {
         <HeroText headline={slide.headline} subheadline={slide.subheadline} tagline={tagline} />
       </div>
 
-      {/* ── DESKTOP ── */}
+      {/* ── DESKTOP ── (CSS in layout.tsx hides this on mobile) */}
       <div
         className="hero-desktop"
         style={{
