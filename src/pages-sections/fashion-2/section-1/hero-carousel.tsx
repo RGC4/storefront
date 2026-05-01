@@ -1,3 +1,8 @@
+// ✅ GOLDEN — DO NOT MODIFY without testing locally first.
+// Last confirmed working: 2026-05-01
+// Fixed: SSR flicker, useMediaQuery hydration flash, video remount black flash.
+// Key rules: NO useMediaQuery, NO isMounted, NO key={current} on videos.
+// CSS media queries handle mobile/desktop. All 3 videos stay in DOM, crossfade via opacity.
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -6,6 +11,18 @@ import Box from "@mui/material/Box";
 
 // =============================================================================
 // All store-specific content lives in Vercel environment variables.
+// Each store (s1, s2, ...) is a separate Vercel project with its own values.
+// Locally, run `vercel env pull .env.local` to sync the active store's vars.
+//
+// Required env vars per store:
+//   NEXT_PUBLIC_STORE_ID         e.g. "s1"
+//   NEXT_PUBLIC_HERO_TAGLINE     small uppercase line above the headline
+//   NEXT_PUBLIC_HERO_TITLE_1     headline for slide 1
+//   NEXT_PUBLIC_HERO_TITLE_2     headline for slide 2
+//   NEXT_PUBLIC_HERO_TITLE_3     headline for slide 3
+//   NEXT_PUBLIC_HERO_SUBTITLE_1  subheadline for slide 1
+//   NEXT_PUBLIC_HERO_SUBTITLE_2  subheadline for slide 2
+//   NEXT_PUBLIC_HERO_SUBTITLE_3  subheadline for slide 3
 // =============================================================================
 
 const STORE_ID = process.env.NEXT_PUBLIC_STORE_ID || "s1";
