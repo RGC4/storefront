@@ -1,6 +1,7 @@
 // ✅ GOLDEN — DO NOT MODIFY without testing locally first.
 // Last confirmed working: 2026-05-01
-// Fixed: SSR flicker, useMediaQuery hydration flash, video remount black flash.
+// Fixed: SSR flicker, useMediaQuery hydration flash, video remount black flash,
+//        first-paint container blowup.
 // Key rules: NO useMediaQuery, NO isMounted, NO key={current} on videos.
 // CSS lives in src/app/layout.tsx <head> so it's guaranteed before first paint.
 "use client";
@@ -147,57 +148,50 @@ export default function VideoHero() {
 
   return (
     <>
-      {/* ── MOBILE ── (CSS in layout.tsx hides this on desktop) */}
+      {/* ── MOBILE ── hidden on desktop via layout.tsx CSS */}
       <div
         className="hero-mobile"
-        style={{ position: "relative", width: "100%", overflow: "hidden", backgroundColor: "#111" }}
+        style={{
+          position: "relative",
+          width: "100%",
+          // Hard-clamp: nothing can escape this box
+          overflow: "hidden",
+          backgroundColor: "#111",
+          // Establish the height via aspect-ratio on the wrapper,
+          // not relying on children to set it
+          aspectRatio: "4 / 5",
+        }}
       >
-        {/* Slide 0 in-flow so container gets its height */}
-        <img
-          src={SLIDES[0].posterMobile}
-          alt={SLIDES[0].headline}
-          className="hero-slide"
-          style={{
-            display: "block",
-            width: "100%",
-            aspectRatio: "4 / 5",
-            objectFit: "cover",
-            objectPosition: "center 20%",
-            opacity: current === 0 ? 1 : 0,
-          }}
-        />
-        {/* Slides 1+ absolutely stacked */}
-        {SLIDES.slice(1).map((s, idx) => {
-          const i = idx + 1;
-          return (
-            <img
-              key={i}
-              src={s.posterMobile}
-              alt={s.headline}
-              className="hero-slide"
-              style={{
-                position: "absolute",
-                inset: 0,
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                objectPosition: "center 20%",
-                opacity: current === i ? 1 : 0,
-              }}
-            />
-          );
-        })}
+        {SLIDES.map((s, i) => (
+          <img
+            key={i}
+            src={s.posterMobile}
+            alt={i === 0 ? s.headline : ""}
+            className="hero-slide"
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center 20%",
+              opacity: current === i ? 1 : 0,
+            }}
+          />
+        ))}
         <div style={overlay} />
         <HeroText headline={slide.headline} subheadline={slide.subheadline} tagline={tagline} />
       </div>
 
-      {/* ── DESKTOP ── (CSS in layout.tsx hides this on mobile) */}
+      {/* ── DESKTOP ── hidden on mobile via layout.tsx CSS */}
       <div
         className="hero-desktop"
         style={{
           position: "relative",
           width: "100%",
+          // Hard-clamp: nothing inside can affect this height
           height: "90vh",
+          maxHeight: "90vh",
           overflow: "hidden",
           backgroundColor: "#111",
         }}
@@ -212,14 +206,14 @@ export default function VideoHero() {
             poster={s.posterDesktop}
             className="hero-slide"
             style={{
+              // Absolutely positioned so it NEVER contributes to layout flow
               position: "absolute",
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
-              minWidth: "100%",
-              minHeight: "100%",
-              width: "auto",
-              height: "90vh",
+              // Fill the container, never overflow it
+              width: "100%",
+              height: "100%",
               objectFit: "cover",
               objectPosition: "center 20%",
               opacity: i === current ? 1 : 0,
