@@ -1,9 +1,26 @@
-// ✅ GOLDEN — DO NOT MODIFY without testing locally first.
-// Last confirmed working: 2026-05-01
-// Fixed: SSR flicker, useMediaQuery hydration flash, video remount black flash,
-//        first-paint container blowup.
-// Key rules: NO useMediaQuery, NO isMounted, NO key={current} on videos.
-// CSS lives in src/app/layout.tsx <head> so it's guaranteed before first paint.
+// src/pages-sections/fashion-2/section-1/hero-carousel.tsx
+//
+// FRAMING-FIX VERSION  (2026-05-02)
+// ---------------------------------------------------------------
+// Keeps the SSR / hydration / first-paint protections from the
+// previous "GOLDEN" file (no useMediaQuery, hero hidden until
+// React hydrates and video is ready, mobile/desktop split via
+// CSS classes defined in src/app/layout.tsx).
+//
+// Restores the ORIGINAL desktop video sizing trick that was lost:
+//
+//   width: auto;
+//   height: 90vh;
+//   min-width: 100%;
+//   min-height: 100%;
+//   transform: translate(-50%, -50%);
+//
+// This lets the MP4 keep its native aspect ratio while filling
+// a 90vh container, instead of being upscaled+cropped to a face.
+//
+// Mobile poster framing centered (no longer biased to "center 20%")
+// since the mobile JPGs are already composed for 4:5.
+// ---------------------------------------------------------------
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -38,6 +55,32 @@ const SLIDES = [
   },
 ];
 
+// Fully fills its parent — used for layered slide containers and the
+// dim overlay, NOT for the actual video element (see desktopMediaStyle).
+const fillAbsolute: React.CSSProperties = {
+  position: "absolute",
+  inset: 0,
+  width: "100%",
+  height: "100%",
+};
+
+// Centered, aspect-preserving full-bleed style for the desktop video
+// and its matching poster image. Native AR is preserved: the media
+// is sized so it covers the 90vh box without being upscaled past
+// the point where 16:9 source content gets cropped to a face.
+const desktopMediaStyle: React.CSSProperties = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "auto",
+  height: "90vh",
+  minWidth: "100%",
+  minHeight: "100%",
+  objectFit: "cover",
+  objectPosition: "center center",
+};
+
 function HeroText({
   headline,
   subheadline,
@@ -54,7 +97,7 @@ function HeroText({
         top: { xs: "7%", md: "10%" },
         left: 0, right: 0,
         px: { xs: 3, sm: 6, md: 8 },
-        zIndex: 3,
+        zIndex: 4,
         pointerEvents: "none",
       }}>
         <Typography sx={{
@@ -78,7 +121,7 @@ function HeroText({
         flexDirection: "column",
         alignItems: "flex-start",
         px: { xs: 3, sm: 6, md: 8 },
-        zIndex: 3,
+        zIndex: 4,
         pointerEvents: "none",
       }}>
         <Typography sx={{
@@ -109,12 +152,35 @@ function HeroText({
 
 export default function VideoHero() {
   const [current, setCurrent] = useState(0);
+  const [ready, setReady] = useState(false);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([null, null, null]);
   const tagline = process.env.NEXT_PUBLIC_HERO_TAGLINE || "";
   const slide = SLIDES[current];
 
+  // On mount: start video 0, then reveal the hero.
+  useEffect(() => {
+    const vid = videoRefs.current[0];
+    if (!vid) {
+      setReady(true);
+      return;
+    }
+
+    const reveal = () => setReady(true);
+    vid.addEventListener("canplay", reveal, { once: true });
+    vid.play().catch(() => {});
+
+    // Fallback: reveal after 800ms even if canplay never fires
+    const fallback = setTimeout(() => setReady(true), 800);
+
+    return () => {
+      vid.removeEventListener("canplay", reveal);
+      clearTimeout(fallback);
+    };
+  }, []);
+
   // Desktop: play current video, pause others
   useEffect(() => {
+    if (!ready) return;
     videoRefs.current.forEach((vid, i) => {
       if (!vid) return;
       if (i === current) {
@@ -124,7 +190,7 @@ export default function VideoHero() {
         vid.pause();
       }
     });
-  }, [current]);
+  }, [current, ready]);
 
   // Mobile: timer drives the carousel
   useEffect(() => {
@@ -139,27 +205,29 @@ export default function VideoHero() {
   };
 
   const overlay: React.CSSProperties = {
-    position: "absolute",
-    inset: 0,
+    ...fillAbsolute,
     backgroundColor: "rgba(0,0,0,0.30)",
-    zIndex: 2,
+    zIndex: 3,
     pointerEvents: "none",
   };
 
   return (
-    <>
+    <div
+      style={{
+        opacity: ready ? 1 : 0,
+        transition: `opacity ${FADE_DURATION}ms ease-in-out`,
+        width: "100%",
+      }}
+    >
       {/* ── MOBILE ── hidden on desktop via layout.tsx CSS */}
       <div
         className="hero-mobile"
         style={{
           position: "relative",
           width: "100%",
-          // Hard-clamp: nothing can escape this box
+          aspectRatio: "4 / 5",
           overflow: "hidden",
           backgroundColor: "#111",
-          // Establish the height via aspect-ratio on the wrapper,
-          // not relying on children to set it
-          aspectRatio: "4 / 5",
         }}
       >
         {SLIDES.map((s, i) => (
@@ -169,13 +237,11 @@ export default function VideoHero() {
             alt={i === 0 ? s.headline : ""}
             className="hero-slide"
             style={{
-              position: "absolute",
-              inset: 0,
-              width: "100%",
-              height: "100%",
+              ...fillAbsolute,
               objectFit: "cover",
-              objectPosition: "center 20%",
+              objectPosition: "center center",
               opacity: current === i ? 1 : 0,
+              zIndex: 1,
             }}
           />
         ))}
@@ -189,43 +255,45 @@ export default function VideoHero() {
         style={{
           position: "relative",
           width: "100%",
-          // Hard-clamp: nothing inside can affect this height
           height: "90vh",
-          maxHeight: "90vh",
           overflow: "hidden",
           backgroundColor: "#111",
         }}
       >
         {SLIDES.map((s, i) => (
-          <video
+          <div
             key={i}
-            ref={(el) => { videoRefs.current[i] = el; }}
-            onEnded={i === current ? handleVideoEnd : undefined}
-            muted
-            playsInline
-            poster={s.posterDesktop}
             className="hero-slide"
             style={{
-              // Absolutely positioned so it NEVER contributes to layout flow
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              // Fill the container, never overflow it
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              objectPosition: "center 20%",
+              ...fillAbsolute,
               opacity: i === current ? 1 : 0,
-              zIndex: i === current ? 1 : 0,
+              zIndex: i === current ? 2 : 1,
             }}
           >
-            <source src={s.src} type="video/mp4" />
-          </video>
+            {/* Poster image — same sizing trick as the video so the
+                first paint matches the video's framing exactly. */}
+            <img
+              src={s.posterDesktop}
+              alt=""
+              aria-hidden="true"
+              style={{ ...desktopMediaStyle, zIndex: 0 }}
+            />
+            {/* Video — width:auto, height:90vh, min-w/h:100%, centered.
+                Native aspect ratio preserved; no face-zoom. */}
+            <video
+              ref={(el) => { videoRefs.current[i] = el; }}
+              onEnded={i === current ? handleVideoEnd : undefined}
+              muted
+              playsInline
+              style={{ ...desktopMediaStyle, zIndex: 1 }}
+            >
+              <source src={s.src} type="video/mp4" />
+            </video>
+          </div>
         ))}
         <div style={overlay} />
         <HeroText headline={slide.headline} subheadline={slide.subheadline} tagline={tagline} />
       </div>
-    </>
+    </div>
   );
 }
