@@ -1,26 +1,32 @@
 // src/pages-sections/fashion-2/section-1/hero-carousel.tsx
 //
-// FRAMING-FIX VERSION  (2026-05-02)
-// ---------------------------------------------------------------
-// Keeps the SSR / hydration / first-paint protections from the
-// previous "GOLDEN" file (no useMediaQuery, hero hidden until
-// React hydrates and video is ready, mobile/desktop split via
-// CSS classes defined in src/app/layout.tsx).
+// =============================================================
+// LOCKED PRODUCTION FILE - DO NOT EDIT WITHOUT TESTING LOCALLY
+// =============================================================
+// Confirmed working: 2026-05-03
 //
-// Restores the ORIGINAL desktop video sizing trick that was lost:
+// This file is built on the proven GOLDEN architecture:
+//   - NO useMediaQuery (avoids hydration flash)
+//   - mobile/desktop split via CSS classes in src/app/layout.tsx
+//   - hero hidden (opacity:0) until first video is ready to play
+//   - 3 slide elements stacked, opacity-toggled (no remount flash)
 //
-//   width: auto;
-//   height: 90vh;
-//   min-width: 100%;
-//   min-height: 100%;
-//   transform: translate(-50%, -50%);
+// SIZING - keep this simple, do not change:
+//   position: absolute; inset: 0;
+//   width: 100%; height: 100%;
+//   object-fit: cover;
+//   object-position: center center;
 //
-// This lets the MP4 keep its native aspect ratio while filling
-// a 90vh container, instead of being upscaled+cropped to a face.
+// Why "center center"? object-position controls the crop bias when
+// object-fit:cover scales media to fill the box. "center 20%" pulled
+// the visible area toward the top of the source frame, which made
+// faces dominate. "center center" shows the centered portion of
+// each video, which is how videos are normally composed.
 //
-// Mobile poster framing centered (no longer biased to "center 20%")
-// since the mobile JPGs are already composed for 4:5.
-// ---------------------------------------------------------------
+// If a future video needs different framing, COMPOSE THE VIDEO
+// CORRECTLY rather than tweaking object-position. Code changes
+// here have caused recurring bugs.
+// =============================================================
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -55,8 +61,6 @@ const SLIDES = [
   },
 ];
 
-// Fully fills its parent — used for layered slide containers and the
-// dim overlay, NOT for the actual video element (see desktopMediaStyle).
 const fillAbsolute: React.CSSProperties = {
   position: "absolute",
   inset: 0,
@@ -64,19 +68,8 @@ const fillAbsolute: React.CSSProperties = {
   height: "100%",
 };
 
-// Centered, aspect-preserving full-bleed style for the desktop video
-// and its matching poster image. Native AR is preserved: the media
-// is sized so it covers the 90vh box without being upscaled past
-// the point where 16:9 source content gets cropped to a face.
-const desktopMediaStyle: React.CSSProperties = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "auto",
-  height: "90vh",
-  minWidth: "100%",
-  minHeight: "100%",
+const mediaStyle: React.CSSProperties = {
+  ...fillAbsolute,
   objectFit: "cover",
   objectPosition: "center center",
 };
@@ -165,19 +158,11 @@ export default function VideoHero() {
       return;
     }
 
-    const reveal = () => {
-      setReady(true);
-      // Once slide 1 can play, kick the other slides to start buffering
-      // so the handoff at end-of-video is seamless (no black/freeze gap).
-      videoRefs.current.forEach((v, i) => {
-        if (i === 0 || !v) return;
-        try { v.load(); } catch {}
-      });
-    };
+    const reveal = () => setReady(true);
     vid.addEventListener("canplay", reveal, { once: true });
     vid.play().catch(() => {});
 
-    // Fallback: reveal after 800ms even if canplay never fires
+    // Fallback: if canplay never fires, reveal after 800ms
     const fallback = setTimeout(() => setReady(true), 800);
 
     return () => {
@@ -227,7 +212,7 @@ export default function VideoHero() {
         width: "100%",
       }}
     >
-      {/* ── MOBILE ── hidden on desktop via layout.tsx CSS */}
+      {/* MOBILE - hidden on desktop via layout.tsx CSS */}
       <div
         className="hero-mobile"
         style={{
@@ -245,9 +230,7 @@ export default function VideoHero() {
             alt={i === 0 ? s.headline : ""}
             className="hero-slide"
             style={{
-              ...fillAbsolute,
-              objectFit: "cover",
-              objectPosition: "center center",
+              ...mediaStyle,
               opacity: current === i ? 1 : 0,
               zIndex: 1,
             }}
@@ -257,7 +240,7 @@ export default function VideoHero() {
         <HeroText headline={slide.headline} subheadline={slide.subheadline} tagline={tagline} />
       </div>
 
-      {/* ── DESKTOP ── hidden on mobile via layout.tsx CSS */}
+      {/* DESKTOP - hidden on mobile via layout.tsx CSS */}
       <div
         className="hero-desktop"
         style={{
@@ -278,23 +261,21 @@ export default function VideoHero() {
               zIndex: i === current ? 2 : 1,
             }}
           >
-            {/* Poster image — same sizing trick as the video so the
-                first paint matches the video's framing exactly. */}
+            {/* Poster - shows during video load and slide transitions */}
             <img
               src={s.posterDesktop}
               alt=""
               aria-hidden="true"
-              style={{ ...desktopMediaStyle, zIndex: 0 }}
+              style={{ ...mediaStyle, zIndex: 0 }}
             />
-            {/* Video — width:auto, height:90vh, min-w/h:100%, centered.
-                Native aspect ratio preserved; no face-zoom. */}
+            {/* Video - layered on top of poster */}
             <video
               ref={(el) => { videoRefs.current[i] = el; }}
               onEnded={i === current ? handleVideoEnd : undefined}
               muted
               playsInline
-              preload="auto"
-              style={{ ...desktopMediaStyle, zIndex: 1 }}
+              preload="metadata"
+              style={{ ...mediaStyle, zIndex: 1 }}
             >
               <source src={s.src} type="video/mp4" />
             </video>
