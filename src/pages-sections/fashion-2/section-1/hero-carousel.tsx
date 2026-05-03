@@ -165,7 +165,15 @@ export default function VideoHero() {
       return;
     }
 
-    const reveal = () => setReady(true);
+    const reveal = () => {
+      setReady(true);
+      // Once slide 1 can play, kick the other slides to start buffering
+      // so the handoff at end-of-video is seamless (no black/freeze gap).
+      videoRefs.current.forEach((v, i) => {
+        if (i === 0 || !v) return;
+        try { v.load(); } catch {}
+      });
+    };
     vid.addEventListener("canplay", reveal, { once: true });
     vid.play().catch(() => {});
 
@@ -285,6 +293,7 @@ export default function VideoHero() {
               onEnded={i === current ? handleVideoEnd : undefined}
               muted
               playsInline
+              preload="auto"
               style={{ ...desktopMediaStyle, zIndex: 1 }}
             >
               <source src={s.src} type="video/mp4" />
