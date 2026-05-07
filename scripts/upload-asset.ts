@@ -129,7 +129,6 @@ async function uploadFile(
   await put(blobKey, fileBuffer, { token: BLOB_TOKEN,
     access: "private",
     contentType: contentType(filename),
-    contentDisposition: "inline",
     allowOverwrite: true,
   });
 

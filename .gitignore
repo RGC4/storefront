@@ -72,3 +72,10 @@ ngrok.exe
 *.backup-*
 *.bak
 .env.*.backup
+
+_backups/
+
+_backups/
+
+# Other projects living in this directory (excluded from build via tsconfig)
+AIVault/

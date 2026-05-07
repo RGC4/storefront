@@ -69,7 +69,7 @@ async function fetchAllProducts(slug: string) {
   let description = "";
 
   do {
-    const data = await storefrontQuery(COLLECTION_QUERY, {
+    const data: any = await storefrontQuery(COLLECTION_QUERY, {
       handle: slug,
       ...(cursor ? { cursor } : {}),
     }).catch(() => null);
