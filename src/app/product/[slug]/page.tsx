@@ -1,26 +1,22 @@
 // src/app/product/[slug]/page.tsx
 //
-// Server Component — fetches product from Shopify and renders the product detail
-// page. Now includes:
-//   • generateMetadata() for SEO + Open Graph tags (Pinterest Rich Pins, Google, etc.)
-//   • JSON-LD Product structured data (Google rich snippets, Pinterest Rich Pins)
+// Server Component — fetches product from Shopify and renders the product detail page.
+// Includes:
+//   • generateMetadata() for SEO + Open Graph (Pinterest Rich Pins, Google, Facebook, etc.)
+//   • JSON-LD Product structured data with shipping + return policy
 //
-// This matches the pattern already used in src/app/products/[slug]/page.tsx.
+// All store-specific values come from src/config/store.config.ts (env-driven).
 
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ProductDetails from "pages-sections/product-details/page-view/product-details";
 import { storefrontQuery } from "lib/shopify";
+import storeConfig from "config/store.config";
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
-// ── Env + config ────────────────────────────────────────────────────────────
-const STORE_NAME = process.env.NEXT_PUBLIC_STORE_NAME || "Prestige Apparel Group";
-const BASE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://prestigeapparelgroup.com").replace(/\/$/, "");
-
-// ── GraphQL queries ─────────────────────────────────────────────────────────
 const PRODUCT_QUERY = `
   query ProductByHandle($handle: String!) {
     product(handle: $handle) {
@@ -67,11 +63,6 @@ const RELATED_QUERY = `
   }
 `;
 
-// ── Shared fetcher — used by both generateMetadata() and the page component ─
-// Small in-request memoization prevents the same handle from being fetched twice
-// (once for metadata, once for the page body). Next.js dedupes fetches per request
-// automatically when cache is not "no-store", but storefrontQuery currently sets
-// cache: "no-store", so we add our own per-request memo.
 const productMemo = new Map<string, Promise<any>>();
 
 async function fetchProduct(slug: string) {
@@ -80,69 +71,48 @@ async function fetchProduct(slug: string) {
     (data) => data?.product || null
   );
   productMemo.set(slug, promise);
-  // Clean up memo after a short delay — each request spins up its own module
-  // instance in most deployment targets, but we still clear to be safe.
   setTimeout(() => productMemo.delete(slug), 5000);
   return promise;
 }
 
-// ── Metadata generator ─────────────────────────────────────────────────────
-// This is what Pinterest, Google, Facebook, LinkedIn, and every other crawler
-// reads when they hit this URL. Without this function, there are no meta tags,
-// no Open Graph, and no pin-worthy preview.
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const raw = await fetchProduct(slug);
 
   if (!raw) {
     return {
-      title: `Product not found | ${STORE_NAME}`,
+      title: `Product not found | ${storeConfig.name}`,
       description: "The requested product could not be found.",
     };
   }
 
   const brand = raw.vendor || "";
   const title = brand
-    ? `${raw.title} by ${brand} | ${STORE_NAME}`
-    : `${raw.title} | ${STORE_NAME}`;
+    ? `${raw.title} by ${brand} | ${storeConfig.name}`
+    : `${raw.title} | ${storeConfig.name}`;
 
-  // Trim description to ~155 chars for meta description best practice
   const rawDesc = (raw.description || "").replace(/\s+/g, " ").trim();
   const description = rawDesc
     ? rawDesc.slice(0, 155) + (rawDesc.length > 155 ? "…" : "")
-    : `Shop ${raw.title} at ${STORE_NAME}. Authentic luxury designer fashion at competitive prices.`;
+    : `Shop ${raw.title} at ${storeConfig.name}.`;
 
   const imageUrls: string[] =
     raw.images?.edges?.map((e: any) => e.node.url).filter(Boolean) ||
     (raw.featuredImage?.url ? [raw.featuredImage.url] : []);
 
-  const canonicalUrl = `${BASE_URL}/product/${slug}`;
+  const canonicalUrl = `${storeConfig.siteUrl}/product/${slug}`;
 
   return {
     title,
     description,
-    authors: [{ name: STORE_NAME }],
-    keywords: [
-      raw.title,
-      brand,
-      "designer bag",
-      "luxury handbag",
-      "authentic designer",
-      "new with tags",
-      STORE_NAME,
-      ...((raw.tags || []) as string[]),
-    ].filter(Boolean) as string[],
-    alternates: {
-      canonical: canonicalUrl,
-    },
+    authors: [{ name: storeConfig.name }],
+    alternates: { canonical: canonicalUrl },
     openGraph: {
       title,
       description,
       url: canonicalUrl,
-      siteName: STORE_NAME,
-      type: "website", // Next.js Metadata API doesn't support "product" type directly;
-                      // product-specific meta is emitted via the <head> tags in the
-                      // page body below + the JSON-LD script.
+      siteName: storeConfig.name,
+      type: "website",
       images: imageUrls.slice(0, 4).map((url) => ({
         url,
         width: 1200,
@@ -157,9 +127,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: imageUrls.slice(0, 1),
     },
     other: {
-      // Pinterest + Facebook product-specific Open Graph tags.
-      // These get rendered into <head> as <meta property="..." content="..."> tags
-      // and are exactly what Pinterest reads to build Product Rich Pins.
       "og:type": "product",
       "product:brand": brand,
       "product:availability": raw.availableForSale ? "in stock" : "out of stock",
@@ -171,9 +138,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-// ── JSON-LD structured data ─────────────────────────────────────────────────
-// Rendered as a <script> tag in the page body. Google, Pinterest, and Bing
-// all use this for rich product cards.
 function ProductJsonLd({
   title,
   description,
@@ -191,12 +155,14 @@ function ProductJsonLd({
   images: string[];
   slug: string;
 }) {
-  const canonicalUrl = `${BASE_URL}/product/${slug}`;
+  const canonicalUrl = `${storeConfig.siteUrl}/product/${slug}`;
+  const { shipping, returns } = storeConfig;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: title,
-    description: description || `${title} available at ${STORE_NAME}`,
+    description: description || `${title} available at ${storeConfig.name}`,
     image: images,
     url: canonicalUrl,
     brand: brand ? { "@type": "Brand", name: brand } : undefined,
@@ -214,7 +180,42 @@ function ProductJsonLd({
       itemCondition: "https://schema.org/NewCondition",
       seller: {
         "@type": "Organization",
-        name: STORE_NAME,
+        name: storeConfig.name,
+      },
+      shippingDetails: {
+        "@type": "OfferShippingDetails",
+        shippingDestination: {
+          "@type": "DefinedRegion",
+          addressCountry: shipping.destinationCountry,
+        },
+        shippingRate: {
+          "@type": "MonetaryAmount",
+          currency: shipping.rateCurrency,
+          value: shipping.rateValue,
+        },
+        deliveryTime: {
+          "@type": "ShippingDeliveryTime",
+          handlingTime: {
+            "@type": "QuantitativeValue",
+            minValue: shipping.handlingDaysMin,
+            maxValue: shipping.handlingDaysMax,
+            unitCode: "DAY",
+          },
+          transitTime: {
+            "@type": "QuantitativeValue",
+            minValue: shipping.transitDaysMin,
+            maxValue: shipping.transitDaysMax,
+            unitCode: "DAY",
+          },
+        },
+      },
+      hasMerchantReturnPolicy: {
+        "@type": "MerchantReturnPolicy",
+        applicableCountry: returns.applicableCountry,
+        returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+        merchantReturnDays: returns.daysToReturn,
+        returnMethod: `https://schema.org/${returns.returnMethod}`,
+        returnFees: `https://schema.org/${returns.returnFee}`,
       },
     },
   };
@@ -227,7 +228,6 @@ function ProductJsonLd({
   );
 }
 
-// ── Page component ─────────────────────────────────────────────────────────
 export default async function ProductPage({ params }: Props) {
   const { slug } = await params;
 
@@ -244,8 +244,7 @@ export default async function ProductPage({ params }: Props) {
     description: raw.description,
     descriptionHtml: raw.descriptionHtml,
     thumbnail: raw.featuredImage?.url || "",
-    images:
-      raw.images?.edges?.map((edge: any) => edge.node.url) || [],
+    images: raw.images?.edges?.map((edge: any) => edge.node.url) || [],
     variants:
       raw.variants?.edges?.map((edge: any) => ({
         id: edge.node.id,
@@ -262,7 +261,6 @@ export default async function ProductPage({ params }: Props) {
     reviews: [],
   };
 
-  // Fetch related products by same vendor (unchanged from original)
   let relatedProducts: any[] = [];
   if (raw.vendor) {
     try {
@@ -277,9 +275,7 @@ export default async function ProductPage({ params }: Props) {
           brand: node.vendor,
           thumbnail: node.featuredImage?.url || "",
           price: Number(node.priceRange?.minVariantPrice?.amount || 0),
-          comparePrice: Number(
-            node.compareAtPriceRange?.minVariantPrice?.amount || 0
-          ),
+          comparePrice: Number(node.compareAtPriceRange?.minVariantPrice?.amount || 0),
           images: node.featuredImage ? [node.featuredImage.url] : [],
           categories: [],
           rating: 0,

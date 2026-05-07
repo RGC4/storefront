@@ -1,9 +1,11 @@
 // src/app/products/[slug]/product-jsonld.tsx
-// Server component — renders JSON-LD structured data for Google rich snippets
-// This gives you price, availability, brand, and images in search results
+//
+// Server component — renders Product JSON-LD structured data for Google rich snippets,
+// Pinterest Rich Pins, and Google Shopping eligibility.
+//
+// All store-specific values come from src/config/store.config.ts (env-driven).
 
-const STORE_NAME = process.env.NEXT_PUBLIC_STORE_NAME || "Prestige Apparel Group";
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://prestigeapparelgroup.com";
+import storeConfig from "config/store.config";
 
 interface ProductJsonLdProps {
   product: {
@@ -19,23 +21,28 @@ interface ProductJsonLdProps {
 }
 
 export default function ProductJsonLd({ product }: ProductJsonLdProps) {
-  const isAvailable = product.variants?.some((v) => v.availableForSale) ?? true;
+  const isAvailable =
+    product.variants?.some((v) => v.availableForSale) ?? true;
+
+  const { shipping, returns } = storeConfig;
+  const productUrl = `${storeConfig.siteUrl}/products/${product.slug}`;
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.title,
-    description: product.description || `${product.title} available at ${STORE_NAME}`,
+    description:
+      product.description || `${product.title} available at ${storeConfig.name}`,
     image: product.images,
-    url: `${BASE_URL}/products/${product.slug}`,    brand: product.brand
+    url: productUrl,
+    brand: product.brand
       ? { "@type": "Brand", name: product.brand }
       : undefined,
     sku: (product as any).sku ?? undefined,
-    category: "Apparel & Accessories > Handbags",
     itemCondition: "https://schema.org/NewCondition",
     offers: {
       "@type": "Offer",
-      url: `${BASE_URL}/products/${product.slug}`,
+      url: productUrl,
       priceCurrency: "USD",
       price: product.price.toFixed(2),
       priceValidUntil: new Date(
@@ -47,26 +54,43 @@ export default function ProductJsonLd({ product }: ProductJsonLdProps) {
       itemCondition: "https://schema.org/NewCondition",
       seller: {
         "@type": "Organization",
-        name: STORE_NAME,
+        name: storeConfig.name,
       },
-      // Imperial dropships from Italy via BrandsGateway.
       shippingDetails: {
         "@type": "OfferShippingDetails",
-        shippingDestination: { "@type": "DefinedRegion", addressCountry: "US" },
-        shippingRate: { "@type": "MonetaryAmount", currency: "USD", value: "0" },
+        shippingDestination: {
+          "@type": "DefinedRegion",
+          addressCountry: shipping.destinationCountry,
+        },
+        shippingRate: {
+          "@type": "MonetaryAmount",
+          currency: shipping.rateCurrency,
+          value: shipping.rateValue,
+        },
         deliveryTime: {
           "@type": "ShippingDeliveryTime",
-          handlingTime: { "@type": "QuantitativeValue", minValue: 1, maxValue: 2, unitCode: "DAY" },
-          transitTime: { "@type": "QuantitativeValue", minValue: 5, maxValue: 10, unitCode: "DAY" },
+          handlingTime: {
+            "@type": "QuantitativeValue",
+            minValue: shipping.handlingDaysMin,
+            maxValue: shipping.handlingDaysMax,
+            unitCode: "DAY",
+          },
+          transitTime: {
+            "@type": "QuantitativeValue",
+            minValue: shipping.transitDaysMin,
+            maxValue: shipping.transitDaysMax,
+            unitCode: "DAY",
+          },
         },
       },
       hasMerchantReturnPolicy: {
         "@type": "MerchantReturnPolicy",
-        applicableCountry: "US",
-        returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
-        merchantReturnDays: 14,
-        returnMethod: "https://schema.org/ReturnByMail",
-        returnFees: "https://schema.org/FreeReturn",
+        applicableCountry: returns.applicableCountry,
+        returnPolicyCategory:
+          "https://schema.org/MerchantReturnFiniteReturnWindow",
+        merchantReturnDays: returns.daysToReturn,
+        returnMethod: `https://schema.org/${returns.returnMethod}`,
+        returnFees: `https://schema.org/${returns.returnFee}`,
       },
     },
   };

@@ -1,5 +1,6 @@
 // src/app/products/[slug]/page.tsx
-// FIXES: metadata says "Bazaar Next.js Template", no JSON-LD schema
+//
+// Plural product route. All store-specific values come from src/config/store.config.ts.
 
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -7,10 +8,8 @@ import { ProductDetailsPageView } from "pages-sections/product-details/page-view
 import api from "utils/__api__/products";
 import { getFrequentlyBought, getRelatedProducts } from "utils/__api__/related-products";
 import { SlugParams } from "models/Common";
+import storeConfig from "config/store.config";
 import ProductJsonLd from "./product-jsonld";
-
-const STORE_NAME = process.env.NEXT_PUBLIC_STORE_NAME || "Prestige Apparel Group";
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://prestigeapparelgroup.com";
 
 export async function generateMetadata({ params }: SlugParams): Promise<Metadata> {
   const { slug } = await params;
@@ -18,22 +17,25 @@ export async function generateMetadata({ params }: SlugParams): Promise<Metadata
   if (!product) notFound();
 
   const title = product.brand
-    ? `${product.title} by ${product.brand} | ${STORE_NAME}`
-    : `${product.title} | ${STORE_NAME}`;
+    ? `${product.title} by ${product.brand} | ${storeConfig.name}`
+    : `${product.title} | ${storeConfig.name}`;
 
   const description = product.description
     ? product.description.slice(0, 155).replace(/\s+/g, " ").trim() + "…"
-    : `Shop ${product.title} at ${STORE_NAME}. Authentic luxury designer fashion at competitive prices.`;
+    : `Shop ${product.title} at ${storeConfig.name}.`;
+
+  const productUrl = `${storeConfig.siteUrl}/products/${slug}`;
 
   return {
     title,
     description,
-    authors: [{ name: STORE_NAME }],
+    authors: [{ name: storeConfig.name }],
+    alternates: { canonical: productUrl },
     openGraph: {
       title,
       description,
-      url: `${BASE_URL}/products/${slug}`,
-      siteName: STORE_NAME,
+      url: productUrl,
+      siteName: storeConfig.name,
       images: product.images?.length
         ? [{ url: product.images[0], width: 1200, height: 1200, alt: product.title }]
         : undefined,

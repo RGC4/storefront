@@ -1,16 +1,13 @@
-
 // src/app/collections/[slug]/page.tsx
-// FIXES: No metadata exported, Google sees generic titles for all collections
+//
+// Renders a Shopify collection with proper metadata and CollectionPage JSON-LD.
+// All store-specific values come from src/config/store.config.ts (env-driven).
 
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { storefrontQuery } from "lib/shopify";
+import storeConfig from "config/store.config";
 import CollectionView from "./CollectionView";
-
-const STORE_NAME = process.env.NEXT_PUBLIC_STORE_NAME || "Prestige Apparel Group";
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://prestigeapparelgroup.com";
-
-const STORE_ID = process.env.NEXT_PUBLIC_STORE_ID || "s1";
 
 const COLLECTION_QUERY = `
   query CollectionByHandle($handle: String!, $cursor: String) {
@@ -34,7 +31,6 @@ const COLLECTION_QUERY = `
   }
 `;
 
-// Lightweight query just for metadata (no product list needed)
 const COLLECTION_META_QUERY = `
   query CollectionMeta($handle: String!) {
     collection(handle: $handle) {
@@ -47,7 +43,9 @@ const COLLECTION_META_QUERY = `
 
 function mapProduct(node: any) {
   const price = parseFloat(node.priceRange?.minVariantPrice?.amount ?? 0);
-  const comparePrice = parseFloat(node.compareAtPriceRange?.minVariantPrice?.amount ?? 0);
+  const comparePrice = parseFloat(
+    node.compareAtPriceRange?.minVariantPrice?.amount ?? 0
+  );
   return {
     id: node.id,
     slug: node.handle,
@@ -55,7 +53,10 @@ function mapProduct(node: any) {
     vendor: node.vendor ?? "",
     price,
     comparePrice,
-    discount: comparePrice > price ? Math.round(((comparePrice - price) / comparePrice) * 100) : 0,
+    discount:
+      comparePrice > price
+        ? Math.round(((comparePrice - price) / comparePrice) * 100)
+        : 0,
     thumbnail: node.featuredImage?.url ?? "",
     tags: node.tags ?? [],
     availableForSale: node.availableForSale ?? true,
@@ -76,17 +77,28 @@ async function fetchAllProducts(slug: string) {
 
     const col = data?.collection;
     if (!col) break;
-    if (!title) { title = col.title; description = col.description ?? ""; }
-    allProducts = [...allProducts, ...col.products.edges.map(({ node }: any) => mapProduct(node))];
-    cursor = col.products.pageInfo.hasNextPage ? col.products.pageInfo.endCursor : null;
+    if (!title) {
+      title = col.title;
+      description = col.description ?? "";
+    }
+    allProducts = [
+      ...allProducts,
+      ...col.products.edges.map(({ node }: any) => mapProduct(node)),
+    ];
+    cursor = col.products.pageInfo.hasNextPage
+      ? col.products.pageInfo.endCursor
+      : null;
   } while (cursor);
 
-  // Filter to only show products tagged for this store
-  const storeProducts = allProducts.filter(p => p.tags.includes(STORE_ID));
+  // Filter to products tagged for this store (multi-tenant: each store has its
+  // own NEXT_PUBLIC_STORE_ID; products in Shopify are tagged with the store
+  // IDs they should appear in).
+  const storeProducts = allProducts.filter((p) =>
+    p.tags.includes(storeConfig.storeId)
+  );
   return { title, description, products: storeProducts };
 }
 
-// ── NEW: Dynamic metadata for each collection ──────────────────────────────
 export async function generateMetadata({
   params,
 }: {
@@ -100,25 +112,35 @@ export async function generateMetadata({
 
   const collection = data?.collection;
   if (!collection) {
-    return { title: `Collection | ${STORE_NAME}` };
+    return { title: `Collection | ${storeConfig.name}` };
   }
 
-  const title = `${collection.title} | ${STORE_NAME}`;
+  const title = `${collection.title} | ${storeConfig.name}`;
   const description = collection.description
     ? collection.description.slice(0, 155).replace(/\s+/g, " ").trim()
-    : `Shop our ${collection.title} collection at ${STORE_NAME}. Authentic luxury designer fashion.`;
+    : `Shop our ${collection.title} collection at ${storeConfig.name}.`;
+
+  const collectionUrl = `${storeConfig.siteUrl}/collections/${slug}`;
 
   return {
     title,
     description,
-    authors: [{ name: STORE_NAME }],
+    authors: [{ name: storeConfig.name }],
+    alternates: { canonical: collectionUrl },
     openGraph: {
       title,
       description,
-      url: `${BASE_URL}/collections/${slug}`,
-      siteName: STORE_NAME,
+      url: collectionUrl,
+      siteName: storeConfig.name,
       images: collection.image?.url
-        ? [{ url: collection.image.url, width: 1200, height: 630, alt: collection.title }]
+        ? [
+            {
+              url: collection.image.url,
+              width: 1200,
+              height: 630,
+              alt: collection.title,
+            },
+          ]
         : undefined,
       type: "website",
     },
@@ -130,7 +152,6 @@ export async function generateMetadata({
   };
 }
 
-// ── Page component (unchanged logic) ────────────────────────────────────────
 export default async function CollectionPage({
   params,
 }: {
@@ -140,18 +161,19 @@ export default async function CollectionPage({
   const { title, description, products } = await fetchAllProducts(slug);
   if (!title) return notFound();
 
-  // Collection JSON-LD for rich snippets
+  const collectionUrl = `${storeConfig.siteUrl}/collections/${slug}`;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: title,
-    description: description || `${title} collection at ${STORE_NAME}`,
-    url: `${BASE_URL}/collections/${slug}`,
+    description: description || `${title} collection at ${storeConfig.name}`,
+    url: collectionUrl,
     numberOfItems: products.length,
     provider: {
       "@type": "Organization",
-      name: STORE_NAME,
-      url: BASE_URL,
+      name: storeConfig.name,
+      url: storeConfig.siteUrl,
     },
   };
 
@@ -161,7 +183,11 @@ export default async function CollectionPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <CollectionView title={title} description={description} products={products} />
+      <CollectionView
+        title={title}
+        description={description}
+        products={products}
+      />
     </>
   );
 }

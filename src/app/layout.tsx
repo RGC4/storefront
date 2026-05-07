@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import { Geist } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import storeConfig from "config/store.config";
 
 export const geist = Geist({
   subsets: ["latin"],
@@ -16,38 +17,41 @@ import RTL from "components/rtl";
 import ProgressBar from "components/progress";
 import "i18n";
 
-const STORE_NAME = process.env.NEXT_PUBLIC_STORE_NAME || "Store";
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://prestigeapparelgroup.com";
-
 interface RootLayoutProps {
   children: ReactNode;
   modal: ReactNode;
 }
 
+function resolveLogoUrl(): string {
+  const logo = storeConfig.logo || "/assets/images/logo.svg";
+  if (/^https?:\/\//i.test(logo)) return logo;
+  return `${storeConfig.siteUrl}${logo.startsWith("/") ? logo : `/${logo}`}`;
+}
+
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: STORE_NAME,
-  url: BASE_URL,
-  logo: `${BASE_URL}/assets/images/logo.svg`,
-  description: `${STORE_NAME}: authenticated luxury designer handbags, new with tags, sourced from Italy and shipped in original designer packaging.`,
+  name: storeConfig.name,
+  url: storeConfig.siteUrl,
+  logo: resolveLogoUrl(),
+  ...(storeConfig.description ? { description: storeConfig.description } : {}),
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "customer service",
-    url: `${BASE_URL}/contact`,
+    url: `${storeConfig.siteUrl}/contact`,
   },
 };
 
 const websiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: STORE_NAME,
-  url: BASE_URL,
+  name: storeConfig.name,
+  url: storeConfig.siteUrl,
   potentialAction: {
     "@type": "SearchAction",
     target: {
       "@type": "EntryPoint",
-      urlTemplate: `${BASE_URL}/products/search?q={search_term_string}`,
+      urlTemplate: `${storeConfig.siteUrl}/products/search?q={search_term_string}`,
     },
     "query-input": "required name=search_term_string",
   },
@@ -62,7 +66,7 @@ export default function RootLayout({ children, modal }: RootLayoutProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content={STORE_NAME} />
+        <meta name="apple-mobile-web-app-title" content={storeConfig.name} />
         <meta name="format-detection" content="telephone=no" />
         <script
           type="application/ld+json"
@@ -81,7 +85,6 @@ export default function RootLayout({ children, modal }: RootLayoutProps) {
             padding-right: env(safe-area-inset-right);
           }
 
-          /* ── Hero carousel: guaranteed before first paint so no blowup flash ── */
           .hero-mobile  { display: block; }
           .hero-desktop { display: none;  }
           @media (min-width: 769px) {
