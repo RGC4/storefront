@@ -30,7 +30,7 @@ const organizationJsonLd = {
   name: STORE_NAME,
   url: BASE_URL,
   logo: `${BASE_URL}/assets/images/logo.svg`,
-  description: `${STORE_NAME} offers a curated collection of authentic luxury designer bags and fashion at competitive prices.`,
+  description: `${STORE_NAME}: authenticated luxury designer handbags, new with tags, sourced from Italy and shipped in original designer packaging.`,
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "customer service",

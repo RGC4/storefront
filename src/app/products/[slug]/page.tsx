@@ -29,14 +29,6 @@ export async function generateMetadata({ params }: SlugParams): Promise<Metadata
     title,
     description,
     authors: [{ name: STORE_NAME }],
-    keywords: [
-      product.title,
-      product.brand,
-      "designer bags",
-      "luxury fashion",
-      "authentic designer",
-      STORE_NAME,
-    ].filter(Boolean) as string[],
     openGraph: {
       title,
       description,

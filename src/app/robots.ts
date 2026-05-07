@@ -11,6 +11,8 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: "*",
         allow: "/",
         disallow: [
+          "/products/search/",
+          "/search/",
           "/api/",
           "/checkout/",
           "/payment/",
