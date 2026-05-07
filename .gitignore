@@ -79,3 +79,13 @@ _backups/
 
 # Other projects living in this directory (excluded from build via tsconfig)
 AIVault/
+
+# Collection source images - local archive only, served via Shopify
+public/assets/stores/*/collection-images/
+
+# One-shot scripts and audit artifacts (kept locally, not tracked)
+apply-seo-fixes.mjs
+audit-results.txt
+upload-hero.mjs
+store/vercel_env_variable_import/
+src/components/product-cards/product-card-8/styles.bak.txt

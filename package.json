@@ -27,7 +27,7 @@
     "@next/third-parties": "^16.2.3",
     "@shopify/storefront-api-client": "^1.0.9",
     "@vercel/analytics": "^2.0.1",
-    "@vercel/blob": "^2.3.1",
+    "@vercel/blob": "^2.3.3",
     "apexcharts": "^5.3.6",
     "axios": "^1.13.6",
     "axios-mock-adapter": "^2.1.0",
