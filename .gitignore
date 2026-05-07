@@ -54,12 +54,13 @@ audit-fix-log.txt
 repomix-*.xml
 repomix-*.txt
 
-# --- Binary assets that should live in Blob/CDN, never git ---
-*.mp4
-*.mov
-*.webm
-*.mkv
-public/assets/stores/*/videos/
+# --- Binary assets ---
+# Hero videos in public/assets/stores/*/videos/ ARE in git on purpose:
+# the storefront serves them from /public via Next.js static file routing
+# (see src/pages-sections/fashion-2/section-1/hero-carousel.tsx).
+# Do NOT add *.mp4 / *.webm rules here — they will break production.
+# (The scripts/upload-asset.ts upload-to-Blob path is currently unused at runtime.)
+
 
 # --- Developer tools ---
 ngrok.exe
