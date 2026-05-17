@@ -37,17 +37,17 @@ export default function CartPageView() {
       }}
     >
       <Grid container spacing={4}>
-        <Grid item lg={8} md={8} xs={12}>
+        <Grid size={{ lg: 8, md: 8, xs: 12 }}>
           {cartList.map((item) => (
             <CartItem key={item.id} item={item} />
           ))}
         </Grid>
 
-        <Grid item lg={4} md={4} xs={12}>
+        <Grid size={{ lg: 4, md: 4, xs: 12 }}>
           <CheckoutForm />
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <Box sx={{ display: "flex", justifyContent: "center", mt: 2, mb: 4 }}>
             <Button
               component={Link}

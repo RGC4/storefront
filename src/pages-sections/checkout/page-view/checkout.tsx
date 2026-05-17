@@ -36,7 +36,7 @@ export default function CheckoutPage() {
     >
       <Grid container spacing={4}>
         {/* LEFT SIDE */}
-        <Grid item md={8} xs={12}>
+        <Grid size={{ md: 8, xs: 12 }}>
           {/* FIX 2: card padding responsive */}
           <Card sx={{ padding: { xs: "20px 16px", md: "40px" }, mb: 4 }}>
             <Typography sx={{ fontSize: 28, fontWeight: 700, mb: 3 }}>
@@ -44,28 +44,28 @@ export default function CheckoutPage() {
             </Typography>
 
             <Grid container spacing={3}>
-              <Grid item md={6} xs={12}>
+              <Grid size={{ md: 6, xs: 12 }}>
                 <TextField name="name" label="Full Name" fullWidth size="medium" onChange={handleChange} />
               </Grid>
-              <Grid item md={6} xs={12}>
+              <Grid size={{ md: 6, xs: 12 }}>
                 <TextField name="phone" label="Phone Number" fullWidth size="medium" onChange={handleChange} />
               </Grid>
-              <Grid item md={6} xs={12}>
+              <Grid size={{ md: 6, xs: 12 }}>
                 <TextField name="email" label="Email Address" fullWidth size="medium" onChange={handleChange} />
               </Grid>
-              <Grid item md={6} xs={12}>
+              <Grid size={{ md: 6, xs: 12 }}>
                 <TextField name="company" label="Company" fullWidth size="medium" onChange={handleChange} />
               </Grid>
-              <Grid item md={6} xs={12}>
+              <Grid size={{ md: 6, xs: 12 }}>
                 <TextField name="address1" label="Address 1" fullWidth size="medium" onChange={handleChange} />
               </Grid>
-              <Grid item md={6} xs={12}>
+              <Grid size={{ md: 6, xs: 12 }}>
                 <TextField name="address2" label="Address 2" fullWidth size="medium" onChange={handleChange} />
               </Grid>
-              <Grid item md={6} xs={12}>
+              <Grid size={{ md: 6, xs: 12 }}>
                 <TextField name="country" label="Country" fullWidth size="medium" onChange={handleChange} />
               </Grid>
-              <Grid item md={6} xs={12}>
+              <Grid size={{ md: 6, xs: 12 }}>
                 <TextField name="zip" label="Zip Code" fullWidth size="medium" onChange={handleChange} />
               </Grid>
             </Grid>
@@ -78,28 +78,28 @@ export default function CheckoutPage() {
             </Typography>
 
             <Grid container spacing={3}>
-              <Grid item md={6} xs={12}>
+              <Grid size={{ md: 6, xs: 12 }}>
                 <TextField label="Full Name" fullWidth size="medium" />
               </Grid>
-              <Grid item md={6} xs={12}>
+              <Grid size={{ md: 6, xs: 12 }}>
                 <TextField label="Phone Number" fullWidth size="medium" />
               </Grid>
-              <Grid item md={6} xs={12}>
+              <Grid size={{ md: 6, xs: 12 }}>
                 <TextField label="Email Address" fullWidth size="medium" />
               </Grid>
-              <Grid item md={6} xs={12}>
+              <Grid size={{ md: 6, xs: 12 }}>
                 <TextField label="Company" fullWidth size="medium" />
               </Grid>
-              <Grid item md={6} xs={12}>
+              <Grid size={{ md: 6, xs: 12 }}>
                 <TextField label="Address 1" fullWidth size="medium" />
               </Grid>
-              <Grid item md={6} xs={12}>
+              <Grid size={{ md: 6, xs: 12 }}>
                 <TextField label="Address 2" fullWidth size="medium" />
               </Grid>
-              <Grid item md={6} xs={12}>
+              <Grid size={{ md: 6, xs: 12 }}>
                 <TextField label="Country" fullWidth size="medium" />
               </Grid>
-              <Grid item md={6} xs={12}>
+              <Grid size={{ md: 6, xs: 12 }}>
                 <TextField label="Zip Code" fullWidth size="medium" />
               </Grid>
             </Grid>
@@ -136,7 +136,7 @@ export default function CheckoutPage() {
         </Grid>
 
         {/* RIGHT SIDE */}
-        <Grid item md={4} xs={12}>
+        <Grid size={{ md: 4, xs: 12 }}>
           {/* FIX 4: sticky only on desktop — on mobile it's just a normal block */}
           <Card
             sx={{
